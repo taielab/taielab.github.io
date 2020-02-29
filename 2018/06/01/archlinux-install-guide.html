@@ -1,0 +1,1747 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Archlinux - 基础入门 | 码中春秋&#39;s Blog</title>
+    <meta property="og:title" content="Archlinux - 基础入门 - 码中春秋&#39;s Blog">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2018-06-01T20:35:36&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2018-06-01T20:35:36&#43;08:00'>
+        
+    <meta name="Keywords" content="码中春秋,博客,,taielab,java,python,项目管理,软件架构,网络安全,数字安全,隐私保护,反侦查,反技侦,匿名方案,open,freedom,democracy,decentralization">
+    <meta name="description" content="Archlinux - 基础入门">
+        
+    <meta name="author" content="码中春秋">
+    <meta property="og:url" content="https://blog.taielab.com/2018/06/01/archlinux-install-guide.html">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.taielab.com">
+                        码中春秋&#39;s Blog
+                    </a>
+                
+                <p class="description">专注于Java企业级开发、数字安全、信息安全、安全运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.taielab.com">首页</a>
+                    
+                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    
+                    <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#制作安装媒介">制作安装媒介</a></li>
+        <li><a href="#安装">安装</a></li>
+      </ul>
+    </li>
+    <li><a href="#查看硬盘内存基本信息">查看硬盘、内存基本信息</a>
+      <ul>
+        <li></li>
+        <li><a href="#chroot-到新系统">Chroot 到新系统</a></li>
+        <li><a href="#在新系统上安装需要的软件">在新系统上安装需要的软件</a></li>
+        <li><a href="#提前配置网络">提前配置网络</a></li>
+        <li><a href="#完成安装">完成安装</a></li>
+        <li><a href="#一些优化">一些优化</a></li>
+      </ul>
+    </li>
+    <li><a href="#后续优化">后续优化</a>
+      <ul>
+        <li><a href="#安装yay">安装<code>yay</code></a></li>
+        <li><a href="#yaourt使用弃用"><code>yaourt</code>使用(弃用)</a></li>
+        <li><a href="#滚动更新">滚动更新</a></li>
+        <li><a href="#常用软件安装">常用软件安装</a></li>
+        <li><a href="#java-程序员眼中的-linux">Java 程序员眼中的 Linux</a></li>
+        <li><a href="#shadowsocks">shadowsocks</a></li>
+        <li><a href="#命令行代理">命令行代理</a></li>
+        <li><a href="#steam-配置">Steam 配置</a></li>
+        <li><a href="#jetbrains-ide-配置">JetBrains IDE 配置</a></li>
+        <li><a href="#中文字体与中文输入法">中文字体与中文输入法</a></li>
+        <li><a href="#oh-my-zsh">oh-my-zsh</a></li>
+        <li><a href="#yay安装软件卡在-node-installjs">yay安装软件卡在 node install.js</a></li>
+        <li><a href="#系统备份">系统备份</a></li>
+      </ul>
+    </li>
+    <li><a href="#美化">美化</a>
+      <ul>
+        <li><a href="#gnome-插件配置">GNOME 插件配置</a></li>
+        <li><a href="#nautilus-插件配置">Nautilus 插件配置</a></li>
+        <li><a href="#gnome-tweak-tool">gnome-tweak-tool</a></li>
+        <li><a href="#图标包">图标包</a></li>
+        <li><a href="#gtk主题">gtk主题</a></li>
+        <li><a href="#gnome-shell主题">gnome-shell主题</a></li>
+        <li><a href="#gdm背景">gdm背景</a></li>
+        <li><a href="#gnome-shell拓展">gnome-shell拓展</a></li>
+        <li><a href="#screenfetch">screenfetch</a></li>
+        <li><a href="#dock">dock</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#参考文章">参考文章</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">Archlinux - 基础入门</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2018年6月1日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='https://blog.taielab.com/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <h3 id="制作安装媒介">制作安装媒介</h3>
+<p>首先到<a href="https://www.archlinux.org/download/">这里</a>下载最新的官方 Arch Linux 安装媒介。然后，可以选择刻录或者写入到 USB 闪存盘或存储卡。</p>
+<p>利用 dd 命令可以将安装媒介写入 USB 闪存盘或存储卡，参见<a href="https://wiki.archlinux.org/index.php/USB_Installation_Media">这里</a>：</p>
+<pre><code>$ dd bs=4M if=/path/to/archlinux.iso of=/dev/sdx &amp;&amp; sync
+</code></pre><p>完成后，用安装媒介启动电脑。</p>
+<h3 id="安装">安装</h3>
+<p>一键安装脚本</p>
+<pre><code>https://github.com/YangMame/Arch-Installer
+进入live系统连接网络后执行：
+
+wget git.io/vb9IK -O live.sh
+chmod +x live.sh
+./live.sh
+
+https://github.com/si9ma/Archlinux-Installer
+执行一下脚本
+bash &lt;(curl https://raw.githubusercontent.com/si9ma/Archlinux-Installer/master/install.sh)
+</code></pre><h4 id="连接网络">连接网络</h4>
+<p>安装程序已经自动启动了 <code>dhcpcd</code>，可以自动连接动态 IP 的有线网络。利用 ping 命令检查网络是否已连接成功：</p>
+<pre><code>$ ping -c 3 www.baidu.com
+</code></pre><ul>
+<li>
+<p>如果你是有线网并且路由器支持DHCP的话插上网线后先执行以下命令获取IP地址：</p>
+<pre><code># 设置有线连接
+systemctl start dhcpcd
+# 自动连接有线
+systemctl enable dhcpcd
+</code></pre></li>
+<li>
+<p>无线网：</p>
+<pre><code># 如果需要无线连接:
+pacman -S iw wpa_supplicant dialog
+wifi-menu # 选择wifi输入密码连接
+</code></pre></li>
+<li>
+<p>ADSL宽带：</p>
+<pre><code>pacman -S rp-pppoe # 安装拨号软件
+pppoe-setup    # 配置宽带用户名和密码
+systemctl start adsl    # 连接
+systemctl enable adsl # 自动连接
+</code></pre></li>
+</ul>
+<p>这里我们不进行有线网络的教程（在启动Arch Live CD之前插入网线即可），下面我们连接无线网络：</p>
+<p>我们为了简便，创建一个shell脚本来进行连接。</p>
+<pre><code>nano wifi.sh
+</code></pre><p>在nano编辑器的界面中，我们写入如下命令，并按Ctrl+O保存，Ctrl+X退出：</p>
+<pre><code>#! /bin/bash
+echo ---Init---
+rfkill unblock wifi
+rfkill unblock all
+ip link set wlp2s0 up
+echo ---Input---
+echo -n SSID:
+read ssid
+echo -n password:
+read -s pass
+echo You will connect the $ssid
+echo ---state---
+echo &quot;(Connect the WLAN)&quot;
+wpa_supplicant -B -i wlp2s0 -c &lt;(wpa_passphrase $ssid $pass)
+echo &quot;(DHCP)&quot;
+dhcpcd wlp2s0
+</code></pre><p>将SSID和password替换成你的Wi-Fi名称和密码。
+输入<code>chmod a+x wifi.sh</code>并执行<code>./wifi.sh</code>来启动无线网络
+使用ping来验证网络：<code>ping -c 3 archlinux.org</code></p>
+<p>如果是静态 IP 的有线网络或 WiFi，请参见<a href="https://wiki.archlinux.org/index.php/Beginners%27_Guide#Establish_an_internet_connection">这里</a>。</p>
+<h4 id="准备存储设备">准备存储设备</h4>
+<h2 id="查看硬盘内存基本信息">查看硬盘、内存基本信息</h2>
+<ul>
+<li>查看硬盘分区</li>
+</ul>
+<pre><code>df -h
+# 显示磁盘相关信息
+blkid
+# 查看块设备（包括交换分区）的信息
+lsblk
+# 列出所有可用块设备信息，包括硬盘，闪存盘，CD-Rom等
+lsblk -f
+# 列出块设备的文件系统信息
+fdisk -l
+# 列出设备的分区表情况
+# 以上命令，均可查看硬盘情况
+
+free -h
+# 查看内存使用情况
+</code></pre><ul>
+<li>查看是否以UEFI启动</li>
+</ul>
+<pre><code>ls /sys/firmware/efi/efivars
+# 如果提示efivars不存在，则不是UEFI启动。
+</code></pre><p>分区应该设置多大？</p>
+<p>注意: 以下只是简单的建议，分区大小没有严格的准则。如果可能的话，为每个文件系统保留 25% 的额外空间以应对今后的变化，还可以避免文件系统碎片。
+分区的大小主要取决于个人的选择，以下内容可能会有一定帮助：</p>
+<pre><code>/boot - 100 MB     32M-100M (启动分区，最多只要100M左右)
+</code></pre><p>实际需求大约 100 MB，如果有多个内核/启动镜像同时存在，建议分配 200 或者 300 MB。</p>
+<pre><code>/ - 15-20 GB
+</code></pre><p>传统上包括 /usr 目录，根据安装的软件数量，会产生非常明显的增长。15-20 GB 对于大多数用户来说是一个比较合适的取值。</p>
+<pre><code>/var - 8-12 GB
+</code></pre><p>除了其他数据以外，还包括ABS 树和 pacman 缓存。保留缓存的包提供了包降级的能力，因此非常有用。也正因为这样，/var 的大小会随着时间推移而增长。尤其是 pacman 缓存将会随着新软件的安装、系统的升级而增长。在磁盘空间不足的时候，可以安全的清理这个目录。/var 分配 8-12 GB 对于桌面系统来说是比较合适的取值，具体取值取决于安装的软件数量。</p>
+<pre><code>/home - [不定]
+</code></pre><p>通常用于存放用户数据，下载的文件和媒体文件。在桌面系统中，/home 通常是最大的文件系统。</p>
+<pre><code>swap - [不定]
+</code></pre><p>历史上 swap 分区的大小通常是物理内存的2倍。由于当前的电脑内存容量快速增长，这条规则已经不那么适用。在拥有不足 512 MB 内存的机器上，通常为 swap 分区分配2倍内存大小的空间。如果有更大的内存（大于 1024 MB），可以分配较少的空间甚至不需要swap 分区。在拥有 2 GB 以上物理内存的情况下，不使用 swap 分区可以获得更好的性能。</p>
+<pre><code>/data - [不定]
+</code></pre><p>可以为需要多用户共享的文件建立一个“data”分区。也可以使用 /home 分区用于这一目的。</p>
+<h5 id="uefi">UEFI</h5>
+<p>推荐使用 GPT 分区表，可以和 64 位 Windows 7 以上版本进行双系统启动。</p>
+<p>利用 <code>cgdisk</code> 创建 GPT 分区：</p>
+<pre><code>$ cgdisk /dev/sda
+</code></pre><p>分区方案：</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th>类型</th>
+<th>大小</th>
+<th>类型代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">/dev/sda1</td>
+<td>EFI 系统分区</td>
+<td>512M</td>
+<td>ef00</td>
+</tr>
+<tr>
+<td align="left">/dev/sda2</td>
+<td>Linux ext4</td>
+<td>任意</td>
+<td>8300</td>
+</tr>
+<tr>
+<td align="left">/dev/sda3</td>
+<td>Linux 交换分区</td>
+<td><a href="https://wiki.archlinux.org/index.php/Swap">适量</a></td>
+<td>8200</td>
+</tr>
+<tr>
+<td align="left">/dev/sda4</td>
+<td>/boot</td>
+<td>200-500m</td>
+<td>看情况创建</td>
+</tr>
+</tbody>
+</table>
+<p>如果电脑上已经预装了 Windows 8，你需要：</p>
+<ol>
+<li>关闭 Secure Boot</li>
+<li>EFI 系统分区已经存在，不要再创建</li>
+</ol>
+<p>格式化分区，启用交换分区：</p>
+<pre><code>$ mkfs.vfat -F32 /dev/sda1
+$ mkfs.ext4 /dev/sda2
+$ mkswap /dev/sda3
+$ swapon /dev/sda3
+$ mkfs.ext4 /dev/sda4
+</code></pre><p>挂载分区：</p>
+<pre><code>$ mount /dev/sda2 /mnt
+$ mkdir -p /mnt/home /mnt/boot
+$ mount /dev/sda1 /mnt/boot
+
+(看情况备用下方)
+# 创建efi目录用于挂在efi分区
+mkdir -p /mnt/boot/efi
+# 挂载efi
+mount /dev/sda1 /mnt/boot/efi
+# 挂在boot分区
+mount /dev/sda4 /mnt/boot
+</code></pre><h5 id="bios">BIOS</h5>
+<p>推荐使用 MBR 分区表，可以和所有 Windows 版本进行双系统启动。</p>
+<p>利用 <code>fdisk</code> 创建 MBR 分区：</p>
+<pre><code>$ fdisk /dev/sda 或者cfdisk
+</code></pre><p>分区方案：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>类型</th>
+<th>大小</th>
+<th>类型代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/dev/sda1</td>
+<td>Linux ext4</td>
+<td>任意</td>
+<td>8300</td>
+</tr>
+<tr>
+<td>/dev/sda2</td>
+<td>Linux 交换分区</td>
+<td><a href="https://wiki.archlinux.org/index.php/Swap">适量</a></td>
+<td>8200</td>
+</tr>
+</tbody>
+</table>
+<p>格式化分区，启用交换分区：</p>
+<pre><code>$ mkfs.ext4 /dev/sda1
+$ mkswap /dev/sda2
+$ swapon /dev/sda2
+</code></pre><p>挂载分区：</p>
+<pre><code>$ mount /dev/sda1 /mnt
+$ mkdir -p /mnt/home
+</code></pre><p>分区方案：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>类型</th>
+<th>大小</th>
+<th>类型代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/dev/sda1</td>
+<td>Linux ext4</td>
+<td>任意</td>
+<td>8300</td>
+</tr>
+<tr>
+<td>/dev/sda2</td>
+<td>Linux 交换分区</td>
+<td><a href="https://wiki.archlinux.org/index.php/Swap">适量</a></td>
+<td>8200</td>
+</tr>
+<tr>
+<td>/dev/sda3</td>
+<td>/boot Linux ext4</td>
+<td>200-300m</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>格式化分区，启用交换分区：</p>
+<pre><code>$ mkfs.ext4 /dev/sda1
+$ mkswap /dev/sda2
+$ swapon /dev/sda2
+$ mkfs.ext4 /dev/sda3
+</code></pre><p>挂载分区：</p>
+<pre><code>$ mount /dev/sda1 /mnt
+$ cd /mnt
+$ mkdir boot
+$ mount /dev/sda3 /mnt/boot
+$ mkdir -p /mnt/home
+</code></pre><h4 id="选择软件源">选择软件源</h4>
+<p>修改<code>/etc/pacman.conf</code></p>
+<p>启用 Multilib 仓库，将以下行取消注释</p>
+<blockquote>
+<p>#[multilib]
+#IncIude = /etc/pacman.d/mirrorlist</p>
+</blockquote>
+<p>（multilib 仓库让用户可以在 64 位 ArchLinux 系统上运行和编译 32 位程序）</p>
+<p>编辑 <code>/etc/pacman.d/mirrorlist</code>，将要使用的源复制到最前面，然后刷新：</p>
+<p>生成可用中国镜像站列表：</p>
+<pre><code>sudo pacman-mirrors -i -c China -m rank
+</code></pre><p>勾选 <code>http://mirrors.ustc.edu.cn/manjaro/</code> ，然后按 <code>OK</code> 键两次。</p>
+<p>最后刷新缓存：</p>
+<pre><code>sudo pacman -Syy
+</code></pre><p><a href="https://blog.csdn.net/taiyang1987912/article/details/41253533">pacman具体用法</a></p>
+<h4 id="安装基本系统">安装基本系统</h4>
+<p>利用 <code>pacstrap</code> 脚本安装基本系统：</p>
+<pre><code>$ pacstrap /mnt base base-devel
+</code></pre><h4 id="生成-fstab">生成 fstab</h4>
+<p>利用 <code>genfstab</code> 生成 fstab：</p>
+<pre><code>$ genfstab -U -p /mnt &gt;&gt; /mnt/etc/fstab
+$ cat /mnt/etc/fstab
+</code></pre><p>注意，生成 fstab 后，务必检查一下内容是否正确。如果有问题，不要再运行 <code>genfstab</code>，直接手动编辑 <code>/mnt/etc/fstab</code> 文件。</p>
+<h3 id="chroot-到新系统">Chroot 到新系统</h3>
+<p>现在，新安装的系统还需要一些配置工作，才能自力引导系统。下面要 chroot 到新系统：</p>
+<pre><code>$ arch-chroot /mnt /bin/bash
+</code></pre><p>这里顺便说一下，如果以后我们的系统出现了问题，只要插入U盘并启动， 将我们的系统根分区挂载到了<code>/mnt</code>下（如果有<code>efi</code>分区也要挂载到<code>/mnt/boot</code>下），再通过这条命令就可以进入我们的系统进行修复操作。</p>
+<h4 id="提前安装必须软件包">提前安装必须软件包</h4>
+<pre><code>pacman -S vim dialog wpa_supplicant ntfs-3g networkmanager git wget curl
+</code></pre><h4 id="语言地区">语言地区</h4>
+<p>编辑 <code>/etc/locale.gen</code>，去掉以下项目的注释：</p>
+<pre><code>en_US.UTF-8 UTF-8
+zh_CN.UTF-8 UTF-8
+</code></pre><p>然后运行：</p>
+<pre><code>$ locale-gen
+</code></pre><p>最后，编辑 <code>/etc/locale.conf</code>：</p>
+<pre><code>LANG=en_US.UTF-8
+或者
+echo LANG=en_US.UTF-8 &gt; /etc/locale.conf
+echo LANG=zh_CN.UTF-8 &gt; /etc/locale.conf
+</code></pre><p>注意：不要在这里把系统全局设置成中文，因为终端无法显示中文，请单独将桌面环境设置为中文。</p>
+<h4 id="终端字体可选">终端字体（可选）</h4>
+<p>编辑 <code>/etc/vconsole.conf</code>：</p>
+<pre><code>KEYMAP=us
+FONT=Lat2-Terminus16
+</code></pre><h4 id="时区">时区</h4>
+<p>依次执行如下命令设置我们的时区为上海并生成相关文件：</p>
+<pre><code>ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+hwclock --systohc --utc
+</code></pre><h4 id="时间">时间</h4>
+<p>利用 ntp 自动校时：</p>
+<pre><code>$ pacman -S ntp
+$ ntpdate time.nist.gov
+启动网络时间同步 
+sudo timedatectl set-ntp true
+</code></pre><p>将系统时间写入硬件时钟：</p>
+<pre><code>$ hwclock --systohc --utc
+</code></pre><p>注意：Linux 的硬件时钟使用 UTC，而 Windows 则使用本地时间。如果要和 Windows 进行双系统启动，可以将 Windows 设置为使用 UTC 硬件时钟，参见<a href="https://wiki.archlinux.org/index.php/Time#UTC_in_Windows">这里</a>。同时关闭 Windows 上的自动校时功能，只用 Linux 上的 ntp。</p>
+<h4 id="主机名可选">主机名（可选）</h4>
+<pre><code>$ echo myhostname &gt; /etc/hostname
+
+编辑/etc/hosts文件：
+
+vim /etc/hosts
+作如下修改（将myhostname替换成你自己设定的主机名）
+
+127.0.0.1	localhost.localdomain	localhost
+::1		localhost.localdomain	localhost
+127.0.1.1	myhostname.localdomain	myhostname
+</code></pre><h4 id="连接网络-1">连接网络</h4>
+<p>可以参照上面的方法连接网络。只不过，这次需要手动启用 dhcpcd 服务：</p>
+<pre><code>$ systemctl enable dhcpcd.service
+</code></pre><p>注意，GNOME 自带了 NetworkManager 来管理网络，这会与 dhcpcd 冲突，所以安装 GNOME 后要记得要切换到 NetworkManager：</p>
+<pre><code>$ systemctl disable dhcpcd.service
+$ systemctl enable NetworkManager.service
+</code></pre><h4 id="设置-root-密码添加用户">设置 Root 密码、添加用户</h4>
+<p>除了设置 Root 密码外，添加一个管理员组的帐户做平时使用：</p>
+<pre><code>$ passwd
+###useradd -m -g users -G wheel -s /bin/bash ${username}
+useradd -m -g -G wheel username （请自行替换username为你的用户名）
+passwd username （请自行替换username为你的用户名）
+pacman -S sudo
+
+visudo或者sudo nano /etc/sudoers
+
+找到
+# %wheel ALL=(ALL)ALL
+这行，去掉之前的#注释符，保存并退出就可以了。
+
+这里的%wheel就是代表wheel组，意味着wheel组中的所有用户都可以使用sudo命令。
+当然为了安全使用sudo命令还是需要输入当前用户的密码的。
+</code></pre><h4 id="安装intel-ucode非intelcpu可以跳过此步骤">安装<code>Intel-ucode</code>（非<code>Intel</code>CPU可以跳过此步骤）</h4>
+<p>直接<code>pacman</code>安装：</p>
+<pre><code>pacman -S intel-ucode
+</code></pre><h4 id="安装和配置-bootloader">安装和配置 Bootloader</h4>
+<h5 id="uefi-1">UEFI</h5>
+<pre><code>$ mount -t efivarfs efivarfs /sys/firmware/efi/efivars
+$ pacman -S grub os-prober efibootmgr
+esp_mount一般为 /boot或/boot/EFI
+$ grub-install --target=x86_64-efi --efi-directory=esp_mount --bootloader-id=arch_grub --recheck
+$ grub-mkconfig -o /boot/grub/grub.cfg
+</code></pre><p>如果报<code>warning failed to connect to lvmetad，falling back to device scanning.</code>错误。参照<a href="https://www.pckr.co.uk/arch-grub-mkconfig-lvmetad-failures-inside-chroot-install/">这篇文章</a>，简单的方法是编辑<code>/etc/lvm/lvm.conf</code>这个文件，找到<code>use_lvmetad = 1</code>将<code>1</code>修改为<code>0</code>，保存，重新配置grub。</p>
+<p>如果报<code>grub-probe: error: cannot find a GRUB drive for /dev/sdb1, check your device.map</code>类似错误，并且<code>sdb1</code>这个地方是你的u盘，这是u盘<code>uefi</code>分区造成的错误，对我们的正常安装没有影响，可以不用理会这条错误。</p>
+<h5 id="bios-1">BIOS</h5>
+<pre><code>$ pacman -S grub os-prober
+$ grub-install --recheck /dev/sda ##--target=i386-pc 
+$ grub-mkconfig -o /boot/grub/grub.cfg
+初始化内存盘
+mkinitcpio -p linux
+</code></pre><p>如果报<code>warning failed to connect to lvmetad，falling back to device scanning.</code>错误。参照<a href="https://www.pckr.co.uk/arch-grub-mkconfig-lvmetad-failures-inside-chroot-install/">这篇文章</a>，简单的方法是编辑<code>/etc/lvm/lvm.conf</code>这个文件，找到<code>use_lvmetad = 1</code>将<code>1</code>修改为<code>0</code>，保存，重新配置grub。</p>
+<h5 id="安装后检查">安装后检查</h5>
+<p><strong>如果你是多系统，请注意上面一节中对os-prober这个包的安装。</strong></p>
+<p><strong>强烈建议使用如下命令检查是否成功生成各系统的入口，如果没有正常生成会出现开机没有系统入口的情况：</strong></p>
+<pre><code>vim /boot/grub/grub.cfg
+</code></pre><p>检查接近末尾的<code>menuentry</code>部分是否有<code>windows</code>或其他系统名入口。下图例子中是<code>Arch Linux</code>入口与检测到的<code>windows10</code>入口（安装在<code>/dev/sda1</code>），具体情况可能有不同：</p>
+<p><img src="https://www.viseator.com/images/arch22.jpg" alt="img"></p>
+<p><strong>如果你没有看到Arch Linux系统入口或者该文件不存在</strong>，请先检查<code>/boot</code>目录是否正确部署<code>linux</code>内核：</p>
+<pre><code>cd /boot
+ls
+</code></pre><p>查看是否有<code>initramfs-linux-fallback.img initramfs-linux.img intel-ucode.img vmlinuz-linux</code>这几个文件，如果都没有，说明<code>linux</code>内核没有被正确部署，很有可能是<code>/boot</code>目录没有被正确挂载导致的，确认<code>/boot</code>目录无误后，可以重新部署<code>linux</code>内核：</p>
+<pre><code>pacman -S linux
+</code></pre><p>再重新生成配置文件，就可以找到系统入口。</p>
+<p><strong>如果你已经安装os-prober包并生成配置文件后还是没有生成其他系统的入口</strong>：</p>
+<p><strong>你目前处的U盘安装环境下有可能无法检测到其他系统的入口，请在下一步中重启登陆之后重新运行</strong>：</p>
+<pre><code>grub-mkconfig -o /boot/grub/grub.cfg
+</code></pre><p>如果还没有生成其他系统的入口，请参照：</p>
+<blockquote>
+<p><a href="https://wiki.archlinux.org/index.php/GRUB/Tips_and_tricks#Combining_the_use_of_UUIDs_and_basic_scripting">https://wiki.archlinux.org/index.php/GRUB/Tips_and_tricks#Combining_the_use_of_UUIDs_and_basic_scripting</a></p>
+</blockquote>
+<p>编辑配置文件手动添加引导的分区入口。</p>
+<h5 id="安装-grub-主题-可选"><strong>安装 grub 主题 (可选)</strong></h5>
+<pre><code>$ pacman -Sy deepin-grub2-themes
+</code></pre><p>编辑配置文件 /etc/default/grub</p>
+<pre><code>GRUB_THEME=&quot;/boot/grub/themes/deepin/theme.txt&quot;
+</code></pre><p>重新生成配置文件</p>
+<pre><code>$grub-mkconfig -o /boot/grub/grub.cfg
+</code></pre><h4 id="卸载分区并重启系统">卸载分区并重启系统</h4>
+<p>现在新系统已经准备好第一次引导了，先退出 chroot 环境：</p>
+<pre><code>$ exit
+</code></pre><p>然后，卸载分区并重启系统：</p>
+<pre><code>$ umount -R /mnt
+$ reboot
+</code></pre><h3 id="在新系统上安装需要的软件">在新系统上安装需要的软件</h3>
+<h4 id="显卡驱动">显卡驱动</h4>
+<p><img src="https://www.viseator.com/images/arch21.png" alt="img"></p>
+<p>参照这个表格，安装相应的包，比如你是<code>intel</code>的集成显卡（绝大多数人的情况），执行：</p>
+<pre><code>sudo pacman -S xf86-video-intel libva-intel-driver
+</code></pre><p>提示：<code>Nvidia</code>的独显驱动如非必要，建议只装集成显卡的驱动（省电，如果同时装也会默认使用集成显卡），不容易出现冲突问题。相反，如果集成显卡驱动有问题无法装上，可以装独显驱动，具体的版本请到下面的链接查询：</p>
+<blockquote>
+<p><a href="https://wiki.archlinux.org/index.php/Xorg#Driver_installation">https://wiki.archlinux.org/index.php/Xorg#Driver_installation</a></p>
+</blockquote>
+<p>查询显卡类型：</p>
+<pre><code>$ lspci | grep VGA
+</code></pre><p>查询可用的开源驱动：</p>
+<pre><code>$ pacman -Ss xf86-video | less
+</code></pre><p>安装通用驱动（vesa）：</p>
+<pre><code>$ pacman -S xf86-video-vesa
+</code></pre><p>支持硬件加速的驱动程序可以在安装 X 时自动提示你安装，只需要选择正确的显卡类型，不需要显式安装。</p>
+<h4 id="声卡驱动">声卡驱动</h4>
+<p>通常不需要配置就能工作，只需解除静音。需要做的只是安装 alsa-utils 软件包：</p>
+<pre><code>$ pacman -S alsa-utils
+或者
+pacman -Sy alsa-utils pulseaudio pulseaudio-alsa
+
+方向键 选中 Master 和 PCM
+[M] 取消静音
+</code></pre><h4 id="输入设备驱动">输入设备驱动</h4>
+<p>输入设备驱动已经在安装 X 时自动安装，一般不需要显式安装。不过，笔记本或触摸屏用户需要安装 synaptics：</p>
+<pre><code>$ pacman -S xf86-input-synaptics
+</code></pre><h4 id="如果是在-vmware-中安装">如果是在 VMware 中安装</h4>
+<p>安装一些专门用于虚拟机的驱动程序：</p>
+<pre><code>$ pacman -S xf86-input-vmmouse xf86-video-vmware svga-dri
+</code></pre><p>安装 VMware Tools，在 VMware 中选择“安装 VMware Tools”，然后：</p>
+<pre><code>$ pacman -S linux-headers
+$ for x in {0..6}; do mkdir -pv /etc/init.d/rc$x.d; done
+$ mount /dev/cdrom /mnt
+$ cd /root
+$ tar zxf /mnt/VMwareTools*.tar.gz
+$ cd vmware-tools-distrib
+$ ./vmware-install.pl
+</code></pre><p>按提示一步步进行，如果最后报错，一般也不用担心，重启后 VMware Tools 能正确启动。</p>
+<h4 id="安装-x-窗口管理系统">安装 X 窗口管理系统</h4>
+<pre><code>$ pacman -S xorg-server xorg-xinit
+</code></pre><h4 id="安装桌面管理器">安装桌面管理器</h4>
+<p>安装好了桌面环境包以后，我们需要安装一个图形化的桌面管理器来帮助我们登录并且选择我们使用的桌面环境，这里我推荐使用<code>sddm</code>。</p>
+<p>安装sddm</p>
+<p>执行：</p>
+<pre><code>sudo pacman -S sddm
+sddm --example-config &gt; /etc/sddm.conf
+</code></pre><h5 id="设置开机启动sddm服务">设置开机启动sddm服务</h5>
+<p>这里就要介绍一下<code>Arch</code>下用于管理系统服务的命令<code>systemctl</code>了，服务的作用就是字面意思，为我们提供特定的服务，比如<code>sddm</code>就为我们提供了启动<code>xorg</code>与管理桌面环境的服务。</p>
+<p>命令的使用并不复杂：</p>
+<pre><code>sudo systemctl start   服务名 （启动一项服务）
+sudo systemctl stop    服务名 （停止一项服务）
+sudo systemctl enable  服务名 （开机启动一项服务）
+sudo systemctl disable 服务名 （取消开机启动一项服务）
+</code></pre><p>所以这里我们就执行下面命令来设置开机启动<code>sddm</code>：</p>
+<pre><code>sudo systemctl enable sddm
+</code></pre><h4 id="安装桌面环境">安装桌面环境</h4>
+<h5 id="安装xfce">安装Xfce</h5>
+<p>直接安装软件包组（包含了很多软件包）即可：</p>
+<pre><code>sudo pacman -S xfce4 xfce4-goodies
+</code></pre><p><strong>安装 slim 以及主题(弃用)</strong></p>
+<pre><code>$ pacman -S slim slim-themes archlinux-themes-slim
+$ systemctl enable slim.service
+</code></pre><p><strong>图形界面启动方式两种</strong></p>
+<ol>
+<li>startx 命令行启动</li>
+</ol>
+<p>配置 xfce 桌面启动环境 ~/.xinitrc</p>
+<pre><code>exec startxfce4
+</code></pre><p>启动 xfce 桌面</p>
+<pre><code>$ startx
+</code></pre><h5 id="安装gnome">安装GNOME</h5>
+<pre><code>$ pacman -S gnome
+</code></pre><p>要启用图形界面登录和锁屏等功能，可启用 gdm：</p>
+<pre><code>$ systemctl enable gdm.service
+</code></pre><p>安装 GNOME 的一些常用工具（更多工具和扩展请参见<a href="https://wiki.archlinux.org/index.php/GNOME">这里</a>）：</p>
+<pre><code>$ pacman -S gnome-tweak-tool gnome-packagekit gnome-settings-daemon-updates
+</code></pre><h4 id="窗口管理器">窗口管理器</h4>
+<p>窗口管理器负责绘制窗口的边框和背景等，处理窗口的移动、最大/小化等行为。桌面环境是窗口管理器的超集，使用窗口管理器和其它一些常用软件组成一个完整的桌面工作环境。
+所以说，只安装窗口管理器，而不安装桌面环境也是可以的。（还是推荐一个桌面环境，这样好多软件，如文件管理器等，就不用自己挨个找了）
+窗口管理器可以用桌面环境默认自带的，也可以自己选择，如平铺式有i3, awesome等。</p>
+<h5 id="安装i3">安装i3</h5>
+<pre><code>sudo pacman -S i3 dmenu
+# 安装i3窗口管理器，dmenu为i3程充启动器
+cp /etc/i3/config ~/.i3/config
+# 创建i3配置文件，.i3没有则自己mkdir
+# 如果使用xorg-init，则添加 &quot;exec i3&quot; 到.xinitrc，通过startx则可以启动ie
+</code></pre><h5 id="安装awesome">安装awesome</h5>
+<pre><code>sudo pacman -S awesome
+mkdir -p ~/.config/awesome/
+cp /etc/xdg/awesome/rc.lua ~/.config/awesome/
+# 安装awesome，并创建配置文件rc.lua
+# 如果使用xorg-init，则添加 &quot;exec awesome&quot; 到.xinitrc，通过startx则可以启动ie
+
+</code></pre><h4 id="安装字体">安装字体</h4>
+<p>安装一些常用的中英文字体：</p>
+<pre><code>桌面也搞定了, 继续最后一步安装字体吧. 以下根据自己需要选择运行:
+pacman -S adobe-source-han-sans-otc-fonts # 使用思源黑体
+pacman -S wqy-microhei wqy-zenhei ttf-dejavu # 使用文泉驿字体
+yay -S ttf-dejavu-sans-mono-powerline-git
+# 打补丁的dejavu字体，包含powerline图标字体
+sudo pacman -S noto-fonts noto-fonts-cjk noto-fonts-emoji
+# (可选)Google Noto字体
+sudo pacman -S adobe-source-han-sans-cn-fonts
+# (可选)安装思源体简体中文部体，中文效果比文泉好些
+sudo pacman -S ttf-ubuntu-font-family
+# (可选)ubuntu上的字体
+yay -S ttf-ms-win10-zh_cn
+# (可选)win10字体
+yay -S fontconfig-infinality-ultimate
+# 字体渲染优化
+
+# 手动安装consolas安体
+cd /usr/share/fonts
+mkdir consolas
+# copy consolas-font to /usr/share/fonts/consolas
+cd consolas
+sudo chmod 664 *.ttf
+sudo mkfontscale
+sudo mkfontdir
+sudo fc-cache -fv
+</code></pre><p>附：<a href="https://github.com/yehuohan/dotconfigs/tree/master/font">consolas字体</a></p>
+<h3 id="提前配置网络">提前配置网络</h3>
+<p>到现在我们已经安装好了桌面环境，但是还有一件事情需要我们提前设置一下。由于我们之前使用的一直都是<code>netctl</code>这个自带的网络服务，而桌面环境使用的是<code>NetworkManager</code>这个网络服务，所以我们需要禁用<code>netctl</code>并启用<code>NetworkManager</code>：</p>
+<pre><code>sudo systemctl disable netctl
+sudo systemctl enable NetworkManager （注意大小写）
+</code></pre><p>同时你可能需要安装工具栏工具来显示网络设置图标（某些桌面环境已经装了，但是为了保险可以再装一下）：</p>
+<pre><code>sudo pacman -S network-manager-applet
+</code></pre><p>这样开机以后我们就可以在图形界面下配置我们的网络啦。</p>
+<h3 id="完成安装">完成安装</h3>
+<p>重新启动，即可由图形界面登录到系统了。祝贺你！说实话，你能有足够的耐心做到这里而没有叛逃到 Debian/CentOS，我很欣慰。相信你很快就会意识到这些麻烦不是没有回报的，欢迎加入 Archers 的行列！</p>
+<p>如有任何问题，RTFM：<a href="https://wiki.archlinux.org/index.php/Beginners%27_Guide">Arch Linux Beginners’ Guide</a></p>
+<h3 id="一些优化">一些优化</h3>
+<h4 id="sata-启用-ahci-模式">SATA 启用 AHCI 模式</h4>
+<p>SATA 有两种工作模式：原生的 <a href="https://en.wikipedia.org/wiki/Advanced_Host_Controller_Interface">AHCI</a> 模式提供更好的性能（如热插拔和 <a href="https://en.wikipedia.org/wiki/Native_Command_Queuing">NCQ</a> 支持）、模拟的 IDE 模式提供更好的兼容性。一般主板出厂默认将 SATA 模式设置为 IDE 模式，但如今先进的 Linux 和 Windows 都早已原生支持 AHCI，所以我们最好打开 AHCI 模式以优化性能。</p>
+<p>Arch Linux 在安装好以后，内核镜像默认没有载入 AHCI 驱动模块。修改 <code>/etc/mkinitcpio.conf</code>，添加 <code>ahci</code> 到 <code>MODULES</code> 变量：</p>
+<pre><code>MODULES=&quot;ahci&quot;
+</code></pre><p>然后重建内核镜像，重新启动后 AHCI 驱动就会加载：</p>
+<pre><code>$ mkinitcpio -p linux
+</code></pre><p>在主板 UEFI 或 BIOS 中，将 SATA 模式从 <code>IDE</code>（或 <code>PATA Emulation</code> 等等），设置为 <code>AHCI</code>（或 <code>Native</code> 等等）。需要注意的是，如果你还在用 Windows XP，它需要安装 AHCI 驱动才行。Windows Vista 及以后的版本则不需要担心这个问题（但如果你是在 Windows 安装完成后才启用 AHCI 模式，因为安装期间 Windows 会自动禁用未使用的存储驱动程序，你需要参考 <a href="https://support.microsoft.com/kb/922976">KB922976</a>（Windows Vista/7）或 <a href="https://support.microsoft.com/kb/2751461">KB2751461</a>（Windows 8）来启用 AHCI 驱动程序）。</p>
+<p>设置好以后，你可以从 <code>dmesg</code> 命令的输出里，找到 AHCI 和 NCQ 成功启用的证据：</p>
+<pre><code>$ dmesg
+...
+SCSI subsystem initialized
+libata version 3.00 loaded.
+ahci 0000:00:1f.2: version 3.0
+ahci 0000:00:1f.2: irq 24 for MSI/MSI-X
+ahci 0000:00:1f.2: AHCI 0001.0300 32 slots 6 ports 6 Gbps 0x10 impl SATA mode
+ahci 0000:00:1f.2: flags: 64bit ncq led clo pio slum part ems apst 
+scsi host0: ahci
+scsi host1: ahci
+scsi host2: ahci
+scsi host3: ahci
+scsi host4: ahci
+scsi host5: ahci
+...
+ata5.00: 976773168 sectors, multi 16: LBA48 NCQ (depth 31/32), AA
+...
+</code></pre><h4 id="优化系统启动速度">优化系统启动速度</h4>
+<p>Arch Linux 的 <code>systemd-analyze</code> 是个很不错的工具，利用它你可以很直观地观察到系统启动的时间都花到哪儿去了：</p>
+<pre><code>$ systemd-analyze
+Startup finished in 6.857s (firmware) + 3.157s (loader) + 1.870s (kernel) + 8.157s (userspace) = 20.044s
+</code></pre><p>我注意到打开 AHCI 后，内核和用户空间的载入速度明显提高了，总启动时间从约 30 秒缩短到 20 秒，效果非常明显。</p>
+<p>用下面这个命令，可以了解到是什么东西启动最慢：</p>
+<pre><code>$ systemd-analyze blame
+</code></pre><p>此外，还可以把启动过程绘制成 SVG 图表供你审阅（用 GNOME 的图片预览或 Chrome 浏览器都可以打开），这个图表中你还可以观察到是否有启动慢的组件影响到了依赖它的组件的启动：</p>
+<pre><code>$ systemd-analyze plot &gt; plot.svg
+</code></pre><h2 id="后续优化">后续优化</h2>
+<h3 id="安装yay">安装<code>yay</code></h3>
+<p>以<code>root</code>权限打开编译<code>/etc/pacman.conf</code>，将下面这三行加入到文件末尾并保存：</p>
+<pre><code>[archlinuxcn]
+SigLevel = Optional TrustAll
+Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
+</code></pre><p>同步软件信息库并安装<code>yay</code>：</p>
+<pre><code>sudo pacman -Syu （刷新源）
+sudo pacman -S archlinuxcn-keyring
+sudo pacman -Sy yay
+</code></pre><h3 id="yaourt使用弃用"><code>yaourt</code>使用(弃用)</h3>
+<p>请见<a href="https://www.linuxdashen.com/arch-linux%E4%BD%BF%E7%94%A8yaourt%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E8%BD%BB%E6%9D%BE%E5%AE%89%E8%A3%85aur%E8%BD%AF%E4%BB%B6%E5%8C%85">yaourt</a></p>
+<h3 id="滚动更新">滚动更新</h3>
+<p><code>ArchLinux</code>的更新机制是非常激进的滚动更新，也就是说<code>ArchLinux</code>的软件与内核会时刻与稳定版本保持一致，你所用的系统总是时刻保持最新的。</p>
+<p>这个机制给很多<code>Arch</code>教徒带来了强大的快感，可以第一时间体验到新的软件与新 的内核，但是也存在着日常滚炸这样的问题。虽然滚动更新的包可能因为没有经过完善的测试会导致系统不能工作种种问题，但是绝大部分情况下的更新都不会导致太大的问题。修复滚炸的系统和提交Bug信息也是<code>ArchLinux</code>用户的技能之一。</p>
+<p>滚动更新命令使用<code>yay</code>非常简单：</p>
+<pre><code>yay -Syu --aur
+</code></pre><p><code>--aur</code>参数是检查并更新<code>AUR</code>包中的内容。</p>
+<h3 id="常用软件安装">常用软件安装</h3>
+<pre><code>yay -S wget curl git shadowsocks-qt5 proxychains-ng shadowsocks-libev / 
+visual-studio-code-bin neofetch netease-cloud-music dropbox /
+kio-gdrive typora wireshark-qt virtualbox dbeaver /
+medis telegram-desktop deluge aria2-fast uget /
+keepass redshift deepin-screenshot playonlinux /
+mailspring docker docker-compose kitematic /
+deepin-wine-thunderspeed zsh oh-my-zsh-git /
+openssh openssl gwenview plank rdesktop /
+python2-pip numix-gtk-theme numix-circle-icon-theme-git /
+google-chrome smplayer octopi okular jdk maven eclipse /
+intellij-idea-ultimate-edition gradle npm nodejs /
+\
+
+systemctl enable sshd.service
+#待定软件包
+gksu yaourt-gui-manjaro wps-office libreoffice net-tools dnsutils inetutils iproute2 jdk nodejs npm xdg-user-dirs htop chromium deepin-wechat deepin-wine-tim ntfs-3g dosfstools ntfs-3g-fuse create_ap Vivaldi(浏览器) transmission-qt kcm-ufw docky conky filezilla Bumblebee virtualbox-ext-vnc virtualbox-guest-iso virtualbox-host-modules-arch virtualbox-ext-oracle flashplugin rhythmbox aria2 quiterss(rss订阅) thunderbird thunderbird-i18n-zh-cn zathura（pdf阅读器） texlive-{core,bin,langchinese} （LaTex） gnome-terminal-transparency（Gnome-Terminal透明） xfce4-terminal（Gnome-Terminal透明） redsocks-git pcap-dnsproxy-git studio-3t synapse yakuake mongochef firefox firefox-i18n-zh-cn Shutter(截图)
+
+解压软件
+fire-roller(gnome) ark(kde) p7zip unrar lrzip unace
+#conky 配置文件
+https://gist.github.com/imsuwj/204fbe376753d01b45bc
+##gnome安装octopi的话 执行会说无法取得管理员权限
+装gksu
+Optional Deps : kdesu: for KDE [installed]
+gksu: for XFCE, Gnome, LXDE, Cinnamon
+lxqt-sudo: for LXQT
+gnome-keyring: for password management
+gist: for SysInfo report
+pacaur: for AUR support
+yaourt: for AUR support [installed]
+octopi-repoeditor: for editing functions [installed]
+octopi-cachecleaner: for cleaning functions [installed]
+octopi-notifier-qt5: for notifications
+octopi-notifier-frameworks: for notifications with Knotifications support [installed]
+pacmanlogviewer: to view pacman log files
+
+主题图标
+la-capitaine-icon-theme
+Adapta-gtk-theme
+Papirus
+Arc
+</code></pre><p>ArchLinux推荐软件列表</p>
+<pre><code>https://wiki.archlinux.org/index.php/List_of_applications
+http://bbs.archlinuxcn.org/viewtopic.php?id=381
+https://github.com/alim0x/Awesome-Linux-Software-zh_CN
+</code></pre><h3 id="java-程序员眼中的-linux">Java 程序员眼中的 Linux</h3>
+<ul>
+<li>带动更多的人进入 Linux 世界，特别是做 Java 开发的人，开发人员必备linux编程环境配置手册</li>
+</ul>
+<p><a href="https://youmeek.gitbooks.io/linux-tutorial/content/">https://youmeek.gitbooks.io/linux-tutorial/content/</a></p>
+<h3 id="shadowsocks">shadowsocks</h3>
+<h4 id="图形版本">图形版本</h4>
+<p>安装官方源中的<code>shadowsocks-qt5</code>包，自带图形界面，通过软件菜单（桌面环境自带）启动即可。</p>
+<h4 id="命令行版本">命令行版本</h4>
+<p>安装官方源中的<code>shadowsocks-libev</code>包，编辑<code>/etc/shadowsocks/config.json</code>文件，按示例填写：</p>
+<pre><code>{
+    &quot;server&quot;:&quot;&quot;,
+    &quot;server_port&quot;:&quot;&quot;,
+    &quot;local_adress&quot;:&quot;0.0.0.0&quot;,
+    &quot;local_port&quot;:1080,
+    &quot;password&quot;:&quot;&quot;,
+    &quot;timeout&quot;:600,
+    &quot;method&quot;:&quot;aes-256-gcm&quot;,
+    &quot;plugin&quot;:&quot;obfs-local&quot;,
+    &quot;plugin_opts&quot;:&quot;obfs=tls;obfs-host=baidu.com&quot;
+}
+</code></pre><p><code>server</code>：服务器地址</p>
+<p><code>server_port</code>：服务器端口</p>
+<p>下面两行分别是本地地址和本地端口</p>
+<p><code>password</code>：密码</p>
+<p><code>method</code>：加密方式</p>
+<p>然后以系统服务方式启动：</p>
+<pre><code>sudo systemctl start shadowsocks@example.service
+</code></pre><p>如需开机启动：</p>
+<pre><code>sudo systemctl enable shadowsocks@example.service
+</code></pre><h3 id="命令行代理">命令行代理</h3>
+<p><strong>需先配置好本地shadowsocks代理</strong></p>
+<p>推荐使用<code>proxychains-ng</code>包进行命令行代理：</p>
+<p>安装<code>proxychains-ng</code>包后编辑<code>/etc/proxychains.conf</code>文件（需<code>root</code>权限）</p>
+<p>到文件末尾找到<code>ProxyList</code>项，按示例添加本地代理：</p>
+<pre><code>socks5 127.0.0.1 1080
+</code></pre><p>之后需要用代理运行的命令都可以通过在命令前加上<code>proxychains</code>来使用代理运行。</p>
+<h3 id="steam-配置">Steam 配置</h3>
+<p>如果你发现你的 steam 不能正常运行，就去装 <code>steam-native</code> 这个包。然后是不是就好了？如果你玩 XCOM2 的话，你可能会发现这个游戏在 Ubuntu 上能正常运行，但是在 Arch 上卡的能吃屎。你可以考虑调整他的配置文件，位置是：</p>
+<pre><code>~/.local/share/feral-interactive/XCOM2/VFS/Local/my\ games/XCOM2/XComGame/Config/XComEngine.ini
+</code></pre><p>把 <code>PoolSize=10</code> 改成 256，<code>OneFrameThreadLag=True</code> 改成 False。再运行一下，虽然还有点卡，是不是能玩了？</p>
+<h3 id="jetbrains-ide-配置">JetBrains IDE 配置</h3>
+<p>你可能会发现 JetBrains 的 IDE 会有一个颜色漂移的问题，据说是来自于 jre。解决方案你可以参考 <a href="https://wiki.archlinux.org/index.php/Java_Runtime_Environment_fonts">这篇 wiki</a>。当然，最简单的方法是在 IDE 设置里把文字抗锯齿设置成灰度（greyscale），这样的效果我觉得已经基本可以接受了</p>
+<h3 id="中文字体与中文输入法">中文字体与中文输入法</h3>
+<p>中文字体推荐安装官方源中<code>noto-fonts-cjk</code>，中文输入法需要安装<code>fcitx</code>包与<code>fcitx-im</code>集合包，再加上一个中文支持包，可以到<a href="https://wiki.archlinux.org/index.php/fcitx#Chinese">https://wiki.archlinux.org/index.php/fcitx#Chinese</a>中挑选一个喜欢的包装上。</p>
+<pre><code>安装fcitx和搜狗输入法：
+yay -S fcitx-im fcitx fcitx-configtool kcm-fcitx fcitx-gtk2 fcitx-gtk3 fcitx-qt4 fcitx-qt5 fcitx-sogoupinyin
+or
+yay -S fcitx fcitx-sogoupinyin fcitx-im kcm-fcitx fcitx-skin-material fcitx-rime
+同样的，在~/.xprofile写入
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=&quot;@im=fcitx&quot;
+可以解决一些软件无法调出fcitx的问题。
+</code></pre><h3 id="oh-my-zsh">oh-my-zsh</h3>
+<p><code>zsh</code>是默认<code>shell</code> <code>bash</code>的替代品之一，它的特点是插件多配置方便，兼容<code>bash</code>脚本并且支持更强大的高亮与补全。</p>
+<p>安装官方源中<code>zsh</code>包。</p>
+<p>设置<code>zsh</code>为默认<code>shell</code>：</p>
+<pre><code>sudo chsh -s /bin/zsh username
+curl 方式：
+$ sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;
+
+wget 方式
+$ sh -c &quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;
+</code></pre><p>推荐安装<code>AUR</code>中的<code>oh-my-zsh-git</code>这个包，可以帮助配置一些实用的功能。</p>
+<p>其他主题插件配置请见<a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a>的配置介绍，分享一下我安装的插件：</p>
+<pre><code>plugins=(vim git sudo extract archlinux zsh-autosuggestions zsh-syntax-highlighting)
+</code></pre><p>注意后面两个插件需要安装相应的支持包并配置才能使用。</p>
+<pre><code>https://hufangyun.com/2017/zsh-plugin/
+
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+</code></pre><h3 id="yay安装软件卡在-node-installjs">yay安装软件卡在 node install.js</h3>
+<pre><code>终极解决方案
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+
+export NVM_DIR=&quot;$HOME/.nvm&quot;
+[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot;  # This loads nvm
+[ -s &quot;$NVM_DIR/bash_completion&quot; ] &amp;&amp; \. &quot;$NVM_DIR/bash_completion&quot;  # This loads nvm bash_completion
+
+nvm install v8
+
+npm 安装 node-sass 网速慢的 可以 运行 npm config set registry https://registry.npm.taobao.org
+
+然后 编辑 ~/.npmrc 加入下面内容
+
+# $HOME为你home目录路径的全写
+cache=$HOME/.node_modules
+
+prefix=$HOME/.node_modules
+
+registry=https://registry.npm.taobao.org
+
+sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
+
+phantomjs_cdnurl=http://npm.taobao.org/mirrors/phantomjs
+
+ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/
+</code></pre><h3 id="系统备份">系统备份</h3>
+<p>我目前的解决方案是 rsync，下面给出一个我从 <a href="https://wiki.archlinux.org/index.php/full_system_backup_with_rsync">Arch wiki</a> 那里魔改来的备份脚本.区别基本上就是使用了更新和删除，就是如果目标位置已经有备份，他只会更新新的文件，并删除已经被删除了的文件。另外，我还把 steam 的路径添加到了黑名单，这样可以让我节省几十个G的游戏的硬盘空间。如果要还原的话，你只需要把 rsync 的参数互换一下，就以把备份文件复制回原来的位置了。</p>
+<pre><code>#!/bin/sh
+
+START=$(date +%s)
+rsync -aAXvu --delete /* /Your/Destination/Directory --exclude={/dev/*,/proc/*,/sys/*,/tmp/*,/run/*,/mnt/*,/media/*,/lost+found,/var/lib/pacman/sync/*,/home/towdium/.local/share/Steam/*}
+FINISH=$(date +%s)
+echo &quot;total time: $(( ($FINISH-$START) / 60 )) minutes, $(( ($FINISH-$START) % 60 )) seconds&quot;
+
+</code></pre><h2 id="美化">美化</h2>
+<p>此处仅为gnome美化
+这里先展示一下美化后的样子
+<a href="https://farm9.staticflickr.com/8624/28454262596_69cba63038_b_d.jpg"><img src="https://farm9.staticflickr.com/8624/28454262596_69cba63038_b_d.jpg" alt="img"></a></p>
+<h3 id="gnome-插件配置">GNOME 插件配置</h3>
+<p>要修改 GNOME 的插件，你需要安装 <code>chrome-gnome-shell</code>,然后打开预装的 <code>gnome-tweak-tool</code>，在相应的面板就可以编辑了。我对于 manjaro 挑插件的口味不是特别能认同，所以我把他们的大部份插件都拿掉了，按我的口味重新换了一波，大概列在下边：</p>
+<ul>
+<li>Advanced volume mixer：提供简单的控制各个程序音量的界面</li>
+<li>Netspeed：显示实时网速</li>
+<li>Openweather：天气预报</li>
+<li>Topicons plus：把状态栏（tray）的图标移动到状态栏（自带神秘特效）</li>
+</ul>
+<p>GNOME 的插件其实多的能上天，装那些还是取决于你自己的口味。</p>
+<h3 id="nautilus-插件配置">Nautilus 插件配置</h3>
+<p>除去自带的插件，我还额外装了两个插件。如果你是 typeahead 的重度使用者（就是按键盘直接跳转到相应文件名的位置），你可能会发现新版的 nautilus 阉割了这个功能，不过安装 <code>nautilus-typeahead</code> 可以恢复这个功能。另外，<code>nautilus-hide</code> 可以帮你方便的隐藏文件，即使他并不是 <code>.</code>开头。</p>
+<h3 id="gnome-tweak-tool">gnome-tweak-tool</h3>
+<p>如果你安装了gnome-extra，那么这个工具已经被安装了，否则的话</p>
+<ol>
+<li><code>sudo pacman -S gnome-tweak-tool</code></li>
+</ol>
+<h3 id="图标包">图标包</h3>
+<p>这里我使用的numix-circle图标包，这个图标包在aur里，直接用yay即可</p>
+<ol>
+<li><code>yay -S numix-circle-icon-theme-git</code></li>
+</ol>
+<p>然后在gnome-tweak-tool里启用主题</p>
+<h3 id="gtk主题">gtk主题</h3>
+<p>gtk主题我选择了arc主题</p>
+<ol>
+<li><code>yay -S gtk-theme-arc-git</code></li>
+</ol>
+<p>然后在gnome-tweak-tool里启用</p>
+<h3 id="gnome-shell主题">gnome-shell主题</h3>
+<p>首先在gnome-tweak-tool里的<code>拓展</code>里启用<code>User themes</code></p>
+<p>然后安装主题，这里我是用的贴吧的@Air_Wawei的Air主题，并自己做了些修改。</p>
+<p>首先<a href="http://coolrc.top/tar/Air-theme.tar">下载主题</a> 然后解压，将Air文件夹放到<code>/usr/share/themes/</code>文件夹里，在gnome-tweak-tool里启用主题</p>
+<h3 id="gdm背景">gdm背景</h3>
+<p>输入以下指令</p>
+<ol>
+<li><code>curl -L -O http://archibold.io/sh/archibold</code></li>
+<li><code>chmod +x archibold</code></li>
+<li><code>./archibold login-backgroung 你的背景的地址</code></li>
+</ol>
+<p>重启后gdm就会变成你要的背景</p>
+<h3 id="gnome-shell拓展">gnome-shell拓展</h3>
+<p>shell拓展请进入<a href="https://extensions.gnome.org/">https://extensions.gnome.org/</a>自行按照说明安装</p>
+<h3 id="screenfetch">screenfetch</h3>
+<p>screenfetch可以在终端里输出你的系统logo和状态。
+<a href="https://farm9.staticflickr.com/8332/28454264086_eb0f9d6779_o_d.jpg"><img src="https://farm9.staticflickr.com/8332/28454264086_eb0f9d6779_o_d.jpg" alt="img"></a>
+可以用pacman安装：</p>
+<ol>
+<li><code>pacman -S screenfetch</code></li>
+</ol>
+<p>要让screenfetch在打开终端是自动输出，在~/.bashrc里加入</p>
+<ol>
+<li><code>screenfetch</code></li>
+</ol>
+<h3 id="dock">dock</h3>
+<p>要获得像苹果osx一样的dock可以用docky或者dash-to-dock
+docky的话<code>sudo pacman -S docky</code>即可，docky不支持wayland。
+dash-to-dock是gnome拓展，请在<a href="https://extensions.gnome.org/">https://extensions.gnome.org/</a>自行按照说明安装
+我这里装了docky，这是我的docky配置
+<a href="https://farm9.staticflickr.com/8652/28454261686_b7e5e1bc98_o_d.png"><img src="https://farm9.staticflickr.com/8652/28454261686_b7e5e1bc98_o_d.png" alt="img"></a></p>
+<h1 id="纯命令行安装流程">纯命令行安装流程</h1>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 82
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 83
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 84
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 85
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 86
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 87
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 88
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 89
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 90
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 91
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 92
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 93
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 94
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 95
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 96
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 97
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 98
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 99
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">102
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">103
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">104
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">105
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">106
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">107
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">108
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">109
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">110
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">111
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">112
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">113
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">114
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">115
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">116
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">117
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">118
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">119
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">120
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">121
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">122
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">123
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">124
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">125
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">126
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">127
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">128
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">129
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">130
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">131
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">132
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">133
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">134
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">135
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">136
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">137
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">138
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">139
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">140
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">141
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">142
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">143
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">144
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">145
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">146
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">147
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">148
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">149
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">150
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">151
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">152
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">153
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">154
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">155
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">156
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">157
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">158
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">159
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">160
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">161
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">162
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">163
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">164
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">165
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">166
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">167
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">168
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">169
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">170
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">171
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">172
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">173
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">174
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">175
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">176
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">177
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">178
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">179
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">格式化分区
+fdisk /dev/sda
+mkfs.ext4 /dev/sda1 <span style="color:#000;font-weight:bold">==</span>&gt;boot
+mkfs.ext4 /dev/sda2 <span style="color:#000;font-weight:bold">==</span>&gt;/
+mkfs.ext4 /dev/sda3 <span style="color:#000;font-weight:bold">==</span>&gt;tmp
+mkfs.ext4 /dev/sda6 <span style="color:#000;font-weight:bold">==</span>&gt;home
+mkswap /dev/sda5 <span style="color:#000;font-weight:bold">==</span>&gt;swap
+挂载分区
+mount /dev/sda2 /mnt
+mkdir /mnt/boot
+mkdir /mnt/tmp
+mkdir /mnt/home
+mount /dev/sda1 /mnt/boot
+mount /dev/sda3 /mnt/tmp
+mount /dev/sda6 /mnt/home
+swapon /dev/sda5
+查看网卡名字和设置网卡名字
+ip link show
+ip link <span style="color:#0086b3">set</span> enp0s3 name eth0
+iw dev <span style="color:#998;font-style:italic">#找到interface, 一般以wlp开头</span>
+wifi-menu <span style="color:#000;font-weight:bold">[</span>interface<span style="color:#000;font-weight:bold">]</span> <span style="color:#998;font-style:italic">#链接wifi</span>
+dhcpcd <span style="color:#998;font-style:italic">#有线网络,启动动态ip服务(可使用静态ip)</span>
+ping www.bing.com
+pacstrap -i /mnt base base-devel
+pacstrap /mnt grub-bios <span style="color:#998;font-style:italic">#安装启动项管理器</span>
+genfstab -U -p /mnt &gt; /mnt/etc/fstab <span style="color:#998;font-style:italic">#生产分区信息</span>
+arch-chroot /mnt /bin/bash <span style="color:#998;font-style:italic">#进入新系统</span>
+<span style="color:#0086b3">echo</span> USERNAME &gt;&gt; /etc/hostname <span style="color:#998;font-style:italic">#设置主机名</span>
+vi /etc/timezone <span style="color:#998;font-style:italic">#设置时区</span>
+Asia/Shanghai
+ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime <span style="color:#998;font-style:italic">#设置时间</span>
+vi /etc/locale.gen <span style="color:#998;font-style:italic">#去掉前面注释</span>
+en_US.UTF-8 UTF-8
+zh_CN.UTF-8 UTF-8
+zh_TW.UTF-8 UTF-8
+<span style="color:#0086b3">echo</span> <span style="color:#008080">LANG</span><span style="color:#000;font-weight:bold">=</span>en_US.UTF-8 &gt; /etc/locale.conf
+vi /etc/vconsole.conf <span style="color:#998;font-style:italic">#键盘布局方案</span>
+<span style="color:#008080">KEYMAP</span><span style="color:#000;font-weight:bold">=</span>us
+<span style="color:#008080">FONT</span><span style="color:#000;font-weight:bold">=</span>
+<span style="color:#008080">FONT_MAP</span><span style="color:#000;font-weight:bold">=</span>
+locale-gen <span style="color:#998;font-style:italic">#生产locale讯息</span>
+hwclock --systohc --utc
+vi /etc/hosts
+<span style="color:#998;font-style:italic">#&lt;ip-address&gt;   &lt;hostname.domain.org&gt;   &lt;hostname&gt;</span>
+127.0.0.1   localhost.localdomain  localhost    USERNAME
+::1     localhost.localdomain  localhost    USERNAME
+mkinitcpio -p linux <span style="color:#998;font-style:italic">#生产内核的启动镜像</span>
+pacman -S grub
+grub-install --recheck /dev/sda <span style="color:#998;font-style:italic">#安装引导程序</span>
+grub-mkconfig -o /boot/grub/grub.cfg <span style="color:#998;font-style:italic">#生产配置文件</span>
+pacman -S iw wpa_supplicant dialog <span style="color:#998;font-style:italic">#安装iw和wifi-menu</span>
+pacman -S net-tools dnsutils inetutils iproute2 <span style="color:#998;font-style:italic">#ifconfig</span>
+systemctl <span style="color:#0086b3">enable</span> dhcpcd.service <span style="color:#998;font-style:italic">#dhcpcd服务开机自启</span>
+passwd <span style="color:#998;font-style:italic">#设置root密码</span>
+<span style="color:#0086b3">exit</span>
+umount /mnt/<span style="color:#000;font-weight:bold">{</span>boot,home<span style="color:#000;font-weight:bold">}</span>
+reboot
+useradd -m -G wheel -s /bin/bash USERNAME
+passwd USERNAME
+visudo <span style="color:#998;font-style:italic">#设置wheel组的用户能使用sudo</span>
+%wheel <span style="color:#008080">ALL</span><span style="color:#000;font-weight:bold">=(</span>ALL<span style="color:#000;font-weight:bold">)</span> ALL            <span style="color:#998;font-style:italic">#取消注释</span>
+<span style="color:#0086b3">exit</span>
+sudo pacman -S vim
+vim /etc/pacman.conf 添加archlinuxcn镜像源
+<span style="color:#000;font-weight:bold">[</span>archlinuxfr<span style="color:#000;font-weight:bold">]</span>
+<span style="color:#008080">SigLevel</span> <span style="color:#000;font-weight:bold">=</span> Optional TrustAll
+<span style="color:#008080">Server</span> <span style="color:#000;font-weight:bold">=</span> http://repo.archlinux.fr/<span style="color:#008080">$arch</span>
+<span style="color:#000;font-weight:bold">[</span>archlinuxcn<span style="color:#000;font-weight:bold">]</span>
+<span style="color:#008080">SigLevel</span> <span style="color:#000;font-weight:bold">=</span> Optional TrustedOnly
+<span style="color:#008080">Server</span> <span style="color:#000;font-weight:bold">=</span> http://repo.archlinuxcn.org/<span style="color:#008080">$arch</span>
+sudo pacman -Syy
+sudo pacman -Syu
+sudo pacman -S archlinux-keyring
+sudo pacman -S yay
+sudo pacman -S bash-completion
+sudo pacman -S ntfs-3g
+pacman -S alsa-utils
+pacman -S alsa-oss
+gpasswd -a USERNAME audio 把你的普通用户账号加入到audio用户组中
+su - USERNAME 切换到普通用户
+alsamixer 70-90的音量是较合适的范围
+aplay /usr/share/sounds/alsa/Front_Center.wav 保存alsamixer设置
+<span style="color:#0086b3">exit</span>
+/usr/sbin/alsactl store 保存声音配置
+vi /etc/rc.conf
+<span style="color:#008080">DAEMONS</span><span style="color:#000;font-weight:bold">=(</span>syslog-ng network crond alsa<span style="color:#000;font-weight:bold">)</span>
+lspci | grep -e VGA -e 3D <span style="color:#998;font-style:italic">#查看显卡类型</span>
+pacman -Ss xf86-video | less <span style="color:#998;font-style:italic">#查看所有开源驱动</span>
+<span style="color:#998;font-style:italic"># 官方仓库提供的驱动包：</span>
+<span style="color:#998;font-style:italic"># # +----------------------+--------------------+--------------+</span>
+<span style="color:#998;font-style:italic"># # |                      |        开源        |     私有     |</span>
+<span style="color:#998;font-style:italic"># # +----------------------+--------------------+--------------+</span>
+<span style="color:#998;font-style:italic"># # |         通用         |   xf86-video-vesa  |              |</span>
+<span style="color:#998;font-style:italic"># # +----------------------+--------------------+--------------+</span>
+<span style="color:#998;font-style:italic"># # |         Intel        |  xf86-video-intel  |              |</span>
+<span style="color:#998;font-style:italic"># # +--------+-------------+--------------------+--------------+</span>
+<span style="color:#998;font-style:italic"># # |        | GeForce 7+  |                    |    nvidia    |</span>
+<span style="color:#998;font-style:italic"># # | nVidia +-------------+ xf86-video-nouveau +--------------+</span>
+<span style="color:#998;font-style:italic"># # |        | GeForce 6/7 |                    | nvidia-304xx |</span>
+<span style="color:#998;font-style:italic"># # +--------+-------------+--------------------+--------------+</span>
+<span style="color:#998;font-style:italic"># # |        AMD/ATI       |   xf86-video-ati   |              |</span>
+<span style="color:#998;font-style:italic"># # +----------------------+--------------------+--------------+</span>
+pacman -S xorg X11
+pacman -S xorg-server xorg-server-utils 安装 Xorg Server
+pacman -S xf86-input-synaptics 可选，触摸板支持
+pacman -S wqy-zenhei 开源的文泉驿正黑矢量字体
+pacman -S ttf-dejavu wqy-microhei 可选，微米黑字体
+pacman -S xf86-input-keyboard 图形界面的键盘驱动
+pacman -S xf86-input-mouse 鼠标的驱动
+pacman -S xorg-xinit
+pacman -S gnome gnome-extra gnome-packagekit gnome-software
+pacman -S gdm 安装GDM作为登陆器
+sudo systemctl <span style="color:#0086b3">enable</span> gdm <span style="color:#998;font-style:italic">#显示管理器开机自启</span>
+sudo systemctl <span style="color:#0086b3">enable</span> gdm.service
+sudo systemctl <span style="color:#0086b3">enable</span> NetworkManager
+reboot
+sudo pacman -S adobe-source-han-sans-cn-fonts <span style="color:#998;font-style:italic">#安装中文字体</span>
+yay -Rsc epiphany <span style="color:#998;font-style:italic">#删除epiphany浏览器</span>
+yay -S google-chrome
+pacman -S firefox firefox-adblock-plus flashplugin
+yay -S firefox-i18n-zh-cn <span style="color:#998;font-style:italic">#中文, 可选</span>
+yay -S gedit gedit-plugins
+yay -S vim
+yay -S emacs
+sudo pacman -Rncd ibus
+gsettings <span style="color:#0086b3">set</span> org.gnome.settings-daemon.plugins.keyboard active <span style="color:#0086b3">false</span> 禁用iBus
+sudo pacman -S fcitx fcitx-configtool fcitx-im fcitx-qt5
+vim ~/.xprofile
+<span style="color:#0086b3">export</span> <span style="color:#008080">GTK_IM_MODULE</span><span style="color:#000;font-weight:bold">=</span>fcitx
+<span style="color:#0086b3">export</span> <span style="color:#008080">QT_IM_MODULE</span><span style="color:#000;font-weight:bold">=</span>fcitx
+<span style="color:#0086b3">export</span> <span style="color:#008080">XMODIFIERS</span><span style="color:#000;font-weight:bold">=</span>@im<span style="color:#000;font-weight:bold">=</span>fcitx
+gsettings <span style="color:#0086b3">set</span> org.gnome.settings-daemon.plugins.xsettings overrides <span style="color:#d14">\</span>
+<span style="color:#d14">&#34;{&#39;Gtk/IMModule&#39;:&lt;&#39;fcitx&#39;&gt;}&#34;</span>
+yay -S gnome-shell-extension-kimpanel-git
+fcitx-configtool 添加输入法
+pacman -Ssq fcitx pinyin 拼音
+yay -S fcitx-sogoupinyin
+pacman -S tar xarchiver
+pacman -S rhythmbox
+pacman -S gimp inkscape
+yay -S uget aria2 <span style="color:#998;font-style:italic">#下载工具</span>
+yay -S wget
+yay -S file-roller p7zip
+yay -S unrar
+yay -S screenfetch
+sudo yay -S virtualbox
+sudo pacman -S virtualbox-guest-utils Virtualbox
+sudo pacman -S virtualbox-modules
+sudo modprobe vboxdrv <span style="color:#998;font-style:italic">#加载内核模块</span>
+pacman -S gparted 分区管理工具
+pacman -S scrot
+pacman -S skype ??
+pacman -S mplayer
+pacman -S codecs gstreamer0.10-bad gstreamer0.10-ugly
+pacman -S gstreamer0.10-ffmpeg
+pacman -S smplayer
+pacman -S vlc
+pacman -S deluge
+pacman -S liferea RSS离线阅读软件
+pacman -S thunderbird 电子邮件客户端
+pacman -S lftp
+pacman -S filezilla
+pacman -S k3b
+gpasswd -a danmo98 optical
+pacman -S archey3
+pacman -S alsi
+pacman -S evince
+pacman -S kchmviewer CHM文档查看器
+pacman -S file-roller
+pacman -S unrar unzip
+pacman -S lilyterm
+pacman -S cowsay
+pacman -S gnome-packagekit
+pacman -S ibus
+pacman -S ibus-rime ibus-libpinyin
+pacman -S ibus-qt
+qtconfig-qt4 将ibus设置为默认输入法
+dconf update 更新dconf配置
+ibus-daemon -rdx 重启ibus
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="参考文章">参考文章</h2>
+<blockquote>
+<p><a href="https://ruiming.me/archlinux-installation/">https://ruiming.me/archlinux-installation/</a></p>
+<p><a href="https://wiki.archlinux.org/index.php/Installation_guide">https://wiki.archlinux.org/index.php/Installation_guide</a></p>
+<p><a href="https://www.viseator.com/2017/05/17/arch_install/">https://www.viseator.com/2017/05/17/arch_install/</a></p>
+<p><a href="https://www.viseator.com/2017/05/19/arch_setup/">https://www.viseator.com/2017/05/19/arch_setup/</a></p>
+<p><a href="https://www.viseator.com/2017/07/02/arch_more/">https://www.viseator.com/2017/07/02/arch_more/</a></p>
+<p><a href="https://bleedingfight.github.io/2018/01/07/arch/">https://bleedingfight.github.io/2018/01/07/arch/</a></p>
+<p><a href="https://www.cnblogs.com/bluestorm/p/5929172.html">https://www.cnblogs.com/bluestorm/p/5929172.html</a></p>
+<p><a href="https://www.mivm.cn/archlinux-vmware/">https://www.mivm.cn/archlinux-vmware/</a></p>
+<p><a href="https://www.zybuluo.com/Mahdi/note/1001705">https://www.zybuluo.com/Mahdi/note/1001705</a></p>
+<p><a href="http://yhhx.tech/2017/06/11/%E7%AC%94%E8%AE%B0/Arch-Linux%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/">http://yhhx.tech/2017/06/11/%E7%AC%94%E8%AE%B0/Arch-Linux%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/</a></p>
+<p><a href="https://moonfoam.github.io/2017/10/04/ArchLinux-installation-note/">https://moonfoam.github.io/2017/10/04/ArchLinux-installation-note/</a></p>
+<p><a href="https://lexuge.github.io/jekyll/update/2017/03/24/Arch%E5%AE%89%E8%A3%85%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97.html">Arch完全指南</a></p>
+<p><a href="https://steemit.com/archlinux/@bigear/install-arch-linux">https://steemit.com/archlinux/@bigear/install-arch-linux</a></p>
+<p><a href="https://xlui.me/t/install-conky/">https://xlui.me/t/install-conky/</a></p>
+<p><a href="https://xlui.me/t/install-xfce4-in-archlinux/">https://xlui.me/t/install-xfce4-in-archlinux/</a></p>
+<p><a href="https://spxg.me/archives/326">https://spxg.me/archives/326</a></p>
+<p><a href="https://spxg.me/archives/286">https://spxg.me/archives/286</a></p>
+<p><a href="http://sparkgis.com/java/2018/02/vmware-workstation%E5%AE%89%E8%A3%85arch-linux%E5%92%8Cxfce%E6%A1%8C%E9%9D%A2%E6%95%99%E7%A8%8B-%E5%8E%9F-vmware-workstation%E5%AE%89%E8%A3%85arch-linux%E5%92%8Cxfce%E6%A1%8C%E9%9D%A2%E6%95%99/">http://sparkgis.com/java/2018/02/vmware-workstation%E5%AE%89%E8%A3%85arch-linux%E5%92%8Cxfce%E6%A1%8C%E9%9D%A2%E6%95%99%E7%A8%8B-%E5%8E%9F-vmware-workstation%E5%AE%89%E8%A3%85arch-linux%E5%92%8Cxfce%E6%A1%8C%E9%9D%A2%E6%95%99/</a></p>
+<p><a href="https://www.jianshu.com/p/61eb6397fa8f">https://www.jianshu.com/p/61eb6397fa8f</a></p>
+<p><a href="https://www.jianshu.com/p/fe2165cc6af8">https://www.jianshu.com/p/fe2165cc6af8</a></p>
+<p><a href="https://bigeagle.me/2014/06/archlinux-install-for-beginners/">https://bigeagle.me/2014/06/archlinux-install-for-beginners/</a></p>
+</blockquote>
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://blog.taielab.com">码中春秋</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.taielab.com/2018/06/01/archlinux-install-guide.html">https://blog.taielab.com/2018/06/01/archlinux-install-guide.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='https://blog.taielab.com/tags/archlinux'>archlinux</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "udpsec/blog-comments"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-11-25/ios-13-checkra-in-repair-the-internet-connection-appears-to-be-offline.html" title="IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误">IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-29/red-team-and-physical-entry-gear-tips.html" title="护网之红方物理入侵旁门左道">护网之红方物理入侵旁门左道</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-05/intranet-roaming-network-traffic-control.html" title="内网漫游系列之流量操控与Socks代理总结">内网漫游系列之流量操控与Socks代理总结</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-27/intranet-roaming-ss-privoxy.html" title="内网漫游系列之正向全局代理ss&#43;Privoxy">内网漫游系列之正向全局代理ss&#43;Privoxy</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-20/centos-7-upgrade-Kernel.html" title="Centos7安装升级最新内核">Centos7安装升级最新内核</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/digital-forensics-live-and-dead.html" title="数字取证-死活取证">数字取证-死活取证</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html" title="Centos7搭建本地yum仓库">Centos7搭建本地yum仓库</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/osint-101-auto-visual.html" title="OSINT101 技术自动化和可视化">OSINT101 技术自动化和可视化</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-21/ubuntu-migrate-to-ssd.html" title="Ubuntu19.04迁移到SSD">Ubuntu19.04迁移到SSD</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-16/kali-linux-double-display-solutions.html" title="双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案">双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.taielab.com/categories/IOS%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">IOS应用逆向与安全 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/Linux/">Linux (11)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%B7%A5%E5%85%B7%E6%95%88%E7%8E%87/">工具效率 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%BC%80%E6%BA%90%E6%83%85%E6%8A%A5%E6%94%B6%E9%9B%86/">开源情报收集 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (30)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/">红蓝对抗 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全 (6)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4/">网络运维 (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.taielab.com/tags/Debian/">Debian</a>
+    
+    <a href="https://blog.taielab.com/tags/IOS/">IOS</a>
+    
+    <a href="https://blog.taielab.com/tags/OSINT/">OSINT</a>
+    
+    <a href="https://blog.taielab.com/tags/archlinux/">archlinux</a>
+    
+    <a href="https://blog.taielab.com/tags/centos/">centos</a>
+    
+    <a href="https://blog.taielab.com/tags/github/">github</a>
+    
+    <a href="https://blog.taielab.com/tags/gitup/">gitup</a>
+    
+    <a href="https://blog.taielab.com/tags/gpg/">gpg</a>
+    
+    <a href="https://blog.taielab.com/tags/hexo/">hexo</a>
+    
+    <a href="https://blog.taielab.com/tags/hugo/">hugo</a>
+    
+    <a href="https://blog.taielab.com/tags/kali-linux/">kali-linux</a>
+    
+    <a href="https://blog.taielab.com/tags/lnmp/">lnmp</a>
+    
+    <a href="https://blog.taielab.com/tags/manjaro/">manjaro</a>
+    
+    <a href="https://blog.taielab.com/tags/meedu/">meedu</a>
+    
+    <a href="https://blog.taielab.com/tags/nessus/">nessus</a>
+    
+    <a href="https://blog.taielab.com/tags/parrot-os/">parrot-os</a>
+    
+    <a href="https://blog.taielab.com/tags/pentestbox/">pentestbox</a>
+    
+    <a href="https://blog.taielab.com/tags/shadowsocks/">shadowsocks</a>
+    
+    <a href="https://blog.taielab.com/tags/tor/">tor</a>
+    
+    <a href="https://blog.taielab.com/tags/ubuntu/">ubuntu</a>
+    
+    <a href="https://blog.taielab.com/tags/vps/">vps</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">内网渗透命令</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%BC%AB%E6%B8%B8/">内网漫游</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/">奇淫技巧</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/">数字安全基础篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%AF%87/">数字安全工具篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">数据库系统原理</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81/">死活取证</a>
+    
+    <a href="https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5/">物理入侵</a>
+    
+    <a href="https://blog.taielab.com/tags/%E8%B8%8F%E9%9B%AA%E6%97%A0%E7%97%95%E7%B3%BB%E5%88%97/">踏雪无痕系列</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="#" title=""></a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://blog.taielab.com/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+</body>
+
+</html>

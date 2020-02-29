@@ -1,0 +1,917 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on 码中春秋&#39;s Blog</title>
+    <link>https://blog.taielab.com/post/</link>
+    <description>Recent content in Posts on 码中春秋&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 25 Nov 2019 14:25:42 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.taielab.com/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误</title>
+      <link>https://blog.taielab.com/2019-11-25/ios-13-checkra-in-repair-the-internet-connection-appears-to-be-offline.html</link>
+      <pubDate>Mon, 25 Nov 2019 14:25:42 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-11-25/ios-13-checkra-in-repair-the-internet-connection-appears-to-be-offline.html</guid>
+      <description>&lt;h1 id=&#34;介绍&#34;&gt;介绍&lt;/h1&gt;
+&lt;p&gt;越狱程序使用checkra1n：https://checkra.in/&lt;/p&gt;
+&lt;p&gt;这个问题只在中国区的苹果手机出现的多&lt;/p&gt;
+&lt;p&gt;修复IOS13.2.2越狱打开越狱程序显示The internet connection appears to be offline 错误和Cydia没有网络错误。&lt;/p&gt;
+&lt;p&gt;关于这个问题的官方ISSUES&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;https://github.com/checkra1n/BugTracker/issues/3 
+https://github.com/parrotgeek1/Globalize.git
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>护网之红方物理入侵旁门左道</title>
+      <link>https://blog.taielab.com/2019-06-29/red-team-and-physical-entry-gear-tips.html</link>
+      <pubDate>Sat, 29 Jun 2019 00:05:58 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-06-29/red-team-and-physical-entry-gear-tips.html</guid>
+      <description>&lt;h2 id=&#34;摘要&#34;&gt;摘要&lt;/h2&gt;
+&lt;p&gt;这篇文章的目的是列出我用于红队参与和物理渗透的所有装备，从真实战争角度入手希望扩展其他人在下一次护网期间有更骚的操作，你们无人机，钻下水道，美人计都用了也不差这一步了=。=。&lt;/p&gt;
+&lt;p&gt;注意：&lt;/p&gt;
+&lt;p&gt;我不隶属于任何列出的商品的公司人员&lt;/p&gt;
+&lt;p&gt;我没有得到广告报酬&lt;/p&gt;
+&lt;p&gt;没有AFF链接&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>内网漫游系列之流量操控与Socks代理总结</title>
+      <link>https://blog.taielab.com/2019-06-05/intranet-roaming-network-traffic-control.html</link>
+      <pubDate>Wed, 05 Jun 2019 15:56:31 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-06-05/intranet-roaming-network-traffic-control.html</guid>
+      <description>&lt;h2 id=&#34;场景&#34;&gt;场景&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;内网机器受到边界防火墙的限制，访问受限的网络环境&lt;/li&gt;
+&lt;li&gt;使用隐蔽的手段逃避安全检查措施和溯源追踪&lt;/li&gt;
+&lt;li&gt;在非受信任的网络中实现安全的数据传输&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;重定向rdirection&#34;&gt;重定向（Rdirection）&lt;/h3&gt;
+&lt;p&gt;端口转发&lt;/p&gt;
+&lt;p&gt;传输使用的明文&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>内网漫游系列之正向全局代理ss&#43;Privoxy</title>
+      <link>https://blog.taielab.com/2019-05-27/intranet-roaming-ss-privoxy.html</link>
+      <pubDate>Mon, 27 May 2019 16:59:17 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-05-27/intranet-roaming-ss-privoxy.html</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/05/27/5ceba69b6a2ee49700.png&#34; alt=&#34;正向代理-1024x491.png&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;安装-ss-客户端&#34;&gt;安装 ss 客户端&lt;/h1&gt;
+&lt;p&gt;shadowsocks安装时是不分客户端还是服务器端的, 只不过安装后有两个脚本一个是sslocal代表以客户端模式工作，一个是ssserver代表以服务器端模式工作。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;1
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;yum install -y python-pip
+pip install https://github.com/shadowsocks/shadowsocks/archive/master.zip -U
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Centos7安装升级最新内核</title>
+      <link>https://blog.taielab.com/2019-05-20/centos-7-upgrade-Kernel.html</link>
+      <pubDate>Mon, 20 May 2019 22:35:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-05-20/centos-7-upgrade-Kernel.html</guid>
+      <description>&lt;p&gt;虽然有些人使用 Linux 来表示整个操作系统，但要注意的是，严格地来说，Linux 只是个内核。另一方面，发行版是一个完整功能的系统，它建立在内核之上，具有各种各样的应用程序工具和库。&lt;/p&gt;
+&lt;p&gt;在正常操作期间，内核负责执行两个重要任务：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;作为硬件和系统上运行的软件之间的接口。&lt;/li&gt;
+&lt;li&gt;尽可能高效地管理系统资源。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;为此，内核通过内置的驱动程序或以后可作为模块安装的驱动程序与硬件通信。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字取证-死活取证</title>
+      <link>https://blog.taielab.com/2019-05-09/digital-forensics-live-and-dead.html</link>
+      <pubDate>Thu, 09 May 2019 22:36:12 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-05-09/digital-forensics-live-and-dead.html</guid>
+      <description>&lt;p&gt;活取证:在主机存活时发现系统被入侵,然后直接把机器的运行内存dump下来，对运行内存进行分析，还原一些进程的中的信息。主要抓取文件metadata,创建时间线,命令历史,分析日志文件,哈希摘要,转存内存信息等数据.&lt;/p&gt;
+&lt;p&gt;死取证:是对机器的磁盘做镜像之后分析的取证方法。用于在关机后制作硬盘镜像,分析镜像(MBR硬盘分区,GPT全局分区表,LVM逻辑卷)是否存在病毒,木马等恶意程序.&lt;/p&gt;
+&lt;p&gt;相比于死取证,活取证是更加的重要,能够获取到当前系统第一手资料,对于分析入侵过程起到了至关重要的作用&lt;/p&gt;
+&lt;p&gt;我们现在构造一个场景,假如公司的一台主机被黑客侵入,当前主机处于运行状态,我们对其进行活取证,调查黑客是如何入侵本系统的.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Centos7搭建本地yum仓库</title>
+      <link>https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html</link>
+      <pubDate>Thu, 09 May 2019 22:34:20 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html</guid>
+      <description>&lt;h3 id=&#34;概述&#34;&gt;概述&lt;/h3&gt;
+&lt;p&gt;不管内部大量部署服务器还是私有云环境，为了能够不受互联网速度和带宽的限制，搭建一个本地yum源是很必要的，尤其在内网环境下。其中epel源是最主要的一个，也是用的最多的，本例介绍在Centos7环境下搭建epel源。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>OSINT101 技术自动化和可视化</title>
+      <link>https://blog.taielab.com/2019-05-09/osint-101-auto-visual.html</link>
+      <pubDate>Thu, 09 May 2019 22:27:47 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-05-09/osint-101-auto-visual.html</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;社交工程、道德黑客、开源情报和信息验证，这些门类在大多数情况下是相通的，它们都需要充分的数据收集、使用的是近似的技术和思考方式，广泛应用于公民社会、调查记者、威胁防御等各种重要领域。本文继续专注于开源情报 #OSINT 收集，重在演示思路，并推荐工具（今后还有更多专门推荐创新工具的文章）希望这些内容能帮助中国的独立调查更加专业，效率更高。&lt;/strong&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu19.04迁移到SSD</title>
+      <link>https://blog.taielab.com/2019-04-21/ubuntu-migrate-to-ssd.html</link>
+      <pubDate>Sun, 21 Apr 2019 13:06:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-04-21/ubuntu-migrate-to-ssd.html</guid>
+      <description>&lt;h2 id=&#34;开工准备&#34;&gt;开工准备&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Ubuntu16.10，PC 上安装，各项迁移步骤运行的环境并作为要迁移到 SSD 的系统。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://gparted.sourceforge.net/&#34;&gt;Gparted Partition Editor&lt;/a&gt;，图形化的分区工具。&lt;/li&gt;
+&lt;li&gt;外接硬盘盒，通过 USB 线将 SSD 连接到 PC 上。&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案</title>
+      <link>https://blog.taielab.com/2019-04-16/kali-linux-double-display-solutions.html</link>
+      <pubDate>Tue, 16 Apr 2019 19:39:40 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-04-16/kali-linux-double-display-solutions.html</guid>
+      <description>&lt;h1 id=&#34;kali安装完系统登录后黑屏&#34;&gt;Kali安装完系统，登录后黑屏&lt;/h1&gt;
+&lt;p&gt;在启动需要选择项的时候，按下e键，进行编辑grub命令，命令如下&lt;/p&gt;
+&lt;p&gt;在倒数第三行加入了&lt;code&gt;nouveau.modeset=0&lt;/code&gt;  【也就是字符quite的后面】&lt;/p&gt;
+&lt;p&gt;然后按下ctrl键+X键，进行启动即可，然后输入登录账户密码，成功进入系统&lt;/p&gt;
+&lt;p&gt;之后成功进入操作系统，然后发现一个问题这个办法需要每次进入操作系统之前执行一遍。&lt;/p&gt;
+&lt;p&gt;按照上面的方法进入系统后，先配置如下：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Manjaro&amp;&amp;Ubuntu双显卡解决方案和Manjaro常用配置</title>
+      <link>https://blog.taielab.com/2019-04-14/manjaro-ubuntu-double-display-solutions-muanul-config.html</link>
+      <pubDate>Sun, 14 Apr 2019 18:55:29 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-04-14/manjaro-ubuntu-double-display-solutions-muanul-config.html</guid>
+      <description>&lt;p&gt;&lt;strong&gt;可以结合作者下面两篇文章一起学会更肥宅&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.inofd.com/2018/06/01/archlinux-install-guide.html&#34;&gt;Archlinux - 基础入门&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.inofd.com/2018/06/16/manjaro-installer-beautify-config.html&#34;&gt;Manjaro配置美化指南&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;基于笔记本型号：惠普光影精灵4&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·工具篇（八）如何使用KeePassXC</title>
+      <link>https://blog.taielab.com/2019-03-27/how-use-keepassxc.html</link>
+      <pubDate>Wed, 27 Mar 2019 14:23:23 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-27/how-use-keepassxc.html</guid>
+      <description>&lt;p&gt;KeePassXC是一个跨平台的密码管理器，允许您将所有密码存储在一个位置。密码管理器是一个为您创建和存储密码的工具，因此您可以在不同的站点和服务上使用许多不同的密码，而不必记住它们。您只需要记住一个主密码，它允许您访问所有密码的加密密码管理器数据库。&lt;/p&gt;
+&lt;p&gt;有许多程序的名称与KeePassXC相似，如KeePassX、KeePass和KeePass2。其中一些是基于相同的代码，而另一些只是使用相同的数据库格式。本指南建议使用KeePassXC，因为它是跨平台的，比一些替代产品开发得更积极。&lt;/p&gt;
+&lt;p&gt;使用密码管理器会创建一个单点故障，并为黑客或对手建立一个明显的目标。研究表明，许多常用的密码管理器都有漏洞，因此在确定这是否是适合您的工具时要谨慎。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;下载地址:&lt;/strong&gt; For Windows/macOS/Linux: &lt;a href=&#34;https://keepassxc.org/download&#34;&gt;https://keepassxc.org/download&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;设备要求:&lt;/strong&gt; Windows 7或更高版本，macOS 10.7或更高版本，Linux(大多数发行版)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;教程使用的版本&lt;/strong&gt;:KeePassXC 2.2.0 (KeePassXC是只支持windows的KeePass程序的跨平台版本)。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;许可证&lt;/strong&gt;: FOSS (primarily GPLv2)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;其他阅读&lt;/strong&gt;: &lt;a href=&#34;https://github.com/keepassxreboot/keepassxc/wiki&#34;&gt;https://github.com/keepassxreboot/keepassxc/wiki&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;级别&lt;/strong&gt;: 初学者&lt;/p&gt;
+&lt;p&gt;**所需时间：**5分钟即可完成设置，之后可以使用强大的密码。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·工具篇（七）如何加密你的iPhone</title>
+      <link>https://blog.taielab.com/2019-03-27/how-encrypt-your-iphone.html</link>
+      <pubDate>Wed, 27 Mar 2019 14:02:30 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-27/how-encrypt-your-iphone.html</guid>
+      <description>&lt;p&gt;如果你有iPhone 3GS或更高版本，iPod touch第三代或更高版本，或任何iPad，你都可以使用加密保护你设备的内容。这意味着，如果有人能够实际访问您的设备，他们还需要您的密码来解密存储在设备上的内容，包括联系人、即时消息或文本、通话记录和电子邮件。&lt;/p&gt;
+&lt;p&gt;事实上，大多数现代苹果设备默认情况下都会对其内容进行加密，并提供不同级别的保护。但是为了防止有人通过物理方式窃取您的设备来获取您的数据，您需要将加密与只有您知道的密码或代码联系起来。有关如何做到这一点的说明，请参见下文。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·工具篇（六）如何开启双因素验证</title>
+      <link>https://blog.taielab.com/2019-03-27/how-enable-two-factor-authentication.html</link>
+      <pubDate>Wed, 27 Mar 2019 13:50:05 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-27/how-enable-two-factor-authentication.html</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://www.eff.org/deeplinks/2016/12/12-days-2fa-how-enable-two-factor-authentication-your-online-accounts&#34;&gt;双因素身份验证&lt;/a&gt;（或“2FA”）是一种让用户通过要求两种不同身份验证方法的组合来向服务提供者标识自己的方法。 这些可能是用户知道的东西（如密码或PIN），用户拥有的东西（如硬件令牌或移动电话），或者附着在用户身上或与用户不可分离的东西（如他们的指纹）。&lt;/p&gt;
+&lt;p&gt;你可能已经在生活的其他部分使用了2FA。当你使用自动取款机取钱时，你必须同时拥有你的银行卡(你拥有的东西)和你的密码(你知道的东西)。然而，目前许多在线服务在默认密码下只使用一个因素来识别用户。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·工具篇（五）如何在Windows上安全删除您的数据</title>
+      <link>https://blog.taielab.com/2019-03-27/how-delete-your-data-securely-windows.html</link>
+      <pubDate>Wed, 27 Mar 2019 13:34:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-27/how-delete-your-data-securely-windows.html</guid>
+      <description>&lt;p&gt;下载位置：https://www.bleachbit.org/download/windows&lt;/p&gt;
+&lt;p&gt;计算机要求：Windows XP或更高版本&lt;/p&gt;
+&lt;p&gt;本指南中使用的版本：BleachBit 2.0&lt;/p&gt;
+&lt;p&gt;许可证：GPLv3&lt;/p&gt;
+&lt;p&gt;级别：初学者&lt;/p&gt;
+&lt;p&gt;所需时间：10分钟到几个小时（取决于要安全删除的文件/磁盘的大小）&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>在线教育点播Meedu部署细节</title>
+      <link>https://blog.taielab.com/2019-03-27/online-teach-vod-meedu-deploy-details.html</link>
+      <pubDate>Wed, 27 Mar 2019 12:48:26 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-27/online-teach-vod-meedu-deploy-details.html</guid>
+      <description>&lt;h2 id=&#34;介绍&#34;&gt;介绍&lt;/h2&gt;
+&lt;p&gt;随着知识付费领域的兴起，尤其是知识付费领域的龙头“得到”的成功，知识付费领域俨然成为了新的风口。经过这几年的发展，知识付费领域的基础建设有了很大的进步，市场上面很多知识付费的平台可以在短短几分钟之内搭建一套属于自己的知识付费应用。但是，这并不是我想要的！可能是处于程序员的角度出发，我更在乎的是这套应用是我自己可以完全控制的！所以 &lt;em&gt;MeEdu&lt;/em&gt; 诞生了。&lt;em&gt;MeEdu&lt;/em&gt; 寄托了我对当前知识付费领域的期望。我相信未来的每位身负技能的人都可以通过 &lt;em&gt;MeEdu&lt;/em&gt; 来构建自己的知识付费应用，通过 &lt;em&gt;MeEdu&lt;/em&gt; 将自己的知识进行变现。适用于企业内网培训多媒体建立，培训机构线下录课点播。&lt;/p&gt;
+&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
+&lt;p&gt;**Github地址：**&lt;a href=&#34;https://github.com/Qsnh/meedu&#34;&gt;https://github.com/Qsnh/meedu&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;**环境要求：**&lt;code&gt;PHP &amp;gt;= 7.2&lt;/code&gt;、&lt;code&gt;MySql &amp;gt;= 5.6&lt;/code&gt;、&lt;code&gt;Composer&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;**PHP扩展：**&lt;code&gt;Zip&lt;/code&gt;、&lt;code&gt;OpenSSL&lt;/code&gt;、&lt;code&gt;PDO&lt;/code&gt;、&lt;code&gt;Mbstring&lt;/code&gt;、&lt;code&gt;Tokenizer&lt;/code&gt;、&lt;code&gt;XML&lt;/code&gt;、&lt;code&gt;Fileinfo&lt;/code&gt;。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·工具篇（四）如何在macOS安全删除您的数据</title>
+      <link>https://blog.taielab.com/2019-03-14/how-delete-your-data-securely-macos.html</link>
+      <pubDate>Thu, 14 Mar 2019 22:34:14 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-14/how-delete-your-data-securely-macos.html</guid>
+      <description>&lt;p&gt;注意：现代版本的macOS将提示您使用FileVault 2加密整个驱动器。 我们强烈建议您采取此步骤来保护您的数据。 如果您加密整个驱动器，则不必担心安全删除，因为主加密密钥受您控制的密码保护，并且您可以更改或擦除以使驱动器上的数据无法恢复。 有关使用FileVault 2加密的&lt;a href=&#34;https://support.apple.com/en-us/ht204837&#34;&gt;更多信息&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;以下说明只能用于从旋转驱动器中安全删除数据。这些说明仅适用于传统磁盘驱动器，不适用于固态驱动器，固态驱动器是现代计算机、u盘/u盘或SD卡/闪存卡的标准配置。安全删除固态硬盘、u盘和SD卡非常困难！这是因为这些类型的驱动器使用一种称为磨损均衡的技术，并且不提供对存储在驱动器上的位的低级访问。(您可以在这里阅读更多关于这导致安全删除问题的原因。)如果您使用固态硬盘或u盘，您可以跳到下面的部分。&lt;/p&gt;
+&lt;p&gt;您是否知道当您将计算机上的文件移动到计算机的垃圾文件夹并清空垃圾箱时，该文件是否已完全删除？ 计算机通常不会“删除”文件; 当您将文件移动到垃圾箱时，您的计算机只会使该文件不可见，并允许其占用的空间在将来的某个时间被其他内容覆盖。 因此，在覆盖该文件之前可能需要数周，数月甚至数年。 在此之前，“已删除”文件仍在您的磁盘上; 它只是对正常操作不可见。 通过一些工作和正确的工具（例如“取消删除”软件或取证方法），可以检索“已删除”文件。&lt;/p&gt;
+&lt;p&gt;那么，永久删除文件的最佳方法是什么？ 确保它立即被覆盖。 这使得难以检索那里曾经写过的内容。 您的操作系统已经拥有可以为您执行此操作的软件 - 可以用乱码覆盖磁盘上所有空白空间的软件，从而保护已删除数据的机密性。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·工具篇（三）如何在Linux上安全删除您的数据</title>
+      <link>https://blog.taielab.com/2019-03-14/how-delete-your-data-securely-linux.html</link>
+      <pubDate>Thu, 14 Mar 2019 21:48:07 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-14/how-delete-your-data-securely-linux.html</guid>
+      <description>&lt;p&gt;下载位置：https://www.bleachbit.org/download/linux&lt;/p&gt;
+&lt;p&gt;计算机要求：任何主要的Linux发行版。 作为参考，本指南使用Ubuntu 18.04。&lt;/p&gt;
+&lt;p&gt;本指南中使用的版本：BleachBit 2.0&lt;/p&gt;
+&lt;p&gt;许可证：GPLv3&lt;/p&gt;
+&lt;p&gt;级别：初学者&lt;/p&gt;
+&lt;p&gt;所需时间：10分钟到几个小时（取决于要安全删除的文件/磁盘的大小）&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·工具篇（二）如何规避在线审查</title>
+      <link>https://blog.taielab.com/2019-03-11/how-circumvent-online-censorship.html</link>
+      <pubDate>Mon, 11 Mar 2019 21:25:59 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-11/how-circumvent-online-censorship.html</guid>
+      <description>&lt;p&gt;这是对规避在线审查的简短概述，但绝不是全面的。&lt;/p&gt;
+&lt;p&gt;政府、公司、学校和互联网供应商有时使用软件来阻止用户访问某些网站和服务。这被称为互联网过滤或封锁，是一种审查形式。过滤有不同的形式。审查人员可以封锁个别网页，甚至整个网站。有时，内容会根据其包含的关键字屏蔽。&lt;/p&gt;
+&lt;p&gt;打击网络审查有不同的方法。有些人保护你免受监视，但许多人却没有。当控制你的网络连接的人过滤或阻止一个站点时，你几乎总是可以使用规避工具来获取你需要的信息。注意:承诺隐私或安全的规避工具并不总是私有或安全的。使用“anonymizer”等术语的工具并不总是完全保密你的身份。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·工具篇（一）如何避免网络钓鱼攻击</title>
+      <link>https://blog.taielab.com/2019-03-11/how-avoid-phishing-attacks.html</link>
+      <pubDate>Mon, 11 Mar 2019 20:57:08 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-11/how-avoid-phishing-attacks.html</guid>
+      <description>&lt;p&gt;在提高数字安全的道路上，你可能会遇到试图破坏你的安全目标的坏人。我们称这些坏人为对手。当对手发送一封看似正常但实际上恶意的电子邮件或链接时，这被称为网络钓鱼。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Centos7配置多版本ShadowSocks和全局代理</title>
+      <link>https://blog.taielab.com/2019-03-07/centos-7-install-multi-shadowsocks.html</link>
+      <pubDate>Thu, 07 Mar 2019 10:30:02 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-07/centos-7-install-multi-shadowsocks.html</guid>
+      <description>&lt;h1 id=&#34;两个版本选择&#34;&gt;两个版本选择&lt;/h1&gt;
+&lt;h2 id=&#34;安装配置-shadowsockspython版本&#34;&gt;安装配置 Shadowsocks（python版本）&lt;/h2&gt;
+&lt;p&gt;安装 YUM 源和编译链&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;yum install -y epel-release curl gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto udns-devel libev-devel mbedtls-devel libsodium-devel c-ares-devel
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·基础篇（完结篇）你的安全计划</title>
+      <link>https://blog.taielab.com/2019-03-05/your-security-plan.html</link>
+      <pubDate>Tue, 05 Mar 2019 14:23:49 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-05/your-security-plan.html</guid>
+      <description>&lt;p&gt;试图在任何时候都不让任何人知道您的所有数据是不切实际的，也是令人疲惫的。但是，不要害怕!安全是一个过程，通过周密的计划，你可以制定一个适合自己的计划。安全性不仅仅是您使用的工具或下载的软件。首先要了解您所面临的独特威胁以及如何应对这些威胁。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·基础篇（十一）为什么元数据很重要</title>
+      <link>https://blog.taielab.com/2019-03-05/why-metadata-matters.html</link>
+      <pubDate>Tue, 05 Mar 2019 14:11:00 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-05/why-metadata-matters.html</guid>
+      <description>&lt;p&gt;在数字通信环境中，元数据相当于一个信封，它是关于您发送和接收的通信的信息。电子邮件的主题行、对话的长度、通信时的位置(以及与谁通信)都是元数据的类型。元数据通常被描述为通信内容之外的所有内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·基础篇（十）关于加密，我应该知道什么？</title>
+      <link>https://blog.taielab.com/2019-03-05/what-should-i-know-about-encryption.html</link>
+      <pubDate>Tue, 05 Mar 2019 13:13:36 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-05/what-should-i-know-about-encryption.html</guid>
+      <description>&lt;p&gt;您可能听说过加密这个术语在不同的上下文中使用，并与不同的单词相关联。通常，加密是指使消息不可读的数学过程，只有拥有将其解密为可读形式的密钥的人才能读懂。&lt;/p&gt;
+&lt;p&gt;纵观历史，人们一直使用加密技术相互发送消息，(希望)除了预期的接收者以外，任何人都无法读取这些消息。今天，我们拥有能够为我们执行加密的计算机。数字加密技术已经超越了简单的秘密信息;现在，今天，您可以将加密用于更复杂的目的，例如，验证消息的作者。&lt;/p&gt;
+&lt;p&gt;加密是我们保护信息免受不良行为者、政府和服务提供商攻击的最佳技术，并且它已经发展到在正确使用时几乎不可能破解。&lt;/p&gt;
+&lt;p&gt;在本指南中，我们将了解应用加密的两种主要方式:对静态数据和传输中的数据进行加密。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·基础篇（九）数字安全的七个步骤</title>
+      <link>https://blog.taielab.com/2019-03-05/seven-steps-digital-security.html</link>
+      <pubDate>Tue, 05 Mar 2019 11:43:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-05/seven-steps-digital-security.html</guid>
+      <description>&lt;h2 id=&#34;知识就是力量&#34;&gt;知识就是力量&lt;/h2&gt;
+&lt;p&gt;一个好的安全决策始于对自身情况有适当的了解。 首先，问自己以下问题：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;我想保护什么？&lt;/li&gt;
+&lt;li&gt;我想从谁那里保护它？&lt;/li&gt;
+&lt;li&gt;我有多大可能需要保护它？&lt;/li&gt;
+&lt;li&gt;如果我失败，后果会有多糟糕？&lt;/li&gt;
+&lt;li&gt;我愿意花多少钱来防止潜在的后果？&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;威胁建模：一种思考数据保护类型的方式，这样你就可以决定你要认真对待哪些潜在的威胁。不可能保护您不受各种欺骗或对手的攻击，因此您应该将注意力集中在哪些人可能需要您的数据、他们可能希望从中获得什么以及如何获得这些数据。提出一组您计划防范的可能威胁称为威胁建模或风险评估。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;回答完这些问题后，您可以更好地评估数字安全需求并创建安全计划或威胁模型。 你已经拥有比你想象的更多的力量！&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·基础篇（八）如何保护您的数字安全</title>
+      <link>https://blog.taielab.com/2019-03-05/how-to-keeping-your-data-safe.html</link>
+      <pubDate>Tue, 05 Mar 2019 11:14:20 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-05/how-to-keeping-your-data-safe.html</guid>
+      <description>&lt;p&gt;如果你有智能手机、笔记本电脑或平板电脑，你随时都会随身携带大量数据。你的社交联系人、私人通信、个人文档和个人照片(其中许多都有数十人甚至数千人的机密信息)只是你可能存储在数字设备上的一些例子。因为我们存储和携带了如此多的数据，所以很难保证数据的安全——尤其是因为数据可以相对容易地从你这里取走。&lt;/p&gt;
+&lt;p&gt;你的数据可以在边境被没收，在街上被取走，或者从你家被盗，几秒钟内就被复制。不幸的是，如果你的设备被截获，用密码、PIN或手势锁定你的设备可能无法保护你的数据。绕过这种锁相对容易，因为你的数据以易于阅读的形式存储在设备中。对手只需要直接访问存储，就可以在没有密码的情况下复制或检查您的数据。&lt;/p&gt;
+&lt;p&gt;话虽如此，你可以让那些窃取你数据的人更难解开数据的秘密。这里有几种方法可以帮助您保护数据安全。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·基础篇（七）如何创建强密码</title>
+      <link>https://blog.taielab.com/2019-03-02/how-to-creating-strong-passwords.html</link>
+      <pubDate>Sat, 02 Mar 2019 12:41:57 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-02/how-to-creating-strong-passwords.html</guid>
+      <description>&lt;h2 id=&#34;使用密码管理器创建强密码&#34;&gt;使用密码管理器创建强密码&lt;/h2&gt;
+&lt;p&gt;重复使用密码是非常糟糕的安全做法。如果一个黑客得到了你在多个服务中重复使用的密码，他们可以访问你的许多账户。这就是为什么拥有多个强有力的唯一密码如此重要的原因。&lt;/p&gt;
+&lt;p&gt;幸运的是，密码管理器可以提供帮助。密码管理器是为您创建和存储密码的工具，因此您可以在不同的站点和服务上使用许多不同的密码，而不必记住它们。密码管理器:&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·基础篇（五）如何选择保护自己的数据安全工具</title>
+      <link>https://blog.taielab.com/2019-03-02/how-to-choosing-your-tools.html</link>
+      <pubDate>Sat, 02 Mar 2019 10:34:49 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-02/how-to-choosing-your-tools.html</guid>
+      <description>&lt;p&gt;​	有这么多的公司和网站提供帮助个人提高数字安全的工具，你如何选择适合自己的工具?我们并没有一个万无一失的工具列表来保护您(尽管您可以在我们的工具指南中看到一些常见的选择)。但是，如果您很清楚要保护的是什么，以及要保护的对象是谁，那么本指南可以帮助您使用一些基本的指导原则来选择适当的工具。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;请记住，安全性与您使用的工具或您下载的软件无关。 首先要了解您面临的独特威胁以及如何应对这些威胁。 查看我们的评估您的风险指南以获取更多信息。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·基础篇（六）如何安全的与他人网络社交</title>
+      <link>https://blog.taielab.com/2019-03-02/how-to-communicating-others.html</link>
+      <pubDate>Sat, 02 Mar 2019 10:34:49 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-02/how-to-communicating-others.html</guid>
+      <description>&lt;pre&gt;&lt;code&gt;电信网络和互联网使人们的沟通比以往更容易，但也使监控更加普遍。 如果不采取额外措施保护您的隐私，每个电话，短信，电子邮件，即时消息，视频和音频聊天以及社交媒体消息都可能容易受到窃听者的攻击。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;​	通常，最隐私保护的与他人沟通的方式是亲自参与，而根本不涉及计算机或电话。 因为这并不总是可行，所以下一个最好的办法是使用端到端加密。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·基础篇（四）如何使用密码管理器保证账户安全</title>
+      <link>https://blog.taielab.com/2019-02-28/how-to-using-password-managers-stay-safe-online.html</link>
+      <pubDate>Thu, 28 Feb 2019 21:50:28 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-02-28/how-to-using-password-managers-stay-safe-online.html</guid>
+      <description>&lt;!-- raw HTML omitted --&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·基础篇（三）如何保护设备避免黑客攻击</title>
+      <link>https://blog.taielab.com/2019-02-28/how-to-protecting-your-device-hackers.html</link>
+      <pubDate>Thu, 28 Feb 2019 21:34:22 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-02-28/how-to-protecting-your-device-hackers.html</guid>
+      <description>&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;​	恶意攻击者可以控制你的设备——无论它是笔记本电脑、台式电脑、智能手机还是平板电脑——并利用它来了解更多关于你的信息、监视你或种植木马。这个动画解释了电脑被控制的几种方式(或“pwned“, ”0wned“，等等)。)，以及如何保护自己。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·基础篇（二）·如何使用Dice制作超级安全的密码</title>
+      <link>https://blog.taielab.com/2019-01-23/how-make-super-secure-password-using-dice.html</link>
+      <pubDate>Wed, 23 Jan 2019 14:56:24 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-01-23/how-make-super-secure-password-using-dice.html</guid>
+      <description>&lt;p&gt;​	 &lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;秘密意味着被记忆或以其他方式受到保护并保密，并且意味着限制对某些内容的访问，以便只有知道密码的人才能获得访问权限。 它可能会限制对在线帐户，设备或其他内容的访问。 基于多个单词的长密码也可称为“密码短语”，以提醒我们它不仅仅是一个“单词”。 主密码是用于在密码管理器或密码安全应用程序中解锁其他密码的主密码。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;计算机密码可以解锁大量信息，但有些密码非常简单，攻击者很容易穷举爆破到它们。 一个常见的最佳做法是避免使用熟悉的密码（如“iloveyou”），并在密码中添加符号或数字，使其更难被穷举爆破。 然而，攻击者现在使用计算机程序来猜测密码 - 这些程序每秒都可以猜出数百万个密码。 这样的攻击者无法猜测的密码需要长而随机。 但是长的随机密码对于仅仅是普通用户来说是难以记住的。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·基础篇（一）如何使用强加密避免在线监测</title>
+      <link>https://blog.taielab.com/2018-12-22/how-strong-encryption-can-help-avoid-online-surveillance.html</link>
+      <pubDate>Sat, 22 Dec 2018 14:03:13 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-12-22/how-strong-encryption-can-help-avoid-online-surveillance.html</guid>
+      <description>&lt;p&gt;​	不久前，间谍还是一项劳动密集型的工作，需要大量的资源和明确的目标。如今，政府或对手更容易监视个人或者是每个人。生活在21世纪意味着，当你使用互联网保存、编辑或分享某样东西时，你就容易受到监视。&lt;/p&gt;
+&lt;p&gt;​	&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>踏雪无痕系列·个人软件层面</title>
+      <link>https://blog.taielab.com/2018-10-25/personal-software-protect.html</link>
+      <pubDate>Thu, 25 Oct 2018 10:53:04 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-10-25/personal-software-protect.html</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>踏雪无痕系列·网络层面（四）——物理隔离之虚拟机隔离</title>
+      <link>https://blog.taielab.com/2018-10-24/virtual-machine-physical-isolation.html</link>
+      <pubDate>Wed, 24 Oct 2018 16:33:53 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-10-24/virtual-machine-physical-isolation.html</guid>
+      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;本文介绍了物理隔离的虚拟机隔离丐版-也就是穷鬼的方案不用买实体机的。VirtualBox和Vmware的使用教程自己去网上搜我就不造轮子了！！&lt;/p&gt;
+&lt;p&gt;**tips:**如果虚拟化软件（比如 VirtualBox、VMware、KVM &amp;hellip;）本身出现了安全漏洞，并且这个安全漏洞会导致虚拟机被穿透；然后，Guest OS 正好又感染了恶意软件；而相关恶意代码正好又能够利用这个漏洞进行穿透；那么，该恶意代码就有可能从 Guest OS 入侵 Host OS。一旦恶意代码能够侵入 Host OS，理论上它就可以访问这个 Host OS 上的所有 Guest OS。在这种情况下，“虚拟机隔离”的措施就【失效】了。
+　　出现上述情况的概率是非常低的——需要好几个条件【同时】具备。因此，能够进行这种攻击的，必然是比较高级的入侵者，而且这个入侵者对入侵对象必须有深入的了解：
+知道对方用的是什么类型的虚拟化软件（不同的虚拟化软件，其安全漏洞的情况全然不同），
+知道对方用的 Guest OS 是什么类型的系统
+知道对方用的 Host OS 是什么类型的系统&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>踏雪无痕系列·操作系统层面</title>
+      <link>https://blog.taielab.com/2018-10-24/operation-system-layer-defend.html</link>
+      <pubDate>Wed, 24 Oct 2018 15:34:13 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-10-24/operation-system-layer-defend.html</guid>
+      <description>&lt;p&gt;​	今天的主题是操作系统相关的防范。而操作系统相关的防范，归根结底，就是保护你操作系统中的【各种数据】不被泄露。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>踏雪无痕系列·网络层面（三）——IP-Anonymous</title>
+      <link>https://blog.taielab.com/2018-10-24/ip-address-anonymous.html</link>
+      <pubDate>Wed, 24 Oct 2018 15:22:43 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-10-24/ip-address-anonymous.html</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;在网络方面，要想隐藏自己，重点是要保护好自己的真实IP和通讯内容。下面细细道来。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>踏雪无痕系列·开篇——入门篇</title>
+      <link>https://blog.taielab.com/2018-10-24/getting-started-manual.html</link>
+      <pubDate>Wed, 24 Oct 2018 15:11:13 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-10-24/getting-started-manual.html</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;我们都需要有地方可以去探索而不依靠别人施加在我们身上的眼光，只有在一个不必被放大检视的地方我们才可以真正地测试出自己的极限。真正的私域才能允许不同声音、创造力和个人试探式的谎言。&lt;/p&gt;
+&lt;p&gt;Glenn Greenwald in &lt;a href=&#34;http://www.huffingtonpost.com/2014/06/20/glenn-greenwald-privacy_n_5509704.html&#34;&gt;Huffington Post&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;主张你不在意个人隐私的权利因为你无不可告人之处，这就等同于你不在意言论自由因为你没什么事情可说。&lt;/p&gt;
+&lt;p&gt;Edward Snowden on &lt;a href=&#34;https://www.reddit.com/r/IAmA/comments/36ru89/just_days_left_to_kill_mass_surveillance_under/crglgh2&#34;&gt;reddit&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;安全圈有一句名言：&lt;/p&gt;
+&lt;p&gt;“绝对的安全是不存在的”。&lt;/p&gt;
+&lt;p&gt;只要付出足够高的成本，任何安全防线都可以突破&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>GitUp批量PUll更新GitHub项目</title>
+      <link>https://blog.taielab.com/2018-10-24/gitup-batch-pull-update-github-project.html</link>
+      <pubDate>Wed, 24 Oct 2018 14:17:06 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-10-24/gitup-batch-pull-update-github-project.html</guid>
+      <description>&lt;h2 id=&#34;介绍&#34;&gt;介绍&lt;/h2&gt;
+&lt;p&gt;gitup（git-repo-updater） gitup是一个用于一次更新多个git存储库的工具。 它足够聪明，可以处理多个远程仓库，脏工作目录，分散的本地分支，分离的HEAD等等。 它最初是为管理大量项目和处理零星的互联网访问而创建的。 gitup适用于macOS，Linux和Windows。 您应该安装最新版本的git，并安装Python 2.7或Python 3。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数据加密系列——GPG加密Email</title>
+      <link>https://blog.taielab.com/2018-10-20/gpg-encrypt-mail.html</link>
+      <pubDate>Sat, 20 Oct 2018 13:20:00 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-10-20/gpg-encrypt-mail.html</guid>
+      <description>&lt;p&gt;通常，术语GnuPG，GPG，GNU Privacy Guard，OpenPGP和PGP 可互换使用（可交换地）。从技术上讲，OpenPGP的是 加密标准，以及GNU隐私卫士（通常缩短（缩短）至GPG和或GnuPG）是程序工具（工具）的标准。Enigmail是一个插件（插件程序）程序，用于您的电子邮件程序，为GnuPG 提供界面（界面）。Email 是一个伟大的发明。但多数人不知道，网络上的 email, 与其说是邮件，倒不如说是明信片：任何一个参与投递的节点，都可以阅览其中的内容。他们不仅可以搜集信息，还能伪造你的身份，做不法的勾当。想要安全地投递邮件，就要把明信片装进信封里，贴上自己的防伪标签。这样邮件的内容就无法被第三方获知，第三方也不能以你的身份发邮件了。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数据加密系列——如何创建完美的GPG密钥对</title>
+      <link>https://blog.taielab.com/2018-10-19/create-gpg-key.html</link>
+      <pubDate>Fri, 19 Oct 2018 21:57:54 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-10-19/create-gpg-key.html</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://www.gnupg.org/&#34;&gt;GnuPG&lt;/a&gt;是一款非常优秀加密软件，它在我们的数字生活中扮演了极其重要的角色。越来越多的同学都开始尝试用它进行日常的签名、验证、加密和解密等工作。虽然与其相关的中文教程已经有很多，写出这篇博文，希望大家都能够用加密技术保护好自己的隐私及生命。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数据加密系列——GPG加密 Github Commits</title>
+      <link>https://blog.taielab.com/2018-10-19/gpg-encrypt-github-commits.html</link>
+      <pubDate>Fri, 19 Oct 2018 21:30:55 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-10-19/gpg-encrypt-github-commits.html</guid>
+      <description>&lt;p&gt;GnuPG（简称 GPG），它是目前最流行、最好用的开源加密工具之一。使用教程可以看本博客的&lt;a href=&#34;https://blog.inofd.com/2018-10-19/create-gpg-key.html&#34;&gt;数据加密系列——如何创建完美的GPG密钥对&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;GPG 有许多用途，比如对文件，邮件的加密。而本文要说的是，如何使用 GPG 来加密 Github Commits。
+在 Github 上查看一些项目的 Commits 时，偶尔会发现「This commit was signed with a verified signature.」字样。可以防止一些渗透测试挖洞者在github抓你commits漏洞而产出的一个安全防护措施。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Linux三剑客·字典数据清洗</title>
+      <link>https://blog.taielab.com/2018-10-19/linux-dictionary-data-cleaning.html</link>
+      <pubDate>Fri, 19 Oct 2018 12:54:04 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-10-19/linux-dictionary-data-cleaning.html</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>内网漫游系列之内网渗透常用命令</title>
+      <link>https://blog.taielab.com/2018-10-19/network-infiltration-command.html</link>
+      <pubDate>Fri, 19 Oct 2018 12:41:27 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-10-19/network-infiltration-command.html</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;整合了一些常用的用于内网渗透的时候使用的一些命令，用于备忘和查找。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Docker部署NessusV7详解</title>
+      <link>https://blog.taielab.com/2018-10-18/nessus-deploy-in-docker-tutorial.html</link>
+      <pubDate>Thu, 18 Oct 2018 13:09:13 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-10-18/nessus-deploy-in-docker-tutorial.html</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>国外VPS工单常用话术</title>
+      <link>https://blog.taielab.com/2018-10-17/Foreign-VPS-ticket-commonly-used-words.html</link>
+      <pubDate>Wed, 17 Oct 2018 14:09:02 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-10-17/Foreign-VPS-ticket-commonly-used-words.html</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;现在很多朋友都有购买vps的需要，但是很多都是国外的商家，英文毕竟POOL的朋友不免有些头痛。本篇文章就介绍下VPS购买及后期沟通中常用的英文语句。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;1
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;2
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;3
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;4
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;5
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;6
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;续费：renew          
+退款：refund
+有货：in stock       
+没货：out of stock
+母鸡：Node           
+负载：load
+流量：bandwidth
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>LNMP架构基础调优</title>
+      <link>https://blog.taielab.com/2018-10-17/lnmp-architecture-base-optimization.html</link>
+      <pubDate>Wed, 17 Oct 2018 13:56:11 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-10-17/lnmp-architecture-base-optimization.html</guid>
+      <description>&lt;h1 id=&#34;php优化&#34;&gt;PHP优化&lt;/h1&gt;
+&lt;p&gt;修改&lt;code&gt;/usr/local/php/etc/php-fpm.conf &lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;php 5.2&lt;/p&gt;
+&lt;p&gt;调整：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;max_children&lt;/code&gt;的值
+php 5.3+&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>踏雪无痕系列·网络层面（一） —— Tor使用meek流量混淆插件</title>
+      <link>https://blog.taielab.com/2018-10-17/meek-plugins-tor-portable-config.html</link>
+      <pubDate>Wed, 17 Oct 2018 12:59:49 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-10-17/meek-plugins-tor-portable-config.html</guid>
+      <description>&lt;p&gt;下载裸Tor（独立功能的Tor）：
+进入Tor官网下载（要翻墙）点击这里&amp;raquo;&lt;code&gt;点击Microsoft Windows&lt;/code&gt; &amp;raquo; &lt;code&gt;找到Expert Bundle&lt;/code&gt; &amp;raquo; &lt;code&gt;点击Download&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;全部文件解压到同一个目录，&lt;code&gt;Data\Tor\&lt;/code&gt;内的文件，放到tor.exe同目录下&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>网络操作系统学习笔记</title>
+      <link>https://blog.taielab.com/2018-10-02/network-operating-system-learnnote.html</link>
+      <pubDate>Tue, 02 Oct 2018 13:55:56 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-10-02/network-operating-system-learnnote.html</guid>
+      <description>&lt;p&gt;1操作系统的基本概念&lt;/p&gt;
+&lt;p&gt;1.计算机系统的定义&lt;/p&gt;
+&lt;p&gt;计算机系统是一种可以按用户的要求接收和存储信息、自动进行数据处理并输出结果信
+息的系统&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数据库系统原理学习笔记（二）-数据库设计和ER图</title>
+      <link>https://blog.taielab.com/2018-09-30/database-system-principle-leannote-db-er-designer.html</link>
+      <pubDate>Sun, 30 Sep 2018 21:48:40 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-09-30/database-system-principle-leannote-db-er-designer.html</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;了解和掌握数据库应用系统设计的全过程,掌握巸模型和关系模型的基本概念,掌握
+概念设计中E模型的设计方法,掌握逻辑设计中ER模型向关系模型转换的方法&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>数据库系统原理学习笔记（一）-基本概念</title>
+      <link>https://blog.taielab.com/2018-09-30/database-system-principle-leannote-base.html</link>
+      <pubDate>Sun, 30 Sep 2018 12:49:57 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-09-30/database-system-principle-leannote-base.html</guid>
+      <description>&lt;h1 id=&#34;1数据管理技术的发展&#34;&gt;1.数据管理技术的发展&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;分为四个阶段:人工管理阶段、文件系统阶段、数据库阶段和高级数据库阶段&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;(1)人工管理阶段&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;此阶段只有程序,没有文件概念;一组数据对应一个程序&lt;/p&gt;
+&lt;p&gt;人工管理阶段数据管理的特点&lt;/p&gt;
+&lt;p&gt;①数据不保存在计算机内;(只有RAM(随机存取存储器),没有ROM(只读存储器))&lt;/p&gt;
+&lt;p&gt;②没有专用的软件对数据进行管理;(程序和数据放在一起,相互影响)&lt;/p&gt;
+&lt;p&gt;③只有程序的概念,没有文件的概念:(没有数据库文件)&lt;/p&gt;
+&lt;p&gt;④数据面向程序。(一组数据对应一个程序)&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>树莓派系列（二）- 实战应用案例</title>
+      <link>https://blog.taielab.com/2018-09-19/raspberrypi-application-use-cases.html</link>
+      <pubDate>Wed, 19 Sep 2018 11:51:41 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-09-19/raspberrypi-application-use-cases.html</guid>
+      <description>&lt;p&gt;记录了自己使用树莓派期间的所有使用笔记记录-前人栽树后人乘凉也为了自己以后可以快速查找备忘。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Manjaro配置美化指南</title>
+      <link>https://blog.taielab.com/2018/06/16/manjaro-installer-beautify-config.html</link>
+      <pubDate>Sat, 16 Jun 2018 15:48:42 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018/06/16/manjaro-installer-beautify-config.html</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;本篇文章可以结合本博客的&lt;a href=&#34;&#34;&gt;Archlinux安装指南&lt;/a&gt;的后续优化的后面文章来整体的配置美化。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Archlinux - 基础入门</title>
+      <link>https://blog.taielab.com/2018/06/01/archlinux-install-guide.html</link>
+      <pubDate>Fri, 01 Jun 2018 20:35:36 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018/06/01/archlinux-install-guide.html</guid>
+      <description>&lt;h3 id=&#34;制作安装媒介&#34;&gt;制作安装媒介&lt;/h3&gt;
+&lt;p&gt;首先到&lt;a href=&#34;https://www.archlinux.org/download/&#34;&gt;这里&lt;/a&gt;下载最新的官方 Arch Linux 安装媒介。然后，可以选择刻录或者写入到 USB 闪存盘或存储卡。&lt;/p&gt;
+&lt;p&gt;利用 dd 命令可以将安装媒介写入 USB 闪存盘或存储卡，参见&lt;a href=&#34;https://wiki.archlinux.org/index.php/USB_Installation_Media&#34;&gt;这里&lt;/a&gt;：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ dd bs=4M if=/path/to/archlinux.iso of=/dev/sdx &amp;amp;&amp;amp; sync
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;完成后，用安装媒介启动电脑。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Linux提权指南</title>
+      <link>https://blog.taielab.com/2018-04-01/linux-getshell-guide.html</link>
+      <pubDate>Sun, 01 Apr 2018 22:21:29 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-04-01/linux-getshell-guide.html</guid>
+      <description>&lt;h1 id=&#34;介绍&#34;&gt;介绍&lt;/h1&gt;
+&lt;p&gt;新年有想做一个类似于国外的EFF组织的关于数字安全的一些内容，有英文不错的可以PM我进行协同翻译，没有工资哟就是纯公益行为。&lt;/p&gt;
+&lt;p&gt;希望本指南能为新手和想进一步学习没有关注到这些小细节的朋友提供良好的视角。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Windows提权指南</title>
+      <link>https://blog.taielab.com/2018-04-01/windows-getshell-guide.html</link>
+      <pubDate>Sun, 01 Apr 2018 22:16:16 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-04-01/windows-getshell-guide.html</guid>
+      <description>&lt;h1 id=&#34;介绍&#34;&gt;介绍&lt;/h1&gt;
+&lt;p&gt;希望本指南能为新手和想进一步学习没有关注到这些小细节的朋友提供良好的视角。&lt;/p&gt;
+&lt;h2 id=&#34;指南布局&#34;&gt;指南布局&lt;/h2&gt;
+&lt;p&gt;在每个部分中，我首先提供CMD命令，然后是一个Powershell的同等命令。同时拥有这两种工具感觉更方便，Powershell比传统的CMD更适用于脚本。然而并不是Powershell适用于全部场景（或者CMD在某些事情上仍然简单/更好），所以一些部分将只包含常规的CMD命令。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>渗透系统Parrot Os之使用手册</title>
+      <link>https://blog.taielab.com/2017-12-21/parrot-os-handbook.html</link>
+      <pubDate>Thu, 21 Dec 2017 19:51:14 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017-12-21/parrot-os-handbook.html</guid>
+      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;昨天自己在做主机渗透时候强行在ubuntu上面安装veil-evasion,导致GUI崩掉了。自己做了下应急处理，还是抢救回来系统，只是把数据进行备份了一下。T-T&lt;/p&gt;
+&lt;h3 id=&#34;parrot-简介&#34;&gt;Parrot 简介&lt;/h3&gt;
+&lt;p&gt;Parrot Security OS是一个基于Debian的GUN/Linux发行版，专注于渗透测试、数字取证、编程和隐私保护。它内置了许多主题和壁纸，因其漂亮的UI而出名。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>PentestBox渗透套件之私人化定制</title>
+      <link>https://blog.taielab.com/2017-11-14/hacking-pentestBox-msf-update-diy.html</link>
+      <pubDate>Tue, 14 Nov 2017 20:25:41 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017-11-14/hacking-pentestBox-msf-update-diy.html</guid>
+      <description>&lt;p&gt;**Pentest Box：**渗透测试盒子,是一款Windows平台下预配置的便携式开源渗透测试环境，而它也是著名黑客Kapustkiy常用的工具之一。这里集成的大都是Linux下的工具,Kali Linux上面的常用的很多工具这里面也都集成了。
+它打包了所有的安全工具，并且可以在Windows系统中原生地运行，有效地降低了对虚拟机或者双启动环境的需求。
+PentestBox官网：&lt;a href=&#34;https://pentestbox.org/zh/&#34;&gt;&lt;strong&gt;https://pentestbox.org/zh/&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Hugo使用大全</title>
+      <link>https://blog.taielab.com/2017-09-28/hugo-blog-config.html</link>
+      <pubDate>Thu, 28 Sep 2017 16:40:33 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017-09-28/hugo-blog-config.html</guid>
+      <description>&lt;p&gt;&lt;strong&gt;为什么选择 hugo ？&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;快！世界上最快的静态网站生成工具！&lt;a href=&#34;https://twitter.com/dzello/status/895835610476199939&#34;&gt;5秒生成6000个页面！&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;超详细的文档，&lt;del&gt;虽然是英文的&lt;/del&gt;&lt;/li&gt;
+&lt;li&gt;活跃的&lt;a href=&#34;https://discourse.gohugo.io/&#34;&gt;社区&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;更加自由的内容组织方式&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;hugo 有哪些劣势 ？&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;死气沉沉的中文社区&amp;hellip;&lt;a href=&#34;https://discourse.gohugo.io/c/chinese&#34;&gt;中文板块&lt;/a&gt;平均一年一个主题&amp;hellip;&lt;/li&gt;
+&lt;li&gt;不是用前端语言编写，在主题多样性上可能存在一定的短板&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;那么&amp;hellip;&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Hexo-next主题全面配置教程</title>
+      <link>https://blog.taielab.com/2017-09-20/hexo-theme-next-config.html</link>
+      <pubDate>Wed, 20 Sep 2017 12:39:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017-09-20/hexo-theme-next-config.html</guid>
+      <description>&lt;p&gt;NexT 拥有丰富而简单的配置,结合第三方服务,打造属于您自己的博客主题配置。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>KaliLinux - 基础入门</title>
+      <link>https://blog.taielab.com/2017-09-20/kali-linux-learning.html</link>
+      <pubDate>Wed, 20 Sep 2017 12:39:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017-09-20/kali-linux-learning.html</guid>
+      <description>&lt;h2 id=&#34;修改更新源&#34;&gt;修改更新源&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;leafpad /etc/apt/sources.list
+&lt;/code&gt;&lt;/pre&gt;&lt;pre&gt;&lt;code&gt;apt-get update &amp;amp;&amp;amp; apt-get upgrade &amp;amp;&amp;amp; apt-get dist-upgrade 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;kali-rolling版本：（中科大的就够用了，个人按需吧）&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>使用Git Hook - 自动部署hexo到vps</title>
+      <link>https://blog.taielab.com/2017-09-20/git-hook-autodeploy-vps.html</link>
+      <pubDate>Wed, 20 Sep 2017 12:39:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017-09-20/git-hook-autodeploy-vps.html</guid>
+      <description>&lt;p&gt;这个VPS当时很大程度就是为这个博客而买，虽然目前博客占用很小的空间，免费的github page已经足够使用，但VPS闲着也是闲着况且是些html静态文件，所以今天折腾了下如何自自动上传到github的时候自动部署到这台VPS上，当然访问速度也可以更快些。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>树莓派系列（一）- 基础入门</title>
+      <link>https://blog.taielab.com/2017-09-20/raspberry-uses-notes.html</link>
+      <pubDate>Wed, 20 Sep 2017 12:39:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017-09-20/raspberry-uses-notes.html</guid>
+      <description>&lt;h2 id=&#34;安装系统&#34;&gt;安装系统&lt;/h2&gt;
+&lt;h3 id=&#34;需求&#34;&gt;需求：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;树莓派一只&lt;/li&gt;
+&lt;li&gt;SD卡（不小于8G，SD卡速度影响系统性能，建议用 Class 10 或更高）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;　　首先去&lt;a href=&#34;https://www.raspberrypi.org/&#34;&gt;树莓派官网&lt;/a&gt;下载最新的&lt;a href=&#34;https://www.raspberrypi.org/downloads/raspbian/&#34;&gt;镜像&lt;/a&gt;，建议新手用 RASPBIAN JESSIE。&lt;/p&gt;
+&lt;p&gt;　　下载完解压，得到 img 格式的镜像文件。然后下载安装工具 &lt;a href=&#34;https://yunpan.cn/cqMIJYY5WV7XZ&#34;&gt;Win32DiskImager&lt;/a&gt;。SD卡插上电脑，打开 Win32DiskImager。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>渗透测试工具实战技巧</title>
+      <link>https://blog.taielab.com/2017-09-20/penetration-testing-tools-practical-skills.html</link>
+      <pubDate>Wed, 20 Sep 2017 12:39:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017-09-20/penetration-testing-tools-practical-skills.html</guid>
+      <description>&lt;h3 id=&#34;最好的-nmap-扫描策略&#34;&gt;最好的 NMAP 扫描策略&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;11
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;12
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;13
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;14
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;15
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;16
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;17
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;18
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;19
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;20
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;21
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;22
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;23
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;24
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;25
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;26
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;27
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;28
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 适用所有大小网络最好的 nmap 扫描策略&lt;/span&gt;
+
+&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 主机发现，生成存活主机列表&lt;/span&gt;
+$ nmap -sn -T4 -oG Discovery.gnmap 192.168.56.0/24
+$ grep &lt;span style=&#34;color:#d14&#34;&gt;&amp;#34;Status: Up&amp;#34;&lt;/span&gt; Discovery.gnmap | cut -f &lt;span style=&#34;color:#099&#34;&gt;2&lt;/span&gt; -d &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; &amp;gt; LiveHosts.txt
+
+&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 端口发现，发现大部分常用端口&lt;/span&gt;
+&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# http://nmap.org/presentations/BHDC08/bhdc08-slides-fyodor.pdf&lt;/span&gt;
+$ nmap -sS -T4 -Pn -oG TopTCP -iL LiveHosts.txt
+$ nmap -sU -T4 -Pn -oN TopUDP -iL LiveHosts.txt
+$ nmap -sS -T4 -Pn --top-ports &lt;span style=&#34;color:#099&#34;&gt;3674&lt;/span&gt; -oG &lt;span style=&#34;color:#099&#34;&gt;3674&lt;/span&gt; -iL LiveHosts.txt
+
+&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 端口发现，发现全部端口，但 UDP 端口的扫描会非常慢&lt;/span&gt;
+$ nmap -sS -T4 -Pn -p 0-65535 -oN FullTCP -iL LiveHosts.txt
+$ nmap -sU -T4 -Pn -p 0-65535 -oN FullUDP -iL LiveHosts.txt
+
+&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 显示 TCP\UDP 端口&lt;/span&gt;
+$ grep &lt;span style=&#34;color:#d14&#34;&gt;&amp;#34;open&amp;#34;&lt;/span&gt; FullTCP|cut -f &lt;span style=&#34;color:#099&#34;&gt;1&lt;/span&gt; -d &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; | sort -nu | cut -f &lt;span style=&#34;color:#099&#34;&gt;1&lt;/span&gt; -d &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;/&amp;#39;&lt;/span&gt; |xargs | sed &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;s/ /,/g&amp;#39;&lt;/span&gt;|awk &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;{print &amp;#34;T:&amp;#34;$0}&amp;#39;&lt;/span&gt;
+$ grep &lt;span style=&#34;color:#d14&#34;&gt;&amp;#34;open&amp;#34;&lt;/span&gt; FullUDP|cut -f &lt;span style=&#34;color:#099&#34;&gt;1&lt;/span&gt; -d &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; | sort -nu | cut -f &lt;span style=&#34;color:#099&#34;&gt;1&lt;/span&gt; -d &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;/&amp;#39;&lt;/span&gt; |xargs | sed &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;s/ /,/g&amp;#39;&lt;/span&gt;|awk &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;{print &amp;#34;U:&amp;#34;$0}&amp;#39;&lt;/span&gt;
+
+&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 侦测服务版本&lt;/span&gt;
+$ nmap -sV -T4 -Pn -oG ServiceDetect -iL LiveHosts.txt
+
+&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 扫做系统扫描&lt;/span&gt;
+$ nmap -O -T4 -Pn -oG OSDetect -iL LiveHosts.txt
+
+&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 系统和服务检测&lt;/span&gt;
+$ nmap -O -sV -T4 -Pn -p U:53,111,137,T:21-25,80,139,8080 -oG OS_Service_Detect -iL LiveHosts.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>踏雪无痕系列·网络层面（二）—— Whonix</title>
+      <link>https://blog.taielab.com/2017-09-20/whonix-learning-note.html</link>
+      <pubDate>Wed, 20 Sep 2017 12:39:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017-09-20/whonix-learning-note.html</guid>
+      <description>&lt;h1 id=&#34;那些你不该去做的事&#34;&gt;那些你不该去做的事&lt;/h1&gt;
+&lt;h2 id=&#34;我想在我匿名的情况下看看自己的个人站点&#34;&gt;我想在我匿名的情况下看看自己的个人站点&lt;/h2&gt;
+&lt;p&gt;“我想在我匿名的情况下看看自己的个人站点” [&lt;a href=&#34;https://www.whonix.org/wiki/DoNot/zh#cite_note-1&#34;&gt;1]&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;你最好不要访问自己使用了真实姓名或假名（此时非连接/ IP已经被记录下来）的个人站点。因为请你想一下，有多少人会访问你的个人站点呢？是90％以上的Tor用户？还是只有你自己？还是只是很少一部分人？这是弱匿名。一旦你访问这样一个站点，你的Tor回路就变脏了.Tor的出口节点知道有某个人访问了你的网站而且如果那个网站不那么流行，就很可能推测出那个人就是你。而且也不难假设使用那个的Tor出口节点进一步访问其他网站的链接来自你的设备。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Debian 9 - 基础入门</title>
+      <link>https://blog.taielab.com/2017/09/20/debian-9-learning.html</link>
+      <pubDate>Wed, 20 Sep 2017 12:37:10 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017/09/20/debian-9-learning.html</guid>
+      <description>&lt;h3 id=&#34;系统安装&#34;&gt;系统安装&lt;/h3&gt;
+&lt;p&gt;下载非自由版DVD镜像，自由版的镜像没有网卡驱动 新手碰到会相死，由本人摸索出来，这里以64位系统为例
+&lt;a href=&#34;http://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/9.0.0+nonfree/amd64/bt-dvd/&#34;&gt;镜像下载&lt;/a&gt; 
+全程离线安装不要联网，语言设置英文 装完系统后连上wifi在设置中文&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

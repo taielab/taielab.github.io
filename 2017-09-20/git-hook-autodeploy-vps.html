@@ -1,0 +1,709 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>使用Git Hook - 自动部署hexo到vps | 码中春秋&#39;s Blog</title>
+    <meta property="og:title" content="使用Git Hook - 自动部署hexo到vps - 码中春秋&#39;s Blog">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2017-09-20T12:39:32&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2017-09-20T12:39:32&#43;08:00'>
+        
+    <meta name="Keywords" content="码中春秋,博客,,taielab,java,python,项目管理,软件架构,网络安全,数字安全,隐私保护,反侦查,反技侦,匿名方案,open,freedom,democracy,decentralization">
+    <meta name="description" content="使用Git Hook - 自动部署hexo到vps">
+        
+    <meta name="author" content="码中春秋">
+    <meta property="og:url" content="https://blog.taielab.com/2017-09-20/git-hook-autodeploy-vps.html">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.taielab.com">
+                        码中春秋&#39;s Blog
+                    </a>
+                
+                <p class="description">专注于Java企业级开发、数字安全、信息安全、安全运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.taielab.com">首页</a>
+                    
+                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    
+                    <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#博客的架构">博客的架构</a></li>
+    <li><a href="#配置服务器远程-git">配置服务器远程 Git</a></li>
+    <li><a href="#初始化服务器-git-仓库">初始化服务器 Git 仓库</a></li>
+    <li><a href="#配置-git-hook">配置 Git Hook</a></li>
+    <li><a href="#本地配置">本地配置</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#多repository部署">多Repository部署</a></li>
+    <li><a href="#后记">后记</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">使用Git Hook - 自动部署hexo到vps</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2017年9月20日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA'>博客搭建</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <p>这个VPS当时很大程度就是为这个博客而买，虽然目前博客占用很小的空间，免费的github page已经足够使用，但VPS闲着也是闲着况且是些html静态文件，所以今天折腾了下如何自自动上传到github的时候自动部署到这台VPS上，当然访问速度也可以更快些。</p>
+<h2 id="博客的架构">博客的架构</h2>
+<p>先搞明白Hexo博客从搭建到自动发布的架构，才能更好的理解我们每一步进行的操作。不然只跟着步骤过了一遍，却不知道为什么这么做。
+首先看这张架构图：</p>
+<p>{% qnimg hexo-jiagou.png title:jiagou alt:jiagou %}</p>
+<p>整个流程就是本地将 *.md 渲染成静态文件，然后Git推送到服务器的repository,服务器再通过 git-hooks 同步网站根目录。</p>
+<h2 id="配置服务器远程-git">配置服务器远程 Git</h2>
+<ul>
+<li>
+<p>安装 git：</p>
+<pre><code>yum -y install git
+
+</code></pre></li>
+<li>
+<p>创建一个 git 用户，用来运行 git 服务：</p>
+<pre><code>adduser git
+passwd git //为git用户创建密码 ssh时的git用户登录密码
+
+</code></pre></li>
+<li>
+<p>免密码登录</p>
+<p>创建证书登录，把自己电脑的公钥，也就是 ~/.ssh/id_rsa.pub 文件里的内容添加到服务器的 /home/git/.ssh/authorized_keys 文件中，添加公钥之后可以防止每次 push都输入密码。
+然后就可以执行ssh 命令测试是否可以免密登录</p>
+<pre><code>ssh -v git@SERVER(SERVER为服务器ip)
+
+</code></pre></li>
+</ul>
+<h2 id="初始化服务器-git-仓库">初始化服务器 Git 仓库</h2>
+<p>我是将其放在 /var/repo/blog.git 目录下的：</p>
+<pre><code>mkdir /var/repo
+cd /var/repo
+git init --bare blog.git
+
+</code></pre><p>使用 –bare 参数，Git 就会创建一个裸仓库，裸仓库没有工作区，我们不会在裸仓库上进行操作，它只为共享而存在。</p>
+<h2 id="配置-git-hook">配置 Git Hook</h2>
+<p>我们这里要使用的是 post-receive 的 hook，这个 hook 会在整个 git 操作过程完结以后被运行。
+在 blog.git/hooks 目录下新建一个 post-receive 文件：</p>
+<pre><code>$ cd /var/repo/blog.git/hooks
+$ vim post-receive
+
+</code></pre><p>在 post-receive 文件中写入如下内容：</p>
+<pre><code>#!/bin/sh
+git --work-tree=/var/www/hexo --git-dir=/var/repo/blog.git checkout -f
+
+</code></pre><p>注意，/var/www/hexo 要换成你自己的部署目录，一般可能都是 /var/www/html。上面那句 git 命令可以在我们每次 push 完之后，把部署目录更新到博客的最新生成状态。这样便可以完成达到自动部署的目的了。
+不要忘记设置这个文件的可执行权限：</p>
+<pre><code>chmod +x post-receive
+
+</code></pre><p>hook 设置好后，执行以下任一命令查看效果：</p>
+<pre><code>post-receive，./post-receive，source post-receive
+
+</code></pre><p>由于是VPS，当时也想建立数个网站，所以用kangle的环境包搭建的，用kangle创建的网站目录默认为/home/ftp/b/blog/wwwroot,文件夹权限为1003用户所有，push时提示该文件夹拒绝，一看就是权限问题,对于网站文件夹
+权限的设置可以参考<a href="https://segmentfault.com/a/1190000005723321">这篇文章</a>,由于vps操作系统和这篇文章不一致无法按照所说，继续百度
+参考了<a href="http://www.jianshu.com/p/ac59402caa66">这篇文章</a></p>
+<pre><code>网站目录权限
+网站目录
+post-receive 脚本中设置的 GIT_WORK_TREE 变量，就是网站目录：
+$ mkdir -p /home/app/wph/web/
+目录权限
+假设使用 nginx HTTP Server，网站目录一般都设置为 nginx:nginx。
+可以把 git 用户加到 nginx 组内（修改 /etc/group），网站目录 chmod 设置为同组可写。
+chown -R nginx:nginx /home/app/wph/web/
+chmod -R g+w /home/app/wph/web/
+或者
+chown -R git:nginx /home/app/wph/web/，git 作为 owner，用户 nginx 属于 nginx 组，
+更方便理解。或者直接设置为 git:git 也可以。
+
+</code></pre><p>我直接chown -R git:1003 /home/ftp/b/blog/wwwroot,就可以解决网站目录权限问题了。</p>
+<p>改变 blog.git 目录的拥有者为 git 用户：</p>
+<pre><code>$ sudo chown -R git:git blog.git
+
+</code></pre><p>禁用 git 用户的 shell 登录权限。
+出于安全考虑，我们要让 git 用户不能通过 shell 登录。可以编辑 /etc/passwd 来实现，在 /etc/passwd 中找到类似下面的一行：</p>
+<pre><code>git:x:1001:1001:,,,:/home/git:/bin/bash
+
+</code></pre><p>将其改为：</p>
+<pre><code>git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell
+
+</code></pre><p>这样 git 用户可以通过 ssh 正常使用 git，但是无法登录 shell。</p>
+<p>至此，服务器端的配置就完成了。</p>
+<h2 id="本地配置">本地配置</h2>
+<p>配置你的 hexo 博客可以自动 deploy 到服务器上，再也不用 ftp 上传了。</p>
+<p>修改 hexo 目录下的 _config.yml 文件，找到 [deploy] 条目，并修改为：</p>
+<pre><code>deploy:
+  type: git
+  repo: git@23.83.**.**:/var/repo/blog.git
+  branch: master
+
+</code></pre><p>上面设置后hexo clean &amp;&amp; hexo generate –deploy提示22端口连接超时，这是由于VPS修改了ssh的默认端口为27100了，所以需要以下修改
+无论客户端是在 windows 还是 linux ，配置访问的端口号，都是修改 用户的 .ssh 文件夹里的config文件</p>
+<pre><code>(假定用户为 administrator)
+
+windows路径:   C:\Users\Administrator\.ssh
+
+linux路径:   /home/administrator/.ssh
+
+如果该路径下没有config文件，则创建一个。
+
+config中添加如下内容：
+
+如是以域名访问的则添加如下内容：（注意修改xxx为你的远程仓库的名称）
+
+Host xxx
+HostName xxx.com
+Port 3333
+
+如是以ip访问的，则添加如下内容:（注意修改ip为你的远程仓库ip）
+Host &quot;211.111.xx.xxx&quot;
+Port 3333
+
+</code></pre><p>本地配置就是如此地简单。至此，我们的 hexo 自动部署已经全部配置好了。</p>
+<h1 id="使用同样命令即可自动部署到vps了">使用同样命令即可自动部署到VPS了</h1>
+<pre><code>$ hexo new &quot;new-post&quot;
+
+# bla..bla..bla..
+
+$ hexo clean &amp;&amp; hexo generate --deploy
+
+</code></pre><p>有没有很酷很方便，一条命令就可以将博客自动部署到自己的 VPS 上了，开始快乐地写博客吧。</p>
+<h2 id="多repository部署">多Repository部署</h2>
+<pre><code>配置 _config.xml 例如:
+deploy:
+- type: git
+  repo: git@23.83.226.33:/var/repo/blog.git
+  branch: master
+- type: git  
+  repository: https://github.com/liuxinggangsu/liuxinggangsu.github.io.git 
+  branch: master
+
+</code></pre><h2 id="后记">后记</h2>
+<p>最近浏览一些hexo博客，虽然上面的方法可以说比较自动化了，想到当时对于这个hexo静态html网站用个虚拟空间不值当的，感觉现在收费的虚拟空间好些的都是1g以上或者几百M，
+对于只是放些html文件真是太浪费了，当时也是很是纠结了一番，没看到大点的空间商有只需支持html的，当时都想用主机屋的免费空间了，但对于主机屋免费空间经常掉线，并且
+每月还得想着发帖续费，还是放弃了，今天看到可以用七牛同步云储存，感觉还是挺方面，就跟我前段时间老板让我弄个文件同步，我用了一下百度的同步云盘，我的电脑修改文件，
+老板电脑的同步盘就可以及时看到我更新的东西了，现在来看下用七牛如何自动化博客的吧，当然前提的域名备案，只有备案后才可以自定义域名的。</p>
+<pre><code>下载个七牛同步工具设置到两个Key值并选择生成静态博客的文件夹作为同步目录，让同步工具开机自启。
+果然的，每当我在电脑书写博客并生成静态页面的时候，七牛已经在后台默默的帮我同步至云存储，
+网站就在后台默默地更新了数据，实现了博客的全自动化更新。 
+
+由于还不想荒废现在的VPS，所以就没尝试这个免费办法，虽然听说七牛缓存有时候挺慢的，有时候更新文章，第二天才缓存过来，对于一些个人博客不是每天都有空更新的博客来说
+可以说是没有啥影响的。
+
+如果你是个技术控，喜欢折腾，也可以看下《[在 DigitalOcean VPS 上利用 BTSync 搭建私有云储存](http://capbone.com/btsync-as-private-cloud-storage/)》这篇文章，自动
+同步本地博文，也是相当的geek。
+
+## 全自动写博客
+如果感觉还得通过命令发布到vps上，虽然已经很简单了，一条命令即可，我们还可以通过使用pm2实现自动监控文件变动，自动提交
+1.在本地安装pm2(一个可在后台永久打开一个node小程序的 nodejs应用，也可以监控文件变化)
+
+</code></pre><p>npm install -g pm2</p>
+<pre><code>2.在 博客的根目录下新建 start.js，内容如下
+
+</code></pre><pre><code>var process = require('child_process');
+process.exec(' hexo g -d', function (error, stdout, stderr) {
+    if (error !== null) {
+      console.log('exec error: ' + error);
+    }
+});
+
+</code></pre><pre><code>3.在同级目录下创建 watch.json,内容如下
+
+</code></pre><pre><code>{
+  &quot;apps&quot; : [{
+    &quot;name&quot;       : &quot;blog&quot;,
+    &quot;script&quot;     : &quot;./start.js&quot;,
+    &quot;exec_interpreter&quot;: &quot;node&quot;,
+    &quot;exec_mode&quot;  : &quot;fork_mode&quot;,
+    &quot;watch&quot;      : &quot;_posts&quot;
+  }]
+}
+
+</code></pre><pre><code>3.使用pm2命令实现监控文件变动自动提交
+
+pm2 start watch.json
+</code></pre><p>你可以把_post目录创建一个快捷方式到桌面，以后写博客直接打开文件夹进行新建文件修改文件，即可实现自动上传</p>
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://blog.taielab.com">码中春秋</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.taielab.com/2017-09-20/git-hook-autodeploy-vps.html">https://blog.taielab.com/2017-09-20/git-hook-autodeploy-vps.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/2017-09-20/hexo-theme-next-config.html">Hexo-next主题全面配置教程</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='https://blog.taielab.com/tags/hexo'>hexo</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "udpsec/blog-comments"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-11-25/ios-13-checkra-in-repair-the-internet-connection-appears-to-be-offline.html" title="IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误">IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-29/red-team-and-physical-entry-gear-tips.html" title="护网之红方物理入侵旁门左道">护网之红方物理入侵旁门左道</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-05/intranet-roaming-network-traffic-control.html" title="内网漫游系列之流量操控与Socks代理总结">内网漫游系列之流量操控与Socks代理总结</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-27/intranet-roaming-ss-privoxy.html" title="内网漫游系列之正向全局代理ss&#43;Privoxy">内网漫游系列之正向全局代理ss&#43;Privoxy</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-20/centos-7-upgrade-Kernel.html" title="Centos7安装升级最新内核">Centos7安装升级最新内核</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/digital-forensics-live-and-dead.html" title="数字取证-死活取证">数字取证-死活取证</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html" title="Centos7搭建本地yum仓库">Centos7搭建本地yum仓库</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/osint-101-auto-visual.html" title="OSINT101 技术自动化和可视化">OSINT101 技术自动化和可视化</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-21/ubuntu-migrate-to-ssd.html" title="Ubuntu19.04迁移到SSD">Ubuntu19.04迁移到SSD</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-16/kali-linux-double-display-solutions.html" title="双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案">双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.taielab.com/categories/IOS%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">IOS应用逆向与安全 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/Linux/">Linux (11)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%B7%A5%E5%85%B7%E6%95%88%E7%8E%87/">工具效率 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%BC%80%E6%BA%90%E6%83%85%E6%8A%A5%E6%94%B6%E9%9B%86/">开源情报收集 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (30)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/">红蓝对抗 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全 (6)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4/">网络运维 (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.taielab.com/tags/Debian/">Debian</a>
+    
+    <a href="https://blog.taielab.com/tags/IOS/">IOS</a>
+    
+    <a href="https://blog.taielab.com/tags/OSINT/">OSINT</a>
+    
+    <a href="https://blog.taielab.com/tags/archlinux/">archlinux</a>
+    
+    <a href="https://blog.taielab.com/tags/centos/">centos</a>
+    
+    <a href="https://blog.taielab.com/tags/github/">github</a>
+    
+    <a href="https://blog.taielab.com/tags/gitup/">gitup</a>
+    
+    <a href="https://blog.taielab.com/tags/gpg/">gpg</a>
+    
+    <a href="https://blog.taielab.com/tags/hexo/">hexo</a>
+    
+    <a href="https://blog.taielab.com/tags/hugo/">hugo</a>
+    
+    <a href="https://blog.taielab.com/tags/kali-linux/">kali-linux</a>
+    
+    <a href="https://blog.taielab.com/tags/lnmp/">lnmp</a>
+    
+    <a href="https://blog.taielab.com/tags/manjaro/">manjaro</a>
+    
+    <a href="https://blog.taielab.com/tags/meedu/">meedu</a>
+    
+    <a href="https://blog.taielab.com/tags/nessus/">nessus</a>
+    
+    <a href="https://blog.taielab.com/tags/parrot-os/">parrot-os</a>
+    
+    <a href="https://blog.taielab.com/tags/pentestbox/">pentestbox</a>
+    
+    <a href="https://blog.taielab.com/tags/shadowsocks/">shadowsocks</a>
+    
+    <a href="https://blog.taielab.com/tags/tor/">tor</a>
+    
+    <a href="https://blog.taielab.com/tags/ubuntu/">ubuntu</a>
+    
+    <a href="https://blog.taielab.com/tags/vps/">vps</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">内网渗透命令</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%BC%AB%E6%B8%B8/">内网漫游</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/">奇淫技巧</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/">数字安全基础篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%AF%87/">数字安全工具篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">数据库系统原理</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81/">死活取证</a>
+    
+    <a href="https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5/">物理入侵</a>
+    
+    <a href="https://blog.taielab.com/tags/%E8%B8%8F%E9%9B%AA%E6%97%A0%E7%97%95%E7%B3%BB%E5%88%97/">踏雪无痕系列</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="#" title=""></a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://blog.taielab.com/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+</body>
+
+</html>

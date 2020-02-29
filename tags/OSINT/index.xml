@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>OSINT on 码中春秋&#39;s Blog</title>
+    <link>https://blog.taielab.com/tags/OSINT/</link>
+    <description>Recent content in OSINT on 码中春秋&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 09 May 2019 22:27:47 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.taielab.com/tags/OSINT/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>OSINT101 技术自动化和可视化</title>
+      <link>https://blog.taielab.com/2019-05-09/osint-101-auto-visual.html</link>
+      <pubDate>Thu, 09 May 2019 22:27:47 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-05-09/osint-101-auto-visual.html</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;社交工程、道德黑客、开源情报和信息验证，这些门类在大多数情况下是相通的，它们都需要充分的数据收集、使用的是近似的技术和思考方式，广泛应用于公民社会、调查记者、威胁防御等各种重要领域。本文继续专注于开源情报 #OSINT 收集，重在演示思路，并推荐工具（今后还有更多专门推荐创新工具的文章）希望这些内容能帮助中国的独立调查更加专业，效率更高。&lt;/strong&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

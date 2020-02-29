@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>parrot-os on 码中春秋&#39;s Blog</title>
+    <link>https://blog.taielab.com/tags/parrot-os/</link>
+    <description>Recent content in parrot-os on 码中春秋&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 21 Dec 2017 19:51:14 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.taielab.com/tags/parrot-os/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>渗透系统Parrot Os之使用手册</title>
+      <link>https://blog.taielab.com/2017-12-21/parrot-os-handbook.html</link>
+      <pubDate>Thu, 21 Dec 2017 19:51:14 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017-12-21/parrot-os-handbook.html</guid>
+      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;昨天自己在做主机渗透时候强行在ubuntu上面安装veil-evasion,导致GUI崩掉了。自己做了下应急处理，还是抢救回来系统，只是把数据进行备份了一下。T-T&lt;/p&gt;
+&lt;h3 id=&#34;parrot-简介&#34;&gt;Parrot 简介&lt;/h3&gt;
+&lt;p&gt;Parrot Security OS是一个基于Debian的GUN/Linux发行版，专注于渗透测试、数字取证、编程和隐私保护。它内置了许多主题和壁纸，因其漂亮的UI而出名。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

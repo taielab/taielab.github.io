@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>数据库 on 码中春秋&#39;s Blog</title>
+    <link>https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+    <description>Recent content in 数据库 on 码中春秋&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 30 Sep 2018 21:48:40 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>数据库系统原理学习笔记（二）-数据库设计和ER图</title>
+      <link>https://blog.taielab.com/2018-09-30/database-system-principle-leannote-db-er-designer.html</link>
+      <pubDate>Sun, 30 Sep 2018 21:48:40 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-09-30/database-system-principle-leannote-db-er-designer.html</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;了解和掌握数据库应用系统设计的全过程,掌握巸模型和关系模型的基本概念,掌握
+概念设计中E模型的设计方法,掌握逻辑设计中ER模型向关系模型转换的方法&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>数据库系统原理学习笔记（一）-基本概念</title>
+      <link>https://blog.taielab.com/2018-09-30/database-system-principle-leannote-base.html</link>
+      <pubDate>Sun, 30 Sep 2018 12:49:57 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-09-30/database-system-principle-leannote-base.html</guid>
+      <description>&lt;h1 id=&#34;1数据管理技术的发展&#34;&gt;1.数据管理技术的发展&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;分为四个阶段:人工管理阶段、文件系统阶段、数据库阶段和高级数据库阶段&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;(1)人工管理阶段&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;此阶段只有程序,没有文件概念;一组数据对应一个程序&lt;/p&gt;
+&lt;p&gt;人工管理阶段数据管理的特点&lt;/p&gt;
+&lt;p&gt;①数据不保存在计算机内;(只有RAM(随机存取存储器),没有ROM(只读存储器))&lt;/p&gt;
+&lt;p&gt;②没有专用的软件对数据进行管理;(程序和数据放在一起,相互影响)&lt;/p&gt;
+&lt;p&gt;③只有程序的概念,没有文件的概念:(没有数据库文件)&lt;/p&gt;
+&lt;p&gt;④数据面向程序。(一组数据对应一个程序)&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

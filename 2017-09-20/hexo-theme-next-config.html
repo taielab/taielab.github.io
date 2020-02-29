@@ -1,0 +1,2550 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Hexo-next主题全面配置教程 | 码中春秋&#39;s Blog</title>
+    <meta property="og:title" content="Hexo-next主题全面配置教程 - 码中春秋&#39;s Blog">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2017-09-20T12:39:32&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2017-09-20T12:39:32&#43;08:00'>
+        
+    <meta name="Keywords" content="码中春秋,博客,,taielab,java,python,项目管理,软件架构,网络安全,数字安全,隐私保护,反侦查,反技侦,匿名方案,open,freedom,democracy,decentralization">
+    <meta name="description" content="Hexo-next主题全面配置教程">
+        
+    <meta name="author" content="码中春秋">
+    <meta property="og:url" content="https://blog.taielab.com/2017-09-20/hexo-theme-next-config.html">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.taielab.com">
+                        码中春秋&#39;s Blog
+                    </a>
+                
+                <p class="description">专注于Java企业级开发、数字安全、信息安全、安全运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.taielab.com">首页</a>
+                    
+                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    
+                    <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#下载主题">下载主题</a></li>
+    <li><a href="#启用主题">启用主题</a></li>
+    <li><a href="#验证主题">验证主题</a></li>
+    <li><a href="#主题设定">主题设定</a>
+      <ul>
+        <li><a href="#选择-scheme">选择 Scheme</a></li>
+        <li><a href="#设置语言">设置语言</a></li>
+        <li><a href="#设置菜单">设置菜单</a></li>
+        <li><a href="#添加友情链接">添加友情链接</a></li>
+        <li><a href="#站点建立时间">站点建立时间</a></li>
+        <li><a href="#背景动画设置">背景动画设置</a></li>
+        <li><a href="#文章加密访问">文章加密访问</a></li>
+        <li><a href="#文章加密访问-更优">文章加密访问-更优</a></li>
+        <li><a href="#实现点击出现桃心效果">实现点击出现桃心效果</a></li>
+        <li><a href="#添加字数统计最新主题已加入此功能">添加字数统计（最新主题已加入此功能）</a></li>
+        <li><a href="#添加站点地图">添加站点地图</a></li>
+        <li><a href="#添加顶部加载条">添加顶部加载条</a></li>
+        <li><a href="#使用plantuml来画uml">使用PlantUML来画UML</a></li>
+        <li><a href="#添加rssversion-512-配置文件已经包括">添加RSS（version: 5.1.2 配置文件已经包括）</a></li>
+        <li><a href="#设置头像">设置头像</a></li>
+        <li><a href="#修改文章内链接文本样式">修改文章内链接文本样式</a></li>
+        <li><a href="#修改文章底部的那个带号的标签">修改文章底部的那个带#号的标签</a></li>
+        <li><a href="#在每篇文章末尾统一添加本文结束标记">在每篇文章末尾统一添加“本文结束”标记</a></li>
+        <li><a href="#修改作者头像并旋转">修改作者头像并旋转</a></li>
+        <li><a href="#修改代码块自定义样式">修改代码块自定义样式</a></li>
+        <li><a href="#主页文章添加阴影效果">主页文章添加阴影效果</a></li>
+        <li><a href="#在网站底部加上访问量">在网站底部加上访问量</a></li>
+        <li><a href="#设置网站的图标favicon">设置网站的图标Favicon</a></li>
+        <li><a href="#文章底部增加版权信息">文章底部增加版权信息</a></li>
+        <li><a href="#修改字体大小">修改字体大小</a></li>
+        <li><a href="#修改打赏字体不闪动">修改打赏字体不闪动</a></li>
+        <li><a href="#修改标签云字体颜色">修改标签云字体颜色</a></li>
+        <li><a href="#加入网易云音乐播放器">加入网易云音乐播放器</a></li>
+        <li><a href="#把谷歌字体库替换为国内的库">把谷歌字体库替换为国内的库</a></li>
+        <li><a href="#在右上角或者左上角实现fork-me-on-github"><strong>在右上角或者左上角实现fork me on github</strong></a></li>
+        <li><a href="#添加热度">添加热度</a></li>
+        <li><a href="#自定义鼠标样式"><strong>自定义鼠标样式</strong></a></li>
+        <li><a href="#博文置顶"><strong>博文置顶</strong></a></li>
+        <li><a href="#next主题添加哈林摇特效">Next主题添加哈林摇特效</a></li>
+        <li><a href="#为博客加上萌萌的宠物"><strong>为博客加上萌萌的宠物</strong></a></li>
+        <li><a href="#hexo-进阶优化">hexo 进阶优化</a></li>
+        <li><a href="#优化-htmlcssjs-image插件形式">优化 HTML,CSS,JS, Image(插件形式)</a></li>
+        <li><a href="#生成sitemap文件">生成sitemap文件</a></li>
+        <li><a href="#修改permalink使文章链接唯一化">修改permalink使文章链接唯一化</a></li>
+        <li><a href="#其他小的修改点">其他小的修改点</a></li>
+        <li><a href="#gitment-评论插件">Gitment 评论插件</a></li>
+      </ul>
+    </li>
+    <li><a href="#seo优化">SEO优化</a>
+      <ul>
+        <li><a href="#网站验证">网站验证</a></li>
+        <li><a href="#添加并提交sitemap">添加并提交sitemap</a></li>
+        <li><a href="#主动推送">主动推送</a></li>
+        <li><a href="#自动推送">自动推送</a></li>
+        <li><a href="#添加蜘蛛协议">添加蜘蛛协议</a></li>
+      </ul>
+    </li>
+    <li><a href="#多pc同步源码篇">多PC同步源码篇</a></li>
+    <li><a href="#七牛云插件">七牛云插件</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">Hexo-next主题全面配置教程</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2017年9月20日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA'>博客搭建</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <p>NexT 拥有丰富而简单的配置,结合第三方服务,打造属于您自己的博客主题配置。</p>
+<h2 id="下载主题">下载主题</h2>
+<p>如果你熟悉 Git， 建议你使用 克隆最新版本 的方式，之后的更新可以通过 <code>git pull</code> 来快速更新， 而不用再次下载压缩包替换。</p>
+<p>在终端窗口下，定位到 Hexo 站点目录下。使用 Git checkout 代码：</p>
+<pre><code>cd your-hexo-site
+git clone https://github.com/iissnan/hexo-theme-next themes/next
+</code></pre><h2 id="启用主题">启用主题</h2>
+<p>与所有 Hexo 主题启用的模式一样。 当 克隆/下载 完成后，打开 站点配置文件(<code>_config.yml</code>)， 找到 theme 字段，并将其值更改为 next。</p>
+<pre><code>theme: next
+</code></pre><p>到此，NexT 主题安装完成。下一步我们将验证主题是否正确启用。在切换主题之后、验证之前， 我们最好使用 <code>hexo clean</code> 来清除 Hexo 的缓存。</p>
+<h2 id="验证主题">验证主题</h2>
+<p>首先启动 Hexo 本地站点，并开启调试模式（即加上 –debug），整个命令是 <code>hexo s --debug</code>。 在服务启动的过程，注意观察命令行输出是否有任何异常信息，如果你碰到问题，这些信息将帮助他人更好的定位错误。 当命令行输出中提示出：</p>
+<pre><code>INFO  Hexo is running at http://0.0.0.0:4000/. Press Ctrl+C to stop.
+</code></pre><p>此时即可使用浏览器访问 <code>http://localhost:4000</code>，检查站点是否正确运行。</p>
+<h2 id="主题设定">主题设定</h2>
+<h3 id="选择-scheme">选择 Scheme</h3>
+<p>Scheme 是 NexT 提供的一种特性，借助于 Scheme，NexT 为你提供多种不同的外观。同时，几乎所有的配置都可以 在 Scheme 之间共用。目前 NexT 支持三种 Scheme，他们是：</p>
+<p><strong>Muse - 默认 Scheme，这是 NexT 最初的版本，黑白主调，大量留白Mist - Muse 的紧凑版本，整洁有序的单栏外观Pisces - 双栏 Scheme，小家碧玉似的清新</strong></p>
+<p>Scheme 的切换通过更改 主题配置文件(<strong>_config.yml</strong>)，搜索 scheme 关键字。 你会看到有三行 scheme 的配置，将你需用启用的 scheme 前面注释 # 去除即可。</p>
+<pre><code>#scheme: Muse
+#scheme: Mist
+scheme: Pisces
+scheme: Gemini (新增)
+</code></pre><h3 id="设置语言">设置语言</h3>
+<p>编辑 <strong>站点配置文件</strong>， 将 language 设置成你所需要的语言。建议明确设置你所需要的语言，例如选用简体中文，配置如下：</p>
+<pre><code>language: zh-Hans
+</code></pre><h3 id="设置菜单">设置菜单</h3>
+<p>在终端窗口下，定位到 Hexo 站点目录下。使用 <code>hexo new page</code> 新建一个页面，命名为 tags 或 categories：</p>
+<pre><code>cd your-hexo-site
+hexo new page tags
+</code></pre><p>打开 <code>your-hexo-site\source\tags\index.md</code> 修改内容成这样：</p>
+<pre><code>---
+title: 标签
+date: 2014-12-22 12:39:04
+type: &quot;tags&quot;
+comments: false
+---
+</code></pre><pre><code>cd your-hexo-site
+hexo new page categories
+</code></pre><p>打开 <code>your-hexo-site\source\categories\index.md</code> 修改内容成这样：</p>
+<pre><code>---
+title: 分类
+date: 2014-12-22 12:39:04
+type: &quot;categories&quot;
+comments: false
+---
+</code></pre><p>注意：如果有集成评论服务，页面也会带有评论。 若需要关闭的话，请添加字段 comments 并将值设置为 false。</p>
+<p>打开next主题的配置文件_config.yml，找到menu，这样配置：</p>
+<pre><code>menu:
+  home: /
+  categories: /categories
+  #about: /about
+  archives: /archives
+  tags: /tags
+  #sitemap: /sitemap.xml
+  #commonweal: /404.html
+</code></pre><h3 id="添加友情链接">添加友情链接</h3>
+<p>编辑 <strong>主题配置文件</strong> 添加：</p>
+<pre><code># 友情链接
+links_title: 友情链接
+links:
+  MacTalk: http://macshuo.com/
+  Title: http://example.com/
+</code></pre><h3 id="站点建立时间">站点建立时间</h3>
+<p>这个时间将在站点的底部显示，例如 © 2013 - 2015。 编辑 <strong>主题配置文件</strong>，搜索字段 since。</p>
+<pre><code>since: 2015
+</code></pre><h3 id="背景动画设置">背景动画设置</h3>
+<p>编辑 <strong>主题配置文件</strong>， 搜索 canvas_nest 或 three_waves，根据您的需求设置值为 true 或者 false 即可：</p>
+<pre><code># canvas_nest
+canvas_nest: true //开启动画
+canvas_nest: false //关闭动画
+# three_waves
+three_waves: true //开启动画
+three_waves: false //关闭动画
+</code></pre><p>注意： <code>three_waves</code> 在版本 <strong>5.1.1</strong> 中引入。只能同时开启一种背景动画效果。</p>
+<h3 id="文章加密访问">文章加密访问</h3>
+<p>打开<code>themes-&gt;next-&gt;layout-&gt;_partials-&gt;head.swig</code>文件,插入这样一段代码：</p>
+<pre><code>&lt;script&gt;
+    (function(){
+        if('{{ page.password }}'){
+            if (prompt('请输入文章密码') !== '{{ page.password }}'){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+&lt;/script&gt;
+</code></pre><p>然后在文章上写成类似这样：</p>
+<pre><code>---
+title: Hello World
+date: 2016/7/13 20:46:25
+categories:
+- Diary
+tags:
+  - Testing
+  - Another Tag
+password: 123456
+---
+</code></pre><h3 id="文章加密访问-更优">文章加密访问-更优</h3>
+<p>github地址：<a href="https://github.com/MikeCoder/hexo-blog-encrypt">https://github.com/MikeCoder/hexo-blog-encrypt</a></p>
+<p><strong>安装：</strong></p>
+<p>1、 在 hexo 根目录的 <code>package.json</code> 中添加<code>&quot;hexo-blog-encrypt&quot;: &quot;2.0.2&quot;</code> 依赖。（最新的版本号可在github项目页面查看）</p>
+<p>2、 使用终端进入到 hexo 根目录，然后执行 <code>npm install</code> 命令。该插件会自动安装。</p>
+<p>3、 在 hexo 根目录的 <code>_config.yml</code> 中启用该插件:</p>
+<pre><code># Security
+##
+encrypt:
+    enable: true
+</code></pre><p>4、 然后在你的文章的头部添加上对应的字段，如 password, abstract, message：</p>
+<pre><code>---
+title: hello world
+date: 2016-03-30 21:18:02
+tags:
+    - fdsafsdaf
+password: Mike
+abstract: Welcome to my blog, enter password to read.
+message: Welcome to my blog, enter password to read.
+---
+</code></pre><blockquote>
+<p>password: 是该博客加密使用的密码
+abstract: 是该博客的摘要，会显示在博客的列表页
+message: 这个是博客查看时，密码输入框上面的描述性文字</p>
+</blockquote>
+<h3 id="实现点击出现桃心效果">实现点击出现桃心效果</h3>
+<p>在网址输入如下：</p>
+<pre><code>http://7u2ss1.com1.z0.glb.clouddn.com/love.js
+</code></pre><p>然后将里面的代码copy一下，新建<code>love.js</code>文件并且将代码复制进去，然后保存。将<code>love.js</code>文件放到路径<code>/themes/next/source/js/src</code>里面，然后打开<code>\themes\next\layout\_layout.swig</code>文件,在末尾（在前面引用会出现找不到的bug）添加以下代码：</p>
+<pre><code>&lt;!-- 页面点击小红心 --&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;/js/src/love.js&quot;&gt;&lt;/script&gt;
+</code></pre><h3 id="添加字数统计最新主题已加入此功能">添加字数统计（最新主题已加入此功能）</h3>
+<p>切换到根目录下，然后运行如下代码：</p>
+<pre><code>npm install hexo-wordcount --save
+</code></pre><p>打开<strong>主题配置文件</strong>，搜索<code>post_wordcount</code>，修改成这样：</p>
+<pre><code>post_wordcount:
+  item_text: true
+  wordcount: true
+  min2read: true
+</code></pre><h3 id="添加站点地图">添加站点地图</h3>
+<p>打开hexo目录下的dos命令行，分别安装百度和google插件</p>
+<pre><code>npm install hexo-generator-sitemap --save
+npm install hexo-generator-baidu-sitemap --save
+</code></pre><p>在博客目录的<code>_config.yml</code>中添加如下代码：</p>
+<pre><code># 自动生成sitemap
+sitemap:
+path: sitemap.xml
+baidusitemap:
+path: baidusitemap.xml
+</code></pre><h3 id="添加顶部加载条">添加顶部加载条</h3>
+<p>打开<code>/themes/next/layout/_partials/head.swig</code>文件，添加如下代码：</p>
+<pre><code>&lt;script src=&quot;//cdn.bootcss.com/pace/1.0.2/pace.min.js&quot;&gt;&lt;/script&gt;
+&lt;link href=&quot;//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css&quot; rel=&quot;stylesheet&quot;&gt;
+</code></pre><p>但是，默认的是粉色的，要改变颜色可以在<code>/themes/next/layout/_partials/head.swig</code>文件中添加如下代码（接在刚才link的后面）</p>
+<pre><code>&lt;style&gt;
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+&lt;/style&gt;
+</code></pre><h3 id="使用plantuml来画uml">使用PlantUML来画UML</h3>
+<p>在终端进入博客根目录，输入如下命令：</p>
+<pre><code>npm install hexo-tag-plantuml --save
+</code></pre><p>然后在写文章时，以这样的语法书写：</p>
+<pre><code>{% plantuml %}
+    Bob-&gt;Alice : hello
+{% endplantuml %}
+</code></pre><p>最终显示的样式：</p>
+<p><img src="http://www.plantuml.com/plantuml/svg/SyfFqhLppCbCJbMmKiX8pSd91m00" alt="img"></p>
+<p>示例：</p>
+<pre><code>{% plantuml %}
+start
+:配置Java环境;
+:下载pantuml.jar;
+:编写描述文件;
+:执行;
+stop
+{% endplantuml %}
+</code></pre><p>效果如下：</p>
+<p><img src="http://www.plantuml.com/plantuml/svg/Aov9B2hXidhPsljyxpglnBB4vtthdovgjkQoUhAZ-yNUlGM9UIMbkJbwMOb5GB7dUwOzRPlvhB__nVuDpwQrFzcz3IZuh7FvYuKzrbp59Va50000" alt="img"></p>
+<p>plantuml官网以及语法参考：<a href="http://plantuml.com/">http://plantuml.com/</a></p>
+<h3 id="添加rssversion-512-配置文件已经包括">添加RSS（version: 5.1.2 配置文件已经包括）</h3>
+<p>在站点根目录下，输入：</p>
+<pre><code>npm install --save hexo-generator-feed
+</code></pre><p>打开<strong>站点配置文件</strong>，在里面的末尾添加：(请注意在冒号后面要加一个空格，不然会发生错误！)</p>
+<pre><code># Extensions
+## Plugins: http://hexo.io/plugins/
+plugins: hexo-generate-feed
+</code></pre><p>然后打开<strong>主题配置文件</strong>,在里面配置为如下样子：(就是在rss:的后面加上/atom.xml,注意在冒号后面要加一个空格)</p>
+<pre><code># Set rss to false to disable feed link.
+# Leave rss as empty to use site's feed link.
+# Set rss to specific value if you have burned your feed already.
+rss: /atom.xml
+</code></pre><p>配置完之后运行：</p>
+<pre><code>hexo g
+</code></pre><p>重新生成一次，你会在 ./public 文件夹中看到 atom.xml 文件。然后启动服务器查看是否有效，之后再部署到 Github 中。</p>
+<h3 id="设置头像">设置头像</h3>
+<p>编辑 <strong>主题配置文件</strong>， 修改字段 <code>avatar</code>， 值设置成头像的链接地址。其中，头像的链接地址可以是：</p>
+<p>完整的互联网 URI：<a href="http://example.com/avatar.png">http://example.com/avatar.png</a></p>
+<p>站点内的地址：
+将头像放置<strong>主题目录</strong>下的 <code>source/uploads/</code> （新建 uploads 目录若不存在）
+配置为：<code>avatar: /uploads/avatar.png</code></p>
+<p>或者 放置在<strong>主题目录</strong>下的 <code>source/images/</code> 目录下
+配置为：<code>avatar: /images/avatar.png</code></p>
+<h3 id="修改文章内链接文本样式">修改文章内链接文本样式</h3>
+<p>修改文件 <code>themes\next\source\css\_common\components\post\post.styl</code> ，在末尾添加如下css样式：</p>
+<pre><code>// 文章内链接文本样式
+.post-body p a{
+  color: #0593d3;
+  border-bottom: none;
+  border-bottom: 1px solid #0593d3;
+  &amp;:hover {
+    color: #fc6423;
+    border-bottom: none;
+    border-bottom: 1px solid #fc6423;
+  }
+}
+</code></pre><p>其中选择 <code>.post-body</code> 是为了不影响标题，选择 <code>p</code> 是为了不影响首页“阅读全文”的显示样式,颜色可以自己定义。</p>
+<h3 id="修改文章底部的那个带号的标签">修改文章底部的那个带#号的标签</h3>
+<p>修改模板<code>/themes/next/layout/_macro/post.swig</code>，搜索 <code>rel=&quot;tag&quot;&gt;#</code>，将 <code>#</code> 换成 <code>&lt;i class=&quot;fa fa-tag&quot;&gt;&lt;/i&gt;</code></p>
+<h3 id="在每篇文章末尾统一添加本文结束标记">在每篇文章末尾统一添加“本文结束”标记</h3>
+<p>在路径 <code>\themes\next\layout\_macro</code> 中新建 <code>passage-end-tag.swig</code> 文件,并添加以下内容：</p>
+<pre><code>&lt;div&gt;
+    {% if not is_index %}
+        &lt;div style=&quot;text-align:center;color: #ccc;font-size:14px;&quot;&gt;
+		-------------本文结束&lt;i class=&quot;fa fa-paw&quot;&gt;&lt;/i&gt;感谢您的阅读-------------
+		&lt;/div&gt;
+    {% endif %}
+&lt;/div&gt;
+</code></pre><p>接着打开<code>\themes\next\layout\_macro\post.swig</code>文件，在<code>post-body</code> 之后， <code>post-footer</code>之前添加如下代码（post-footer之前两个DIV）：</p>
+<pre><code>&lt;div&gt;
+  {% if not is_index %}
+    {% include 'passage-end-tag.swig' %}
+  {% endif %}
+&lt;/div&gt;
+</code></pre><p>然后打开主题配置文件（_config.yml),在末尾添加：</p>
+<pre><code># 文章末尾添加“本文结束”标记
+passage_end_tag:
+  enabled: true
+</code></pre><h3 id="修改作者头像并旋转">修改作者头像并旋转</h3>
+<p>打开<code>\themes\next\source\css\_common\components\sidebar\sidebar-author.styl</code>，在里面添加如下代码：</p>
+<pre><code>.site-author-image {
+  display: block;
+  margin: 0 auto;
+  padding: $site-author-image-padding;
+  max-width: $site-author-image-width;
+  height: $site-author-image-height;
+  border: $site-author-image-border-width solid $site-author-image-border-color;
+
+  /* 头像圆形 */
+  border-radius: 80px;
+  -webkit-border-radius: 80px;
+  -moz-border-radius: 80px;
+  box-shadow: inset 0 -1px 0 #333sf;
+
+  /* 设置循环动画 [animation: (play)动画名称 (2s)动画播放时长单位秒或微秒 (ase-out)动画播放的速度曲线为以低速结束 
+    (1s)等待1秒然后开始动画 (1)动画播放次数(infinite为循环播放) ]*/
+ 
+
+  /* 鼠标经过头像旋转360度 */
+  -webkit-transition: -webkit-transform 1.0s ease-out;
+  -moz-transition: -moz-transform 1.0s ease-out;
+  transition: transform 1.0s ease-out;
+}
+
+img:hover {
+  /* 鼠标经过停止头像旋转 
+  -webkit-animation-play-state:paused;
+  animation-play-state:paused;*/
+
+  /* 鼠标经过头像旋转360度 */
+  -webkit-transform: rotateZ(360deg);
+  -moz-transform: rotateZ(360deg);
+  transform: rotateZ(360deg);
+}
+
+/* Z 轴旋转动画 */
+@-webkit-keyframes play {
+  0% {
+    -webkit-transform: rotateZ(0deg);
+  }
+  100% {
+    -webkit-transform: rotateZ(-360deg);
+  }
+}
+@-moz-keyframes play {
+  0% {
+    -moz-transform: rotateZ(0deg);
+  }
+  100% {
+    -moz-transform: rotateZ(-360deg);
+  }
+}
+@keyframes play {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(-360deg);
+  }
+}
+</code></pre><h3 id="修改代码块自定义样式">修改代码块自定义样式</h3>
+<p>打开<code>\themes\next\source\css\_custom\custom.styl</code>,向里面加入：(颜色可以自己定义)</p>
+<pre><code>// Custom styles.
+code {
+    color: #ff7600;
+    background: #fbf7f8;
+    margin: 2px;
+}
+// 大代码块的自定义样式
+.highlight, pre {
+    margin: 5px 0;
+    padding: 5px;
+    border-radius: 3px;
+}
+.highlight, code, pre {
+    border: 1px solid #d6d6d6;
+}
+</code></pre><h3 id="主页文章添加阴影效果">主页文章添加阴影效果</h3>
+<p>打开<code>\themes\next\source\css\_custom\custom.styl</code>,向里面加入：</p>
+<pre><code>// 主页文章添加阴影效果
+ .post {
+   margin-top: 60px;
+   margin-bottom: 60px;
+   padding: 25px;
+   -webkit-box-shadow: 0 0 5px rgba(202, 203, 203, .5);
+   -moz-box-shadow: 0 0 5px rgba(202, 203, 204, .5);
+  }
+</code></pre><h3 id="在网站底部加上访问量">在网站底部加上访问量</h3>
+<p>打开主题配置文件，搜索<code>busuanzi_count</code>，修改成这样：</p>
+<pre><code>busuanzi_count:
+  # count values only if the other configs are false
+  enable: true
+  # custom uv span for the whole site
+  site_uv: true
+  site_uv_header: &lt;i class=&quot;fa fa-user&quot;&gt;&lt;/i&gt;
+  site_uv_footer:
+  # custom pv span for the whole site
+  site_pv: true
+  site_pv_header: &lt;i class=&quot;fa fa-eye&quot;&gt;&lt;/i&gt;
+  site_pv_footer:
+  # custom pv span for one page only
+  page_pv: true
+  page_pv_header: &lt;i class=&quot;fa fa-file-o&quot;&gt;&lt;/i&gt;
+  page_pv_footer:
+</code></pre><h3 id="设置网站的图标favicon">设置网站的图标Favicon</h3>
+<p>找一张ico图标,或者去别的网站下载或者制作，并将图标名称改为<code>favicon.ico</code>，然后把图标放在<code>/themes/next/source/images</code>里，并且修改主题配置文件：</p>
+<pre><code># Put your favicon.ico into `hexo-site/source/` directory.
+favicon: images/favicon.ico
+</code></pre><h3 id="文章底部增加版权信息">文章底部增加版权信息</h3>
+<p>新版的 <code>Next</code> 主题应该已经支持文章版权的相关设置，在对应的目录下可以看到带有 <code>copyright</code> 相关的代码。</p>
+<p>在这里，我们不使用主题本身的版权设置，改用我们自定义的版权信息说明，类似本文下方的表现形式。</p>
+<blockquote>
+<p><strong>注：类似本文的版权信息，需要增加相关的代码来实现。这个功能不是我自己写的，代码和想法皆出自于务虚笔记（作者博客名称），当初是请教作者并且得到授权允许发布相关文章来说明如何实现类似的样式。作者个人链接是http://www.wuxubj.cn/，转载这部分内容请务必注明作者及其个人链接</strong>。
+作者对于 <code>next</code>主题的优化可以参考 <a href="https://github.com/wuxubj/wuxubj.github.io"><code>Github链接</code></a></p>
+</blockquote>
+<p>在目录 <code>next/layout/_macro/下</code>添加 <code>my-copyright.swig</code>：</p>
+<pre><code>{% if page.copyright %}
+&lt;div class=&quot;my_post_copyright&quot;&gt;
+  &lt;script src=&quot;//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js&quot;&gt;&lt;/script&gt;
+  
+  &lt;!-- JS库 sweetalert 可修改路径 --&gt;
+  &lt;script type=&quot;text/javascript&quot; src=&quot;http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js&quot;&gt;&lt;/script&gt;
+  &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css&quot;&gt;
+
+  &lt;p&gt;&lt;span&gt;本文标题:&lt;/span&gt;&lt;a href=&quot;{{ url_for(page.path) }}&quot;&gt;{{ page.title }}&lt;/a&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;span&gt;文章作者:&lt;/span&gt;&lt;a href=&quot;/&quot; title=&quot;访问 {{ theme.author }} 的个人博客&quot;&gt;{{ theme.author }}&lt;/a&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;span&gt;发布时间:&lt;/span&gt;{{ page.date.format(&quot;YYYY年MM月DD日 - HH:MM&quot;) }}&lt;/p&gt;
+  &lt;p&gt;&lt;span&gt;最后更新:&lt;/span&gt;{{ page.updated.format(&quot;YYYY年MM月DD日 - HH:MM&quot;) }}&lt;/p&gt;
+  &lt;p&gt;&lt;span&gt;原始链接:&lt;/span&gt;&lt;a href=&quot;{{ url_for(page.path) }}&quot; title=&quot;{{ page.title }}&quot;&gt;{{ page.permalink }}&lt;/a&gt;
+    &lt;span class=&quot;copy-path&quot;  title=&quot;点击复制文章链接&quot;&gt;&lt;i class=&quot;fa fa-clipboard&quot; data-clipboard-text=&quot;{{ page.permalink }}&quot;  aria-label=&quot;复制成功！&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;/p&gt;
+  &lt;p&gt;&lt;span&gt;许可协议:&lt;/span&gt;&lt;i class=&quot;fa fa-creative-commons&quot;&gt;&lt;/i&gt; &lt;a rel=&quot;license&quot; href=&quot;https://creativecommons.org/licenses/by-nc-nd/4.0/&quot; target=&quot;_blank&quot; title=&quot;Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)&quot;&gt;署名-非商业性使用-禁止演绎 4.0 国际&lt;/a&gt; 转载请保留原文链接及作者。&lt;/p&gt;  
+&lt;/div&gt;
+
+&lt;script&gt; 
+    var clipboard = new Clipboard('.fa-clipboard');
+	clipboard.on('success', $(function(){
+	  $(&quot;.fa-clipboard&quot;).click(function(){
+		swal({   
+		  title: &quot;&quot;,   
+		  text: '复制成功',   
+		  html: false,
+		  timer: 500,   
+		  showConfirmButton: false
+	    });
+	  });
+    }));  
+&lt;/script&gt;
+{% endif %}
+</code></pre><p>在目录<code>next/source/css/_common/components/post/</code>下添加<code>my-post-copyright.styl</code>：</p>
+<pre><code>.my_post_copyright {
+  width: 85%;
+  max-width: 45em;
+  margin: 2.8em auto 0;
+  padding: 0.5em 1.0em;
+  border: 1px solid #d3d3d3;
+  font-size: 0.93rem;
+  line-height: 1.6em;
+  word-break: break-all;
+  background: rgba(255,255,255,0.4);
+}
+
+.my_post_copyright p{margin:0;}
+
+.my_post_copyright span {
+  display: inline-block;
+  width: 5.2em;
+  color: #b5b5b5;
+  font-weight: bold;
+}
+
+.my_post_copyright .raw {
+  margin-left: 1em;
+  width: 5em;
+}
+
+.my_post_copyright a {
+  color: #808080;
+  border-bottom:0;
+}
+
+.my_post_copyright a:hover {
+  color: #a3d2a3;
+  text-decoration: underline;
+}
+
+.my_post_copyright:hover .fa-clipboard {
+  color: #000;
+}
+
+.my_post_copyright .post-url:hover {
+  font-weight: normal;
+}
+
+.my_post_copyright .copy-path {
+  margin-left: 1em;
+  width: 1em;
+  +mobile(){display:none;}
+}
+
+.my_post_copyright .copy-path:hover {
+  color: #808080;
+  cursor: pointer;
+}
+</code></pre><p>修改<code>next/layout/_macro/post.swig</code>，在代码</p>
+<pre><code>&lt;div&gt;
+      {% if not is_index %}
+        {% include 'wechat-subscriber.swig' %}
+      {% endif %}
+&lt;/div&gt;
+</code></pre><p>之前添加增加如下代码：</p>
+<pre><code>&lt;div&gt;
+      {% if not is_index %}
+        {% include 'my-copyright.swig' %}
+      {% endif %}
+&lt;/div&gt;
+</code></pre><p>修改<code>next/source/css/_common/components/post/post.styl</code>文件，在最后一行增加代码：</p>
+<pre><code>@import &quot;my-post-copyright&quot;
+</code></pre><p>保存重新生成即可。</p>
+<p>这样当发布一篇博文是，要在该博文下面增加版权信息的显示，需要在 Markdown 中增加<code>copyright: true</code>的设置，类似</p>
+<pre><code>---
+title: Mac终端翻墙
+tags: Linux&amp;Unix
+categories: Linux&amp;Unix
+comments: true
+abbrlink: 745a6d7
+date: 2016-11-24 18:26:33
+updated: 2016-11-24 18:26:33
+copyright: true
+---
+</code></pre><h3 id="修改字体大小">修改字体大小</h3>
+<p>打开<code>\themes\next\source\css\ _variables\base.styl</code>文件，将<code>$font-size-base</code>改成<code>16px</code>，如下所示：</p>
+<pre><code>$font-size-base =16px
+</code></pre><h3 id="修改打赏字体不闪动">修改打赏字体不闪动</h3>
+<p>修改文件<code>next/source/css/_common/components/post/post-reward.styl</code>，然后注释其中的函数<code>wechat:hover</code>和<code>alipay:hover</code>，如下：</p>
+<pre><code>/* 注释文字闪动函数
+ #wechat:hover p{
+    animation: roll 0.1s infinite linear;
+    -webkit-animation: roll 0.1s infinite linear;
+    -moz-animation: roll 0.1s infinite linear;
+}
+ #alipay:hover p{
+   animation: roll 0.1s infinite linear;
+    -webkit-animation: roll 0.1s infinite linear;
+    -moz-animation: roll 0.1s infinite linear;
+}
+*/
+</code></pre><h3 id="修改标签云字体颜色">修改标签云字体颜色</h3>
+<p>打开<code>/node_modules/hexo/lib/plugins/helper/tagcloud.js</code>文件，修改如下代码：</p>
+<pre><code>if (color) {
+  var midColor = startColor.mix(endColor, ratio);
+  // style += ' color: ' + midColor.toString();
+  style += ' color: #363636';
+}
+</code></pre><h3 id="加入网易云音乐播放器">加入网易云音乐播放器</h3>
+<ol>
+<li>在网易云音乐网页版上选择想要布置的音乐（这里以Family of the Year的《Hero》为例）；</li>
+<li>在歌曲详细页上点击“生成外链播放器”；</li>
+<li>对插件进行个性化修改（建议为了网站浏览体验，，取消自动播放），并点击“复制代码”；</li>
+</ol>
+<p>三 修改网页样式文件</p>
+<ol>
+<li>打开本地网页Hexo文件夹内的sidebar.swig文件，具体目录为：Hexo\themes\Next\layout_macro\sidebar.swig（注：本路径中Next为自己的网页主题文件夹名，不同主题名称不同，路径都类似。）</li>
+<li>在打开的sidebar.swig文件合适位置上粘贴上面复制的代码。</li>
+</ol>
+<pre><code>        {# Blogroll #}
+        {% if theme.links %}
+          &lt;div class=&quot;links-of-blogroll motion-element {{ &quot;links-of-blogroll-&quot; + theme.links_layout | default('inline') }}&quot;&gt;
+            &lt;div class=&quot;links-of-blogroll-title&quot;&gt;
+              &lt;i class=&quot;fa  fa-fw fa-{{ theme.links_icon | default('globe') | lower }}&quot;&gt;&lt;/i&gt;
+              {{ theme.links_title }}
+            &lt;/div&gt;
+            &lt;ul class=&quot;links-of-blogroll-list&quot;&gt;
+              {% for name, link in theme.links %}
+                &lt;li class=&quot;links-of-blogroll-item&quot;&gt;
+                  &lt;a href=&quot;{{ link }}&quot; title=&quot;{{ name }}&quot; target=&quot;_blank&quot;&gt;{{ name }}&lt;/a&gt;
+                &lt;/li&gt;
+              {% endfor %}
+            &lt;/ul&gt;
+          &lt;/div&gt;
+        {% endif %}
+        .......在这插入代码
+</code></pre><h3 id="把谷歌字体库替换为国内的库">把谷歌字体库替换为国内的库</h3>
+<p>由于谷歌字体库偶尔加载非常慢，可以将其替换，这里采用360CDN服务。以Next主题为例，可以找到your-hexo-site\themes\next\layout_partials\head\external-fonts.swig中有这段语句：</p>
+<pre><code>{% set font_families += '&amp;subset=latin,latin-ext' %}
+{% set font_host = font.host | default('//fonts.googleapis.com') %} //改这里的地址
+&lt;link href=&quot;{{ font_host }}/css?family={{ font_families }}&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
+</code></pre><ol>
+<li>ajax.googleapis.com =&gt; ajax.lug.ustc.edu.cn</li>
+<li>fonts.googleapis.com =&gt; fonts.lug.ustc.edu.cn</li>
+<li>themes.googleusercontent.com =&gt; google-themes.lug.ustc.edu.cn</li>
+</ol>
+<p>最新版的主题在配置文件中已经集成了自定义字体库源设置</p>
+<pre><code>  # Uri of fonts host. E.g. //fonts.googleapis.com (Default)
+  host: //fonts.lug.ustc.edu.cn
+</code></pre><p>根据语言来判断</p>
+<pre><code>{% if theme.use_font_lato %}
+  {% if config.language === 'zh-Hans' %}
+    &lt;link href='//fonts.lug.ustc.edu.cn/css?family=Lato:300,400,700,400italic&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'&gt;
+  {% else %}
+    &lt;link href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'&gt;
+  {% endif %}
+{% endif %}
+</code></pre><h3 id="在右上角或者左上角实现fork-me-on-github"><strong>在右上角或者左上角实现fork me on github</strong></h3>
+<p>具体实现方法</p>
+<p>点击<a href="https%3A//github.com/blog/273-github-ribbons">这里**</a>挑选自己喜欢的样式，并复制代码。 例如，我是复制如下代码：</p>
+<p>然后粘贴刚才复制的代码到themes/next/layout/_layout.swig文件中(放在<code>&lt;div class=&quot;headband&quot;&gt;&lt;/div&gt;</code>的下面)，并把href改为你的github地址</p>
+<p><img src="https://pic1.zhimg.com/v2-e5120a5f831e7d1207e945cf911c173c_b.png" alt="img"></p>
+<h3 id="添加热度">添加热度</h3>
+<p>实现效果图：<img src="https://pic1.zhimg.com/v2-91d41bd3ef533d356a201ce176bb5b54_b.png" alt="img"></p>
+<p>具体实现方法</p>
+<p>next主题集成leanCloud，打开/themes/next/layout/_macro/post.swig,在画红线的区域添加℃：</p>
+<p><img src="https://pic3.zhimg.com/v2-80705a42caa436908578985ebe3b8fc6_b.png" alt="img"></p>
+<p>然后打开，/themes/next/languages/zh-Hans.yml,将画红框的改为热度就可以了</p>
+<p><img src="https://pic1.zhimg.com/v2-6eb8e53f2a009b76cf73acabfd263560_b.png" alt="img"></p>
+<h3 id="自定义鼠标样式"><strong>自定义鼠标样式</strong></h3>
+<p>打开themes/next/source/css/_custom/custom.styl,在里面写下如下代码</p>
+<pre><code>// 鼠标样式
+  * {
+      cursor: url(&quot;http://om8u46rmb.bkt.clouddn.com/sword2.ico&quot;),auto!important
+  }
+  :active {
+      cursor: url(&quot;http://om8u46rmb.bkt.clouddn.com/sword1.ico&quot;),auto!important
+  }
+</code></pre><h3 id="博文置顶"><strong>博文置顶</strong></h3>
+<p>修改 hero-generator-index 插件，把文件：node_modules/hexo-generator-index/lib/generator.js 内的代码替换为：</p>
+<pre><code>'use strict';
+var pagination = require('hexo-pagination');
+module.exports = function(locals){
+  var config = this.config;
+  var posts = locals.posts;
+    posts.data = posts.data.sort(function(a, b) {
+        if(a.top &amp;&amp; b.top) { // 两篇文章top都有定义
+            if(a.top == b.top) return b.date - a.date; // 若top值一样则按照文章日期降序排
+            else return b.top - a.top; // 否则按照top值降序排
+        }
+        else if(a.top &amp;&amp; !b.top) { // 以下是只有一篇文章top有定义，那么将有top的排在前面（这里用异或操作居然不行233）
+            return -1;
+        }
+        else if(!a.top &amp;&amp; b.top) {
+            return 1;
+        }
+        else return b.date - a.date; // 都没定义按照文章日期降序排
+    });
+  var paginationDir = config.pagination_dir || 'page';
+  return pagination('', posts, {
+    perPage: config.index_generator.per_page,
+    layout: ['index', 'archive'],
+    format: paginationDir + '/%d/',
+    data: {
+      __index: true
+    }
+  });
+};
+
+</code></pre><p>在文章中添加 top 值，数值越大文章越靠前，如</p>
+<pre><code>---
+title: 解决Charles乱码问题
+date: 2017-05-22 22:45:48
+tags: 技巧
+categories: 技巧
+copyright: true
+top: 100(可省略)
+sticky:数值越大越高（next最新主题自带）
+---
+</code></pre><h3 id="next主题添加哈林摇特效">Next主题添加哈林摇特效</h3>
+<h4 id="添加步骤">添加步骤</h4>
+<h4 id="主要涉及2方面特效代码样式调整">主要涉及2方面：<strong>特效代码，样式调整</strong>。</h4>
+<h4 id="创建特效文件">创建特效文件</h4>
+<p>在<strong>主题目录</strong>中，创建<code>layout\_macro\high.swig</code>，添加如下代码：</p>
+<pre><code>  &lt;a title=&quot;收藏到书签，偶尔High一下^_^&quot; rel=&quot;alternate&quot; class=&quot;mw-harlem_shake_slow wobble shake&quot; href='javascript:(function() {
+    function c() {
+        var e = document.createElement(&quot;link&quot;);
+        e.setAttribute(&quot;type&quot;, &quot;text/css&quot;);
+        e.setAttribute(&quot;rel&quot;, &quot;stylesheet&quot;);
+        e.setAttribute(&quot;href&quot;, f);
+        e.setAttribute(&quot;class&quot;, l);
+        document.body.appendChild(e)
+    }
+ 
+    function h() {
+        var e = document.getElementsByClassName(l);
+        for (var t = 0; t &lt; e.length; t++) {
+            document.body.removeChild(e[t])
+        }
+    }
+ 
+    function p() {
+        var e = document.createElement(&quot;div&quot;);
+        e.setAttribute(&quot;class&quot;, a);
+        document.body.appendChild(e);
+        setTimeout(function() {
+            document.body.removeChild(e)
+        }, 100)
+    }
+ 
+    function d(e) {
+        return {
+            height : e.offsetHeight,
+            width : e.offsetWidth
+        }
+    }
+ 
+    function v(i) {
+        var s = d(i);
+        return s.height &gt; e &amp;&amp; s.height &lt; n &amp;&amp; s.width &gt; t &amp;&amp; s.width &lt; r
+    }
+ 
+    function m(e) {
+        var t = e;
+        var n = 0;
+        while (!!t) {
+            n += t.offsetTop;
+            t = t.offsetParent
+        }
+        return n
+    }
+ 
+    function g() {
+        var e = document.documentElement;
+        if (!!window.innerWidth) {
+            return window.innerHeight
+        } else if (e &amp;&amp; !isNaN(e.clientHeight)) {
+            return e.clientHeight
+        }
+        return 0
+    }
+ 
+    function y() {
+        if (window.pageYOffset) {
+            return window.pageYOffset
+        }
+        return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+    }
+ 
+    function E(e) {
+        var t = m(e);
+        return t &gt;= w &amp;&amp; t &lt;= b + w
+    }
+ 
+    function S() {
+        var e = document.createElement(&quot;audio&quot;);
+        e.setAttribute(&quot;class&quot;, l);
+        e.src = i;
+        e.loop = false;
+        e.addEventListener(&quot;canplay&quot;, function() {
+            setTimeout(function() {
+                x(k)
+            }, 500);
+            setTimeout(function() {
+                N();
+                p();
+                for (var e = 0; e &lt; O.length; e++) {
+                    T(O[e])
+                }
+            }, 15500)
+        }, true);
+        e.addEventListener(&quot;ended&quot;, function() {
+            N();
+            h()
+        }, true);
+        e.innerHTML = &quot; &lt;p&gt;If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.&lt;/p&gt; &lt;p&gt;&quot;;
+        document.body.appendChild(e);
+        e.play()
+    }
+ 
+    function x(e) {
+        e.className += &quot; &quot; + s + &quot; &quot; + o
+    }
+ 
+    function T(e) {
+        e.className += &quot; &quot; + s + &quot; &quot; + u[Math.floor(Math.random() * u.length)]
+    }
+ 
+    function N() {
+        var e = document.getElementsByClassName(s);
+        var t = new RegExp(&quot;\\b&quot; + s + &quot;\\b&quot;);
+        for (var n = 0; n &lt; e.length; ) {
+            e[n].className = e[n].className.replace(t, &quot;&quot;)
+        }
+    }
+ 
+    var e = 30;
+    var t = 30;
+    var n = 350;
+    var r = 350;
+    var i = &quot;//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3&quot;;
+    var s = &quot;mw-harlem_shake_me&quot;;
+    var o = &quot;im_first&quot;;
+    var u = [&quot;im_drunk&quot;, &quot;im_baked&quot;, &quot;im_trippin&quot;, &quot;im_blown&quot;];
+    var a = &quot;mw-strobe_light&quot;;
+    var f = &quot;//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css&quot;;
+    var l = &quot;mw_added_css&quot;;
+    var b = g();
+    var w = y();
+    var C = document.getElementsByTagName(&quot;*&quot;);
+    var k = null;
+    for (var L = 0; L &lt; C.length; L++) {
+        var A = C[L];
+        if (v(A)) {
+            if (E(A)) {
+                k = A;
+                break
+            }
+        }
+    }
+    if (A === null) {
+        console.warn(&quot;Could not find a node of the right size. Please try a different page.&quot;);
+        return
+    }
+    c();
+    S();
+    var O = [];
+    for (var L = 0; L &lt; C.length; L++) {
+        var A = C[L];
+        if (v(A)) {
+            O.push(A)
+        }
+    }
+})()'&gt;&lt;i class=&quot;fa fa-music&quot;&gt;&lt;/i&gt; High&lt;/a&gt;
+</code></pre><h4 id="引用特效代码">引用特效代码</h4>
+<p>在侧边栏，引用特效代码。在<strong>主题目录</strong>，修改<code>layout\_macro\sidebar.swig</code>：</p>
+<pre><code>{% include 'high.swig' %}
+</code></pre><p><a href="http://www.iamlj.com/2016/08/add-special-effect-harlem-shake-for-hexo/20160802003240.png"><img src="http://www.iamlj.com/2016/08/add-special-effect-harlem-shake-for-hexo/20160802003240.png" alt="img"></a></p>
+<h4 id="样式修改">样式修改</h4>
+<p>（这里，我使用的是其它<code>Pisces</code>主题，其它主题请自行按照此法调试）
+将”High”和”RSS”并排展示，在<strong>主题目录</strong>中，修改<code>source\css\_schemes\Pisces\_sidebar.styl</code></p>
+<pre><code>display: inline-block;
+</code></pre><p><a href="http://www.iamlj.com/2016/08/add-special-effect-harlem-shake-for-hexo/20160802003448.png"><img src="http://www.iamlj.com/2016/08/add-special-effect-harlem-shake-for-hexo/20160802003448.png" alt="img"></a></p>
+<h4 id="最后">最后</h4>
+<p>关于优化，建议将<code>layout\_macro\high.swig</code>中的<code>harlem-shake.mp3</code>和<code>harlem-shake.css</code>放到cdn上，然后引用cdn地址，加快访问速度。</p>
+<h3 id="为博客加上萌萌的宠物"><strong>为博客加上萌萌的宠物</strong></h3>
+<p><strong>实现效果图</strong></p>
+<p><strong>具体实现方法</strong>
+在终端切换到你的博客的路径里，然后输入如下代码：</p>
+<pre><code>npm install -save hexo-helper-live2d
+
+</code></pre><p>然后打开Hexo/blog/themes/next/layout
+的_layout.swig,将下面代码放到<code>&lt;/body&gt;</code>之前：</p>
+<pre><code>{{ live2d() }}
+
+</code></pre><p>然后在在 hexo 的 _config.yml中添加参数：</p>
+<pre><code>live2d:
+  model: wanko
+  bottom: -30
+
+</code></pre><p>然后hexo clean ，hexo g ，hexo d 就可以看到了。</p>
+<p><strong>下面是一些model，可以换不同的宠物</strong></p>
+<ul>
+<li>
+<p>model 模型名称 默认值: z16</p>
+</li>
+<li>
+<ul>
+<li>Gantzert_Felixander</li>
+<li>Epsilon2.1</li>
+<li>haru</li>
+<li>miku</li>
+<li>ni-j</li>
+<li>nico</li>
+<li>nito</li>
+<li>nipsilon</li>
+<li>nietzsche</li>
+<li>shizuku</li>
+<li>tsumiki</li>
+<li>wanko</li>
+<li>z16</li>
+<li>hibiki</li>
+<li>koharu</li>
+<li>haruto</li>
+<li>Unitychan</li>
+<li>tororo</li>
+<li>hijiki</li>
+</ul>
+</li>
+<li>
+<p>width 宽度 默认值: 150</p>
+</li>
+<li>
+<p>height 高度 默认值： 300</p>
+</li>
+<li>
+<p>className <!-- raw HTML omitted -->元素的类名 默认值： live2d</p>
+</li>
+<li>
+<p>id <!-- raw HTML omitted --> 元素的id 默认值： live2dcanvas</p>
+</li>
+<li>
+<p>bottom <!-- raw HTML omitted --> 元素的底部偏移 默认值： -20 如果嫌模型位置不正确 可以调整这个参数</p>
+</li>
+</ul>
+<p><strong>用这个有缺点，如果是在手机上看的话，感</strong></p>
+<h3 id="hexo-进阶优化">hexo 进阶优化</h3>
+<h3 id="优化-htmlcssjs-image插件形式">优化 HTML,CSS,JS, Image(插件形式)</h3>
+<pre><code>npm install hexo-all-minifier --save
+</code></pre><p>然后在 <code>hexo</code> 博客根目录下的 <code>config.yml</code> 文件中加入如下代码</p>
+<pre><code>html_minifier:
+  enable: true
+  exclude: 
+ 
+css_minifier:
+  enable: true
+  exclude: 
+    - '*.min.css'
+ 
+js_minifier:
+  enable: true
+  mangle: true
+  output:
+  compress:
+  exclude: 
+    - '*.min.js'
+ 
+image_minifier:
+  enable: true
+  interlaced: false
+  multipass: false
+  optimizationLevel: 2
+  pngquant: false
+  progressive: false
+</code></pre><h4 id="第一种配置静态资源优化gulp">（第一种配置）静态资源优化gulp</h4>
+<p>gulp 4.0 即将发布, 现在已经可以开始使用.<a href="http://robin-front.github.io/2015/10/09/gulp-4.0/">gulp 4.0的变化</a>可以参考这篇博文</p>
+<ul>
+<li>安装:</li>
+</ul>
+<pre><code>npm uninstall -g gulp
+npm i -g gulp-cli
+npm i --save-dev autoprefixer del gulpjs/gulp-cli#4.0 gulp-load-plugins gulp-postcss gulp-posthtml gulp-uglify gulp-xml postcss-clean posthtml-minifier posthtml-postcss
+</code></pre><p>由于已经安装过gulp 3.9所以的按以下操作</p>
+<pre><code># 如果安装过全局的 gulp 的话先卸载之
+$ npm uninstall gulp -g
+
+# 安装全局的 gulp 4.0
+$ npm install &quot;gulpjs/gulp#4.0&quot; -g
+
+# 到项目目录里删掉本地的 gulp
+$ npm rm gulp --save-dev
+
+# 安装本地的 gulp 4.0
+$ npm install &quot;gulpjs/gulp#4.0&quot; --save-dev
+</code></pre><p>配置(gulpfile.js):</p>
+<pre><code>const gulp = require('gulp'),
+    postcss = require('posthtml-postcss'),
+    htmlmin = require('posthtml-minifier'),
+    autoprefixer = require('autoprefixer'),
+    cleancss = require('postcss-clean'),
+    $ = require('gulp-load-plugins')(),
+    del = require('del');
+const app = {
+        build: 'build'
+    },
+    base = 'public/**/*.';
+['css', 'js'].forEach(function (value) {
+    app[value] = [`${base + value}`, `!${base}min.${value}`];
+});
+['html', 'xml'].forEach(function (value) {
+    app[value] = `${base + value}`;
+});
+function clean() {
+    return del(app.build);
+}
+function css() {
+    return gulp.src(app.css)
+        .pipe($.postcss([
+            autoprefixer(),
+            cleancss()]))
+        .pipe(gulp.dest(app.build));
+}
+function js() {
+    return gulp.src(app.js)
+        .pipe($.uglify())
+        .pipe(gulp.dest(app.build));
+}
+function html() {
+    return gulp.src(app.html)
+        .pipe($.posthtml([
+            postcss([autoprefixer, cleancss]),
+            htmlmin({
+                collapseBooleanAttributes: true,
+                collapseWhitespace: true,
+                minifyCSS: true,
+                minifyJS: true,
+                removeTagWhitespace: true
+            })
+        ]))
+        .pipe(gulp.dest(app.build));
+}
+function xml() {
+    return gulp.src(app.xml)
+        .pipe($.xml({
+            parseOpts: {
+                trim: true
+            },
+            buildOpts: {
+                renderOpts: {
+                    pretty: false
+                },
+                allowSurrogateChars: true,
+                cdata: true
+            },
+            callback: function (result) {
+                return result.replace(/\s{2,}/g, ' ');
+            }
+        }))
+        .pipe(gulp.dest(app.build));
+}
+gulp.task(clean);
+gulp.task('default', gulp.series(
+    clean,    //这个是清楚public目录后生成第9行设置的新的文件夹名，我删除了这个，同时把第9行的生成目录名设置为了public
+    gulp.parallel(css, js, html, xml)
+));
+</code></pre><p>PS: gulp-xml 是为了处理压缩 search.xml 和 sitemap.xml 等 .xml 文件而使用 node-xml2js 编写的 gulp 插件, 欢迎使用.</p>
+<p>主要是压缩html,css,js等等静态资源，可以适当减少请求的数据量，主要用到<code>gulp</code>和一些相关的插件来实现，直接列出我的dependencies.</p>
+<pre><code>&quot;dependencies&quot;: {
+  &quot;gulp&quot;: &quot;^3.9.1&quot;,
+  &quot;gulp-htmlclean&quot;: &quot;^2.7.6&quot;,
+  &quot;gulp-htmlmin&quot;: &quot;^3.0.0&quot;,
+  &quot;gulp-imagemin&quot;: &quot;^3.1.1&quot;,
+  &quot;gulp-minify-css&quot;: &quot;^1.2.4&quot;,
+  &quot;gulp-uglify&quot;: &quot;^2.0.0&quot;,
+  &quot;hexo&quot;: &quot;^3.2.0&quot;,
+  &quot;hexo-deployer-git&quot;: &quot;^0.1.0&quot;,
+  &quot;hexo-generator-archive&quot;: &quot;^0.1.4&quot;,
+  &quot;hexo-generator-category&quot;: &quot;^0.1.3&quot;,
+  &quot;hexo-generator-index&quot;: &quot;^0.2.0&quot;,
+  &quot;hexo-generator-tag&quot;: &quot;^0.2.0&quot;,
+  &quot;hexo-generator-sitemap&quot;: &quot;^1.1.2&quot;,
+  &quot;hexo-generator-baidu-sitemap&quot;: &quot;^0.1.2&quot;,
+  &quot;hexo-renderer-ejs&quot;: &quot;^0.2.0&quot;,
+  &quot;hexo-renderer-marked&quot;: &quot;^0.2.10&quot;,
+  &quot;hexo-renderer-stylus&quot;: &quot;^0.3.1&quot;,
+  &quot;hexo-server&quot;: &quot;^0.2.0&quot;
+}
+</code></pre><p>其中<code>gulp</code>相关的就是用来压缩静态资源用的，接着还要安装<code>gulp</code>工具：</p>
+<pre><code>$ npm install gulp -g --save-dev
+$ npm install gulp gulp-uglify gulp-minify-css gulp-htmlmin gulp-htmlclean gulp-imagemin gulp-concat --save-dev
+</code></pre><p>然后添加<code>gulpfile.js</code>到根目录。</p>
+<p>第一种</p>
+<pre><code>var gulp = require('gulp'),
+    uglify = require('gulp-uglify'),
+    cssmin = require('gulp-minify-css'),
+    imagemin = require('gulp-imagemin'),
+    htmlmin = require('gulp-htmlmin'),
+	htmlclean = require('gulp-htmlclean');
+	concat = require('gulp-concat');
+//JS压缩
+gulp.task('uglify', function() {
+    return gulp.src(['./public/js/**/.js','!./public/js/**/*min.js'])//只是排除min.js文件还是不严谨，一般不会有问题，根据自己博客的修改我的修改为return gulp.src(['./public/**/*.js','!./public/zuoxi/**/*.js',,'!./public/radio/**/*.js'])
+        .pipe(uglify())
+        .pipe(gulp.dest('./public/js'));//对应修改为./public即可
+});
+//public-fancybox-js压缩
+gulp.task('fancybox:js', function() {
+    return gulp.src('./public/vendors/fancybox/source/jquery.fancybox.js')
+        .pipe(uglify())
+        .pipe(gulp.dest('./public/vendors/fancybox/source/'));
+});
+// 合并 JS
+gulp.task('jsall', function () {
+    return gulp.src('./public/**/*.js')
+    // 压缩后重命名
+        .pipe(concat('app.js'))
+        .pipe(gulp.dest('./public'));
+});
+//public-fancybox-css压缩
+gulp.task('fancybox:css', function() {
+    return gulp.src('./public/vendors/fancybox/source/jquery.fancybox.css')
+        .pipe(cssmin())
+        .pipe(gulp.dest('./public/vendors/fancybox/source/'));
+});
+//CSS压缩
+gulp.task('cssmin', function() {
+    return gulp.src(['./public/css/main.css','!./public/css/*min.css'])   
+        .pipe(cssmin())
+        .pipe(gulp.dest('./public/css/'));
+});
+//图片压缩
+gulp.task('images', function() {
+    gulp.src('./public/uploads/*.*')
+        .pipe(imagemin({
+            progressive: false
+        }))
+        .pipe(gulp.dest('./public/uploads/'));
+});
+// 压缩 public 目录 html文件 public/**/*.hmtl 表示public下所有文件夹中html，包括当前目录
+    gulp.task('minify-html', function() {
+      return gulp.src('./public/**/*.html')
+        .pipe(htmlclean())
+        .pipe(htmlmin({
+             removeComments: true,
+             minifyJS: true,
+             minifyCSS: true,
+             minifyURLs: true,
+        }))
+        .pipe(gulp.dest('./public'))
+    });
+gulp.task('build', ['uglify', 'jsall', 'cssmin', 'images', 'fancybox:js', 'fancybox:css','minify-html']);
+</code></pre><p>第二种</p>
+<pre><code>var gulp = require('gulp');
+var minifycss = require('gulp-minify-css');
+var uglify = require('gulp-uglify');
+var htmlmin = require('gulp-htmlmin');
+var htmlclean = require('gulp-htmlclean');
+var imagemin = require('gulp-imagemin');
+// 压缩css文件
+gulp.task('minify-css', function() {
+  return gulp.src('./public/**/*.css')
+  .pipe(minifycss())
+  .pipe(gulp.dest('./public'));
+});
+// 压缩html文件
+gulp.task('minify-html', function() {
+  return gulp.src('./public/**/*.html')
+  .pipe(htmlclean())
+  .pipe(htmlmin({
+    removeComments: true,
+    minifyJS: true,
+    minifyCSS: true,
+    minifyURLs: true,
+  }))
+  .pipe(gulp.dest('./public'))
+});
+// 压缩js文件
+gulp.task('minify-js', function() {
+ return gulp.src(['./public/js/**/.js','!./public/js/**/*min.js'])//只是排除min.js文件还是不严谨，一般不会有问题，根据自己博客的修改我的修改为return gulp.src(['./public/**/*.js','!./public/zuoxi/**/*.js',,'!./public/radio/**/*.js'])
+        .pipe(uglify())
+        .pipe(gulp.dest('./public/js'));//对应修改为./public即可
+});
+// 压缩 public/demo 目录内图片
+gulp.task('minify-images', function() {
+    gulp.src('./public/demo/**/*.*')
+        .pipe(imagemin({
+           optimizationLevel: 5, //类型：Number  默认：3  取值范围：0-7（优化等级）
+           progressive: true, //类型：Boolean 默认：false 无损压缩jpg图片
+           interlaced: false, //类型：Boolean 默认：false 隔行扫描gif进行渲染
+           multipass: false, //类型：Boolean 默认：false 多次优化svg直到完全优化
+        }))
+        .pipe(gulp.dest('./public/uploads'));
+});
+// 默认任务
+gulp.task('default', [
+  'minify-html','minify-css','minify-js','minify-images'
+]);
+</code></pre><h4 id="执行优化命令">执行优化命令</h4>
+<p>清空hexo public文件夹</p>
+<pre><code>hexo clean
+hexo g
+gulp build
+hexo d
+
+</code></pre><p>连续执行4个命令太麻烦， 可以直接在根目录下的package.json文件中生成写入scripts:</p>
+<pre><code>&quot;scripts&quot;: {
+  &quot;build&quot;: &quot;hexo clean &amp;&amp; hexo g &amp;&amp; gulp build &amp;&amp; hexo deploy&quot;
+  }
+
+</code></pre><p>然后直接执行如下命令就可以了</p>
+<pre><code>npm run build
+</code></pre><h4 id="第二种配置-何为gulp">（第二种配置） 何为Gulp</h4>
+<p>如果你只是想快速实现效果，可以直接跳到第三步，“使用Gulp”。</p>
+<p><a href="https://markpop.github.io/2014/09/17/Gulp%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">https://markpop.github.io/2014/09/17/Gulp%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</a>
+作为一款优秀的前端构建工具，Gulp常与Grunt作为对比，这篇博文里讲的很好了，不再赘述。</p>
+<p><a href="https://github.com/gulpjs/gulp">https://github.com/gulpjs/gulp</a>
+Gulp的命令也比较少，看了github的介绍，相信你也可以很快入手。</p>
+<p><a href="http://gulpjs.com/plugins/">http://gulpjs.com/plugins/</a>
+Gulp的插件可以来这里搜，貌似更新很快，一些插件上面博文里的名字都不一样了。</p>
+<p>使用Gulp</p>
+<p>针对hexo代码的优化采用了过渡的方法，先讲public里的文件压缩后放在dst文件夹中，再将dst文件复制到public中。这里借鉴了<a href="http://www.5941740.cn/2016/02/19/gulp-minify-blog/">博文</a>感谢但丁的分享。</p>
+<p>如果你已经有了npm，按照下面的命令操作，应该就可以完成了。</p>
+<pre><code>1. npm install --global gulp-cli    //按照全局gulp
+2. npm install gulp --save-dev        //cd进入项目根目录，安装gulp
+3. npm install gulp-shell gulp-clean gulp-minify-html gulp-minify-css gulp-uglify gulp-notify --save-dev              //安装插件
+4. 编写gulpfile.js文件，见下图
+5. 执行命令gulp，压缩代码到dst
+6. 执行命令gulp mv，将压缩后的代码复制到public
+</code></pre><p>这里解释下为什么不通过watch监听代码的变化，自动执行。但丁指出了这个问题——“需要说明的是,由于mv任务会将优化后的文件移回public目录,如果运行了watch任务,可能会造成循环任务.我没有开启后台监听任务,我是在外包shell脚本中运行gulp任务并提交代码。” 如果你有更好的方案，希望能告诉我(^_^)。</p>
+<p>gulpfile.js的代码都在这里啦！</p>
+<pre><code>// npm install gulp-shell gulp-clean gulp-minify-html gulp-minify-css gulp-uglify gulp-notify --save-dev   
+
+var gulp = require('gulp'),
+    clean = require('gulp-clean'),
+    minifyCss = require('gulp-minify-css'),
+    minifyHtml = require('gulp-minify-html'),
+    uglify = require('gulp-uglify'),
+    notify = require('gulp-notify'),
+    shell = require('gulp-shell');
+
+//清空dest文件夹
+gulp.task(&quot;clean&quot;,function() {
+    return gulp.src(&quot;./dst/*&quot;)
+    .pipe(clean());
+});
+
+// 压缩css文件，已压缩文件不用再压缩
+gulp.task(&quot;css&quot;,function() {
+    return gulp.src([&quot;public/**/*.css&quot;,&quot;!public/**/*.min.css&quot;])
+    .pipe(minifyCss({compatibility: &quot;ie8&quot;}))
+    .pipe(gulp.dest(&quot;./dst/&quot;));   
+});
+
+// 压缩js文件
+gulp.task(&quot;js&quot;,function() {
+    return gulp.src([&quot;public/**/*.js&quot;,&quot;!public/**/*.min.js&quot;])
+    .pipe(uglify())
+    .pipe(gulp.dest(&quot;./dst/&quot;));
+});
+
+// 压缩html文件
+gulp.task(&quot;html&quot;,function() {
+    return gulp.src(&quot;public/**/*.html&quot;)
+    .pipe(minifyHtml())
+    .pipe(gulp.dest(&quot;./dst/&quot;));
+});
+
+// 设置默认任务，command line下输入gulp执行
+// clean任务执行完成了才会去运行其他的任务，在gulp.start()里的任务执行的顺序是不确定的，所以将要在它们之前执行的任务写在数组里面
+gulp.task(&quot;default&quot;,['clean'],function() {
+    gulp.start('css', 'js', 'html');
+});
+
+// det文件复制到public
+gulp.task(&quot;mv&quot;,function() {
+    return gulp.src(&quot;./dst/*&quot;)
+    .pipe(shell([
+        &quot;cp -r ./dst/* ./public/&quot;
+    ]));
+});
+</code></pre><h3 id="生成sitemap文件">生成sitemap文件</h3>
+<p>生成sitemap文件然后提交给搜索引擎，对于SEO很有帮助，hexo有相关的sitemap插件。</p>
+<pre><code>&quot;hexo-generator-sitemap&quot;: &quot;^1.1.2&quot;,
+&quot;hexo-generator-baidu-sitemap&quot;: &quot;^0.1.2&quot;,
+</code></pre><p>安装这俩插件后，以后每次<code>hexo g</code>都会生成sitemap.xml和baidusitemap.xml文件并自动帮你放到public目录。很省心~</p>
+<h3 id="修改permalink使文章链接唯一化">修改permalink使文章链接唯一化</h3>
+<p>hexo默认的permalink配置是：</p>
+<pre><code>permalink: :year/:month/:day/:title/
+</code></pre><p>这样生成的访问链接都是类似<code>http://yoursite.com/2016/05/06/your_title/</code>这样的，有点动态网站的风格，不过这样可能对于搜索引擎不是太友好，我们可以把permalink修改成.html结尾的：</p>
+<pre><code>permalink: :year/:month/:day/:title.html
+permalink: posts/:abbrlink/  # “posts/” 可自行更换
+</code></pre><p>还有一点需要注意的是，title最好是英文的，这样permalink也是不带中文的，但是markdown文件中的title你还是可以按自己的文章标题写成中文的。</p>
+<p>在<code>站点配置文件</code>中添加如下代码：</p>
+<pre><code># abbrlink config
+abbrlink:
+  alg: crc32  # 算法：crc16(default) and crc32 
+  rep: hex    # 进制：dec(default) and hex
+</code></pre><p>可选择模式：</p>
+<ul>
+<li>crc16 &amp; hex</li>
+<li>crc16 &amp; dec</li>
+<li>crc32 &amp; hex</li>
+<li>crc32 &amp; dec</li>
+</ul>
+<h3 id="其他小的修改点">其他小的修改点</h3>
+<p>这些都是看个人爱好了，hexo还是很方便自己自定义的。</p>
+<h4 id="站点头像改成圆形">站点头像改成圆形</h4>
+<p>在<code>themes/next/source/css/_common/components/sidebar/sidebar-author.styl</code>中<code>.site-author-image</code>定义中增加：</p>
+<pre><code>border-radius: 50%;
+-webkit-border-radius: 50%;
+-moz-border-radius: 50%;
+
+</code></pre><h4 id="去掉站点链接前面的小圆点">去掉站点链接前面的小圆点</h4>
+<p>个人不太喜欢站点链接前面的小圆点，去掉<code>themes/next/source/css/_common/components/sidebar/sidebar-author-links.styl</code>中<code>a::before</code>的定义即可。</p>
+<h4 id="小技巧">小技巧</h4>
+<p>有其他想修改的小地方，都可以打开浏览器的开发者工具，找到对应地方的css定义，然后在sublime或者atom中<code>Search In Directory</code>找到对应css的源码，修改即可。</p>
+<h4 id="解决github-pages屏蔽百度爬虫的问题">解决github pages屏蔽百度爬虫的问题</h4>
+<p>嗯，是的，github pages屏蔽了百度爬虫(屏蔽了百度爬虫的UA<code>Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)</code>)。这样你的hexo博客很难被百度收录，从百度站长工具抓取诊断中就可以发现爬取都是403 forbidden。</p>
+<pre><code>HTTP/1.0 403 Forbidden
+Cache-Control: no-cache
+Connection: close
+Content-Type: text/html
+
+</code></pre><p>本来也无所谓，但是从技术的角度来看，解决这种问题肯定很有快感~~
+目前主要有两种解决方案：<code>CDN回源</code>和<code>为百度spider指定特殊线路</code>。两种方案我都试过，最终选择了后者。</p>
+<h4 id="cdn回源">CDN回源</h4>
+<p>hexo博客都是静态文件，很适合使用CDN回源，这样不仅能提高访问速度还能跳过github对百度爬虫的屏蔽。
+回源的意思是用户请求hexo之后CDN会抓取hexo内容，这样其他用户就不用访问github pages了而是直接从CDN就近的节点拉取数据，访问速度更快。但是这里有个问题，比如百度爬虫所在的区域CDN节点还没有缓存hexo数据，这样百度爬虫会穿透CDN直接请求到github pages，然后后果就是github pages返回403 forbidden。所以CDN回源的方式仅适用于博客访客量比较大的情况（这样访问会在百度爬虫之前让CDN缓存hexo数据，当然也只是比较大的概率）。
+不过如果无视百度爬虫，给hexo加上CDN回源也是很不错的，至少能提高访问速度。推荐使用<a href="https://www.upyun.com/index.html">又拍云</a>。大概的配置步骤：</p>
+<p><strong>配置服务</strong></p>
+<p><a href="https://odxth7737.qnssl.com/upyun_cdn_1.png"><img src="https://odxth7737.qnssl.com/upyun_cdn_1.png" alt="配置upyun服务"></a></p>
+<p><strong>添加CNAME解析</strong></p>
+<pre><code>CNAME @ kikoroc.b0.aicdn.com
+</code></pre><p>同时去掉到github pages ip的A类解析。</p>
+<p>为百度spider指定特殊线路</p>
+<p>除了github pages能托管hexo之外，还有其他的选择，比如gitcafe pages(已经和coding.net合并)。传送门：<a href="https://coding.net/help/doc/pages/index.html">gitcafe pages配置</a>，配置还是挺简单的。而且gitcafe没有屏蔽百度爬虫。但是gitcafe pages的服务器目前还不够github给力（偶尔出现一些无法打开的情况），所以有了新的思路：</p>
+<p><strong>hexo deploy同时部署到github和coding.net</strong></p>
+<pre><code># Deployment
+## Docs: https://hexo.io/docs/deployment.html
+deploy:
+  type: git
+  #repo: https://github.com/kikoroc/kikoroc.github.io.git
+  #branch: master
+  repo: git@git.coding.net:/kikoroc/kikoroc
+  branch: coding-pages
+
+</code></pre><p>后面有时间可以写个脚本直接同时部署github和gitcafe。</p>
+<p><strong>正常用户访问github pages，百度爬虫访问gitcafe</strong></p>
+<p>现在的DNS解析服务一般都可以指定特定的线路，比如指定百度爬虫的线路解析到gitcafe。
+<a href="https://odxth7737.qnssl.com/dnspod1.png"><img src="https://odxth7737.qnssl.com/dnspod1.png" alt="dnspod设置"></a>
+gitcafe pages绑定域名到kikoroc.com。</p>
+<h4 id="添加-instantclick">添加 InstantClick</h4>
+<p>加上 <code>InstantClick.js</code> 后, 通过预加载可以达到网页秒开的效果 (并没有实际提速), 具体介绍可以看这里 <a href="http://zhiqiang.org/blog/it/install-instantclick.html">博客启用InstantClick</a>. 使用 <code>instantclick.js</code> 也很简单, 进入 <a href="http://instantclick.io/download">InstantClick</a> 下载 <code>instantclick.min.js</code>至使用主题目录下 <code>source/js</code> 文件夹里, 然后在 <code>\layout\_partial</code> 里的 <code>after-footer.ejs</code>, 加上如下代码即可.</p>
+<pre><code>&lt;script src=&quot;/js/instantclick.min.js&quot; data-no-instant&gt;&lt;/script&gt;
+&lt;script data-no-instant&gt;InstantClick.init();&lt;/script&gt;
+</code></pre><p>使用 <code>InstantClick</code> 可能导致 <code>Google Analyitcs</code>, 百度统计, <code>Mathjax</code> 和 <code>Adsense</code> 等不兼容, 官方提供了 <code>GA</code> 的<a href="http://instantclick.io/scripts">解决办法</a></p>
+<pre><code>&lt;script src=&quot;instantclick.min.js&quot; data-no-instant&gt;&lt;/script&gt;
+&lt;script data-no-instant&gt;
+/* Google Analytics code here, without ga('send', 'pageview') */
+ 
+InstantClick.on('change', function() {
+  ga('send', 'pageview', location.pathname + location.search);
+});
+ 
+InstantClick.init();
+&lt;/script&gt;
+</code></pre><p>怎样使 <code>InstantClick</code> 兼容 <code>MathJax</code>, 百度统计, <code>让InstantClick兼容MathJax、百度统计</code> 等? 文章<a href="http://zhiqiang.org/blog/it/instantclick-support-mathjax-baidu-stat.html">让InstantClick兼容MathJax、百度统计等</a>给出了如下解决办法. 即在 <code>InstantClick.init();</code> 之前加入</p>
+<pre><code>&lt;script data-no-instant&gt;
+InstantClick.on('change', function(isInitialLoad) {
+  if (isInitialLoad === false) {
+    if (typeof MathJax !== 'undefined') // support MathJax
+      MathJax.Hub.Queue([&quot;Typeset&quot;,MathJax.Hub]);
+    if (typeof prettyPrint !== 'undefined') // support google code prettify
+      prettyPrint();
+    if (typeof _hmt !== 'undefined')  // support 百度统计
+      _hmt.push(['_trackPageview', location.pathname + location.search]);
+    if (typeof ga !== 'undefined')  // support google analytics
+        ga('send', 'pageview', location.pathname + location.search);
+  }
+});
+InstantClick.init();
+&lt;/script&gt;
+</code></pre><p>这段代码的含义是每次页面重载时，通过直接的函数调用来实现 <code>MathJax</code>, 百度统计, <code>Google Code Prettify</code>, <code>Google Analytics</code>的重新运行。</p>
+<p>简单教程</p>
+<p>加速一些常用 <code>CSS</code> 和 <code>JQUERY</code>, 以我的 <code>head.ejs</code> 部分为例</p>
+<pre><code> &lt;% if (theme.favicon){ %&gt;
+    &lt;link rel=&quot;icon&quot; href=&quot;&lt;%- theme.favicon %&gt;&quot;&gt;
+  &lt;% } %&gt;
+  &lt;%- css('css/font-awesome.min') %&gt;
+  &lt;%- css('css/bootstrap.min') %&gt;
+  &lt;%- css('css/style') %&gt;
+  &lt;!--[if lt IE 9]&gt;&lt;script src=&quot;//html5shiv.googlecode.com/svn/trunk/html5.js&quot;&gt;&lt;/script&gt;&lt;![endif]--&gt;
+&lt;/head&gt;
+</code></pre><p>这里的 <code>favicon</code> 和 <code>CSS</code> 文件都可以使用七牛静态文件加速.</p>
+<p>因为本站使用了 <code>font-awesome</code>, 因此使用七牛的公共库 <a href="http://staticfile.org/">staticfile.org</a>, 即</p>
+<pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;//cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css&quot; type=&quot;text/css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;//cdn.staticfile.org/twitter-bootstrap/3.1.0/css/bootstrap.min.css&quot; type=&quot;text/css&quot;&gt;
+
+</code></pre><p>这里请注意对应的版本号, 不一定兼容.</p>
+<p>对于其他一些文件, 需要上传至自己的七牛空间, 即 <code>style.css</code> 和 <code>html5.js</code> 以及 <code>favicon</code>. 最后我的头部变成了</p>
+<pre><code> &lt;% if (theme.favicon){ %&gt;
+    &lt;link rel=&quot;icon&quot; href=&quot;//pdfcdn.qiniudn.com/favicon.ico&quot;&gt;
+  &lt;% } %&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;//cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css&quot; type=&quot;text/css&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;//cdn.staticfile.org/twitter-bootstrap/3.1.0/css/bootstrap.min.css&quot; type=&quot;text/css&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;//pdfcdn.qiniudn.com/css/style.css&quot; type=&quot;text/css&quot;&gt;
+  &lt;!--[if lt IE 9]&gt;&lt;script src=&quot;//pdfcdn.qiniudn.com/js/html5.js&quot;&gt;&lt;/script&gt;&lt;![endif]--&gt;
+&lt;/head&gt;
+</code></pre><p>然后是 <code>after-footer.ejs</code> 部分, 原来是</p>
+<pre><code>&lt;script src=&quot;//libs.baidu.com/jquery/2.0.3/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;% if (theme.fancybox){ %&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;&lt;%- config.root %&gt;fancybox/jquery.fancybox.css&quot; media=&quot;screen&quot; type=&quot;text/css&quot;&gt;
+&lt;script src=&quot;&lt;%- config.root %&gt;fancybox/jquery.fancybox.pack.js&quot;&gt;&lt;/script&gt;
+&lt;% } %&gt;
+&lt;%- js('js/jquery.fitvids') %&gt;
+&lt;%- js('js/bootstrap.min') %&gt;
+&lt;%- js('js/script') %&gt;
+</code></pre><p>变成了</p>
+<pre><code>&lt;script src=&quot;//libs.baidu.com/jquery/2.0.3/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;% if (theme.fancybox){ %&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;//pdfcdn.qiniudn.com/fancybox/jquery.fancybox.css&quot; media=&quot;screen&quot; type=&quot;text/css&quot;&gt;
+&lt;script src=&quot;//pdfcdn.qiniudn.com/fancybox/jquery.fancybox.pack.js&quot;&gt;&lt;/script&gt;
+&lt;% } %&gt;
+&lt;script src=&quot;//pdfcdn.qiniudn.com/js/jquery.fitvids.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;//cdn.staticfile.org/twitter-bootstrap/3.3.0/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;//pdfcdn.qiniudn.com/js/script.js&quot;&gt;&lt;/script&gt;
+</code></pre><h3 id="gitment-评论插件">Gitment 评论插件</h3>
+<p>　　众所周知，<code>next</code>主题中已经包含了很多内容评论系统，但是各种原因。。配置起来总是不顺利，于是想到把<code>Gitment</code>评论插件配置进去。<code>Gitment</code>是利用<code>GitHub</code>的<code>Issue</code>系统封装的类似评论系统，配置起来很方便，而且评论时候只需要用<code>GitHub</code>账号登录即可。项目地址是<a href="https://github.com/imsun/gitment">Gitment</a>。</p>
+<h4 id="第一种配置">第一种配置</h4>
+<p>第一步</p>
+<p>　　创建<code>_gitment.swig</code>文件，路径为<code>next/layout/_third-party/comments/_gitment.swig</code> ，内容如下：</p>
+<pre><code>{% if theme.gitment.enable %}
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;https://imsun.github.io/gitment/style/default.css&quot;&gt;
+  &lt;script src=&quot;https://imsun.github.io/gitment/dist/gitment.browser.js&quot;&gt;&lt;/script&gt;
+  &lt;script&gt;
+    const myTheme = {
+      render(state, instance) {
+        const container = document.createElement('div');
+        container.lang = &quot;en-US&quot;;
+        container.className = 'gitment-container gitment-root-container';
+        container.appendChild(instance.renderHeader(state, instance));
+        container.appendChild(instance.renderEditor(state, instance));
+        container.appendChild(instance.renderComments(state, instance));
+        container.appendChild(instance.renderFooter(state, instance));
+        return container;
+      }
+    }
+
+    function showGitment(){
+      $(&quot;#gitment_title&quot;).attr(&quot;style&quot;,&quot;display:none&quot;);
+      $(&quot;#container&quot;).attr(&quot;style&quot;,&quot;&quot;);
+      var gitment = new Gitment({
+        id: window.location.pathname,
+        theme: myTheme,
+        owner: '{{ theme.gitment.owner }}',
+        repo: '{{ theme.gitment.repo }}',
+        oauth: {
+          client_id: '{{ theme.gitment.client_id }}',
+          client_secret: '{{ theme.gitment.client_secret }}'
+        }
+      });
+      gitment.render('container');
+    }
+
+    {% if !theme.gitment.click_show %}
+      showGitment();
+    {% endif %}
+  &lt;/script&gt;
+{% endif %}
+</code></pre><p>第二步</p>
+<p>　　修改<code>next/layout/_third-party/comments/index.swig</code> 文件，添加<code>_gitment.swig</code>到末尾。</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">{% include &#39;_gitment.swig&#39; %}
+</code></pre></td></tr></table>
+</div>
+</div><p>第三步</p>
+<p>　　修改<code>next/_partials/comments.swig</code>文件，添加<code>Gitment</code>到评论区布局中。</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">  <span style="color:#000;font-weight:bold">&lt;</span>div <span style="color:#000;font-weight:bold">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;comments&#34;</span> id<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;comments&#34;</span><span style="color:#000;font-weight:bold">&gt;</span>
+    {<span style="color:#000;font-weight:bold">%</span> <span style="color:#000;font-weight:bold">if</span> theme.gitment.enable <span style="color:#000;font-weight:bold">%</span>}
+      {<span style="color:#000;font-weight:bold">%</span> <span style="color:#000;font-weight:bold">if</span> theme.gitment.click_show <span style="color:#000;font-weight:bold">%</span>}
+          <span style="color:#000;font-weight:bold">&lt;</span>div onclick<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;showGitment();&#34;</span> id<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;gitment_title&#34;</span> <span style="color:#000;font-weight:bold">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;gitment_title&#34;</span><span style="color:#000;font-weight:bold">&gt;</span>显示 Gitment 评论<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#a61717;background-color:#e3d2d2">/div&gt;</span>
+      {<span style="color:#000;font-weight:bold">%</span> endif <span style="color:#000;font-weight:bold">%</span>}
+      <span style="color:#000;font-weight:bold">&lt;</span>div id<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;container&#34;</span> <span style="color:#000;font-weight:bold">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;gitment_container&#34;</span> style<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;display:none;&#34;</span><span style="color:#000;font-weight:bold">&gt;&lt;</span><span style="color:#a61717;background-color:#e3d2d2">/div&gt;</span>
+    {<span style="color:#000;font-weight:bold">%</span> endif <span style="color:#000;font-weight:bold">%</span>}
+</code></pre></td></tr></table>
+</div>
+</div><p>修改themes/next/source/css_custom/custom.styl，添加gitment自定义按钮样式:</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#000;font-weight:bold">//</span> <span style="color:#000080">Custom</span> <span style="color:#000080">styles</span><span style="color:#000;font-weight:bold">.</span>
+.<span style="color:#458;font-weight:bold">gitment_title</span> {
+    <span style="color:#000;font-weight:bold">display</span>: <span style="color:#000;font-weight:bold">inline</span><span style="color:#000;font-weight:bold">-</span><span style="color:#000;font-weight:bold">block</span>;
+    <span style="color:#000;font-weight:bold">padding</span>: <span style="color:#099">0</span> <span style="color:#099">15</span><span style="color:#458;font-weight:bold">px</span>;
+    <span style="color:#000;font-weight:bold">color</span>: <span style="color:#099">#0a9caf</span>;
+    <span style="color:#000;font-weight:bold">border</span>: <span style="color:#099">1</span><span style="color:#458;font-weight:bold">px</span> <span style="color:#000;font-weight:bold">solid</span> <span style="color:#099">#0a9caf</span>;
+    <span style="color:#000;font-weight:bold">border-radius</span>: <span style="color:#099">4</span><span style="color:#458;font-weight:bold">px</span>;
+    <span style="color:#000;font-weight:bold">cursor</span>: <span style="color:#000;font-weight:bold">pointer</span>;
+    <span style="color:#000;font-weight:bold">font-size</span>: <span style="color:#099">14</span><span style="color:#458;font-weight:bold">px</span>;
+    <span style="color:#a61717;background-color:#e3d2d2">//</span> <span style="color:#000;font-weight:bold">float</span>: <span style="color:#000;font-weight:bold">left</span>;
+}
+
+.<span style="color:#458;font-weight:bold">gitment_title</span>:<span style="color:#3c5d5d;font-weight:bold">hover</span><span style="color:#000;font-weight:bold">,</span> .<span style="color:#458;font-weight:bold">disqus_title</span>:<span style="color:#3c5d5d;font-weight:bold">hover</span>{
+    <span style="color:#000;font-weight:bold">color</span>: <span style="color:#099">#fff</span>;
+    <span style="color:#000;font-weight:bold">background</span>: <span style="color:#099">#0a9caf</span>;
+}
+
+.<span style="color:#458;font-weight:bold">gitment_container</span> {
+    <span style="color:#000;font-weight:bold">margin-bottom</span>: <span style="color:#099">10</span><span style="color:#458;font-weight:bold">px</span>;
+    <span style="color:#000;font-weight:bold">background-color</span>: <span style="color:#099">#f9f9f9</span>;
+    <span style="color:#000;font-weight:bold">padding</span>: <span style="color:#099">10</span><span style="color:#458;font-weight:bold">px</span>;
+    <span style="color:#000;font-weight:bold">border-radius</span>: <span style="color:#099">4</span><span style="color:#458;font-weight:bold">px</span>;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>第四步</p>
+<p>　　也就是最后一步，在<code>next/_config.yml</code>文件中添加<code>Gitment</code>的相关参数。<code>client_id</code>和<code>client_secret</code>需要在<a href="https://github.com/settings/developers">Github Developer Apps</a>中注册后得到。</p>
+<p>在配置owner的时候，可以在浏览器中输入：<code>https://api.github.com/users/GitHub用户名</code>，来获取对应数据id。</p>
+<p><strong>GitHub授权接入</strong></p>
+<p>Gitment是使用的GitHub Issues作为评论系统，在接入Gitment前，需要获得GitHub的授权，获得相应的客户端id和客户端私钥，以备站点使用。具体步骤如下图所示：
+<a href="https://github.com/settings/applications/new">OAuth application注册接入</a></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/949086-46d097a1a00edb81.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/666" alt="img"></p>
+<p>GitHub授权接入.png</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/949086-71ade90346c0adc9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/666" alt="img"></p>
+<pre><code># gitment
+gitment:
+  enable: true
+  click_show: true
+  owner: 'github用户id或者用户名'
+  repo: '评论的github仓库名'
+  client_id: ''
+  client_secret: ''
+</code></pre><p>到此为止，<code>Gitment</code>插件集成成功了，发布之后就能看到评论区。如果评论区显示<code>Not Found</code>错误的话，原因是未登录，只需要点击<code>Login with GitHub</code>即可用<code>Github</code>账号登录。登录成功之后会显示<code>Initialize Comments</code>按钮，点击该按钮初始化后方可使用评论系统了。</p>
+<h4 id="第二种配置">第二种配置</h4>
+<p>在github的<code>settings/OAuth application</code>下注册一个新的 OAuth Application。其他内容可以随意填写，但要确保填入正确的 callback URL（一般是评论页面对应的域名，如 <a href="https://imsun.net%29./">https://imsun.net）。</a></p>
+<p>你会得到一个 client ID 和一个 client secret，这个将被用于之后的用户登录。</p>
+<p>在主题下themes/next/_config.yml文件中添加：</p>
+<pre><code># Gitment
+ # Introduction: https://imsun.net/posts/gitment-introduction/
+gitment:
+  enable: true
+  githubID: 你的 GitHub ID  // 可以是你的GitHub用户名，也可以是github id
+  repo: 存储评论的 github repo // 在github新建一个仓库，这里只需填你刚建的仓库名
+  ClientID: 你的 client id
+  ClientSecret: 你的 client secret
+  lazy: false
+</code></pre><p>可以在浏览器中输入：<code>https://api.github.com/users/GitHub用户名</code>，来获取对应<code>github id</code>。</p>
+<p>其中lazy的含义，是否懒加载相应评论框，如果为true，文章底部评论是收起状态，提示显示 Gitment 评论按钮，单击展开评论框。</p>
+<p>懒加载按钮显示的文字设置：</p>
+<p>在主题下languages/en.yml文件中添加：</p>
+<pre><code>gitmentbutton: Show comments from Gitment
+</code></pre><p>在主题下languages/zh-Hans.yml文件中添加：</p>
+<p><code>gitmentbutton: 显示 Gitment 评论</code></p>
+<p>在主题下languages/zh-hk.yml文件中添加：</p>
+<pre><code>gitmentbutton: 顯示 Gitment 評論
+</code></pre><p>在主题下languages/zh-tw.yml文件中添加：</p>
+<pre><code>gitmentbutton: 顯示 Gitment 評論
+</code></pre><p>懒加载按钮div及事件配置：
+在主题下<code>layout/_partials/comments.swig</code>文件中添加：</p>
+<pre><code class="language-php+html" data-lang="php+html">&lt;div id=&quot;lv-container&quot; data-id=&quot;city&quot; data-uid=&quot;{{ theme.livere_uid }}&quot;&gt;&lt;/div&gt;
+    {% elseif theme.changyan.appid and theme.changyan.appkey %}
+      &lt;div id=&quot;SOHUCS&quot;&gt;&lt;/div&gt;
+      
+   {% elseif theme.gitment.enable %}
+     {% if theme.gitment.lazy %}
+       &lt;div onclick=&quot;ShowGitment()&quot; id=&quot;gitment-display-button&quot;&gt;{{ __('gitmentbutton') }}&lt;/div&gt;
+       &lt;div id=&quot;gitment-container&quot; style=&quot;display:none&quot;&gt;&lt;/div&gt;
+     {% else %}
+       &lt;div id=&quot;gitment-container&quot;&gt;&lt;/div&gt;
+     {% endif %}
+     
+    {% endif %}
+  &lt;/div&gt;
+{% endif %}
+</code></pre><p>注意：上面代码，找到上下两段代码，要添加的只是中间那段。</p>
+<p>对应页面生成JS代码配置：
+在主题下<code>layout/_third-party/comments/</code>目录下中添加文件<code>gitment.swig</code>：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">{% if theme.gitment.enable %}
+   {% set owner = theme.gitment.githubID %}
+   {% set repo = theme.gitment.repo %}
+   {% set cid = theme.gitment.ClientID %}
+   {% set cs = theme.gitment.ClientSecret %}
+   &lt;<span style="color:#000080">link</span> <span style="color:#008080">rel</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;stylesheet&#34;</span> <span style="color:#008080">href</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;https://imsun.github.io/gitment/style/default.css&#34;</span>&gt;
+   &lt;<span style="color:#000080">script</span> <span style="color:#008080">src</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;https://imsun.github.io/gitment/dist/gitment.browser.js&#34;</span>&gt;&lt;/<span style="color:#000080">script</span>&gt;
+   {% if not theme.gitment.lazy %}
+       &lt;<span style="color:#000080">script</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text/javascript&#34;</span>&gt;
+             <span style="color:#000;font-weight:bold">var</span> gitment <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Gitment({
+                id<span style="color:#000;font-weight:bold">:</span> <span style="color:#0086b3">document</span>.location.href, 
+                 owner<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{owner}}&#39;</span>,
+                 repo<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{repo}}&#39;</span>,
+                 oauth<span style="color:#000;font-weight:bold">:</span> {
+                     client_id<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{cid}}&#39;</span>,
+                     client_secret<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{cs}}&#39;</span>,
+                 }});
+             gitment.render(<span style="color:#d14">&#39;gitment-container&#39;</span>);
+         &lt;/<span style="color:#000080">script</span>&gt;
+     {% else %}
+         &lt;<span style="color:#000080">script</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text/javascript&#34;</span>&gt;
+             <span style="color:#000;font-weight:bold">function</span> ShowGitment(){
+                 <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#34;gitment-display-button&#34;</span>).style.display <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;none&#34;</span>;
+                 <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#34;gitment-container&#34;</span>).style.display <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;block&#34;</span>;
+                 <span style="color:#000;font-weight:bold">var</span> gitment <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Gitment({
+                     id<span style="color:#000;font-weight:bold">:</span> <span style="color:#0086b3">document</span>.location.href, 
+                     owner<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{owner}}&#39;</span>,
+                     repo<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{repo}}&#39;</span>,
+                     oauth<span style="color:#000;font-weight:bold">:</span> {
+                         client_id<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{cid}}&#39;</span>,
+                         client_secret<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{cs}}&#39;</span>,
+                     }});
+                 gitment.render(<span style="color:#d14">&#39;gitment-container&#39;</span>);
+             }
+         &lt;/<span style="color:#000080">script</span>&gt;
+     {% endif %}
+ {% endif %}
+</code></pre></td></tr></table>
+</div>
+</div><p>添加<code>gitment.swig</code>文件后，在主题下<code>layout/_third-party/comments/index.swig</code>文件中引入<code>gitment.swig</code>文件：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">{% include &#39;gitment.swig&#39; %}
+</code></pre></td></tr></table>
+</div>
+</div><p>设置CSS样式：
+在主题下source/css/_common/components/third-party/目录下添加gitment.styl文件，设置button的样式：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">#<span style="color:#555">gitment-display-button</span>{
+     <span style="color:#000;font-weight:bold">display</span>: <span style="color:#000;font-weight:bold">inline</span><span style="color:#000;font-weight:bold">-</span><span style="color:#000;font-weight:bold">block</span>;
+     <span style="color:#000;font-weight:bold">padding</span>: <span style="color:#099">0</span> <span style="color:#099">15</span><span style="color:#458;font-weight:bold">px</span>;
+     <span style="color:#000;font-weight:bold">color</span>: <span style="color:#099">#0a9caf</span>;
+     <span style="color:#000;font-weight:bold">cursor</span>: <span style="color:#000;font-weight:bold">pointer</span>;
+     <span style="color:#000;font-weight:bold">font-size</span>: <span style="color:#099">14</span><span style="color:#458;font-weight:bold">px</span>;
+     <span style="color:#000;font-weight:bold">border</span>: <span style="color:#099">1</span><span style="color:#458;font-weight:bold">px</span> <span style="color:#000;font-weight:bold">solid</span> <span style="color:#099">#0a9caf</span>;
+     <span style="color:#000;font-weight:bold">border-radius</span>: <span style="color:#099">4</span><span style="color:#458;font-weight:bold">px</span>;
+ }
+ #<span style="color:#555">gitment-display-button</span>:<span style="color:#3c5d5d;font-weight:bold">hover</span>{
+     <span style="color:#000;font-weight:bold">color</span>: <span style="color:#099">#fff</span>;
+     <span style="color:#000;font-weight:bold">background</span>: <span style="color:#099">#0a9caf</span>;
+ }
+</code></pre></td></tr></table>
+</div>
+</div><p>之后，在主题下 <code>source/css/_common/components/third-party/third-party.styl</code>文件中引入相应的CSS样式即可</p>
+<pre><code class="language-php+html" data-lang="php+html">@import &quot;gitment&quot;;
+</code></pre><p>初始化评论：
+页面发布后，你需要访问页面并使用你的 GitHub 账号登录（请确保你的账号是第二步所填 repo 的 owner），点击初始化按钮。</p>
+<p>之后其他用户即可在该页面发表评论。也就是每发布一篇文章，用你的GitHub 账号登录，并且初始化评论系统，然后别人才可以评论这篇文章。</p>
+<h2 id="seo优化">SEO优化</h2>
+<h3 id="网站验证">网站验证</h3>
+<p>以下是几个搜索引擎的提交入口：</p>
+<ul>
+<li><strong>百度提交入口</strong></li>
+<li><strong>Google提交入口</strong></li>
+<li><strong>360提交入口</strong></li>
+</ul>
+<p>以百度为例，谷歌的太简单就不说了：
+打开<em>百度站长</em>验证网站
+<strong>方式一：文件验证</strong>
+* 登录百度站长选择添加网站，使用方式为文件验证
+* 将下载的文件放到<code>source</code>文件下
+* 由于hexo自动会对html文件进行渲染，所以在<code>站点配置文件</code>中找到<code>skip_render:</code>
+* 在后面添加文件名字，如有多个用<code>[a.html,b.html]</code>，eg:<code>skip_render:[baidu_verify_tdOGHi8IQG.html, baidu_verify_vcJkI72f1e.html]</code>
+* 重新渲染文件</p>
+<pre><code>hexo clean
+hexo d -g
+</code></pre><ul>
+<li>然后可以点击百度站长的验证按钮了</li>
+</ul>
+<p><strong>方式二：CNAME验证</strong></p>
+<ol>
+<li>去站长添加网站选择CNAME验证</li>
+<li>把地址解析到zz.baidu.com</li>
+<li>完成验证</li>
+</ol>
+<p>就像这样↓
+<img src="http://ojoba1c98.bkt.clouddn.com/img/build-hexo/DNSjiexi.png" alt="img"></p>
+<p><img src="http://ojoba1c98.bkt.clouddn.com/img/build-hexo/baiduyanzheng.png" alt="img"></p>
+<h3 id="添加并提交sitemap">添加并提交sitemap</h3>
+<p>安装hexo的<code>sitemap</code>网站地图生成插件:</p>
+<pre><code>npm install hexo-generator-sitemap --save
+npm install hexo-generator-baidu-sitemap --save
+</code></pre><p>在<code>站点配置文件</code>中添加如下代码。</p>
+<pre><code># hexo sitemap
+sitemap:
+  path: sitemap.xml
+
+baidusitemap:
+  path: baidusitemap.xml
+</code></pre><p>配置成功后，会生成<code>sitemap.xml</code>和<code>baidusitemap.xml</code>，前者适合提交给<strong>谷歌搜素引擎</strong>，后者适合提交<strong>百度搜索引擎</strong>。
+百度sitemap提交如下↓
+<img src="http://ojoba1c98.bkt.clouddn.com/img/build-hexo/sitemap.png" alt="img"></p>
+<p>验证成功之后就可以开始推送了，这里说一下，Google的收录真的快的不要不要的，第二天就能搜得到，百度就不想说了，不知道要等到猴年马月
+<img src="http://ojoba1c98.bkt.clouddn.com/img/build-hexo/GoogleSearch.png" alt="img"></p>
+<h3 id="主动推送">主动推送</h3>
+<p>安装主动推送插件：</p>
+<pre><code>﻿npm install hexo-baidu-url-submit --save
+</code></pre><p>在根目录下，把以下内容配置到<code>站点配置文件</code>中:</p>
+<pre><code>baidu_url_submit:
+  count: 3 ## 比如3，代表提交最新的三个链接
+  host: www.henvyluk.com ## 在百度站长平台中注册的域名
+  token: your_token ## 请注意这是您的秘钥，请不要发布在公众仓库里!
+  path: baidu_urls.txt ## 文本文档的地址，新链接会保存在此文本文档里
+</code></pre><p>至于上面提到的<code>your_token</code>可在百度站长如下位置找到↓
+<img src="http://ojoba1c98.bkt.clouddn.com/img/build-hexo/baidutoken.png" alt="img">
+其次，记得查看<code>站点配置文件</code>中url的值， 必须包含是百度站长平台注册的域名（一般有www）， 比如:</p>
+<pre><code>url: xxx
+root: /
+permalink: :year/:month/:day/:title/
+</code></pre><p>接下来添加一个新的<code>deploy</code>的类型：</p>
+<pre><code># Deployment
+## Docs: https://hexo.io/docs/deployment.html
+deploy:
+- type: baidu_url_submitter
+- type: git
+  repo:
+    github: xxxx,master
+    coding: xxxx,master
+</code></pre><p>执行<code>hexo deploy</code>的时候，新的连接就会被推送了。这里讲一下原理：
+* 新链接的产生，<code>hexo generate</code>会产生一个文本文件，里面包含最新的链接
+* 新链接的提交，<code>hexo deploy</code>会从上述文件中读取链接，提交至百度搜索引擎</p>
+<h3 id="自动推送">自动推送</h3>
+<p>把next<code>主题配置文件</code>中的<code>baidu_push</code>设置为<code>true</code>，就可以了。</p>
+<h3 id="添加蜘蛛协议">添加蜘蛛协议</h3>
+<p>在<code>/source/</code>目录下新建一个<code>robots.txt</code>文件，添加下面的一段代码：</p>
+<pre><code>#hexo robots.txt
+User-agent: *
+
+Allow: /
+Allow: /archives/
+
+Disallow: /vendors/
+Disallow: /js/
+Disallow: /css/
+Disallow: /fonts/
+Disallow: /vendors/
+Disallow: /fancybox/
+
+Sitemap: http://blog.tangxiaozhu.com/search.xml
+Sitemap: http://blog.tangxiaozhu.com/sitemap.xml
+Sitemap: http://blog.tangxiaozhu.com/baidusitemap.xml
+</code></pre><p>然后到百度站长更新一下，就像这样↓
+<img src="http://ojoba1c98.bkt.clouddn.com/img/build-hexo/robots.png" alt="img"></p>
+<h2 id="多pc同步源码篇">多PC同步源码篇</h2>
+<p>1.准备工作：公司电脑和家里电脑配置<a href="http://lib.csdn.net/base/git">Git</a> ssh密钥连接</p>
+<p>2.上传blog到<a href="http://lib.csdn.net/base/git">git</a>：此项建议先在blog进度最新的PC上进行，否则会有版本冲突，解决也比较麻烦。在PC上建立git ssh密钥连接和建立新库respo在此略过：
+* 编辑<code>.gitignore</code>文件：<code>.gitignore</code>文件作用是声明不被git记录的文件，blog根目录下的<code>.gitignore</code>是hexo初始化是创建的，可以直接编辑，建议<code>.gitignore</code>文件包括以下内容：</p>
+<pre><code>.DS_Store      
+Thumbs.db      
+db.json      
+*.log      
+node_modules/      
+public/      
+.deploy*/
+</code></pre><p><code>public</code>内的文件可以根据<code>source</code>文件夹内容自动生成的，不需要备份。其他日志、压缩、<a href="http://lib.csdn.net/base/mysql">数据库</a>等文件也都是调试等使用，也不需要备份。</p>
+<p>初始化仓库：</p>
+<pre><code>git init    
+git remote add origin &lt;server&gt;
+</code></pre><p><code>server</code>是仓库的在线目录地址，可以从git上直接复制过来，<code>origin</code>是本地分支，<code>remote add</code>会将本地仓库映射到托管服务器的仓库上。</p>
+<p>添加本地文件到仓库并同步到git上：</p>
+<pre><code>git add . #添加blog目录下所有文件，注意有个'.'(.gitignore里面声明的文件不在此内)    
+git commit -m &quot;hexo source first add&quot; #添加更新说明    
+git push -u origin master  #推送更新到git上
+</code></pre><p>至此，git库上备份已完成。</p>
+<p>3.将git的内容同步到另一台电脑：假设之前将公司电脑中的blog源码内容备份到了git上，现在家里电脑准备同步源码内容。<strong>注意</strong>，在同步前也要事先建好hexo的环境，不然同步后本地服务器运行时会出现无法运行错误。在建好的环境的主目录运行以下命令：</p>
+<pre><code>git init  #将目录添加到版本控制系统中    
+git remote add origin &lt;server&gt;  #同上    
+git fetch --all  #将git上所有文件拉取到本地    
+git reset --hard origin/master  #强制将本地内容指向刚刚同步git云端内容
+</code></pre><p><code>reset</code>对所拉取的文件不做任何处理，此处不用<code>pull</code>是因为本地尚有许多文件，使用<code>pull</code>会有一些<strong>版本冲突</strong>，解决起来也麻烦，而本地的文件都是初始化生成的文件，较拉取的库里面的文件而言基本无用，所以直接丢弃。</p>
+<p>4.家里电脑生成完文章并部署到服务器上后，此时需要将新的blog源码文件更新到git托管库上，不然公司电脑上无法获取最新的文章。在本地文件中运行以下命令：</p>
+<pre><code>git add . #将所有更新的本地文件添加到版本控制系统中
+</code></pre><p>此时可以使用<code>git status</code>查看本地文件的状态。然后对更改添加说明更推送到git托管库上：</p>
+<pre><code>git commit -m '更新信息说明'  
+git push
+</code></pre><p>至此，家里电脑更新的备份完成。在公司电脑上使用时，只需先运行:</p>
+<pre><code>git pull
+</code></pre><p>获取的源码即为最新文件</p>
+<h2 id="七牛云插件">七牛云插件</h2>
+<p>这是一个<a href="https://github.com/tommy351/hexo">hexo</a>插件，
+可以让你在文档中入嵌存储在七牛上的图片、JS、CSS类型的静态文件。</p>
+<p><strong>你可以不用手动上传文件到七牛，插件会自动帮你将本地目录的文件同步到七牛。</strong></p>
+<p>安装</p>
+<p>在你的hexo主目录下运行以下命令进行安装：</p>
+<pre><code>npm install hexo-qiniu-sync --save
+</code></pre><p>添加插件配置信息到 <code>_config.yml</code> 文件中:</p>
+<pre><code>#七牛云存储设置
+##offline       是否离线. 离线状态将使用本地地址渲染
+##sync          是否同步
+##bucket        空间名称.
+##access_key    上传密钥AccessKey
+##secret_key    上传密钥SecretKey
+##secret_file   秘钥文件路径，可以将上述两个属性配置到文件内，防止泄露，json格式。绝对路径相对路径均可
+##dirPrefix     上传的资源子目录前缀.如设置，需与urlPrefix同步 
+##urlPrefix     外链前缀.
+##up_host      上传服务器路径,如选择华北区域的话配置为http://up-z1.qiniu.com
+##local_dir     本地目录.
+##update_exist  是否更新已经上传过的文件(仅文件大小不同或在上次上传后进行更新的才会重新上传)
+##image/js/css  子参数folder为不同静态资源种类的目录名称，一般不需要改动
+##image.extend  这是个特殊参数，用于生成缩略图或加水印等操作。具体请参考http://developer.qiniu.com/docs/v6/api/reference/fop/image/ 
+##              可使用基本图片处理、高级图片处理、图片水印处理这3个接口。例如 ?imageView2/2/w/500 即生成宽度最多500px的缩略图
+qiniu:
+  offline: false
+  sync: true
+  bucket: bucket_name
+  secret_file: sec/qn.json or C:
+  access_key: AccessKey
+  secret_key: SecretKey
+  dirPrefix: static
+  urlPrefix: http://bucket_name.qiniudn.com/static
+  up_host: http://upload.qiniu.com
+  local_dir: static
+  update_exist: true
+  image: 
+    folder: images
+    extend: 
+  js:
+    folder: js
+  css:
+    folder: css
+</code></pre><p>注意，不要在plugins下面添加hexo-qiniu-sync的配置项，否则会导致错误，详见 <a href="https://github.com/gyk001/hexo-qiniu-sync/issues/41#issuecomment-279229378">https://github.com/gyk001/hexo-qiniu-sync/issues/41#issuecomment-279229378</a></p>
+<pre><code>plugins:
+  - hexo-qiniu-sync
+</code></pre><p><strong>这里对配置中的几个需要注意的参数进行说明：</strong></p>
+<ul>
+<li><code>offline</code> 参数：</li>
+</ul>
+<blockquote>
+<p>如果要使用同步到七牛空间的静态资源，请设置为 <code>false</code>。如果只想浏览在本地的静态资源文件，则设置为 <code>true</code>。</p>
+</blockquote>
+<ul>
+<li><code>sync</code> 参数：</li>
+</ul>
+<blockquote>
+<p>如果你想关掉七牛同步，将此参数设置为false即可，不过一般用不到修改这个参数。</p>
+</blockquote>
+<ul>
+<li><code>dirPrefix</code> 参数：</li>
+</ul>
+<blockquote>
+<p>将资源上传到七牛空间内这个目录下(说是目录会容易理解点)，默认为 <code>static</code> 目录。</p>
+</blockquote>
+<ul>
+<li><code>urlPrefix</code> 参数：</li>
+</ul>
+<blockquote>
+<p>七牛空间地址的前缀，会按默认格式自动生成地址，所以此参数<strong>可省略</strong>。<br>
+默认格式为 <code>http://bucket_name.qiniudn.com/static</code> ，如果你的七牛空间使用自定义域名或域名不是此格式的，请配置此参数。<br>
+当你设置了 <code>dirPrefix</code> 参数后，如<code>static</code>。则此url地址必须加上目录后缀 <code>/static</code> ，
+即<code>http://bucket_name.qiniudn.com/static</code>，否则静态资源将无法访问。</p>
+</blockquote>
+<ul>
+<li><code>local_dir</code> 参数：</li>
+</ul>
+<blockquote>
+<p>只填写一个目录名称即可，建立在hexo博客的主目录，不需要使用子目录。<br>
+当你在配置中填写好文件夹后，运行hexo时，会自动建立对应的目录。<br>
+如果你了解hexo文件夹的关系，担心这样会导致离线模式不能查看到图片，我可以告诉你你不需要担心这个问题。<br>
+在你以离线模式运行时，会自动使用软连接/联接方式帮你建立文件夹的引用，可以让你的离线浏览节省<strong>一倍</strong>的空间。</p>
+</blockquote>
+<ul>
+<li><code>update_exist</code> 参数：</li>
+</ul>
+<blockquote>
+<p>如果你的静态文件会进行修改或替换，并需要更新七牛空间上原先上传的文件，则设置为 <code>true</code> 。<br>
+是否更新空间上已上传的文件，是按照<code>对比文件大小是否相同</code>或者<code>本地文件在上传到七牛空间之后进行过修改</code>的规则进行判断的。</p>
+</blockquote>
+<ul>
+<li><code>image</code> : <code>extend</code> 参数：</li>
+</ul>
+<blockquote>
+<p>这是个特殊参数，是文章内使用 <code>qnimg</code> 标签引用图片的默认图片处理操作。请参考
+<strong><a href="http://developer.qiniu.com/docs/v6/api/reference/fop/image/">七牛开发者中心-图片处理</a></strong>。<br>
+可以使用 基本图片处理（imageView2）、高级图片处理（imageMogr2）、图片水印处理（watermark）
+这三个图片处理接口，多个接口内容之间用 <code>|</code> 间隔。<br>
+例如 <code>?imageView2/2/w/500</code> 即生成宽度最多500px的缩略图。</p>
+</blockquote>
+<p>使用标签</p>
+<pre><code>{% qnimg imageFile attr1:value1 attr2:value2 'attr3:value31 value32 value3n' [extend:?imageView2/2/w/600 | normal:yes] %}
+{% qnjs jsFile attr1:value1 attr2:value2 'attr3:value31 value32 value3n' %}
+{% qncss cssFile attr1:value1 attr2:value2 'attr3:value31 value32 value3n' %}
+</code></pre><ul>
+<li><code>jnimg</code> 标签的图片处理：</li>
+</ul>
+<blockquote>
+<p>如果你在 <code>_config.yml</code> 文件中配置了 <code>extend</code> 字段，则默认会对插入的图片进行对应的处理。<br>
+如果不想对一个图片进行处理，则可在 <code>jnimg</code> 标签内增加 <code>normal:yes</code> 参数，则使用原图，不进行图片处理。<br>
+如果只对当前图片进行处理，则可在 <code>jnimg</code> 标签内增加 <code>extend:?imageView2/2/w/600</code> 样式的配置参数。<br>
+当 <code>_config.yml</code> 文件中和 <code>jnimg</code> 标签内都定义了 <code>extend</code> 参数，则只会使用 <code>jnimg</code> 标签的 <code>extend</code> 参数。<br>
+请参考**<a href="http://developer.qiniu.com/docs/v6/api/reference/fop/image/">七牛开发者中心-图片处理</a>**
+，可以使用 基本图片处理（imageView2）、高级图片处理（imageMogr2）、图片水印处理（watermark）
+这三个图片处理接口，多个接口内容之间用 <code>|</code> 间隔。</p>
+</blockquote>
+<p>Demo</p>
+<pre><code>{% qnimg test/demo.png title:图片标题 alt:图片说明 'class:class1 class2' extend:?imageView2/2/w/600 %}
+</code></pre><p>将会被渲染成：</p>
+<pre><code>&lt;img title=&quot;图片标题&quot; alt=&quot;图片说明&quot; class=&quot;class1 class2&quot; src=&quot;http://gyk001.u.qiniudn.com/images/test/demo.png?imageView2/2/w/600&quot;&gt;
+</code></pre><p>命令行</p>
+<p><strong>作为一个带命令行功能的插件，漏掉了命令行的使用说明不是好习惯。</strong>
+本插件命令行为 <code>hexo qiniu</code> ，所支持的子命令有：</p>
+<ul>
+<li><code>info</code> (简写 <code>i</code> )</li>
+</ul>
+<blockquote>
+<p>功能：显示插件版本，作者及Github地址信息等</p>
+</blockquote>
+<ul>
+<li><code>sync</code> (简写 <code>s</code> )</li>
+</ul>
+<blockquote>
+<p>功能：同步静态资源到七牛空间</p>
+</blockquote>
+<ul>
+<li><code>sync2</code> (简写 <code>s2</code> )</li>
+</ul>
+<blockquote>
+<p>功能：同步静态资源到七牛空间，且会同步上传那些本地与七牛空间有差异的文件。<br>
+<strong>这个命令会无视 <code>update_exist</code> 配置</strong>。<br>
+对比规则请看 <code>update_exist</code> 配置参数说明。</p>
+</blockquote>
+<p>同步静态资源</p>
+<p><strong>当需要把静态资源同步到七牛空间中时，有如下几种方式可以同步资源：</strong></p>
+<ul>
+<li>启用本地服务器.即使用 <code>hexo server</code> 命令（简写为 <code>hexo s</code>）</li>
+</ul>
+<blockquote>
+<p>当以本地服务器模式启动后，会自动监测 <code>local_dir</code> 目录下的文件变化，
+会自动将新文件进行上传。<br>
+如果文件进行了修改，但设置中没有启用 <code>update_exist</code> 配置，则不会更新到七牛空间。</p>
+</blockquote>
+<ul>
+<li>使用命令行命令(<code>sync</code> | <code>s</code> | <code>sync2</code> | <code>s2</code>)</li>
+</ul>
+<blockquote>
+<p>命令行命令会扫描 <code>local_dir</code> 目录下的文件，同步至七牛空间。</p>
+</blockquote>
+<p>备注：使用生成(<code>generate</code>)或部署(<code>deploy</code>)命令时，会提示需要上传的文件数量：</p>
+<blockquote>
+<pre><code>[info] Need upload file num: 0
+</code></pre></blockquote>
+<pre><code>## 小技巧
+
+* 文章模板
+&gt;如果你经常在文章内插入图片，你可以修改文章模板，将空白的图片插入标签粘贴进去。  
+这样新建立的文章就有空白标签可以让你直接填写图片路径就好了，会很省事。  
+文章模板文件：`./scaffolds/post.md`  
+图片标签`{% qnimg test/demo.png title:图片标题 alt:图片说明 'class:class1 class2' %}`
+
+* 图片处理样式
+&gt;在前边的内容里，已经介绍了图片处理参数，下面来介绍一个更省事的技巧。  
+&gt;如果你经常使用的图片效果是固定的，你可以通过设置数据处理样式来达到灵活的控制。  
+&gt;  1. 首先登陆七牛空间，选择存储空间后，再选择`数据处理`菜单。
+&gt;  2. 设置分隔符。默认的 `-` 即可。
+&gt;  3. 点击 `新建样式` 按钮，根据提示创建一个处理样式。
+&gt;  4. 创建样式完毕后，你就可以将 `extend` 参数设置为 `分隔符+样式名称`了。  
+     如你设置的分隔符为 `-` ，样式名称为 `new` ，则 `extend` 参数就是 `-new` 了。  
+     简单吧？  
+     你可以根据自己的需要，建立多个样式，然后在文章内使用时，为不同图片标签设置
+     不同的`extend`参数，来达到不同的显示效果。
+
+## 常见问题
+
+* WINDOWS系统下使用离线模式，运行 `hexo s` 后，在文章页面中不能无法看到引用的静态资源图片  
+如：`local_dir` 参数设置为 `static` ，运行 `hexo s` 后 `source` 目录下没有出现一个名字为 `static` 的目录链接。
+&gt;首先检查以下内容：  
+   * 所在的磁盘的文件系统是否为`NTFS`。因为 WINDOWS 下 `NTFS` 系统才支持目录链接。
+   * 运行 `hexo s` 时，是否以管理员身份运行的。目录链接操作需要管理员身份才可以执行，  
+     如果你是在打开的cmd命令行中执行 `hexo s` 的，需要以管理员身份运行cmd才可以。  
+     如果你是运行批处理文件运行( 例如内容为 `hexo s` )，请批处理文件的属性中设置为以管理员身份运行。
+   * 不要把 `local_dir` 参数指定的目录设置为 `source` 目录的子目录，应当为 `source` 目录的同级目录。
+   * 如果你是FAT32格式的磁盘，你只使用离线模式的话，可以把`local_dir` 参数设置为`source` 目录的子目录，
+     这样在 `hexo s` 时，才可以正常预览。
+
+* 在同步模式下，不能同步，出现报错为 `[error] SyntaxError: Unexpected end of input`
+&gt;请检查设置中的 `access_key` 与 `secret_key` 是否正确，以及是否可用。
+   
+</code></pre>
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://blog.taielab.com">码中春秋</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.taielab.com/2017-09-20/hexo-theme-next-config.html">https://blog.taielab.com/2017-09-20/hexo-theme-next-config.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/2017-09-20/git-hook-autodeploy-vps.html">使用Git Hook - 自动部署hexo到vps</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='https://blog.taielab.com/tags/hexo'>hexo</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "udpsec/blog-comments"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-11-25/ios-13-checkra-in-repair-the-internet-connection-appears-to-be-offline.html" title="IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误">IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-29/red-team-and-physical-entry-gear-tips.html" title="护网之红方物理入侵旁门左道">护网之红方物理入侵旁门左道</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-05/intranet-roaming-network-traffic-control.html" title="内网漫游系列之流量操控与Socks代理总结">内网漫游系列之流量操控与Socks代理总结</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-27/intranet-roaming-ss-privoxy.html" title="内网漫游系列之正向全局代理ss&#43;Privoxy">内网漫游系列之正向全局代理ss&#43;Privoxy</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-20/centos-7-upgrade-Kernel.html" title="Centos7安装升级最新内核">Centos7安装升级最新内核</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/digital-forensics-live-and-dead.html" title="数字取证-死活取证">数字取证-死活取证</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html" title="Centos7搭建本地yum仓库">Centos7搭建本地yum仓库</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/osint-101-auto-visual.html" title="OSINT101 技术自动化和可视化">OSINT101 技术自动化和可视化</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-21/ubuntu-migrate-to-ssd.html" title="Ubuntu19.04迁移到SSD">Ubuntu19.04迁移到SSD</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-16/kali-linux-double-display-solutions.html" title="双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案">双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.taielab.com/categories/IOS%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">IOS应用逆向与安全 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/Linux/">Linux (11)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%B7%A5%E5%85%B7%E6%95%88%E7%8E%87/">工具效率 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%BC%80%E6%BA%90%E6%83%85%E6%8A%A5%E6%94%B6%E9%9B%86/">开源情报收集 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (30)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/">红蓝对抗 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全 (6)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4/">网络运维 (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.taielab.com/tags/Debian/">Debian</a>
+    
+    <a href="https://blog.taielab.com/tags/IOS/">IOS</a>
+    
+    <a href="https://blog.taielab.com/tags/OSINT/">OSINT</a>
+    
+    <a href="https://blog.taielab.com/tags/archlinux/">archlinux</a>
+    
+    <a href="https://blog.taielab.com/tags/centos/">centos</a>
+    
+    <a href="https://blog.taielab.com/tags/github/">github</a>
+    
+    <a href="https://blog.taielab.com/tags/gitup/">gitup</a>
+    
+    <a href="https://blog.taielab.com/tags/gpg/">gpg</a>
+    
+    <a href="https://blog.taielab.com/tags/hexo/">hexo</a>
+    
+    <a href="https://blog.taielab.com/tags/hugo/">hugo</a>
+    
+    <a href="https://blog.taielab.com/tags/kali-linux/">kali-linux</a>
+    
+    <a href="https://blog.taielab.com/tags/lnmp/">lnmp</a>
+    
+    <a href="https://blog.taielab.com/tags/manjaro/">manjaro</a>
+    
+    <a href="https://blog.taielab.com/tags/meedu/">meedu</a>
+    
+    <a href="https://blog.taielab.com/tags/nessus/">nessus</a>
+    
+    <a href="https://blog.taielab.com/tags/parrot-os/">parrot-os</a>
+    
+    <a href="https://blog.taielab.com/tags/pentestbox/">pentestbox</a>
+    
+    <a href="https://blog.taielab.com/tags/shadowsocks/">shadowsocks</a>
+    
+    <a href="https://blog.taielab.com/tags/tor/">tor</a>
+    
+    <a href="https://blog.taielab.com/tags/ubuntu/">ubuntu</a>
+    
+    <a href="https://blog.taielab.com/tags/vps/">vps</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">内网渗透命令</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%BC%AB%E6%B8%B8/">内网漫游</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/">奇淫技巧</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/">数字安全基础篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%AF%87/">数字安全工具篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">数据库系统原理</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81/">死活取证</a>
+    
+    <a href="https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5/">物理入侵</a>
+    
+    <a href="https://blog.taielab.com/tags/%E8%B8%8F%E9%9B%AA%E6%97%A0%E7%97%95%E7%B3%BB%E5%88%97/">踏雪无痕系列</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="#" title=""></a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://blog.taielab.com/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+</body>
+
+</html>

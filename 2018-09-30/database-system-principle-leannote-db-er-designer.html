@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>数据库系统原理学习笔记（二）-数据库设计和ER图 | 码中春秋&#39;s Blog</title>
+    <meta property="og:title" content="数据库系统原理学习笔记（二）-数据库设计和ER图 - 码中春秋&#39;s Blog">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2018-09-30T21:48:40&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2018-09-30T21:48:40&#43;08:00'>
+        
+    <meta name="Keywords" content="码中春秋,博客,,taielab,java,python,项目管理,软件架构,网络安全,数字安全,隐私保护,反侦查,反技侦,匿名方案,open,freedom,democracy,decentralization">
+    <meta name="description" content="数据库系统原理学习笔记（二）-数据库设计和ER图">
+        
+    <meta name="author" content="码中春秋">
+    <meta property="og:url" content="https://blog.taielab.com/2018-09-30/database-system-principle-leannote-db-er-designer.html">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.taielab.com">
+                        码中春秋&#39;s Blog
+                    </a>
+                
+                <p class="description">专注于Java企业级开发、数字安全、信息安全、安全运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.taielab.com">首页</a>
+                    
+                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    
+                    <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents"></nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">数据库系统原理学习笔记（二）-数据库设计和ER图</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2018年9月30日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93'>数据库</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <blockquote>
+<p>了解和掌握数据库应用系统设计的全过程,掌握巸模型和关系模型的基本概念,掌握
+概念设计中E模型的设计方法,掌握逻辑设计中ER模型向关系模型转换的方法</p>
+</blockquote>
+<h1 id="数据库系统生存期">数据库系统生存期</h1>
+<p>1.数据库系统生存期:数据库应用系统从开始规划、设计、实现、维护到最后被新的系统取代而停止使用的整个期间。</p>
+<p>2.数据库系统生存期分七个阶段:规划、需求分析、概念设计、逻辑设计、物理设计、实现、运行维护。</p>
+<p>基本概念中数据库描述经历三个阶段:概念设计、逻辑设计、物理设计。</p>
+<p>3.规划阶段三个步骤:</p>
+<p><strong>(1)系统调查</strong></p>
+<p>对应用单位作全面的调查。</p>
+<p><strong>(2)可行性分析</strong></p>
+<p><strong>(3)确定数据库系统总目标</strong></p>
+<p><strong>4.需求分析阶段</strong>:主要任务是系统分析员和用户双方共同收集数据库系统所需要的信息内容和用户对处理的需求,并以需求说明书的形式确定下来</p>
+<p>(1)分析用户活动,产生业务流程图</p>
+<p>(2)确定系统范围,产生系统关联图</p>
+<p>(3)分析用户活动涉及的数据,产生数据流图</p>
+<p>数据流图(DFD)是从“数据”和“对数据的加工”两方面表达数据处理系统工作过程的一种图形表示法。</p>
+<p>(4)分析系统数据,产生数据字典。</p>
+<p>数据字典是对数据描述的集中管理,它的功能是存储和检索各种数据描述(称为数据字典中通常包括数据项、数据结构、数据流、数据存储和处理过程等5部分。</p>
+<p><strong>5.概念设计阶段</strong>:产生反映用户单位信息需求的数据库概念结构,即概念模型。与硬件和DBMS无关</p>
+<p>概念设计的任务一般分三个步骤:</p>
+<p>(1)进行数据抽象,设计局部概念模型</p>
+<p>设计概念结构时,常用的数据抽象方法是“聚集”和“概括”</p>
+<p>聚集是将若干对象和它们之间的联系组合成一个新的对象(归纳),概括是将一组具有某些共同特性的对象抽象成更高一层意义上的对象(抽象)。</p>
+<p>(2)将局部概念模型综合成全局概念模型</p>
+<p>(3)评审</p>
+<p>概念设计中最著名的方法就是实体联系方法(ER方法)建立ER模型。</p>
+<p><strong>6.逻辑设计阶段</strong>:将概念模型转换成DBMS能处理的逻辑模型。外模型也将在此阶段完成</p>
+<p>逻辑设计阶段步骤:</p>
+<p>(1)把概念模型转换成逻辑模型(R图转换成关系模式),逻辑模型常采用关系模型</p>
+<p>(2)设计外模型</p>
+<p>外模型是逻辑模型的逻辑子集,外模型是应用程序和数据库系统的接口,它能允许应用程序有效地访问数据库的数据,而不破坏数据库的安全性。</p>
+<p>(3)设计应用程序与数据库的接口</p>
+<p>(4)评价模型</p>
+<p>(5)修正模型</p>
+<p><strong>7.物理设计阶段</strong></p>
+<p>对于给定的基本数据模型选取一个最适合应用环境的物理结构的过程。数据库的物理结构主要指数据库的存储记录格式、存储记录安排和存取方法。</p>
+<p>物理设计阶段之后,进入数据库的实现。</p>
+<p><strong>8.数据库的实现</strong></p>
+<p>包括定义数据库结构、数据装载、編制与调试应用程序、数据库试运行。</p>
+<p>数据库的运行与维护</p>
+<p>(1)数据库的转储和恢复</p>
+<p>(2)数据库安全性、完整性控制</p>
+<p>(3)数据库性能的监督、分析和改进</p>
+<p>(4)数据库的重组织和重构造</p>
+<p><strong>ER模型的基本概念</strong></p>
+<p>1.ER模型的基本元素是:实体、联系和属性。</p>
+<p>实体联系模型(ER模型)是广泛被采用的概念模型设计方法。</p>
+<p>2.实体:是一个数据对象,指应用中可以区别的客观存在的事物。</p>
+<p>实体集:是指同一类实体构成的集合。</p>
+<p>实体类型:是对实体集中实体的定义一般将实体、实体集、实体类型统称为实体。</p>
+<p>3.联系:表示一个或多个实体之间的关联关系。</p>
+<p>联系集:是指同一类联系构成的集合。</p>
+<p>联系类型:是对联系集中联系的定义。</p>
+<p>一般将联系、联系集、联系类型统称为联系</p>
+<p>4.同一个实体集内部实体之间的联系,称为一元联系;两个不同实体集实体之间的联系,称为二元联系,以此类推。
+5.属性:实体的某一特性称为属性。在一个实体中,能够惟一标识实体的属性或属性集称为实体标识符。</p>
+<p>属性域是属性的可能取值范围,也称为属性的值域。</p>
+<p>(1)简单属性和复合属性</p>
+<p>简单属性:不能再分解的属性;</p>
+<p>复合属性:可再分解的属性</p>
+<p>如联系地址可分解为如图</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0d6b9bdb64.jpg" alt=""></p>
+<p>(2)单值属性和多值属性:根据属性的取值特点又分为单值属性和多值属性</p>
+<p>单值属性:是同一实体的属性只能取一个值。</p>
+<p>多值属性:指同一实体的某些属性可能取多个值</p>
+<p>例如,销售价格分:经销价格、供销价格、批发价格、零售价格。</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0d6efceb5d.jpg" alt=""></p>
+<p>多值属性的转换方法:</p>
+<p>(1)多值属性可以分解为几个新的单值属性。</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0d71c9f209.jpg" alt=""></p>
+<p>(2)可以增加一个弱实体来表示多值属性。</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0d749cd5bf.jpg" alt=""></p>
+<p>(3)存储属性和派生属性</p>
+<p>存储属性</p>
+<p>派生属性:从其他属性值推导出值的属性。例如:实发工资=应发工资-扣除项</p>
+<p>派生属性不必存储在数据库中(相当于计算列)。</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0d79e3d90f.jpg" alt=""></p>
+<p>其他属性称为存储属性</p>
+<p>(4)允许空值的属性</p>
+<p>当实体在某个属性上没有值时应使用空值。</p>
+<p>6.联系的设计</p>
+<p>(1)ER模型表示</p>
+<p>方框表示实体、菱形框表示联系、椭圆形框表示属性、实体与联系、实体与其属性、联系与其属性之间用直线连接。实体标识符下画横线。联系的类型要在直线上标注。注意:联系也有可能存在属性,但联系本身没有标识符。
+(2)联系的元数</p>
+<p>个联系涉及的实体的集的个数,称为联系的元数或度数。</p>
+<p>三元联系与一元联系,如图。</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0d9882cddd.png" alt=""></p>
+<p>联系是通过主键和外键来实现的。</p>
+<p>注意:单箭头表示联系的对应关系1端,双箭头表示联系的对应关系的N(或M)端</p>
+<p>这与第9章中单双箭头相对应</p>
+<p>一元联系,例如,职工(职工号,姓名,性别,所属部分经理工号),职工号与经理工号属于“职工”实体类型。</p>
+<p>(3)联系类型的约束</p>
+<p>联系类型的约束限制了参与联系的实体的数目。分两类联系约束:基数约束和参与约束。</p>
+<p>①基数约束</p>
+<p>映射基数:参与一个联系的实体数目称为映射基数。如:1:1,1:N,M:N</p>
+<p>②映射基数,最小映射基数(min)、最大映射基数(max)。基数表示(min,max)</p>
+<p>如(1,6)。</p>
+<p>【例题】设教师和课程之间有1:N联系。每位教师可讲授3门课,也可只搞科研而不讲课,每门课程必须有一位教师上课,则教师基数为(0,3)。双边表示完全参与。</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0da8e9e785.jpg" alt=""></p>
+<p>例如:一元联系的映射基数,如图</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0dae9cfd7e.jpg" alt=""></p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0db05f0273.jpg" alt=""></p>
+<p>二元联系的映射基数,如图。</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0db3c2a052.jpg" alt=""></p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0dbae07475.jpg" alt=""></p>
+<p>例,三元联系的基数,M:N:P情况。</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0dbd734c07.jpg" alt=""></p>
+<p>例:假设一个学生可选多门课程,而一门课程又有多个学生选修,一个教师可讲多门课
+程,一门课程至多只有一个教师讲授。ER图如下:</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0dc18d8211.jpg" alt="">
+7.采用ER模型的数据库概念设计三个步骤</p>
+<p>(1)设计局部ER模型</p>
+<p>设计局部ER模型三个步骤</p>
+<p>①定义实体;</p>
+<p>②定义联系;</p>
+<p>③分配属性</p>
+<p>确定属性的原则:</p>
+<p>属性应该是不可再分解的语义单位,实体与属性之间的关系只能是1:N的;不同的实体之间应无直接关联关系</p>
+<p>联系的属性:有些属性不宜归属于任一实体类型,只说明实体之间联系的特性。如成绩既不属于学生实体,也不属于课程实体,但与学生实体和课程实体有联系,成绩是属性某学生选择的某一门课程的(如上图)。</p>
+<p>个属性即不属于一个实体,也不属于另一个实体,但与这两个实体有联系,则画在联系类型上。</p>
+<p>(2)设计全局ER模型</p>
+<p>综合成全局ER模型的步骤如下:</p>
+<p>①确定公共实体类型</p>
+<p>②合并局部ER模型</p>
+<p>③消除冲突(考过)</p>
+<p>a.属性冲突:b.结构冲突:c.命名冲突</p>
+<p>(3)全局ER模型的优化。</p>
+<p>①合并实体类型;</p>
+<p>②消除冗余属性</p>
+<p>③消除冗余联系(第3章,函数依赖问题)。</p>
+<p>关系模型的基本概念</p>
+<p>1.关系模型的定义</p>
+<p>关系模型是指用二维表格表示实体集,用关键码/外键表示实体之间联系的数据模型</p>
+<p>2.概念</p>
+<p>在关系模型中,字段称为属性,字段值称为属性值,记录类型称为关系模式。记录称为元组,元组的集合称为关系或实例。有时习惯称关系为表或表格,元组为行,属性为列。关系中属性个数称为元数,元组个数称为基数</p>
+<p>关系模型是由若干个关系模式组成的集合。关系模式相当于记录类型</p>
+<p>(1)关键码(简称键):由一个或多个属性组成。</p>
+<p>(2)超键:在关系中能惟一标识元组的属性集称为关系模式的超键</p>
+<p>(3)候选键:不含有多余属性的超键。</p>
+<p>(4)主键:用户选作元组标识的候选键。一般如不加说明,键是指主键。</p>
+<p>(5)全键:所有属性都为主键,称为全键。</p>
+<p>(6)外键:如果模式R中属性集K是其他模式的主键,那么K在模式R中称为外键</p>
+<p>(7)值域:关系中每一个属性都有一个取值范围,称为属性的值域( Domain)。每个属性对应一个值域,不同的属性可对应于同一值域</p>
+<p>(8)主属性</p>
+<p>包含在任意一个键中的属性称为主属性;</p>
+<p>非主属性:不包含在任何键中属性称为非主属性</p>
+<p>3.关系的定义和性质</p>
+<p>(1)关系的定义:关系是一个属性数目相同的元组的集合。</p>
+<p>(2)关系的性质(规范性限制):关系是一种</p>
+<p>规范化了的二维表格。</p>
+<p>①关系中每一个属性值都是不可分解的</p>
+<p>②2关系中不允许出现重复元组</p>
+<p>③关系没有行序;</p>
+<p>④元组中的属性在理论上也是无序的,但使用时按习惯考虑列的顺序</p>
+<p>4.关系数据库中的数据与更新操作必须遵循三类完整性规则</p>
+<p>(1)实体完整性规则</p>
+<p>主键是唯一标识实体的,且不能为空;候选键是唯一的,可以为空;一个表中只有一个主键,候选键可能有多个
+实体完整性规则:要求关系中元组在组成主键的属性上不能有空值</p>
+<p>(2)参照完整性规则</p>
+<p>如果属性集K是关系模型式R1的主键,K值也是关系模式R2的外键,那么在R2的关系中,K的取值只允许两个可能:或者为空值,或者等于R1关系中某个主键值。</p>
+<p>参照完整性规则:如果属性集K是关系模式R1的主键,K也是关系模式R2的外键,那么在R2关系中,K的取值只允许两种可能,或者为空值,或者等于R1关系中某个主键值。这条规则的实质是“不允许引用不存在的实体”。其中,R1称为参照关系;R2称为依赖关系。</p>
+<p>注意:这条规则在具体使用时,有三点变通:</p>
+<p>①外键和相应的主键可以不同名,只要定义在相同值域上即可;</p>
+<p>②RI和R2可以是同一个关系模式,此时表示了同一个关系中不同元组之间的联系</p>
+<p>③外键值是否允许空,应视具体问题而定</p>
+<p>(3)用户定义的完整性规则(含有域完整性约束)</p>
+<p>用户针对具体的数据约束,设置的完整性规则,由系统来检验实施。</p>
+<h1 id="er模型到关系模型的转换">ER模型到关系模型的转换</h1>
+<p>1.ER图中的主要成分是实体类型和联系类型,转换算法就是如何把实体类型、联系类型转换成关系模式。</p>
+<p>(2)联系类型的转换:主要掌握二元联系类型的转换
+①若实体间联系是1:1,可以在两个实体类型转换成的关系模式中任意一个关系模式</p>
+<p>的属性中加入另一个关系模式的键(作为外键)和联系类型的属性</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0de0075f35.jpg" alt="">
+注意:不能两个实体类型中都包括另一个实体类型中的主键,至于哪个实体类型包括另一个实体类型中的主键,要根据实际需要而定</p>
+<p>②若实体间联系是1:N,则在N端实体类型转换成的关系模式中加入1端实体类型的建(作为外键)和联系类型的属性</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0de29862b9.jpg" alt=""></p>
+<p>注意:实体类型中a属性的一划线表示从表(B表)的外键,在主表(A表)中必须是主键( SQL Server中是主键或唯一键(即候选键))</p>
+<p>③若实体间联系是M:N,则将联系类型也转换成关系模式,其属性为两端实体类型的键(作为外键)加上联系类型的属性,而键为两端实体键的组合(称为组合键)。</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0de87ddc23.jpg" alt=""></p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0deaf86206.jpg" alt=""></p>
+<p>注意:下划线横线表示主键(中间不能断开),波浪线表示外键(中间必须断开)。</p>
+<p>【例2.10】下面是教学管理的一个可能的ER图。图中,有三个实体类型:系、教师和课程;有四个联系类型:主管用、开设和任教。根据转换算法,把该图转换成关系模式集的步骤如下:</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0def54fe69.jpg" alt=""></p>
+<p>第一步:把三个实体类型转换成三个关系模式(注意关系模式的表示方法)
+<img src="https://i.loli.net/2018/09/30/5bb0dfb10c09d.jpg" alt="">
+第二步:对于1:1联系,可以在“系”模式中加入教工号(教工号为外键)</p>
+<p>对于1:N联系“聘用”,可以在“教师”模式中加入系编号和聘期两个属性(系编号
+为外键)</p>
+<p>对于1:N联系“开设”,可以在“课程”模式中加入系编号(系编号为外键)。这样第一步得到的三个模式改变成如下形式(注意:外键通常使用波浪线表示):</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0dfcb7d3c1.jpg" alt="">
+课程的归口</p>
+<p>第三步:对于M:N联系“任教”,则生成一个新的关系模式</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0dff5ba47b.jpg" alt="">
+这样,转换成的四个关系模式如下:</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0e00b7946c.jpg" alt=""></p>
+<p>3.采用ER模型的逻辑设计步骤</p>
+<p>(1)导出初始关系模式集:把概念设计的结果(即全局ER模型)转换成初始关系模式集</p>
+<p>(2)规范化处理</p>
+<p>(3)模式评价</p>
+<p>(4)模式修正</p>
+<p>(5)设计子模式</p>
+<h1 id="实例分析">实例分析</h1>
+<p>【例】旅游管理信息系统的ER模型上海普教旅行社设计了一个小型的国内旅游管理信息系统,其中涉及到与业务有关的信息有旅游线路、班次、团体、旅客、保险员、导游、宾馆、交通工具等。其ER图如图所示。</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0e175d43d3.jpg" alt=""></p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0e1a024e37.jpg" alt=""></p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0e1babc2ca.jpg" alt=""></p>
+<h1 id="增强的er模型">增强的ER模型</h1>
+<p>1、弱实体和强实体</p>
+<p>定义:一个实体对于另一个实体(称为强实体)具有很强的依赖关系,而且该实体主键的一部分或全部从其强实体中获得,则称该实体为弱实体。</p>
+<p>例如:一个职工与亲属中,亲属是一个多值属性,为了消除冗余,设计两个实体:职工与亲属,在职工与亲属中,亲属信息是以职工信息的存在为前提,因此,亲属与职工之间存在着一种依赖关系。所以说,亲属是弱实体</p>
+<p>在职工与亲属的ER图中,转换成两个关系模式如下</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0e21815b1e.jpg" alt=""></p>
+<p>2、子类实体与超类实体</p>
+<p>定义:当较低层上实体类型表达了与之联系的较高层上的实体类型的特殊情况时,就称较高层上实体类型为超类型,较低层上的实体类型为子类型</p>
+<p>子类与超类有两个性质:</p>
+<p>(1)子类与超类之间具有继承特点,即子类继承超类实体的所有属性。但子类实体本身还可以包含比超在实体更多的属性</p>
+<p>(2)这种继承性是通过子类实体与超类实体有相同的实体标识符实现的。</p>
+<p>不相交(相交)特化四种情况:</p>
+<p>1)不相交(用d表示),整体特化(用双线条表示)</p>
+<p>2)不相交(用d表示),部分特化(用单线条表示)</p>
+<p>3)相交(用o表示),整体特化(用双线条表示);</p>
+<p>4)相交(用o表示),部分特化(用单线条表示);</p>
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://blog.taielab.com">码中春秋</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.taielab.com/2018-09-30/database-system-principle-leannote-db-er-designer.html">https://blog.taielab.com/2018-09-30/database-system-principle-leannote-db-er-designer.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/2018-09-30/database-system-principle-leannote-base.html">数据库系统原理学习笔记（一）-基本概念</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86'>数据库系统原理</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "udpsec/blog-comments"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-11-25/ios-13-checkra-in-repair-the-internet-connection-appears-to-be-offline.html" title="IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误">IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-29/red-team-and-physical-entry-gear-tips.html" title="护网之红方物理入侵旁门左道">护网之红方物理入侵旁门左道</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-05/intranet-roaming-network-traffic-control.html" title="内网漫游系列之流量操控与Socks代理总结">内网漫游系列之流量操控与Socks代理总结</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-27/intranet-roaming-ss-privoxy.html" title="内网漫游系列之正向全局代理ss&#43;Privoxy">内网漫游系列之正向全局代理ss&#43;Privoxy</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-20/centos-7-upgrade-Kernel.html" title="Centos7安装升级最新内核">Centos7安装升级最新内核</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/digital-forensics-live-and-dead.html" title="数字取证-死活取证">数字取证-死活取证</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html" title="Centos7搭建本地yum仓库">Centos7搭建本地yum仓库</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/osint-101-auto-visual.html" title="OSINT101 技术自动化和可视化">OSINT101 技术自动化和可视化</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-21/ubuntu-migrate-to-ssd.html" title="Ubuntu19.04迁移到SSD">Ubuntu19.04迁移到SSD</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-16/kali-linux-double-display-solutions.html" title="双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案">双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.taielab.com/categories/IOS%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">IOS应用逆向与安全 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/Linux/">Linux (11)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%B7%A5%E5%85%B7%E6%95%88%E7%8E%87/">工具效率 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%BC%80%E6%BA%90%E6%83%85%E6%8A%A5%E6%94%B6%E9%9B%86/">开源情报收集 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (30)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/">红蓝对抗 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全 (6)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4/">网络运维 (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.taielab.com/tags/Debian/">Debian</a>
+    
+    <a href="https://blog.taielab.com/tags/IOS/">IOS</a>
+    
+    <a href="https://blog.taielab.com/tags/OSINT/">OSINT</a>
+    
+    <a href="https://blog.taielab.com/tags/archlinux/">archlinux</a>
+    
+    <a href="https://blog.taielab.com/tags/centos/">centos</a>
+    
+    <a href="https://blog.taielab.com/tags/github/">github</a>
+    
+    <a href="https://blog.taielab.com/tags/gitup/">gitup</a>
+    
+    <a href="https://blog.taielab.com/tags/gpg/">gpg</a>
+    
+    <a href="https://blog.taielab.com/tags/hexo/">hexo</a>
+    
+    <a href="https://blog.taielab.com/tags/hugo/">hugo</a>
+    
+    <a href="https://blog.taielab.com/tags/kali-linux/">kali-linux</a>
+    
+    <a href="https://blog.taielab.com/tags/lnmp/">lnmp</a>
+    
+    <a href="https://blog.taielab.com/tags/manjaro/">manjaro</a>
+    
+    <a href="https://blog.taielab.com/tags/meedu/">meedu</a>
+    
+    <a href="https://blog.taielab.com/tags/nessus/">nessus</a>
+    
+    <a href="https://blog.taielab.com/tags/parrot-os/">parrot-os</a>
+    
+    <a href="https://blog.taielab.com/tags/pentestbox/">pentestbox</a>
+    
+    <a href="https://blog.taielab.com/tags/shadowsocks/">shadowsocks</a>
+    
+    <a href="https://blog.taielab.com/tags/tor/">tor</a>
+    
+    <a href="https://blog.taielab.com/tags/ubuntu/">ubuntu</a>
+    
+    <a href="https://blog.taielab.com/tags/vps/">vps</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">内网渗透命令</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%BC%AB%E6%B8%B8/">内网漫游</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/">奇淫技巧</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/">数字安全基础篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%AF%87/">数字安全工具篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">数据库系统原理</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81/">死活取证</a>
+    
+    <a href="https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5/">物理入侵</a>
+    
+    <a href="https://blog.taielab.com/tags/%E8%B8%8F%E9%9B%AA%E6%97%A0%E7%97%95%E7%B3%BB%E5%88%97/">踏雪无痕系列</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="#" title=""></a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://blog.taielab.com/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+</body>
+
+</html>

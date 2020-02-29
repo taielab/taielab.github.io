@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hexo on 码中春秋&#39;s Blog</title>
+    <link>https://blog.taielab.com/tags/hexo/</link>
+    <description>Recent content in hexo on 码中春秋&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 20 Sep 2017 12:39:32 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.taielab.com/tags/hexo/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hexo-next主题全面配置教程</title>
+      <link>https://blog.taielab.com/2017-09-20/hexo-theme-next-config.html</link>
+      <pubDate>Wed, 20 Sep 2017 12:39:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017-09-20/hexo-theme-next-config.html</guid>
+      <description>&lt;p&gt;NexT 拥有丰富而简单的配置,结合第三方服务,打造属于您自己的博客主题配置。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>使用Git Hook - 自动部署hexo到vps</title>
+      <link>https://blog.taielab.com/2017-09-20/git-hook-autodeploy-vps.html</link>
+      <pubDate>Wed, 20 Sep 2017 12:39:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017-09-20/git-hook-autodeploy-vps.html</guid>
+      <description>&lt;p&gt;这个VPS当时很大程度就是为这个博客而买，虽然目前博客占用很小的空间，免费的github page已经足够使用，但VPS闲着也是闲着况且是些html静态文件，所以今天折腾了下如何自自动上传到github的时候自动部署到这台VPS上，当然访问速度也可以更快些。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

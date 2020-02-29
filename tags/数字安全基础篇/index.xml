@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>数字安全基础篇 on 码中春秋&#39;s Blog</title>
+    <link>https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/</link>
+    <description>Recent content in 数字安全基础篇 on 码中春秋&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 05 Mar 2019 14:23:49 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>数字安全培训·基础篇（完结篇）你的安全计划</title>
+      <link>https://blog.taielab.com/2019-03-05/your-security-plan.html</link>
+      <pubDate>Tue, 05 Mar 2019 14:23:49 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-05/your-security-plan.html</guid>
+      <description>&lt;p&gt;试图在任何时候都不让任何人知道您的所有数据是不切实际的，也是令人疲惫的。但是，不要害怕!安全是一个过程，通过周密的计划，你可以制定一个适合自己的计划。安全性不仅仅是您使用的工具或下载的软件。首先要了解您所面临的独特威胁以及如何应对这些威胁。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·基础篇（十一）为什么元数据很重要</title>
+      <link>https://blog.taielab.com/2019-03-05/why-metadata-matters.html</link>
+      <pubDate>Tue, 05 Mar 2019 14:11:00 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-05/why-metadata-matters.html</guid>
+      <description>&lt;p&gt;在数字通信环境中，元数据相当于一个信封，它是关于您发送和接收的通信的信息。电子邮件的主题行、对话的长度、通信时的位置(以及与谁通信)都是元数据的类型。元数据通常被描述为通信内容之外的所有内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·基础篇（十）关于加密，我应该知道什么？</title>
+      <link>https://blog.taielab.com/2019-03-05/what-should-i-know-about-encryption.html</link>
+      <pubDate>Tue, 05 Mar 2019 13:13:36 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-05/what-should-i-know-about-encryption.html</guid>
+      <description>&lt;p&gt;您可能听说过加密这个术语在不同的上下文中使用，并与不同的单词相关联。通常，加密是指使消息不可读的数学过程，只有拥有将其解密为可读形式的密钥的人才能读懂。&lt;/p&gt;
+&lt;p&gt;纵观历史，人们一直使用加密技术相互发送消息，(希望)除了预期的接收者以外，任何人都无法读取这些消息。今天，我们拥有能够为我们执行加密的计算机。数字加密技术已经超越了简单的秘密信息;现在，今天，您可以将加密用于更复杂的目的，例如，验证消息的作者。&lt;/p&gt;
+&lt;p&gt;加密是我们保护信息免受不良行为者、政府和服务提供商攻击的最佳技术，并且它已经发展到在正确使用时几乎不可能破解。&lt;/p&gt;
+&lt;p&gt;在本指南中，我们将了解应用加密的两种主要方式:对静态数据和传输中的数据进行加密。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·基础篇（九）数字安全的七个步骤</title>
+      <link>https://blog.taielab.com/2019-03-05/seven-steps-digital-security.html</link>
+      <pubDate>Tue, 05 Mar 2019 11:43:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-05/seven-steps-digital-security.html</guid>
+      <description>&lt;h2 id=&#34;知识就是力量&#34;&gt;知识就是力量&lt;/h2&gt;
+&lt;p&gt;一个好的安全决策始于对自身情况有适当的了解。 首先，问自己以下问题：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;我想保护什么？&lt;/li&gt;
+&lt;li&gt;我想从谁那里保护它？&lt;/li&gt;
+&lt;li&gt;我有多大可能需要保护它？&lt;/li&gt;
+&lt;li&gt;如果我失败，后果会有多糟糕？&lt;/li&gt;
+&lt;li&gt;我愿意花多少钱来防止潜在的后果？&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;威胁建模：一种思考数据保护类型的方式，这样你就可以决定你要认真对待哪些潜在的威胁。不可能保护您不受各种欺骗或对手的攻击，因此您应该将注意力集中在哪些人可能需要您的数据、他们可能希望从中获得什么以及如何获得这些数据。提出一组您计划防范的可能威胁称为威胁建模或风险评估。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;回答完这些问题后，您可以更好地评估数字安全需求并创建安全计划或威胁模型。 你已经拥有比你想象的更多的力量！&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·基础篇（八）如何保护您的数字安全</title>
+      <link>https://blog.taielab.com/2019-03-05/how-to-keeping-your-data-safe.html</link>
+      <pubDate>Tue, 05 Mar 2019 11:14:20 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-05/how-to-keeping-your-data-safe.html</guid>
+      <description>&lt;p&gt;如果你有智能手机、笔记本电脑或平板电脑，你随时都会随身携带大量数据。你的社交联系人、私人通信、个人文档和个人照片(其中许多都有数十人甚至数千人的机密信息)只是你可能存储在数字设备上的一些例子。因为我们存储和携带了如此多的数据，所以很难保证数据的安全——尤其是因为数据可以相对容易地从你这里取走。&lt;/p&gt;
+&lt;p&gt;你的数据可以在边境被没收，在街上被取走，或者从你家被盗，几秒钟内就被复制。不幸的是，如果你的设备被截获，用密码、PIN或手势锁定你的设备可能无法保护你的数据。绕过这种锁相对容易，因为你的数据以易于阅读的形式存储在设备中。对手只需要直接访问存储，就可以在没有密码的情况下复制或检查您的数据。&lt;/p&gt;
+&lt;p&gt;话虽如此，你可以让那些窃取你数据的人更难解开数据的秘密。这里有几种方法可以帮助您保护数据安全。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·基础篇（七）如何创建强密码</title>
+      <link>https://blog.taielab.com/2019-03-02/how-to-creating-strong-passwords.html</link>
+      <pubDate>Sat, 02 Mar 2019 12:41:57 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-02/how-to-creating-strong-passwords.html</guid>
+      <description>&lt;h2 id=&#34;使用密码管理器创建强密码&#34;&gt;使用密码管理器创建强密码&lt;/h2&gt;
+&lt;p&gt;重复使用密码是非常糟糕的安全做法。如果一个黑客得到了你在多个服务中重复使用的密码，他们可以访问你的许多账户。这就是为什么拥有多个强有力的唯一密码如此重要的原因。&lt;/p&gt;
+&lt;p&gt;幸运的是，密码管理器可以提供帮助。密码管理器是为您创建和存储密码的工具，因此您可以在不同的站点和服务上使用许多不同的密码，而不必记住它们。密码管理器:&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·基础篇（五）如何选择保护自己的数据安全工具</title>
+      <link>https://blog.taielab.com/2019-03-02/how-to-choosing-your-tools.html</link>
+      <pubDate>Sat, 02 Mar 2019 10:34:49 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-02/how-to-choosing-your-tools.html</guid>
+      <description>&lt;p&gt;​	有这么多的公司和网站提供帮助个人提高数字安全的工具，你如何选择适合自己的工具?我们并没有一个万无一失的工具列表来保护您(尽管您可以在我们的工具指南中看到一些常见的选择)。但是，如果您很清楚要保护的是什么，以及要保护的对象是谁，那么本指南可以帮助您使用一些基本的指导原则来选择适当的工具。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;请记住，安全性与您使用的工具或您下载的软件无关。 首先要了解您面临的独特威胁以及如何应对这些威胁。 查看我们的评估您的风险指南以获取更多信息。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·基础篇（六）如何安全的与他人网络社交</title>
+      <link>https://blog.taielab.com/2019-03-02/how-to-communicating-others.html</link>
+      <pubDate>Sat, 02 Mar 2019 10:34:49 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-02/how-to-communicating-others.html</guid>
+      <description>&lt;pre&gt;&lt;code&gt;电信网络和互联网使人们的沟通比以往更容易，但也使监控更加普遍。 如果不采取额外措施保护您的隐私，每个电话，短信，电子邮件，即时消息，视频和音频聊天以及社交媒体消息都可能容易受到窃听者的攻击。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;​	通常，最隐私保护的与他人沟通的方式是亲自参与，而根本不涉及计算机或电话。 因为这并不总是可行，所以下一个最好的办法是使用端到端加密。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·基础篇（四）如何使用密码管理器保证账户安全</title>
+      <link>https://blog.taielab.com/2019-02-28/how-to-using-password-managers-stay-safe-online.html</link>
+      <pubDate>Thu, 28 Feb 2019 21:50:28 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-02-28/how-to-using-password-managers-stay-safe-online.html</guid>
+      <description>&lt;!-- raw HTML omitted --&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·基础篇（三）如何保护设备避免黑客攻击</title>
+      <link>https://blog.taielab.com/2019-02-28/how-to-protecting-your-device-hackers.html</link>
+      <pubDate>Thu, 28 Feb 2019 21:34:22 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-02-28/how-to-protecting-your-device-hackers.html</guid>
+      <description>&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;​	恶意攻击者可以控制你的设备——无论它是笔记本电脑、台式电脑、智能手机还是平板电脑——并利用它来了解更多关于你的信息、监视你或种植木马。这个动画解释了电脑被控制的几种方式(或“pwned“, ”0wned“，等等)。)，以及如何保护自己。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·基础篇（二）·如何使用Dice制作超级安全的密码</title>
+      <link>https://blog.taielab.com/2019-01-23/how-make-super-secure-password-using-dice.html</link>
+      <pubDate>Wed, 23 Jan 2019 14:56:24 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-01-23/how-make-super-secure-password-using-dice.html</guid>
+      <description>&lt;p&gt;​	 &lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;秘密意味着被记忆或以其他方式受到保护并保密，并且意味着限制对某些内容的访问，以便只有知道密码的人才能获得访问权限。 它可能会限制对在线帐户，设备或其他内容的访问。 基于多个单词的长密码也可称为“密码短语”，以提醒我们它不仅仅是一个“单词”。 主密码是用于在密码管理器或密码安全应用程序中解锁其他密码的主密码。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;计算机密码可以解锁大量信息，但有些密码非常简单，攻击者很容易穷举爆破到它们。 一个常见的最佳做法是避免使用熟悉的密码（如“iloveyou”），并在密码中添加符号或数字，使其更难被穷举爆破。 然而，攻击者现在使用计算机程序来猜测密码 - 这些程序每秒都可以猜出数百万个密码。 这样的攻击者无法猜测的密码需要长而随机。 但是长的随机密码对于仅仅是普通用户来说是难以记住的。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·基础篇（一）如何使用强加密避免在线监测</title>
+      <link>https://blog.taielab.com/2018-12-22/how-strong-encryption-can-help-avoid-online-surveillance.html</link>
+      <pubDate>Sat, 22 Dec 2018 14:03:13 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-12-22/how-strong-encryption-can-help-avoid-online-surveillance.html</guid>
+      <description>&lt;p&gt;​	不久前，间谍还是一项劳动密集型的工作，需要大量的资源和明确的目标。如今，政府或对手更容易监视个人或者是每个人。生活在21世纪意味着，当你使用互联网保存、编辑或分享某样东西时，你就容易受到监视。&lt;/p&gt;
+&lt;p&gt;​	&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

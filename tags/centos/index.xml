@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>centos on 码中春秋&#39;s Blog</title>
+    <link>https://blog.taielab.com/tags/centos/</link>
+    <description>Recent content in centos on 码中春秋&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 20 May 2019 22:35:32 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.taielab.com/tags/centos/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Centos7安装升级最新内核</title>
+      <link>https://blog.taielab.com/2019-05-20/centos-7-upgrade-Kernel.html</link>
+      <pubDate>Mon, 20 May 2019 22:35:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-05-20/centos-7-upgrade-Kernel.html</guid>
+      <description>&lt;p&gt;虽然有些人使用 Linux 来表示整个操作系统，但要注意的是，严格地来说，Linux 只是个内核。另一方面，发行版是一个完整功能的系统，它建立在内核之上，具有各种各样的应用程序工具和库。&lt;/p&gt;
+&lt;p&gt;在正常操作期间，内核负责执行两个重要任务：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;作为硬件和系统上运行的软件之间的接口。&lt;/li&gt;
+&lt;li&gt;尽可能高效地管理系统资源。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;为此，内核通过内置的驱动程序或以后可作为模块安装的驱动程序与硬件通信。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Centos7搭建本地yum仓库</title>
+      <link>https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html</link>
+      <pubDate>Thu, 09 May 2019 22:34:20 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html</guid>
+      <description>&lt;h3 id=&#34;概述&#34;&gt;概述&lt;/h3&gt;
+&lt;p&gt;不管内部大量部署服务器还是私有云环境，为了能够不受互联网速度和带宽的限制，搭建一个本地yum源是很必要的，尤其在内网环境下。其中epel源是最主要的一个，也是用的最多的，本例介绍在Centos7环境下搭建epel源。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Centos7配置多版本ShadowSocks和全局代理</title>
+      <link>https://blog.taielab.com/2019-03-07/centos-7-install-multi-shadowsocks.html</link>
+      <pubDate>Thu, 07 Mar 2019 10:30:02 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-07/centos-7-install-multi-shadowsocks.html</guid>
+      <description>&lt;h1 id=&#34;两个版本选择&#34;&gt;两个版本选择&lt;/h1&gt;
+&lt;h2 id=&#34;安装配置-shadowsockspython版本&#34;&gt;安装配置 Shadowsocks（python版本）&lt;/h2&gt;
+&lt;p&gt;安装 YUM 源和编译链&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;yum install -y epel-release curl gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto udns-devel libev-devel mbedtls-devel libsodium-devel c-ares-devel
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

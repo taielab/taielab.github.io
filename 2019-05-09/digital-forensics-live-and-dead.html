@@ -1,0 +1,860 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>数字取证-死活取证 | 码中春秋&#39;s Blog</title>
+    <meta property="og:title" content="数字取证-死活取证 - 码中春秋&#39;s Blog">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2019-05-09T22:36:12&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2019-05-09T22:36:12&#43;08:00'>
+        
+    <meta name="Keywords" content="码中春秋,博客,,taielab,java,python,项目管理,软件架构,网络安全,数字安全,隐私保护,反侦查,反技侦,匿名方案,open,freedom,democracy,decentralization">
+    <meta name="description" content="数字取证-死活取证">
+        
+    <meta name="author" content="码中春秋">
+    <meta property="og:url" content="https://blog.taielab.com/2019-05-09/digital-forensics-live-and-dead.html">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.taielab.com">
+                        码中春秋&#39;s Blog
+                    </a>
+                
+                <p class="description">专注于Java企业级开发、数字安全、信息安全、安全运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.taielab.com">首页</a>
+                    
+                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    
+                    <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#windows系统活取证">windows系统活取证:</a></li>
+    <li><a href="#linux系统进行活取证">Linux系统进行活取证</a></li>
+    <li><a href="#linux内存取证插件参数">Linux内存取证插件参数</a>
+      <ul>
+        <li><a href="#获取系统进程信息相关命令">获取系统进程信息相关命令:</a></li>
+        <li><a href="#linux_pstree进程树列表">linux_pstree：进程树列表</a></li>
+        <li><a href="#获取系统内存信息的相关命令">获取系统内存信息的相关命令:</a></li>
+        <li><a href="#获取网络接口信息的相关命令">获取网络接口信息的相关命令:</a></li>
+        <li><a href="#获取系统硬件信息的相关命令">获取系统硬件信息的相关命令：</a></li>
+        <li><a href="#rootkit-检测的相关命令">rootkit 检测的相关命令:</a></li>
+        <li><a href="#获取内核模块信息的相关命令">获取内核模块信息的相关命令:</a></li>
+      </ul>
+    </li>
+    <li><a href="#死取证">死取证</a>
+      <ul>
+        <li><a href="#镜像工具-dd">镜像工具 dd</a></li>
+        <li><a href="#使用-ftk-imager-for-linux">使用 FTK Imager for Linux</a></li>
+        <li><a href="#使用-xmount-工具制作-snapshot快照文件">使用 xmount 工具制作 snapshot（快照）文件</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">数字取证-死活取证</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年5月9日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81'>数字取证</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <p>活取证:在主机存活时发现系统被入侵,然后直接把机器的运行内存dump下来，对运行内存进行分析，还原一些进程的中的信息。主要抓取文件metadata,创建时间线,命令历史,分析日志文件,哈希摘要,转存内存信息等数据.</p>
+<p>死取证:是对机器的磁盘做镜像之后分析的取证方法。用于在关机后制作硬盘镜像,分析镜像(MBR硬盘分区,GPT全局分区表,LVM逻辑卷)是否存在病毒,木马等恶意程序.</p>
+<p>相比于死取证,活取证是更加的重要,能够获取到当前系统第一手资料,对于分析入侵过程起到了至关重要的作用</p>
+<p>我们现在构造一个场景,假如公司的一台主机被黑客侵入,当前主机处于运行状态,我们对其进行活取证,调查黑客是如何入侵本系统的.</p>
+<h2 id="windows系统活取证">windows系统活取证:</h2>
+<p>对windows主机来说,可以使用Dumplt去dump内存中的信息,下载地址为:<a href="http://www.secist.com/wp?content/uploads/2016/11/DumpIt.zip(%E4%B8%BA%E4%BA%86%E4%BF%9D%E9%9A%9C%E7%9B%AE%E6%A0%87%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%8C%E6%95%B4%E6%80%A7%E5%92%8C%E4%B8%8D%E7%A0%B4%E5%9D%8F%E7%AC%AC%E4%B8%80%E7%8E%B0%E5%9C%BA%E7%9A%84%E5%8E%9F%E5%88%99,%E6%8E%A8%E8%8D%90%E5%9C%A8U%E7%9B%98%E4%B8%AD%E5%90%AF%E5%8A%A8)">http://www.secist.com/wp?content/uploads/2016/11/DumpIt.zip(为了保障目标系统的完整性和不破坏第一现场的原则,推荐在U盘中启动</a></p>
+<p>用法很简单,双击打开程序,输入y即可将windows内存的数据制作成raw文件</p>
+<p>然后将raw文件拷贝到kali中,使用Volatility进行系统取证,这个要简单许多,详情可参考http://www.cnblogs.com/Hydraxx/p/10530212.html</p>
+<h2 id="linux系统进行活取证">Linux系统进行活取证</h2>
+<p>这里我使用debain系统的内存镜像进行活取证,该镜像保存在/root下</p>
+<p>在我们进行活取证成功获取到物理内存之后,接下来的工作就是要对镜像文件进行分析，从中提取有用的入侵证据。</p>
+<p>一般来说，我们可以从镜像文件中提取以下信息 ( 这些信息是指在生成镜像文件那个时刻的信息) :</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">所有正在内存中运行的进程;
+
+所有的载入模块和 DLL( 动态链接库)，包括被植入的各种恶意程序;
+
+所有正在运行的设备驱动程序，包括隐藏的 rootkits;
+
+每个进程打开的所有文件;
+
+每个进程打开的所有注册表的键值;
+
+每个进程打开的所有网络套接字 ( sockets)，包括 IP 地址和端口信息;
+
+用户名和口令;
+
+正在使用的电子邮件 和网页链接;
+
+正在编辑的文件内容。
+</code></pre></td></tr></table>
+</div>
+</div><p>Volatility 简介：</p>
+<p>Volatility是一款开源的，基于Python开发的内存取证工具集，可以分析内存中的各种数据。Volatility支持对32位或64位Wnidows、Linux、Mac、Android操作系统的RAM数据进行提取与分析。我们将使用Volatility对内存镜像进行分析.</p>
+<p>首先安装volatility</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">apt-get install volatility 
+</code></pre></td></tr></table>
+</div>
+</div><p>但是volatility自带了一些windows系统的profile,Linux系统的profile需要自行下载制作</p>
+<p>也可以直接去https://github.com/volatilityfoundation/profiles/blob/master/Linux/Debian/x64/Debian94.zip下载debain系统的profile,我这里直接在Linux系统下对windows内存镜像进行分析,对Linux内存镜像分析方法一致</p>
+<p>volatility 使用方法：**</p>
+<p>volatility -f &lt;文件名&gt; &ndash;profile=&lt;配置文件&gt; &lt;插件&gt; [插件参数]</p>
+<p>使用imageinfo插件来猜测dump文件的profile值,WinXPSP2x86</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"> volatility -f mem.vmem imageinfo
+</code></pre></td></tr></table>
+</div>
+</div><p>指定profile值,使用pslist去列举系统进程</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"> volatility -f mem.vmem --profile=WinXPSP2x86 pslist
+</code></pre></td></tr></table>
+</div>
+</div><p>使用UserAssist键跟踪执行的程序,查看程序运行了多少次,最后一次运行时间等信息</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"> volatility -f mem.vmem --profile=WinXPSP2x86 userassist
+</code></pre></td></tr></table>
+</div>
+</div><p>使用hivelist插件列举在内存中的注册表</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"> volatility -f mem.vmem --profile=WinXPSP2x86 hivelist
+</code></pre></td></tr></table>
+</div>
+</div><p>按虚内存查看注册表内容 -o指向某一注册表的虚内存地址</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"> volatility -f mem.vmem --profile=WinXPSP2x86 hivedump -o 0xe1cee5d0
+</code></pre></td></tr></table>
+</div>
+</div><p>查看系统用户账户</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"> volatility -f mem.vmem --profile=WinXPSP2x86 printkey -K
+
+&#34;SAMDomainsAccountUsersNames&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>查看最后登录用户</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"> volatility -f mem.vmem --profile=WinXPSP2x86 printkey -K 
+&#34;SOFTWAREMicrosoftWindows NTCurrentVersionWinlogon&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>查看历史命令</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"> volatility cmdscan -f mem.vmem --profile=WinXPSP2x86
+</code></pre></td></tr></table>
+</div>
+</div><p>查看网络连接</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"> volatility iehistory -f win.dmp --profile=Win7SP1x86
+</code></pre></td></tr></table>
+</div>
+</div><p>查看IE历史信息</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"> volatility iehistory -f mem.vmem --profile=Win7SP2x86
+</code></pre></td></tr></table>
+</div>
+</div><p>提取hash</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"> volatility -f mem.vmem --profile=Win7SP2x86 hivelist
+</code></pre></td></tr></table>
+</div>
+</div><p>查看SID</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"> volatility -f cridex.vmem --profile=WinXPSP3x86 getsids -p 1484
+</code></pre></td></tr></table>
+</div>
+</div><p>检查结果查毒</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"> volatility -f mem.vmem --profile=WinXPSP2x86 malfind -p 1484 -D dumpd
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="linux内存取证插件参数">Linux内存取证插件参数</h2>
+<h3 id="获取系统进程信息相关命令">获取系统进程信息相关命令:</h3>
+<h3 id="linux_pstree进程树列表">linux_pstree：进程树列表</h3>
+<p>linux_pslist_cache：来自的 kmem_cache 活动进程</p>
+<p>linux_psxview：比较进程列表</p>
+<p>linux_lsof ：打开文件描述符的每个活动进程</p>
+<p>linux_pslist ：活动的进程列表</p>
+<p>linux_psaux：活动的进程列表（输出内容包括更多的细节）</p>
+<h3 id="获取系统内存信息的相关命令">获取系统内存信息的相关命令:</h3>
+<p>linux_memmap：内存映射文件</p>
+<p>linux_pidhashtable： Linux 内核中的 PID 散列表</p>
+<p>linux_proc_maps：：转储由-s/&ndash;vma 参数到磁盘上指定的内存范围。</p>
+<p>linux_dump_map：进程内存的详细信息，包括堆和共享库。</p>
+<p>linux_bash ：bash 历史文件</p>
+<h3 id="获取网络接口信息的相关命令">获取网络接口信息的相关命令:</h3>
+<p>linux_arp：显示 arp 列表</p>
+<p>linux_ifconfig：显示网络接口详细情况</p>
+<p>linux_route_cache：显示网络路由表</p>
+<p>linux_netstat：查看网络链接情况</p>
+<h3 id="获取系统硬件信息的相关命令">获取系统硬件信息的相关命令：</h3>
+<p>linux_cpuinfo ：显示 cpu 的相关命令信息。</p>
+<p>linux_dmesg ：显示内核缓存信息。</p>
+<p>linux_iomem ：显示 io 设备信息。</p>
+<p>linux_mount ：显示/proc/mouns 的相关命令信息，主要是挂载的磁盘设备。</p>
+<p>linux_mount_cache ：显示 kmem_cache 的相关命令信息。</p>
+<p>linux_slabinfo ：显示/proc/slabinfo 的相关命令信息。</p>
+<h3 id="rootkit-检测的相关命令">rootkit 检测的相关命令:</h3>
+<p>linux_check_afinfo：检查篡改网络协议结构。</p>
+<p>linux_check_creds：检查进程共享结构。</p>
+<p>linux_check_fop：检查文件操作数据结构篡改情况。</p>
+<p>linux_check_idt：检查中断描述符表（IDT）的篡改情况。</p>
+<p>linux_check_syscall：在系统调用表检查功能情况。</p>
+<p>linux_check_modules：检查用于从内核模块列表中缺少在 sysfs 中的项目。</p>
+<h3 id="获取内核模块信息的相关命令">获取内核模块信息的相关命令:</h3>
+<p>linux_lsmod：加载内核模块。</p>
+<p>linux_tmpfs：：tmpfs 的内容。</p>
+<h2 id="死取证">死取证</h2>
+<h3 id="镜像工具-dd">镜像工具 dd</h3>
+<p>计算机取证时需要为计算机生成一个位镜像, 这个操作要在系统还在运行的时候或在系统关闭之前进行。最常使</p>
+<p>用的就是两个工具： dd 和 netcat（两者都是开源软件安装非常简单这里从略）。dd 为我们生成磁盘的位镜像文</p>
+<p>件，而 netcat 将拷贝通过网络传送出去。你需要一台联网的电脑来接收该镜像文件，而且该电脑需要有足够的空间来存放镜像文件。</p>
+<p>复制/dev/sdc 到文件 cyqdrive.dd 中。将文件分割成多个 1GB 大小的文件。读取错误时，忽略该错误而不停止拷贝行为。这个例子命令如下：</p>
+<p>刚才已经展示如何创建一个磁盘镜像，但只是创建镜像到系统的本地文件。但是当当前的物理空间不足时就要使用netcat 来将 dd 命令的的输出通过网络连接进行重定向。首先在目标服务器上，启动 netcat 作为一个监听，并将输</p>
+<p>出重定向到一个远程服务器上的文件。我会用 netcat 监听 TCP 的 3452 端口，并将镜像写入一个远程的文件cyqimage.dd。然后你可以对服务器（192.168.1.1）进行镜像拷贝，并通过标准输出（没有指定输出的文件）来将镜像文件输出到 netcat，然后由 netcat 将镜像文件发送到目标服务器，使用如下命令：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">#dd if=/dev/sdc split=1G of=cyqdrive.dd
+#nc -l -p 3452 &gt; myimage.dd
+# dd if=/dev/sdc split=1G of=cyqdrive.dd | nc 192.168.1.1 3452
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="使用-ftk-imager-for-linux">使用 FTK Imager for Linux</h3>
+<p>使用 FTK Imager 工具用户可以创建原始证据媒体的取证映象，如本地硬盘、闪盘、软盘、Zip 驱动器、CD、DVD等。对于 FTK Imager 来说 Command Line Version（命令行版本）是免费的，用户可以访问 <a href="http://www.accessdata.com/support/product-downloads">http://www.accessdata.com/support/product-downloads</a> 下载对应的操作系统版本，这里笔者使用的是 Fedora and Red Hat Versionx64 – 3.1.1 版本的文件，下载后解压缩后即可使用，文件名称是 ftkimager。用户可以使用这个命令查看帮助信息</p>
+<p>首先查看当前加载的驱动器列表，输出界面见图 1</p>
+<p>图 1. 查看驱动器列表</p>
+<p>获取/dev/sdb 这个磁盘的 E01 模式的文件映像, 使用如下命令：</p>
+<p>ftkimager 这个命令比较长，参数也比较多。这里简单介绍一下</p>
+<p>/dev/sdb 是取证目标驱动器名称</p>
+<p>/tmp/cyq.e01 是取证文件的名称和路径</p>
+<p>&ndash;e01 是表示使用 E01 格式。</p>
+<p>&ndash;frag 500M 表示每 500MB 分成一个文件，在映象片断的大小中，用户可以可以选择将映象分割为多个文件以便于</p>
+<p>在 DVD 或 FAT 文件系统中中备份。</p>
+<p>&ndash;examiner cyq 是取证操作人员的姓名简称。</p>
+<p>&ndash;description &ldquo;cyq&quot;是操作说明。</p>
+<p>E01 格式说明：dd 镜像格式是目前被最广泛使用的一种镜像格式，也称成原始格式 (RAW Image)。dd 镜像的优点是兼容性强，目前所有磁盘镜像和分析工具都支持 dd 格式。E01 是法证分析工具 EnCase 的一个证据文件格式，较好地解决了 dd 镜像的一些不足。在生成 E01 格式证据文件时，会要求用户输入与调查案件相关的信息，如调查人员、地点、机构、备注等元数据。这些元数据将随证据数据信息一同 存入 E01 文件中。文件的每个字节都经过 32 位的CRC 校验，这就使得证据被篡改的可能性几乎为 0。默认情况下，分析软件自动以每 64 扇区的数据块进行校验，这</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">./ftkimager –help
+#./ftkimager /dev/sdb /tmp/cyq.e01 --e01 --frag 500M --description &#34;cyq&#34; --examiner cyq
+</code></pre></td></tr></table>
+</div>
+</div><p>种方式兼顾速度和完整性两个方面的考虑。获取个磁盘的 E01 模式的文件映像需要一些时间，根据磁盘大小和硬件型号有所差异，图 2 是完成的界面。</p>
+<p>图 2. 获取/dev/sdb 这个磁盘的 E01 模式的文件映像</p>
+<h3 id="使用-xmount-工具制作-snapshot快照文件">使用 xmount 工具制作 snapshot（快照）文件</h3>
+<p>xmount 工具可以把 E01 格式的镜像文件转化为 VDI 或者 VMDK 格式。然后用户可以使用 VirtualBox 和 Vmware</p>
+<p>软件打开文件进行取证操作。</p>
+<p>安装 xmount 软件包</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">RPM –ivh https://forensics.cert.org/cert-forensics-tools-release-el7.rpm
+yum install xmount
+</code></pre></td></tr></table>
+</div>
+</div><p>下面需要修改配置文件</p>
+<p>把下面一行的 # 去掉，修改为：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">user_allow_other
+</code></pre></td></tr></table>
+</div>
+</div><p>然后保存文件后，然后建立一个目录</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">`#xmount --in ewf --out vdi --cache ~/tmp/MyDisk.cache ~/tmp/cyq.E?? ~/mnt0`
+</code></pre></td></tr></table>
+</div>
+</div><p>如果需要建立 vdi 格式，使用如下命令：</p>
+<p>这个命令比较长，参数也比较多。这里简单介绍一下</p>
+<p>&ndash;in ewf 是表示源文件是 E01 格式。</p>
+<p>-~/tmp/cyq.E?? 表示源文件的路径，并且可能是多个文件。</p>
+<p>&ndash;out vdi 表示输出格式是 vdi。</p>
+<p>/mnt0 是输出文件的目录。</p>
+<p>&ndash;description &ldquo;cyq&quot;是操作说明。</p>
+<p>~/tmp/MyDisk.cache 是缓存文件名称。</p>
+<p>建立 vdi 文件后，可以使用 VirtualBox 虚拟机导入这个 vdi 文件进行取证分析。</p>
+<p>如果需要建立 vmdk 格式，使用如下命令：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">`#xmount --in ewf --out vmdk --cache ~/tmp/MyDisk.cache ~/tmp/cyq.E?? ~/mnt0`
+</code></pre></td></tr></table>
+</div>
+</div><p>建立 vmdk 文件后，可以使用 Vmware Workstation 导入这个文件进行取证分析。</p>
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://blog.taielab.com">码中春秋</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.taielab.com/2019-05-09/digital-forensics-live-and-dead.html">https://blog.taielab.com/2019-05-09/digital-forensics-live-and-dead.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81'>死活取证</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "udpsec/blog-comments"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-11-25/ios-13-checkra-in-repair-the-internet-connection-appears-to-be-offline.html" title="IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误">IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-29/red-team-and-physical-entry-gear-tips.html" title="护网之红方物理入侵旁门左道">护网之红方物理入侵旁门左道</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-05/intranet-roaming-network-traffic-control.html" title="内网漫游系列之流量操控与Socks代理总结">内网漫游系列之流量操控与Socks代理总结</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-27/intranet-roaming-ss-privoxy.html" title="内网漫游系列之正向全局代理ss&#43;Privoxy">内网漫游系列之正向全局代理ss&#43;Privoxy</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-20/centos-7-upgrade-Kernel.html" title="Centos7安装升级最新内核">Centos7安装升级最新内核</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/digital-forensics-live-and-dead.html" title="数字取证-死活取证">数字取证-死活取证</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html" title="Centos7搭建本地yum仓库">Centos7搭建本地yum仓库</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/osint-101-auto-visual.html" title="OSINT101 技术自动化和可视化">OSINT101 技术自动化和可视化</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-21/ubuntu-migrate-to-ssd.html" title="Ubuntu19.04迁移到SSD">Ubuntu19.04迁移到SSD</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-16/kali-linux-double-display-solutions.html" title="双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案">双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.taielab.com/categories/IOS%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">IOS应用逆向与安全 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/Linux/">Linux (11)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%B7%A5%E5%85%B7%E6%95%88%E7%8E%87/">工具效率 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%BC%80%E6%BA%90%E6%83%85%E6%8A%A5%E6%94%B6%E9%9B%86/">开源情报收集 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (30)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/">红蓝对抗 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全 (6)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4/">网络运维 (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.taielab.com/tags/Debian/">Debian</a>
+    
+    <a href="https://blog.taielab.com/tags/IOS/">IOS</a>
+    
+    <a href="https://blog.taielab.com/tags/OSINT/">OSINT</a>
+    
+    <a href="https://blog.taielab.com/tags/archlinux/">archlinux</a>
+    
+    <a href="https://blog.taielab.com/tags/centos/">centos</a>
+    
+    <a href="https://blog.taielab.com/tags/github/">github</a>
+    
+    <a href="https://blog.taielab.com/tags/gitup/">gitup</a>
+    
+    <a href="https://blog.taielab.com/tags/gpg/">gpg</a>
+    
+    <a href="https://blog.taielab.com/tags/hexo/">hexo</a>
+    
+    <a href="https://blog.taielab.com/tags/hugo/">hugo</a>
+    
+    <a href="https://blog.taielab.com/tags/kali-linux/">kali-linux</a>
+    
+    <a href="https://blog.taielab.com/tags/lnmp/">lnmp</a>
+    
+    <a href="https://blog.taielab.com/tags/manjaro/">manjaro</a>
+    
+    <a href="https://blog.taielab.com/tags/meedu/">meedu</a>
+    
+    <a href="https://blog.taielab.com/tags/nessus/">nessus</a>
+    
+    <a href="https://blog.taielab.com/tags/parrot-os/">parrot-os</a>
+    
+    <a href="https://blog.taielab.com/tags/pentestbox/">pentestbox</a>
+    
+    <a href="https://blog.taielab.com/tags/shadowsocks/">shadowsocks</a>
+    
+    <a href="https://blog.taielab.com/tags/tor/">tor</a>
+    
+    <a href="https://blog.taielab.com/tags/ubuntu/">ubuntu</a>
+    
+    <a href="https://blog.taielab.com/tags/vps/">vps</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">内网渗透命令</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%BC%AB%E6%B8%B8/">内网漫游</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/">奇淫技巧</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/">数字安全基础篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%AF%87/">数字安全工具篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">数据库系统原理</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81/">死活取证</a>
+    
+    <a href="https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5/">物理入侵</a>
+    
+    <a href="https://blog.taielab.com/tags/%E8%B8%8F%E9%9B%AA%E6%97%A0%E7%97%95%E7%B3%BB%E5%88%97/">踏雪无痕系列</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="#" title=""></a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://blog.taielab.com/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+</body>
+
+</html>

@@ -1,0 +1,921 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Debian 9 - 基础入门 | 码中春秋&#39;s Blog</title>
+    <meta property="og:title" content="Debian 9 - 基础入门 - 码中春秋&#39;s Blog">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2017-09-20T12:37:10&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2017-09-20T12:37:10&#43;08:00'>
+        
+    <meta name="Keywords" content="码中春秋,博客,,taielab,java,python,项目管理,软件架构,网络安全,数字安全,隐私保护,反侦查,反技侦,匿名方案,open,freedom,democracy,decentralization">
+    <meta name="description" content="Debian 9 - 基础入门">
+        
+    <meta name="author" content="码中春秋">
+    <meta property="og:url" content="https://blog.taielab.com/2017/09/20/debian-9-learning.html">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.taielab.com">
+                        码中春秋&#39;s Blog
+                    </a>
+                
+                <p class="description">专注于Java企业级开发、数字安全、信息安全、安全运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.taielab.com">首页</a>
+                    
+                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    
+                    <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#系统安装">系统安装</a></li>
+        <li><a href="#更新源">更新源</a></li>
+      </ul>
+    </li>
+    <li><a href="#系统软件设置">系统软件设置</a>
+      <ul>
+        <li><a href="#添加中文-locale">添加中文 Locale</a></li>
+        <li><a href="#中文输入">中文输入</a></li>
+        <li><a href="#触摸板模拟鼠标单击">触摸板模拟鼠标单击</a></li>
+        <li><a href="#关闭蓝牙">关闭蓝牙</a></li>
+        <li><a href="#查看笔记本电池的电量">查看笔记本电池的电量</a></li>
+        <li><a href="#c-编程工具">C 编程工具</a></li>
+        <li><a href="#中文字体解决字体模糊">中文字体(解决字体模糊)</a></li>
+        <li><a href="#sublime-text-3安装">sublime text 3安装</a></li>
+        <li><a href="#firefox汉化">firefox汉化</a></li>
+        <li><a href="#安装shadowsocks">安装shadowsocks</a></li>
+        <li><a href="#顺便补充一下vim编辑器简单使用方法">顺便补充一下Vim编辑器简单使用方法</a></li>
+        <li><a href="#安装wps">安装wps</a></li>
+        <li><a href="#字体美化">字体美化</a></li>
+        <li><a href="#firefox-flash安装">firefox flash安装</a></li>
+        <li><a href="#virtualbox给debian安装增强功能">VirtualBox给Debian安装增强功能</a></li>
+        <li><a href="#iptables基本配置debian">iptables基本配置(Debian)</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">Debian 9 - 基础入门</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2017年9月20日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='https://blog.taielab.com/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <h3 id="系统安装">系统安装</h3>
+<p>下载非自由版DVD镜像，自由版的镜像没有网卡驱动 新手碰到会相死，由本人摸索出来，这里以64位系统为例
+<a href="http://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/9.0.0+nonfree/amd64/bt-dvd/">镜像下载</a> 
+全程离线安装不要联网，语言设置英文 装完系统后连上wifi在设置中文</p>
+<pre><code>使用su安装sudo
+$su
+apt-get install sudo
+给账户设置管理员权限
+vim /etc/sudoers
+添加一行,其中”username”替换为登陆账户的名称,输入时不加引号
+&quot;username&quot; ALL=(ALL) ALL
+root    ALL=(ALL:ALL) ALL
+#第二种方法
+apt-get install sudo
+echo &quot;[用户名] ALL=(ALL:ALL) ALL&quot; &gt;&gt; /etc/sudoers
+</code></pre><h3 id="更新源">更新源</h3>
+<p>更新源配置生成器https://mirrors.ustc.edu.cn/repogen/ 有多个发行版的更新源</p>
+<pre><code>#htpps的源
+deb https://mirrors.ustc.edu.cn/debian/ stretch main contrib non-free
+deb-src https://mirrors.ustc.edu.cn/debian/ stretch main contrib non-free
+
+deb https://mirrors.ustc.edu.cn/debian/ stretch-updates main contrib non-free
+deb-src https://mirrors.ustc.edu.cn/debian/ stretch-updates main contrib non-free
+
+deb https://mirrors.ustc.edu.cn/debian-security/ stretch/updates main contrib non-free
+deb-src https://mirrors.ustc.edu.cn/debian-security/ stretch/updates main contrib non-free
+#http的源
+deb http://mirrors.ustc.edu.cn/debian/ stretch main contrib non-free
+deb-src http://mirrors.ustc.edu.cn/debian/ stretch main contrib non-free
+
+deb http://mirrors.ustc.edu.cn/debian/ stretch-updates main contrib non-free
+deb-src http://mirrors.ustc.edu.cn/debian/ stretch-updates main contrib non-free
+
+deb http://mirrors.ustc.edu.cn/debian-security/ stretch/updates main contrib non-free
+deb-src http://mirrors.ustc.edu.cn/debian-security/ stretch/updates main contrib non-free
+</code></pre><pre><code>使用 HTTPS 可以有效避免国内运营商的缓存劫持，但需要事先安装 apt-transport-
+https
+#用aptitude安装软件比apt-get 安装更好
+apt-get install aptitude
+aptitude install apt-transport-https
+</code></pre><h2 id="系统软件设置">系统软件设置</h2>
+<h3 id="添加中文-locale">添加中文 Locale</h3>
+<p>装系统的时候，语言与键盘皆为英文。此时，系统只支持英文环境。有些程序，譬如 Emacs，要想在其中输入中文，前提是需要系统中具备中文 Locale。
+使用以下命令增加中文 Loclae：
+$ sudo dpkg-reconfigure locales
+将 Locale 列表滚动到底部，选择 zh_CN.UTF-8 UTF-8，然后 Ok 确认。
+这样一来，系统就有了两个 Locale 环境，en_US.UTF-8 与 zh_CN.UTF-8。我建议继续使用 en_US.UTF-8 作为默认的 Locale，中文 Locale 可以在需要的时候临时启用。</p>
+<h3 id="中文输入">中文输入</h3>
+<p>$ sudo apt-get install fcitx</p>
+<p>****linux中文输入法，ibus光标不跟随 
+首次将Linux当作主力操作系统，有很多小问题要解决。</p>
+<p>首先就是输入法的问题，因为一切其他问题都要用中文描述，然后借助搜索引擎。</p>
+<p>打开终端， sudo apt-get install ibus-pinyin，这样就安装了拼音输入法</p>
+<p>或者用软件管理器找到ibus-pinyin</p>
+<p>然后我发现输入法到待选字整天都在左下角，全屏之后就看不见待选字了。一番搜索，其实是因为ibus没有在GUI框架中注册</p>
+<p>以下是傻瓜解决方法。安装几个包</p>
+<p>sudo apt-get install ibus-gtk ibus-gtk3 ibus-qt4</p>
+<p>将linux主流的GUI 框架都注册了，然后注销或者重启就搞定。</p>
+<p>ps：chrome 应该是gtk，libreoffice应该是gtk3的</p>
+<p>使用桌面菜单「Perference」-&gt;「Input Method」打开输入法配置向导，将 fcitx 设为桌面环境的默认输入法。</p>
+<p>由于系统 Locale 是 en_US.UTF-8，在 Emacs 中，fcitx 无法输入中文。但是若将 LANG 设为中文，然后再启动 Emacs，就可以输入中文了，即：</p>
+<p>$ LANG=zh_CN.UTF-8 emacs</p>
+<p>为了方便，我在 /usr/local/bin 目录建立一份 Bash 脚本 em，内容如下：</p>
+<pre><code>$ cat &lt;&lt; EOF | sudo tee /usr/local/bin/em
+#!/bin/bash
+LANG=zh_CN.UTF-8
+/usr/bin/emacs $@ 2&gt;/dev/null &amp;
+EOF
+$ sudo chmod +x /usr/local/bin/em
+</code></pre><p>这样，在终端中可以用 em 来代替 emacs 命令。</p>
+<h3 id="触摸板模拟鼠标单击">触摸板模拟鼠标单击</h3>
+<p>$ sudo apt-get install xserver-xorg-input-synaptics</p>
+<p>然后修改 /usr/share/X11/xorg.conf.d/70-synaptics.conf 文件，在「Identifier」为「touchpad catchall」的「InputClass 」节中增加：</p>
+<p>Option &ldquo;TapButton1&rdquo; &ldquo;1&rdquo;</p>
+<h3 id="关闭蓝牙">关闭蓝牙</h3>
+<p>笔记本支持蓝牙，但平时用不大着。编辑 /etc/rc.local，在「exit 0」之前添加：</p>
+<p>echo disable &gt; /proc/acpi/ibm/bluetooth</p>
+<p>这样，在系统启动后，蓝牙功能会被自动关闭。</p>
+<p>后来，发现在 BIOS 里可以直接关掉，这样便不必修改 rc.local 文件了。</p>
+<h3 id="查看笔记本电池的电量">查看笔记本电池的电量</h3>
+<p>LXDE 没提供笔记本电池的电量显示功能。在终端中，可使用 acpi -b 命令查看。我喜欢这种方式。平时不需要看电量，只有在电池信号灯警示时，才需要看一下还剩多少电。</p>
+<h3 id="c-编程工具">C 编程工具</h3>
+<p>$ sudo apt-get gcc make autoconf automake libtool valgrind</p>
+<p>如果要编译 zero 的源代码，还需要安装 libglib2.0-dev 包。不知道 zero 是什么？没关系。整个地球，可能只有我真正需要编译它的源代码。</p>
+<h3 id="中文字体解决字体模糊">中文字体(解决字体模糊)</h3>
+<p>简单而粗暴的办法是从 Windows 系统中扒出微软雅黑字体 msyh.ttf，然后在 /usr/share/fonts 中建立 non-free 目录，并将 msyh.ttf 放在这个目录中。</p>
+<p>接下来，修改 /etc/fonts/conf.d/65-nonlatin.conf，将其内容替换为：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;!DOCTYPE fontconfig SYSTEM &quot;fonts.dtd&quot;&gt;
+&lt;fontconfig&gt;
+    &lt;alias&gt;
+        &lt;family&gt;serif&lt;/family&gt;
+        &lt;prefer&gt;
+            &lt;family&gt;Microsoft YaHei&lt;/family&gt;
+        &lt;/prefer&gt;
+    &lt;/alias&gt;
+    &lt;alias&gt;
+        &lt;family&gt;sans-serif&lt;/family&gt;
+        &lt;prefer&gt;
+             &lt;family&gt;Microsoft YaHei&lt;/family&gt;
+        &lt;/prefer&gt;
+    &lt;/alias&gt;
+    &lt;alias&gt;
+        &lt;family&gt;monospace&lt;/family&gt;
+        &lt;prefer&gt;
+            &lt;family&gt;Microsoft YaHei&lt;/family&gt;
+        &lt;/prefer&gt;
+    &lt;/alias&gt;
+&lt;/fontconfig&gt;
+</code></pre><p>第二种方法
+初次试水Debian，装好之后发现字体严重发虚，模糊不清。在查阅了大多数网络上的教程之后，总结了一份快速解决此问题的方法。</p>
+<p>这里，我主要参考了金步国先生的文章：Linux字体美化实战(Fontconfig配置)<a href="http://www.jinbuguo.com/gui/linux_fontconfig.html">Linux字体美化实战(Fontconfig配置)</a> 。在此非常感谢他提供的方案。以下的文章只是我实现此功能的一个过程，如果有人想快速解决这个字体问题，那么可以参考参考。</p>
+<p>解决步骤</p>
+<p>第一，编写 .fonts.conf</p>
+<p>这个文件在你的家目录下面。比如我的家目录为 /home/ranwuer/，那么这个文件就在 /home/ranwuer/.fonts.conf。</p>
+<p>当创建好这个文件之后，它会自动指向 /home/ranwuer/.config/fontconfig/fonts.conf。</p>
+<p>可以把我的字体配置文件覆盖你的字体配置文件：</p>
+<pre><code>git clone https://github.com/ranwu/debianFonts.git
+cd debianFonts/.config/fontconfig
+cp fonts.conf ~/
+mv fonts.conf .fonts.conf 
+</code></pre><p>第二，安装字体</p>
+<p>安装字体很简单:</p>
+<p>下载我的字体文件：<a href="http://pan.baidu.com/s/1hroOKks">fonts.tar.gz</a> fonts.tar.gz</p>
+<pre><code>mkdir /opt/fonts/core
+tar zxvf fonts.tar.gz
+cp fonts/* /opt/fonts/core/
+
+//如果不行那么：
+ungzip fonts.tar.gz
+tar xf fonts.tar
+cp fonts/* /opt/fonts/core/
+</code></pre><pre><code>注意/opt/fonts/core/目录下的文件需要改为755权限
+</code></pre><pre><code>chmod -R 755 /opt/fonts/core/
+</code></pre><p>一会儿就能看到效果</p>
+<p>如果不能正常看到google的Noto字体，请把/usr/shar/fonts/trutype下的Windows系字体删除，比如，宋体，黑体等等。</p>
+<p>如果不能正常显示字体，请进入操作系统的字体设置界面，比如我的Debian是：应用程序菜单 &ndash;&gt; 设置 &ndash;&gt; 外观 选择 字体 选项卡。把里面的字体多试几个，可能就正常了。</p>
+<h3 id="sublime-text-3安装">sublime text 3安装</h3>
+<pre><code> Install the GPG key:
+
+wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+
+Select the channel to use:
+
+Stable
+
+    echo &quot;deb https://download.sublimetext.com/ apt/stable/&quot; | sudo tee /etc/apt/sources.list.d/sublime-text.list
+
+Devsu root
+apt-get install sudo 
+
+    echo &quot;deb https://download.sublimetext.com/ apt/dev/&quot; | sudo tee /etc/apt/sources.list.d/sublime-text.list
+
+Update apt sources and install Sublime Text
+
+sudo apt-get update
+sudo apt-get install sublime-text
+</code></pre><p>然后创建一个软链接，这样就可以在命令行中直接启动Sublime：</p>
+<pre><code>sudo ln -s /opt/sublime_text_3/sublime_text /usr/bin/sublime
+</code></pre><p>第二种方法下载安装包 解压并安装
+sudo mv ~/下载/sublime_text_3_build_3126_x64.tar.bz2 /opt/
+cd /opt/
+tar vxjf sublime_text_3_build_3083_x64.tar.bz2
+然后创建一个软链接，这样就可以在命令行中直接启动Sublime：</p>
+<p>sudo ln -s /opt/sublime_text_3/sublime_text /usr/bin/sublime</p>
+<p>此时，在终端输入sublime命令可以启动ST3,但是无法输入中文!经过不懈努力（把网上说的方法都试遍了），无意间在GitHub发现了一个仓库<a href="https://github.com/Firef0x/SublimeText-i18n-zh">仓库</a> 。此仓库可以解决我的问题！</p>
+<p>第三，编译插件</p>
+<p>首先是克隆这个仓库：</p>
+<p>git clone <a href="https://github.com/Firef0x/SublimeText-i18n-zh.git">https://github.com/Firef0x/SublimeText-i18n-zh.git</a></p>
+<p>然后定位到 ~/SublimeText-i18n-zh/src/fix/imfix</p>
+<p>再按照sublime_imfix.c<a href="https://github.com/Firef0x/SublimeText-i18n-zh/blob/master/src/fix/imfix/sublime_imfix.c">sublime_imfix.c</a> 中的注释来操作：</p>
+<p>编译</p>
+<pre><code>gcc -shared -o libsublime-imfix.so sublime_imfix.c `pkg-config --libs --cflags gtk+-2.0` -fPIC
+</code></pre><p>正常情况下会得到一个库文件libsublime-imfix.so，如果编译需要的依赖不足的话请看看提示，然后将那些依赖升级。比较常见的问题是，提示 No package &lsquo;gtk+-2.0&rsquo; found 没有，那么安装一下就行了：sudo apt-get install libgtk2.0-dev</p>
+<p>使用</p>
+<p>将 libsublime-imfix.so 拷贝到 /opt/sublime_text_3/ 目录;</p>
+<p>然后在终端下敲入</p>
+<pre><code>LD_PRELOAD=/opt/sublime_text_3/libsublime-imfix.so sublime 
+</code></pre><p>来启动ST3</p>
+<p>发现软件可以输入中文了！</p>
+<p>第四，写脚本调用ST3</p>
+<p>编写一个shell脚本，命名为：subl，名字可以随便取。输入以下内容：</p>
+<pre><code>#!/bin/bash
+LD_PRELOAD=/opt/sublime_text_3/libsublime-imfix.so sublime
+</code></pre><p>然后放到 /usr/bin/ 中就可以在任意目录中输入命令了:</p>
+<p>注]意:</p>
+<p>subl 文件一定要给 755 权限
+sudo chmod 755 ~/subl
+sudo mv ~/subl /usr/bin/</p>
+<h3 id="firefox汉化">firefox汉化</h3>
+<p>sudo apt-get install iceweasel-l10n-zh-cn</p>
+<h3 id="安装shadowsocks">安装shadowsocks</h3>
+<p>在安装了kali后在网上搜过很多次“跨栏”的姿势，但是搜到的答案要么很麻烦，要么介绍的不够详细易懂，所以就萌生了一个自己去整理一下，总结出一个简单易用教程的想法，仅提供给刚刚使用KaliLinux的萌新们做一个参考，而不必去费时费力的搜索大量的资料。
+//大前提是你要有一个可用的ss…….
+安装Shadowsocks的图形化界面//类似Win下的纸飞机
+直接在 /etc/apt/sources.list 里添加源
+在/etc/apt/sources.list 最后加上</p>
+<pre><code>$ sudo apt-get install software-properties-common
+$ sudo apt-add-repository ppa:linux-deepin-team/linux-deepin
+</code></pre><p>apt-key adv &ndash;keyserver hkp://keys.gnupg.net &ndash;recv-keys 7D8D0BF6
+sudo apt-key adv &ndash;keyserver keyserver.ubuntu.com &ndash;recv-keys 6AF0E1940624A220 #此处6AF0E1940624A220需要是错误提示的key
+deb <a href="http://ppa.launchpad.net/hzwhuang/ss-qt5/ubuntu">http://ppa.launchpad.net/hzwhuang/ss-qt5/ubuntu</a> devel main</p>
+<p>然后</p>
+<p>apt-get update&amp;&amp;apt-get install shadowsocks-qt5</p>
+<p>这时候图形界面的SS管理器就安装好了
+在应用程序里打开：</p>
+<p>点击“连接”——》“添加”——》“手动”
+如下界面</p>
+<p>注意：不知道什么原因，在这里选择导入json配置文件程序会崩溃，所以尽量手动输入
+配置完成后点击五角星，如果正常的话会出现延迟XX毫秒
+不正常的话要去检查一下输入的ss账号信息是否有误</p>
+<p>安装命令行界面的Shadowsocks</p>
+<ol>
+<li>apt-get install python-pipsudo pip install shadowsocks</li>
+</ol>
+<p>然后创建配置文件
+终端输入：</p>
+<p>gedit /etc/shadowsocks.json</p>
+<p>加入下面的配置内容，并补全配置信息</p>
+<p>{ &ldquo;server&rdquo;:&ldquo;服务器地址&rdquo;, &ldquo;server_port&rdquo;:服务器端口号, &ldquo;local_address&rdquo;: &ldquo;127.0.0.1&rdquo;, &ldquo;local_port&rdquo;:1080, &ldquo;password&rdquo;:&ldquo;密码&rdquo;, &ldquo;timeout&rdquo;:300, &ldquo;method&rdquo;:&ldquo;加密方式&rdquo;, &ldquo;fast_open&rdquo;: true, &ldquo;workers&rdquo;: 1}</p>
+<p>如图：</p>
+<p>终端启动客户端</p>
+<p>sslocal -c /etc/shadowsocks.json</p>
+<p>配置proxychain（会在下文介绍）kali默认已经安装了。
+vi /etc/proxychains.conf
+将socks4 127.0.0.1 9095改为socks5 127.0.0.1 xxxx //xxxx改为你自己的端口</p>
+<p>设置 ProxyChains</p>
+<p>1.打开ProxyChains配置文件</p>
+<p>vi /etc/proxychains.conf</p>
+<h3 id="顺便补充一下vim编辑器简单使用方法">顺便补充一下Vim编辑器简单使用方法</h3>
+<p>执行上面命令之后摁一下键盘的i键，就可以对文本进行修改
+修改完成后摁esc 然后摁住shift+； 左下角会出现一个冒号</p>
+<p>输入wq摁下回车保存并退出</p>
+<p>2.去掉dynamic_chain前面的注释符</p>
+<p>3.添加代理服务器列表</p>
+<p>在最下方这个地方，默认是socks4 xxxx xxx
+改成sock5 127.0.0.1 xxxx // xxxx是你自己的端口，也就是上边在配置ss时输入的local_port:xxxx
+我这里用的是8089</p>
+<ol>
+<li>测试代理服务是否正常</li>
+</ol>
+<p>执行</p>
+<p>proxyresolv <a href="http://www.target.com">www.target.com</a></p>
+<p>此时执行会出现命令未找到
+终端输入</p>
+<p>cp /usr/lib/proxychains3/proxyresolv /usr/bin/</p>
+<p>然后再次执行</p>
+<p>proxyresolv <a href="http://www.google.com">www.google.com</a></p>
+<p>//这时候ss的命令界面应该是正在运行的，就是在执行过sslocal -c /etc/shadowsocks.json之后</p>
+<p>返回ok，说明配置正确，可以愉快的跨栏了。</p>
+<p>5.使用ProxyChains 启动firefox</p>
+<p>终端输入：proxychains firefox启动火狐浏览器
+测试一下：</p>
+<p>使用ProxyChains代理其他程序和启动Firefox同理
+proxychains msfconsole //启动msf
+proxychains sqlmap //通过代理启动sqlmap
+不再一一介绍。
+The End.</p>
+<h3 id="安装wps">安装wps</h3>
+<p>1 到 wps官网下载 64位的deb版</p>
+<p>2 拷贝到根目录下</p>
+<p>3 执行</p>
+<p>$ sudo apt-get install gdebi-core</p>
+<p>$ sudo gdebi wps-office_10.1.0.5672~a21_amd64.deb</p>
+<p>4 下载缺失的字体文件，然后复制到Linux系统中的/usr/share/fonts文件夹中。</p>
+<p>国外下载地址：https://www.dropbox.com/s/lfy4hvq95ilwyw5/wps_symbol_fonts.zip</p>
+<p>国内下载地址：https://pan.baidu.com/s/1eS6xIzo</p>
+<p>5 下载完成后，解压并进入目录中，继续执行：</p>
+<p>sudo cp * /usr/share/fonts</p>
+<ol>
+<li>执行以下命令,生成字体的索引信息：</li>
+</ol>
+<p>sudo mkfontscale</p>
+<p>sudo mkfontdir</p>
+<ol>
+<li>运行fc-cache命令更新字体缓存。</li>
+</ol>
+<p>sudo fc-cache</p>
+<ol>
+<li>重启wps即可，字体缺失的提示不再出现</li>
+</ol>
+<h3 id="字体美化">字体美化</h3>
+<p>我们在window下面用的比较爽的字体是微软雅黑和Consolas，那就以这两个字体为例来说明下怎么在linux下安装字体。</p>
+<pre><code>1. 下载要安装的字体文件(说明:字体文件这里指以.ttf结尾的文件)
+    如果有windows系统可以从windows/fonts目录拷贝msyh.ttf和msyhbh.ttf和相应的字体
+    如果没有windows，可以从[这里下载字体(打包好的)](http://download.csdn.net/detail/swagle/7377593)。
+
+2. 在/usr/share/fonts/truetype/下建立文件夹myfonts，然后拷贝上述字体到改文件夹下。
+     sudo mkdir /usr/share/fonts/truetype/myfonts
+     cp *.ttf  /usr/share/fonts/truetype/myfonts/
+
+3. 更改myfonts和该目录下面的权限，可以都设成777
+     sudo chmod -c 777 /usr/share/fonts/truetype/myfonts
+     sudo chmode -c 777 /usr/share/fonts/truetype/myfonts/*
+
+4. 最后就是注册新添加字体了，执行如下命令：
+     sudo mkfontscale
+     sudo mkfontdir
+     sudo fc-cache -fv
+
+     ​
+
+     sudo mkdir -p /usr/share/fonts/vista
+     sudo cp Yahei.ttf /usr/share/fonts/vista/
+
+     然后，改变权限：
+     sudo chmod 644 /usr/share/fonts/vista/*.ttf
+
+     安装：
+     cd /usr/share/fonts/vista/
+     sudo mkfontscale
+     sudo mkfontdir
+     sudo fc-cache -fv
+
+5. ```
+     $ sudo apt-get install fonts-noto-cjk
+     ```
+</code></pre>
+<h3 id="firefox-flash安装">firefox flash安装</h3>
+<p>Mozilla Firefox</p>
+<p>Debian 自带</p>
+<pre><code>Firefox-ESR(IceWeasel)
+</code></pre><p>， 但没有</p>
+<pre><code>flash player
+</code></pre><p>；下载</p>
+<pre><code>flash_player_npapi_linux.x86_64.tar.gz
+</code></pre><p>， 进行如下操作后重启浏览器：</p>
+<pre><code>$ tar -zxvf flash_player_npapi_linux.x86_64.tar.gz
+$ sudo cp libflashplayer.so /usr/lib/mozilla/plugins
+$ sudo cp -r usr/* /usr
+</code></pre><p>ubuntu16 开机启动plank</p>
+<p>需要建立开机启动链接
+sudo ln -s /usr/share/applications/plank.desktop /etc/xdg/autostart/</p>
+<h3 id="virtualbox给debian安装增强功能">VirtualBox给Debian安装增强功能</h3>
+<p>1.安装编译工具以及Linux内核头文件</p>
+<pre><code>$sudo apt-get install build-essential linux-headers-$(uname -r)
+</code></pre><p>2.点击VirtualBox安装增强功能</p>
+<p>3.执行安装脚本</p>
+<pre><code>$sudo sh /media/cdrom0/VBoxLinuxAdditions.run
+</code></pre><p>4.重启系统即可.</p>
+<h3 id="iptables基本配置debian">iptables基本配置(Debian)</h3>
+<p>看了下secure日志和access的日志，一大半都是暴力破解和扫描，虽然哥的密码极其复杂，不过总被这么消耗服务器资源也不是事，索性还是把ssh端口和ftp改了然后写个iptables稍微保护一下好了。还有个东西叫Fail2Ban，可以自动检测暴力破解，密码错误超过一定次数就把对端ban掉，不过我实在是不想再开一个服务了，改端口应该问题不大&hellip;</p>
+<p>只是最基本的配置，防御flood的懒得写了，真有人跟我有仇要DDOS我的话那就挂了算了&hellip;</p>
+<p>配置，禁止进，允许出，允许回环网卡</p>
+<p>iptables -P INPUT DROP
+iptables -P OUTPUT ACCEPT
+iptables -A INPUT -i lo -j ACCEPT</p>
+<p>允许ping，不允许删了就行</p>
+<p>iptables -A INPUT -p icmp -j ACCEPT</p>
+<p>允许ssh</p>
+<p>iptables -A INPUT -p tcp -m tcp &ndash;dport 22 -j ACCEPT</p>
+<p>允许ftp</p>
+<p>iptables -A INPUT -p tcp -m tcp &ndash;dport 20 -j ACCEPT
+iptables -A INPUT -p tcp -m tcp &ndash;dport 21 -j ACCEPT</p>
+<p>允许ftp被动接口范围，在ftp配置文件里可以设置</p>
+<p>iptables -A INPUT -p tcp &ndash;dport 20000:30000 -j ACCEPT</p>
+<p>学习felix，把smtp设成本地</p>
+<p>iptables -A INPUT -p tcp -m tcp &ndash;dport 25 -j ACCEPT -s 127.0.0.1
+iptables -A INPUT -p tcp -m tcp &ndash;dport 25 -j REJECT</p>
+<p>允许DNS</p>
+<p>iptables -A INPUT -p tcp -m tcp &ndash;dport 53 -j ACCEPT
+iptables -A INPUT -p udp -m udp &ndash;dport 53 -j ACCEPT</p>
+<p>允许http和https</p>
+<p>iptables -A INPUT -p tcp -m tcp &ndash;dport 80 -j ACCEPT
+iptables -A INPUT -p tcp -m tcp &ndash;dport 443 -j ACCEPT</p>
+<p>允许状态检测，懒得解释</p>
+<p>iptables -A INPUT -p all -m state &ndash;state ESTABLISHED,RELATED -j ACCEPT
+iptables -A INPUT -p all -m state &ndash;state INVALID,NEW -j DROP</p>
+<p>#保存配置
+<code>iptables-save &gt; /etc/iptables</code></p>
+<p>保存之后就行了，Debian不需要单独把iptbles做成服务，具体如何让iptables开机自动加载，请看文章《<a href="http://www.slyar.com/blog/debian-iptables-auto-start-reboot.html">Debian下iptables防火墙开机自动加载实现</a>》</p>
+<p>我是把上面那段和下面这段都写到sh里了，start{}和stop{}。需要修改规则的时候直接清空了重建比较好，因为规则有顺序问题。</p>
+<p>#清空配置</p>
+<pre><code>iptables -F
+iptables -X
+iptables -Z
+iptables -P INPUT ACCEPT
+iptables -P OUTPUT ACCEPT
+</code></pre>
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://blog.taielab.com">码中春秋</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.taielab.com/2017/09/20/debian-9-learning.html">https://blog.taielab.com/2017/09/20/debian-9-learning.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='https://blog.taielab.com/tags/Debian'>Debian</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "udpsec/blog-comments"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-11-25/ios-13-checkra-in-repair-the-internet-connection-appears-to-be-offline.html" title="IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误">IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-29/red-team-and-physical-entry-gear-tips.html" title="护网之红方物理入侵旁门左道">护网之红方物理入侵旁门左道</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-05/intranet-roaming-network-traffic-control.html" title="内网漫游系列之流量操控与Socks代理总结">内网漫游系列之流量操控与Socks代理总结</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-27/intranet-roaming-ss-privoxy.html" title="内网漫游系列之正向全局代理ss&#43;Privoxy">内网漫游系列之正向全局代理ss&#43;Privoxy</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-20/centos-7-upgrade-Kernel.html" title="Centos7安装升级最新内核">Centos7安装升级最新内核</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/digital-forensics-live-and-dead.html" title="数字取证-死活取证">数字取证-死活取证</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html" title="Centos7搭建本地yum仓库">Centos7搭建本地yum仓库</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/osint-101-auto-visual.html" title="OSINT101 技术自动化和可视化">OSINT101 技术自动化和可视化</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-21/ubuntu-migrate-to-ssd.html" title="Ubuntu19.04迁移到SSD">Ubuntu19.04迁移到SSD</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-16/kali-linux-double-display-solutions.html" title="双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案">双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.taielab.com/categories/IOS%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">IOS应用逆向与安全 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/Linux/">Linux (11)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%B7%A5%E5%85%B7%E6%95%88%E7%8E%87/">工具效率 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%BC%80%E6%BA%90%E6%83%85%E6%8A%A5%E6%94%B6%E9%9B%86/">开源情报收集 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (30)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/">红蓝对抗 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全 (6)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4/">网络运维 (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.taielab.com/tags/Debian/">Debian</a>
+    
+    <a href="https://blog.taielab.com/tags/IOS/">IOS</a>
+    
+    <a href="https://blog.taielab.com/tags/OSINT/">OSINT</a>
+    
+    <a href="https://blog.taielab.com/tags/archlinux/">archlinux</a>
+    
+    <a href="https://blog.taielab.com/tags/centos/">centos</a>
+    
+    <a href="https://blog.taielab.com/tags/github/">github</a>
+    
+    <a href="https://blog.taielab.com/tags/gitup/">gitup</a>
+    
+    <a href="https://blog.taielab.com/tags/gpg/">gpg</a>
+    
+    <a href="https://blog.taielab.com/tags/hexo/">hexo</a>
+    
+    <a href="https://blog.taielab.com/tags/hugo/">hugo</a>
+    
+    <a href="https://blog.taielab.com/tags/kali-linux/">kali-linux</a>
+    
+    <a href="https://blog.taielab.com/tags/lnmp/">lnmp</a>
+    
+    <a href="https://blog.taielab.com/tags/manjaro/">manjaro</a>
+    
+    <a href="https://blog.taielab.com/tags/meedu/">meedu</a>
+    
+    <a href="https://blog.taielab.com/tags/nessus/">nessus</a>
+    
+    <a href="https://blog.taielab.com/tags/parrot-os/">parrot-os</a>
+    
+    <a href="https://blog.taielab.com/tags/pentestbox/">pentestbox</a>
+    
+    <a href="https://blog.taielab.com/tags/shadowsocks/">shadowsocks</a>
+    
+    <a href="https://blog.taielab.com/tags/tor/">tor</a>
+    
+    <a href="https://blog.taielab.com/tags/ubuntu/">ubuntu</a>
+    
+    <a href="https://blog.taielab.com/tags/vps/">vps</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">内网渗透命令</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%BC%AB%E6%B8%B8/">内网漫游</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/">奇淫技巧</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/">数字安全基础篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%AF%87/">数字安全工具篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">数据库系统原理</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81/">死活取证</a>
+    
+    <a href="https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5/">物理入侵</a>
+    
+    <a href="https://blog.taielab.com/tags/%E8%B8%8F%E9%9B%AA%E6%97%A0%E7%97%95%E7%B3%BB%E5%88%97/">踏雪无痕系列</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="#" title=""></a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://blog.taielab.com/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+</body>
+
+</html>

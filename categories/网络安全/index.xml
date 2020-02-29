@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>网络安全 on 码中春秋&#39;s Blog</title>
+    <link>https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/</link>
+    <description>Recent content in 网络安全 on 码中春秋&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 18 Oct 2018 13:09:13 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Docker部署NessusV7详解</title>
+      <link>https://blog.taielab.com/2018-10-18/nessus-deploy-in-docker-tutorial.html</link>
+      <pubDate>Thu, 18 Oct 2018 13:09:13 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-10-18/nessus-deploy-in-docker-tutorial.html</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux提权指南</title>
+      <link>https://blog.taielab.com/2018-04-01/linux-getshell-guide.html</link>
+      <pubDate>Sun, 01 Apr 2018 22:21:29 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-04-01/linux-getshell-guide.html</guid>
+      <description>&lt;h1 id=&#34;介绍&#34;&gt;介绍&lt;/h1&gt;
+&lt;p&gt;新年有想做一个类似于国外的EFF组织的关于数字安全的一些内容，有英文不错的可以PM我进行协同翻译，没有工资哟就是纯公益行为。&lt;/p&gt;
+&lt;p&gt;希望本指南能为新手和想进一步学习没有关注到这些小细节的朋友提供良好的视角。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Windows提权指南</title>
+      <link>https://blog.taielab.com/2018-04-01/windows-getshell-guide.html</link>
+      <pubDate>Sun, 01 Apr 2018 22:16:16 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-04-01/windows-getshell-guide.html</guid>
+      <description>&lt;h1 id=&#34;介绍&#34;&gt;介绍&lt;/h1&gt;
+&lt;p&gt;希望本指南能为新手和想进一步学习没有关注到这些小细节的朋友提供良好的视角。&lt;/p&gt;
+&lt;h2 id=&#34;指南布局&#34;&gt;指南布局&lt;/h2&gt;
+&lt;p&gt;在每个部分中，我首先提供CMD命令，然后是一个Powershell的同等命令。同时拥有这两种工具感觉更方便，Powershell比传统的CMD更适用于脚本。然而并不是Powershell适用于全部场景（或者CMD在某些事情上仍然简单/更好），所以一些部分将只包含常规的CMD命令。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>渗透系统Parrot Os之使用手册</title>
+      <link>https://blog.taielab.com/2017-12-21/parrot-os-handbook.html</link>
+      <pubDate>Thu, 21 Dec 2017 19:51:14 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017-12-21/parrot-os-handbook.html</guid>
+      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;昨天自己在做主机渗透时候强行在ubuntu上面安装veil-evasion,导致GUI崩掉了。自己做了下应急处理，还是抢救回来系统，只是把数据进行备份了一下。T-T&lt;/p&gt;
+&lt;h3 id=&#34;parrot-简介&#34;&gt;Parrot 简介&lt;/h3&gt;
+&lt;p&gt;Parrot Security OS是一个基于Debian的GUN/Linux发行版，专注于渗透测试、数字取证、编程和隐私保护。它内置了许多主题和壁纸，因其漂亮的UI而出名。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>PentestBox渗透套件之私人化定制</title>
+      <link>https://blog.taielab.com/2017-11-14/hacking-pentestBox-msf-update-diy.html</link>
+      <pubDate>Tue, 14 Nov 2017 20:25:41 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017-11-14/hacking-pentestBox-msf-update-diy.html</guid>
+      <description>&lt;p&gt;**Pentest Box：**渗透测试盒子,是一款Windows平台下预配置的便携式开源渗透测试环境，而它也是著名黑客Kapustkiy常用的工具之一。这里集成的大都是Linux下的工具,Kali Linux上面的常用的很多工具这里面也都集成了。
+它打包了所有的安全工具，并且可以在Windows系统中原生地运行，有效地降低了对虚拟机或者双启动环境的需求。
+PentestBox官网：&lt;a href=&#34;https://pentestbox.org/zh/&#34;&gt;&lt;strong&gt;https://pentestbox.org/zh/&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>渗透测试工具实战技巧</title>
+      <link>https://blog.taielab.com/2017-09-20/penetration-testing-tools-practical-skills.html</link>
+      <pubDate>Wed, 20 Sep 2017 12:39:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017-09-20/penetration-testing-tools-practical-skills.html</guid>
+      <description>&lt;h3 id=&#34;最好的-nmap-扫描策略&#34;&gt;最好的 NMAP 扫描策略&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;11
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;12
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;13
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;14
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;15
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;16
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;17
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;18
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;19
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;20
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;21
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;22
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;23
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;24
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;25
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;26
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;27
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;28
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 适用所有大小网络最好的 nmap 扫描策略&lt;/span&gt;
+
+&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 主机发现，生成存活主机列表&lt;/span&gt;
+$ nmap -sn -T4 -oG Discovery.gnmap 192.168.56.0/24
+$ grep &lt;span style=&#34;color:#d14&#34;&gt;&amp;#34;Status: Up&amp;#34;&lt;/span&gt; Discovery.gnmap | cut -f &lt;span style=&#34;color:#099&#34;&gt;2&lt;/span&gt; -d &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; &amp;gt; LiveHosts.txt
+
+&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 端口发现，发现大部分常用端口&lt;/span&gt;
+&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# http://nmap.org/presentations/BHDC08/bhdc08-slides-fyodor.pdf&lt;/span&gt;
+$ nmap -sS -T4 -Pn -oG TopTCP -iL LiveHosts.txt
+$ nmap -sU -T4 -Pn -oN TopUDP -iL LiveHosts.txt
+$ nmap -sS -T4 -Pn --top-ports &lt;span style=&#34;color:#099&#34;&gt;3674&lt;/span&gt; -oG &lt;span style=&#34;color:#099&#34;&gt;3674&lt;/span&gt; -iL LiveHosts.txt
+
+&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 端口发现，发现全部端口，但 UDP 端口的扫描会非常慢&lt;/span&gt;
+$ nmap -sS -T4 -Pn -p 0-65535 -oN FullTCP -iL LiveHosts.txt
+$ nmap -sU -T4 -Pn -p 0-65535 -oN FullUDP -iL LiveHosts.txt
+
+&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 显示 TCP\UDP 端口&lt;/span&gt;
+$ grep &lt;span style=&#34;color:#d14&#34;&gt;&amp;#34;open&amp;#34;&lt;/span&gt; FullTCP|cut -f &lt;span style=&#34;color:#099&#34;&gt;1&lt;/span&gt; -d &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; | sort -nu | cut -f &lt;span style=&#34;color:#099&#34;&gt;1&lt;/span&gt; -d &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;/&amp;#39;&lt;/span&gt; |xargs | sed &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;s/ /,/g&amp;#39;&lt;/span&gt;|awk &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;{print &amp;#34;T:&amp;#34;$0}&amp;#39;&lt;/span&gt;
+$ grep &lt;span style=&#34;color:#d14&#34;&gt;&amp;#34;open&amp;#34;&lt;/span&gt; FullUDP|cut -f &lt;span style=&#34;color:#099&#34;&gt;1&lt;/span&gt; -d &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; | sort -nu | cut -f &lt;span style=&#34;color:#099&#34;&gt;1&lt;/span&gt; -d &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;/&amp;#39;&lt;/span&gt; |xargs | sed &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;s/ /,/g&amp;#39;&lt;/span&gt;|awk &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;{print &amp;#34;U:&amp;#34;$0}&amp;#39;&lt;/span&gt;
+
+&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 侦测服务版本&lt;/span&gt;
+$ nmap -sV -T4 -Pn -oG ServiceDetect -iL LiveHosts.txt
+
+&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 扫做系统扫描&lt;/span&gt;
+$ nmap -O -T4 -Pn -oG OSDetect -iL LiveHosts.txt
+
+&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 系统和服务检测&lt;/span&gt;
+$ nmap -O -sV -T4 -Pn -p U:53,111,137,T:21-25,80,139,8080 -oG OS_Service_Detect -iL LiveHosts.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

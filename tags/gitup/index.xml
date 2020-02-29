@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gitup on 码中春秋&#39;s Blog</title>
+    <link>https://blog.taielab.com/tags/gitup/</link>
+    <description>Recent content in gitup on 码中春秋&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 24 Oct 2018 14:17:06 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.taielab.com/tags/gitup/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>GitUp批量PUll更新GitHub项目</title>
+      <link>https://blog.taielab.com/2018-10-24/gitup-batch-pull-update-github-project.html</link>
+      <pubDate>Wed, 24 Oct 2018 14:17:06 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-10-24/gitup-batch-pull-update-github-project.html</guid>
+      <description>&lt;h2 id=&#34;介绍&#34;&gt;介绍&lt;/h2&gt;
+&lt;p&gt;gitup（git-repo-updater） gitup是一个用于一次更新多个git存储库的工具。 它足够聪明，可以处理多个远程仓库，脏工作目录，分散的本地分支，分离的HEAD等等。 它最初是为管理大量项目和处理零星的互联网访问而创建的。 gitup适用于macOS，Linux和Windows。 您应该安装最新版本的git，并安装Python 2.7或Python 3。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

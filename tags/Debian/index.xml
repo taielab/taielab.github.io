@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Debian on 码中春秋&#39;s Blog</title>
+    <link>https://blog.taielab.com/tags/Debian/</link>
+    <description>Recent content in Debian on 码中春秋&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 20 Sep 2017 12:37:10 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.taielab.com/tags/Debian/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Debian 9 - 基础入门</title>
+      <link>https://blog.taielab.com/2017/09/20/debian-9-learning.html</link>
+      <pubDate>Wed, 20 Sep 2017 12:37:10 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017/09/20/debian-9-learning.html</guid>
+      <description>&lt;h3 id=&#34;系统安装&#34;&gt;系统安装&lt;/h3&gt;
+&lt;p&gt;下载非自由版DVD镜像，自由版的镜像没有网卡驱动 新手碰到会相死，由本人摸索出来，这里以64位系统为例
+&lt;a href=&#34;http://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/9.0.0+nonfree/amd64/bt-dvd/&#34;&gt;镜像下载&lt;/a&gt; 
+全程离线安装不要联网，语言设置英文 装完系统后连上wifi在设置中文&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

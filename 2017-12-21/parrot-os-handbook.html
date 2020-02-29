@@ -1,0 +1,1039 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>渗透系统Parrot Os之使用手册 | 码中春秋&#39;s Blog</title>
+    <meta property="og:title" content="渗透系统Parrot Os之使用手册 - 码中春秋&#39;s Blog">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2017-12-21T19:51:14&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2017-12-21T19:51:14&#43;08:00'>
+        
+    <meta name="Keywords" content="码中春秋,博客,,taielab,java,python,项目管理,软件架构,网络安全,数字安全,隐私保护,反侦查,反技侦,匿名方案,open,freedom,democracy,decentralization">
+    <meta name="description" content="渗透系统Parrot Os之使用手册">
+        
+    <meta name="author" content="码中春秋">
+    <meta property="og:url" content="https://blog.taielab.com/2017-12-21/parrot-os-handbook.html">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.taielab.com">
+                        码中春秋&#39;s Blog
+                    </a>
+                
+                <p class="description">专注于Java企业级开发、数字安全、信息安全、安全运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.taielab.com">首页</a>
+                    
+                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    
+                    <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a>
+      <ul>
+        <li><a href="#parrot-简介">Parrot 简介</a></li>
+        <li><a href="#parrot-安装">Parrot 安装</a></li>
+        <li><a href="#parrot-基本配置">Parrot 基本配置</a></li>
+        <li><a href="#常用软件安装">常用软件安装</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">渗透系统Parrot Os之使用手册</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2017年12月21日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8'>网络安全</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <h2 id="前言">前言</h2>
+<p>昨天自己在做主机渗透时候强行在ubuntu上面安装veil-evasion,导致GUI崩掉了。自己做了下应急处理，还是抢救回来系统，只是把数据进行备份了一下。T-T</p>
+<h3 id="parrot-简介">Parrot 简介</h3>
+<p>Parrot Security OS是一个基于Debian的GUN/Linux发行版，专注于渗透测试、数字取证、编程和隐私保护。它内置了许多主题和壁纸，因其漂亮的UI而出名。</p>
+<h3 id="parrot-安装">Parrot 安装</h3>
+<p><a href="https://www.parrotsec.org/">官网地址</a>：https://www.parrotsec.org/
+<a href="">中文论坛</a>：parrotsec-china.org</p>
+<h4 id="官网上提供了三个可下载版本">官网上提供了三个可下载版本</h4>
+<p>Parrot Full：集成渗透测试，隐私，数字取证，逆向工程及软件开发的一体化环境。
+Parrot Lite：非常轻量级的日常使用和隐私保护系统。它是专为喜欢Parrot界面的休闲用户设计。
+Parrot Other Builds：专门针对特殊用途或特殊设备设计。</p>
+<h4 id="系统要求">系统要求</h4>
+<p>处理器：x86，主频至少是700Mhz 架构：i386、amd64(x86-64位)、486(老式x86)、armel和armhf 内存：i386至少256MB，amd64至少320MB。推荐512MB GPU：不需要图形加速 普通硬盘：安装需要16GB的硬盘空间 启动：老式BIOS优先</p>
+<h4 id="安装过程">安装过程</h4>
+<p>安装方法和其他linux一样，这里就不在过多叙述。</p>
+<h4 id="安装windows和parrot双系统引导问题linux引导windows">安装Windows和Parrot双系统引导问题(Linux引导Windows)</h4>
+<p>安装完成Parrot，你会发现系统原有的Windows系统无法进入，这时就需要我们修改一下系统的引导文件(/boot/grub/grub.cfg)</p>
+<p>vim打开/boot/grub/grub.cfg文件查找</p>
+<pre><code>### BEGIN /etc/grub.d/30_os-prober ###
+### END /etc/grub.d/30_os-prober ###
+</code></pre><p>在中间插入以下代码(我的是Windows 7系统，其他系统可以测试一下)</p>
+<pre><code>menuentry 'Windows Boot Manager (on /dev/sda1)' --class windows --class os $menuentry_id_option 'osprober-efi-5ED0-F4A4' {
+	insmod part_gpt
+	insmod fat
+	set root='hd0,gpt1'
+	if [ x$feature_platform_search_hint = xy ]; then
+	  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt1 --hint-efi=hd0,gpt1 --hint-baremetal=ahci0,gpt1  5ED0-F4A4
+	else
+	  search --no-floppy --fs-uuid --set=root 5ED0-F4A4
+	fi
+	chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+}
+set timeout_style=menu
+if [ &quot;${timeout}&quot; = 0 ]; then
+  set timeout=10
+fi
+</code></pre><p>完成后保存退出，重启即可发现Linux引导界面出现了windows</p>
+<h3 id="parrot-基本配置">Parrot 基本配置</h3>
+<h4 id="更新源设置">更新源设置</h4>
+<p>源的位置：/etc/apt/sources.list.d/parrot.list</p>
+<p>官方更新源</p>
+<pre><code># parrot repository
+# this file was automatically generated by parrot-mirror-selector
+deb http://deb.parrotsec.org/parrot stable main contrib non-free
+#deb-src http://deb.parrotsec.org/parrot stable main contrib non-free
+</code></pre><p>国内更新源清华大学镜像源</p>
+<pre><code>deb https://mirrors.tuna.tsinghua.edu.cn/parrot/ parrot main contrib non-free
+</code></pre><p>Debian ustc更新源(由于该镜像基于Debian，使用Debian更新源来安装一些常用工具)</p>
+<p>配置生成器：https://mirrors.ustc.edu.cn/repogen/</p>
+<pre><code>deb https://mirrors.tuna.tsinghua.edu.cn/parrot/ parrot main contrib non-free
+
+deb http://mirrors.ustc.edu.cn/debian/ stretch main contrib non-free
+deb-src http://mirrors.ustc.edu.cn/debian/ stretch main contrib non-free
+
+deb http://mirrors.ustc.edu.cn/debian/ stretch-updates main contrib non-free
+deb-src http://mirrors.ustc.edu.cn/debian/ stretch-updates main contrib non-free
+
+deb http://mirrors.ustc.edu.cn/debian/ stretch-backports main contrib non-free
+deb-src http://mirrors.ustc.edu.cn/debian/ stretch-backports main contrib non-free
+
+deb http://mirrors.ustc.edu.cn/debian-security/ stretch/updates main contrib non-free
+deb-src http://mirrors.ustc.edu.cn/debian-security/ stretch/updates main contrib non-free
+</code></pre><p>更换更新源</p>
+<pre><code>备份源文件
+$ sudo cp /etc/apt/sources.list.d/parrot.list /etc/apt/sources.list.d/parrot.list.bak
+更改源文件
+$ sudo vim /etc/apt/sources.list.d/parrot.list
+</code></pre><p>删除所有内容后，用上面的源文件替换</p>
+<p><a href="https://parrotsec-china.org/t/parrot/81">https://parrotsec-china.org/t/parrot/81</a></p>
+<p><a href="https://parrotsec-china.org/t/topic/86">https://parrotsec-china.org/t/topic/86</a></p>
+<h4 id="更新操作系统">更新操作系统</h4>
+<pre><code>$ sudo apt-get update
+$ sudo apt-get dist-upgrade
+</code></pre><p>如果你使用的是lite版，可以使用变身完整版</p>
+<pre><code>$ sudo apt-get install parrot-tools-full
+</code></pre><h4 id="终端中文支持和部分应用中文方块">终端中文支持和部分应用中文方块</h4>
+<p>终端菜单栏选中&quot;设定字符编码&rdquo; 选择简体中文即可</p>
+<p>方块字体直接更新系统即可</p>
+<pre><code>sudo dpkg-reconfigure locales
+</code></pre><p>打开图形界面，空格键选中</p>
+<pre><code>en_US.UTF-8
+zh_CN.UTF-8
+</code></pre><p>将中文设置成默认后，重启即可</p>
+<h4 id="配置ssh">配置SSH</h4>
+<pre><code>$ sudo pluma /etc/ssh/sshd_config
+</code></pre><p>将sshd_config文件中的语句</p>
+<pre><code>&quot;PermitRootLogin prohibit-password&quot;
+</code></pre><p>修改为：</p>
+<pre><code>&quot;PermitRootLogin yes&quot;
+</code></pre><p>保存文件,启动SSH服务</p>
+<pre><code>$ sudo service ssh start
+</code></pre><p>设置SSH开机自启动</p>
+<pre><code>$ sudo update-rc.d ssh enable
+</code></pre><h4 id="安装nvidia显卡驱动">安装Nvidia显卡驱动</h4>
+<pre><code>$ sudo apt-get install update &amp;&amp; apt-get dist-upgrade
+</code></pre><p>安装Nvidia显卡驱动</p>
+<pre><code>$ sudo apt-get install nvidia-driver bumblebee-nvidia
+</code></pre><p>编辑配置文件</p>
+<pre><code>$ sudo vim /etc/bumblebee/bumblebee.conf
+</code></pre><p>修改</p>
+<pre><code>Driver=
+</code></pre><p>修改为</p>
+<pre><code>Driver=nvidia
+</code></pre><p>修改</p>
+<pre><code>KernelDriver=nvidia
+</code></pre><p>修改为</p>
+<pre><code>KernelDriver=nvidia-current
+</code></pre><p>重启电脑</p>
+<pre><code>sudo reboot
+</code></pre><p>检查和验证</p>
+<pre><code>optirun glxinfo | grep OpenGL
+</code></pre><h4 id="安装增强工具open-vm-toolsvm虚拟机需要">安装增强工具open-vm-tools（vm虚拟机需要）</h4>
+<pre><code>$ sudo apt-get update
+$ sudo apt-get install open-vm-tools-desktop fuse
+</code></pre><h4 id="脚本设置命令别名">脚本设置命令别名</h4>
+<p>修改vim /etc/profile，直接使用命令</p>
+<p>sqlmap为例</p>
+<p>命令</p>
+<pre><code>alias sqlmap=‘python /usr/local/src/sqlmapproject-sqlmap-7eab1bc/sqlmap.py‘
+
+</code></pre><p>命令</p>
+<pre><code>source /etc/profile  //配置立即生效
+</code></pre><h3 id="常用软件安装">常用软件安装</h3>
+<h4 id="安装搜狗输入法">安装搜狗输入法</h4>
+<pre><code>$ sudo dpkg -i sougoupinyinXXX.deb
+</code></pre><h4 id="安装谷歌拼音">安装谷歌拼音</h4>
+<pre><code>$ sudo apt-get install fcitx-googlepinyin 谷歌拼音
+</code></pre><h4 id="安装wps">安装WPS</h4>
+<p>到更新源的pool目录下载libpng12XXX最新版
+到<a href="http://wps-community.org/download.html">wps官网</a>下载deb安装包
+网盘下载：链接: <a href="http://pan.baidu.com/s/1miRysgo">http://pan.baidu.com/s/1miRysgo1</a> 密码: k2y8</p>
+<pre><code>$ sudo dpkg -i libpng12-0_1.2.50-2+deb8u3_amd64.deb
+$ sudo dpkg -i wps-office_10.1.0.5707~a21_amd64.deb
+</code></pre><p>解决字体缺失问题
+下载缺失的字体，然后复制到系统的/usr/share/fonts文件夹中</p>
+<pre><code>国外下载地址：https://www.dropbox.com/s/lfy4hvq95ilwyw5/wps_symbol_fonts.zip
+国内下载地址：https://pan.baidu.com/s/1eS6xIzo
+</code></pre><p>下载完成后</p>
+<pre><code>$ sudo cp * /usr/share/fonts
+</code></pre><p>生成字体索引信息</p>
+<pre><code>$ sudo mkfontscale
+$ sudo mkfontdir
+</code></pre><p>运行fc-cache命令更新字体缓存</p>
+<pre><code>$ sudo fc-cache
+</code></pre><p>重启wps即可</p>
+<h4 id="安装google-chrome">安装Google Chrome</h4>
+<pre><code>$ sudo dpkg -i google-chrome-stable_current_amd64.deb
+$ sudo apt-get -f install
+$ sudo dpkg -i google-chrome-stable_current_amd64.deb
+用文件资源管理器按照这个路径打开 /usr/share/applications/ 找到 google chrome 图标，鼠标右键打开属性，命令中添加改成/usr/bin/google-chrome-stable %U - -no-sandbox - -user-data-dir &amp;
+
+</code></pre><h4 id="安装网易云音乐">安装网易云音乐</h4>
+<p>下载https://github.com/trazyn/ieaseMusic/releases的amd64的deb包</p>
+<pre><code>sudo dpkg -i ieaseMusic-1.1.0-linux-amd64.deb
+</code></pre><p>命令行版本</p>
+<p><a href="https://github.com/darknessomi/musicbox">https://github.com/darknessomi/musicbox</a></p>
+<p>海外党解锁</p>
+<p><a href="https://github.com/fengjueming/unblock-NeteastMusic">https://github.com/fengjueming/unblock-NeteastMusic</a></p>
+<h4 id="汉化火狐浏览器">汉化火狐浏览器</h4>
+<p>下载安装中文火狐语言包(中间版本选择你现在火狐浏览器的版本)
+<a href="https://download-installer.cdn.mozilla.net/pub/firefox/releases/52.5.0esr/linux-x86_64/xpi/">https://download-installer.cdn.mozilla.net/pub/firefox/releases/52.5.0esr/linux-x86_64/xpi/5</a></p>
+<h4 id="安装flash插件">安装flash插件</h4>
+<pre><code>$ tar -zxvf flash_player_npapi_linux.x86_64.tar.gz
+</code></pre><p>拷贝文件</p>
+<pre><code>$ sudo cp libflashlayer.so /usr/lib/mozilla/plugins/
+$ sudo cp -r usr/ /usr
+</code></pre><h4 id="安装十六进制编辑器">安装十六进制编辑器</h4>
+<pre><code>$ sudo apt-get install hexedit
+</code></pre><h4 id="安装shadowsocks-qt5">安装Shadowsocks-qt5</h4>
+<pre><code>deb http://ppa.launchpad.net/hzwhuang/ss-qt5/ubuntu devel main
+</code></pre><p>更新系统发现报错，是因为这里使用ubuntu的源，需要导入公钥</p>
+<pre><code>$ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6DA746A05F00FA99
+</code></pre><p>安装Shadowsocks-qt5</p>
+<pre><code>$ sudo apt-get update
+$ sudo apt-get install shadowsocks-qt5
+</code></pre><h4 id="shadowsocks-console">shadowsocks-console</h4>
+<pre><code>sudo apt-get install python-pip
+sudo pip install shadowsocks
+</code></pre><p>● 然后创建配置文件</p>
+<pre><code>sudo gedit /etc/shadowsocks.json
+</code></pre><p>加入下面的配置内容，并补全配置信息</p>
+<pre><code>{
+    &quot;server&quot;:&quot;服务器地址&quot;,
+    &quot;server_port&quot;:服务器端口号,
+    &quot;local_address&quot;: &quot;127.0.0.1&quot;,
+    &quot;local_port&quot;:1080,
+    &quot;password&quot;:&quot;密码&quot;,
+    &quot;timeout&quot;:300,
+    &quot;method&quot;:&quot;加密方式&quot;,
+    &quot;fast_open&quot;: true,
+    &quot;workers&quot;: 1
+}
+</code></pre><p>● 启动客户端</p>
+<pre><code> sslocal -c /etc/shadowsocks.json
+</code></pre><p>● 配置proxychain</p>
+<pre><code>默认已经安装
+sudo vi /etc/proxychains.conf
+将socks4 127.0.0.1 9095改为
+socks5 127.0.0.1 1080 //1080改为你自己的端口
+</code></pre><p>代理设置 ProxyChains</p>
+<p>1.打开ProxyChains配置文件</p>
+<pre><code>vi /etc/proxychains.conf
+</code></pre><p>2.去掉dynamic_chain前面的注释符</p>
+<p>3.添加代理服务器列表</p>
+<ol>
+<li>通过用户连接代理解析目标主机</li>
+</ol>
+<p>执行</p>
+<pre><code>proxyresolv www.target.com
+</code></pre><p>出现命令未找到</p>
+<pre><code>cp /usr/lib/proxychains3/proxyresolv /usr/bin/
+</code></pre><h4 id="全局tor匿名模式">全局tor(匿名模式)</h4>
+<pre><code>anonsurf start //启动
+
+anonsurf stop //退出
+
+anonsurf restart //重启
+
+anonsurf change //改变某个神奇的东西
+
+anonsurf status //查看状态
+</code></pre><h4 id="i2p">I2P</h4>
+<p>直接点运行出错的话</p>
+<pre><code>i2prouter start
+</code></pre><p>会自动弹出控制端，需要前置代理获取种子节点</p>
+<h4 id="安装-wing-ide-windowslinux">安装 wing IDE （windows&amp;&amp;Linux）</h4>
+<ol>
+<li>
+<p>WingIDE 5下载</p>
+<p>从官方网站下载最新版本，或从这里下载</p>
+</li>
+</ol>
+<pre><code>http://pan.baidu.com/s/1c07rRXm
+</code></pre><p>版本为5.0.0-1 (rev 30231)</p>
+<ol>
+<li>
+<p>注册破解</p>
+<p>破解需要使用一个Python脚本，下载地址http://pan.baidu.com/s/1mgE3g60</p>
+</li>
+</ol>
+<p>具体破解方法：</p>
+<ol>
+<li>安装WingIDE成功后启动，激活时输入</li>
+</ol>
+<pre><code>license id CN123-12345-12345-12345
+</code></pre><ol start="2">
+<li>
+<p>点击Continue后弹框，拷贝框中的request code</p>
+</li>
+<li>
+<p>修改Python脚本中的Request Code为刚才得到的Request Code值，运行脚本后得到激活码，填入即可成功注册</p>
+</li>
+</ol>
+<h4 id="使用crossover运行qq64位">使用Crossover运行qq（64位）</h4>
+<pre><code>$ sudo dpkg --add-architecture i386
+$ sudo apt-get update
+</code></pre><p>安装免费版crossover(会提示安装依赖)</p>
+<pre><code>$ sudo dpkg -i crossover-15_15.0.3-1_all-free.deb 
+$ sudo apt-get -f install
+$ sudo dpkg -i crossover-15_15.0.3-1_all-free.deb
+
+第二种安装方法
+
+dpkg --add-architecture i386
+apt-get update
+apt-get install gdebi -y
+gdebi crossover_17.0.0-1.deb
+apt-get install libgphoto2-6:i386
+</code></pre><p>安装qq
+所需资源下载地址:
+链接: <a href="https://pan.baidu.com/s/1o8HtX9K">https://pan.baidu.com/s/1o8HtX9K5</a> 密码: 8hni</p>
+<pre><code>$ sudo dpkg -i NoDepend-apps.com.qq.im_8.1.17255deepin11_i386去依赖版.deb
+</code></pre><p>安装完成之后你可能会遇到数字字母显示成方块字的问题，需要把系统语言更改为中文格式zh_CN.UTF-8</p>
+<p>打开<code>CrossOver</code>后选择安装 windows 软件</p>
+<p>点顶上的 现在更新 然后稍等片刻</p>
+<p>左下查看所有可用应用程序</p>
+<p>网络与通讯&ndash;即时聊天工具&ndash;腾讯 QQ 8.9</p>
+<p><strong>注意查看安装提示</strong></p>
+<p>出现 CrossOver linux Demo 选择暂先试用</p>
+<p>增强试用</p>
+<pre><code>sudo cp winewrapper.exe.so /opt/cxoffice/lib/wine
+</code></pre><p>在linux上使用mojoqq来实现命令行qq</p>
+<p><a href="https://parrotsec-china.org/t/linux-mojoqq-qq/392">https://parrotsec-china.org/t/linux-mojoqq-qq/392</a></p>
+<p>crossover在mac系统字体模糊解决方法</p>
+<ol>
+<li>先从windows系统C:\Windows\Fonts目录复制文件simsun.ttf;</li>
+<li>打开Crossover中相应容器的C盘目录，把复制的simsun.ttf拷贝到容器的C:\Windows\Fonts;</li>
+<li>选择相应的容器，运行命令regedit打开容器的注册表编辑器;</li>
+<li>在注册表编辑器中找到HKEY_CURRENT_USER\Software\Wine\Fonts\Replacements，删除以下三个项目simsun/宋体/新宋体;</li>
+<li>重启容器，complete！</li>
+</ol>
+<h4 id="安装pycharm">安装PyCharm</h4>
+<pre><code>$ cd pycharm-2017.3/bin
+$ sudo ./pycharm.sh
+</code></pre><p>激活PyCharm，选择第三项服务器证书激活</p>
+<pre><code>http://idea.imsxm.com/
+</code></pre><p>汉化Pycharm</p>
+<pre><code>$ cd /tmp
+$ sudo git clone https://github.com/ewen0930/PyCharm-Chinese
+$ cd PyCharm-Chinese
+$ sudo bash package.cmd(需要java环境)
+$ sudo cp resources_zh.jar /usr/lib/pycharm-community/lib   # 这里的“/usr/lib/pycharm-community/l
+</code></pre><h4 id="安装telegram">安装telegram</h4>
+<pre><code>#deb http://ppa.launchpad.net/atareao/telegram/ubuntu trusty main 
+sudo apt-get update
+sudo apt-get install telegram
+</code></pre><h4 id="linux下载器配置方案uget">Linux下载器配置方案uget</h4>
+<p>1，安装uget及aria2</p>
+<pre><code>sudo apt-get install uget aria2
+</code></pre><p>2，安装火狐插件flashgot</p>
+<p>在火狐插件列表中搜索flashgot并安装安装完成后重启火狐浏览器</p>
+<p>3，配置uget及aria2</p>
+<p>打开uget设置将组件选为aria2+curl</p>
+<p><a href="https://parrotsec-china.org/uploads/default/original/1X/65efae8c1d6919988b3a89e4967cf7836a55d56e.jpg"><img src="https://parrotsec-china.org/uploads/default/optimized/1X/65efae8c1d6919988b3a89e4967cf7836a55d56e_1_690x387.jpg" alt="img">截图_2017-07-03_13-14-08.jpg1366x768 178 KB</a></p>
+<p>然后下载东西时在flashgot选项中选择uget就ok
+合适的线程可加速某些如baiduyun之类链接的下载</p>
+<h4 id="安装audacious音乐播放器">安装Audacious音乐播放器</h4>
+<ul>
+<li>因为默认支持utf-8，所以可以较好得解决乱码</li>
+<li>拥有有winamp界面</li>
+</ul>
+<p>这可能是linux下最好的音乐播放器
+安装：</p>
+<pre><code>sudo apt install audacious
+</code></pre><h4 id="安装nessus-home版">安装Nessus Home版</h4>
+<p>Nessus 是目前全世界最多人使用的系统漏洞扫描与分析软件。总共有超过75,000个机构使用Nessus 作为扫描该机构电脑系统的软件</p>
+<p>1 : 下载，在官方主页下载Nessus home版本安装包（选择系统对应的 64位或32位安装包）：</p>
+<pre><code>http://www.tenable.com/products/nessus/select-your-operating-system
+</code></pre><p>2 : 安装，在终端下使用如下命令进行安装：</p>
+<pre><code>sudo dpkg -i Nessus-6.7.0-debian6_amd64.deb
+</code></pre><p>3: 配置，启动nessusd服务，使用如下命令进行启动：</p>
+<pre><code>service nessusd start
+</code></pre><p>或者</p>
+<pre><code> /etc/init.d/nessusd start
+</code></pre><p>4: 获取激活码，Active code获取方法如下：访问</p>
+<pre><code>http://www.tenable.com/products/nessus/nessus-homefeed
+</code></pre><p>页面，正确填写需要的信息提交后进入邮箱即可收到激活码；</p>
+<p>5: 激活</p>
+<pre><code>https://127.0.0.1:8834 //注意https为必要
+</code></pre><p>打开Nessus主页</p>
+<p>设置用户密码，提交激活码</p>
+<pre><code>注册用户名：root
+
+注册密码：   toor
+</code></pre><p>6 : 登录，插件安装和初始化完成后，即可输入账号和密码登陆操作页面；
+通过物理机的浏览器访问测试页面的地址：</p>
+<p>有时候会这样</p>
+<p><a href="http://img.blog.csdn.net/20160224225945273"><img src="http://img.blog.csdn.net/20160224225945273" alt="img">20160224225945273943x411</a></p>
+<p>使用命令</p>
+<pre><code>/opt/nessus/sbin/nessuscli update #更新
+</code></pre><p>更新完成，之后重启：</p>
+<p>关闭：</p>
+<pre><code>/etc/init.d/nessusd stop
+</code></pre><p>或者</p>
+<pre><code> service nessusd stop
+</code></pre><p>外部访问
+<a href="https://192.168.152.148:8834/">https://192.168.152.148:8834/</a></p>
+<p>//其中192.168.152.148是虚拟机的IP地址</p>
+<pre><code>user/passwd: root/toor
+</code></pre><p><em>设置系统开机自动启动nessusd服务：</em></p>
+<pre><code>update-rc.d nessusd enable  //nessusd服务开机自启动
+</code></pre><h4 id="安装openvas">安装Openvas</h4>
+<p>OpenVAS是开放式漏洞评估系统，也可以说它是一个包含着相关工具的网络扫描器。</p>
+<p>在Parrot 完整版中已经自带，如果你是Lite版本，安装参考如下</p>
+<p>更新系统</p>
+<pre><code>sudo apt-get update
+sudo apt-get dist-upgrade
+</code></pre><p>安装OpenVAS</p>
+<pre><code>sudo apt-get install openvas
+</code></pre><p>安装配置OpenVAS 
+(这一步需要的时间非常久，需要下载很多文件，建议最好挂国外代理进行这一步操作</p>
+<pre><code>sudo openvas-setup
+</code></pre><p>检查安装 (如有提示错误的请按提示修复)</p>
+<pre><code>sudo openvas-check-setup
+</code></pre><p>.如我安装时运行</p>
+<pre><code>sudo openvas-check-setup
+</code></pre><p>后 step 2 有报错</p>
+<pre><code>...... OK: OpenVAS Manager database is at revision 146. 
+OK: OpenVAS Manager expects database at revision 146. 
+OK: Database schema is up to date. 
+OK: OpenVAS Manager database contains information about 51943 NVTs. 
+OK: At least one user exists. 
+OK: OpenVAS SCAP database found in /var/lib/openvas/scap-data/scap.db. 
+ERROR: No OpenVAS CERT database found. (Tried: /var/lib/openvas/cert-data/cert.db) 
+FIX: Run a CERT synchronization script like openvas-certdata-sync or greenbone-certdata-sync. 
+ERROR: Your OpenVAS-8 installation is not yet complete! 
+Please follow the instructions marked with FIX above and run this 
+script again. 
+If you think this result is wrong, please report your observation 
+and help us to improve this check routine: 
+http://lists.wald.intevation.org/mailman/listinfo/openvas-discuss 
+Please attach the log-file (/tmp/openvas-check-setup.log) to help us analyze the problem.
+</code></pre><p>根据提示运行</p>
+<pre><code>sudo openvas-check-setup
+</code></pre><p>后解决</p>
+<pre><code>root@kalitest:~# openvas-certdata-sync
+</code></pre><pre><code>[i] This script synchronizes a CERT advisory directory with the OpenVAS one. [i] This script is for the SQLite3 backend. [i] CERT dir: /var/lib/openvas/cert-data [i] Will use rsync [i] Using rsync: /usr/bin/rsync [i] Configured CERT data rsync feed: rsync://feed.openvas.org:/cert-data OpenVAS community feed server - http://www.openvas.org/ 
+This service is hosted by Greenbone Networks - http://www.greenbone.net/ 
+All transactions are logged. 
+If you have any questions, please use the OpenVAS mailing lists 
+or the OpenVAS IRC chat. See http://www.openvas.org/ for details. 
+By using this service you agree to our terms and conditions. 
+Only one sync per time, otherwise the source ip will be blocked. 
+receiving incremental file list 
+./ CB-K13.xml 
+1,430,197 100% 24.15kB/s 0:00:57 (xfr#1, to-chk=34/36) CB-K13.xml.asc 
+181 100% 176.76kB/s 0:00:00 (xfr#2, to-chk=33/36) CB-K14.xml 
+4,772,286 100% 22.20kB/s 0:03:29 (xfr#3, to-chk=32/36) CB-K14.xml.asc 
+181 100% 176.76kB/s 0:00:00 (xfr#4, to-chk=31/36) CB-K15.xml 
+6,117,922 100% 22.58kB/s 0:04:24 (xfr#5, to-chk=30/36) CB-K15.xml.asc 
+181 100% 176.76kB/s 0:00:00 (xfr#6, to-chk=29/36)
+</code></pre><p>&hellip;.. 修复后再次运行</p>
+<pre><code>openvas-check-setup 检查安装
+</code></pre><p>&hellip;.. 看到 It seems like your OpenVAS-8 installation is OK. 安装完成</p>
+<p>还记得在运行</p>
+<pre><code>openvas-setup
+</code></pre><p>这步最后一行显示的</p>
+<pre><code>User created with password '47a7baeb-2f48-4fb9-9177-f6ba1fb058d8'.
+</code></pre><p>嘛,这个密码显然不符合我们的使用习惯，改之</p>
+<pre><code>openvasmd --user admin --new-password xxxxxx
+</code></pre><p>升级</p>
+<pre><code>openvas-feed-update
+</code></pre><p>启动OpenVAS</p>
+<pre><code>openvas-start
+</code></pre><p>此时openvas-manager没有启动成功</p>
+<pre><code>openvasmd-rebuild
+service openvas-manager restart
+</code></pre><p>如果openvasmd地址为0.0.0.0</p>
+<pre><code> sudo openvasmd -p 9390 -a 127.0.0.1
+</code></pre><p>查看 GSAD services，OpenVAS manager， OpenVAS manager 端口情况</p>
+<pre><code>netstat -antp | grep 939*  
+tcp        0      0 127.0.0.1:9392          0.0.0.0:*               LISTEN      20764/gsad  
+tcp        0      0 127.0.0.1:9390          0.0.0.0:*               LISTEN      20769/openvasmd  
+tcp        0      0 127.0.0.1:9391          0.0.0.0:*               LISTEN      20773/openvassd: Wa
+</code></pre><p>一切OK后使用浏览器访问 <a href="https://127.0.0.1:9392/">https://127.0.0.1:93923</a> 应该可以看到</p>
+<p>登录账号 admin 和你前面设置的密码</p>
+<p>配置
+设置OpenVAS服务器的地址</p>
+<p>OpenVAS 在默认配置下，仅允许 127.0.0.1 地址本地连接</p>
+<pre><code>openvas-stop
+</code></pre><p>编辑</p>
+<pre><code>/lib/systemd/system/greenbone-security-assistant.service
+</code></pre><pre><code>nano /lib/systemd/system/greenbone-security-assistant.service
+[Unit]
+Description=Greenbone Security Assistant
+Documentation=man:gsad(8) http://www.openvas.org/
+Wants=openvas-manager.service
+
+[Service]
+Type=simple
+PIDFile=/var/run/gsad.pid
+ExecStart=/usr/sbin/gsad --foreground --listen=127.0.0.1 --port=9392 --mlisten=127.0.0.1 --mport=9390
+
+[Install]
+WantedBy=multi-user.target
+修改 --listen=127.0.0.1 为 --listen=0.0.0.0
+
+[Unit]
+Description=Greenbone Security Assistant
+Documentation=man:gsad(8) http://www.openvas.org/
+Wants=openvas-manager.service
+
+[Service]
+Type=simple
+PIDFile=/var/run/gsad.pid
+ExecStart=/usr/sbin/gsad --foreground --listen=0.0.0.0 --port=9392 --mlisten=127.0.0.1 --mport=9390
+
+[Install]
+WantedBy=multi-user.target
+</code></pre><p>启动服务查看</p>
+<pre><code>systemctl daemon-reload
+openvas-start
+netstat -antp | grep 9392
+tcp        0      0 0.0.0.0:9392            0.0.0.0:*               LISTEN      23158/gsad
+</code></pre><h4 id="端口转发安装">端口转发安装</h4>
+<p>Rinetd:</p>
+<p>安装:</p>
+<pre><code>sudo apt-get update
+sudo apt-get install rinetd
+</code></pre><p>rinetd 的配置文件在 <code>/etc/rinetd.conf</code></p>
+<p>编辑:</p>
+<pre><code>nano /etc/rinetd.conf
+</code></pre><p>使用样例:</p>
+<p>如要转发你的本地808端口到远程主机<code>62.41.90.2</code>的443端口:</p>
+<p>添加<code>0.0.0.0 808 62.41.90.2 443</code></p>
+<p>然后重启rinetd:</p>
+<pre><code>/etc/init.d/rinetd restart
+</code></pre><p>或</p>
+<pre><code>service rinetd restart
+</code></pre><p>Socat:</p>
+<p>安装:</p>
+<pre><code>sudo apt-get update
+sudo apt-get install socat
+</code></pre><p>使用样例:</p>
+<p>如转发你的本地808端口到远程主机<code>62.41.90.2</code>的443端口:</p>
+<p>执行</p>
+<pre><code>socat TCP4-LISTEN:808,fork TCP4:62.41.90.2:443
+</code></pre><p>Redir:</p>
+<p>安装:</p>
+<pre><code>sudo apt-get update
+sudo apt-get install redir
+</code></pre><p>使用样例:</p>
+<p>如转发你的本地808端口到远程主机<code>62.41.90.2</code>的443端口:</p>
+<pre><code>redir --laddr=212.72.6.1 --lport=808  --caddr=62.41.90.2 --cport=443
+</code></pre><p>Iptables</p>
+<p>如转发你的本地808端口到远程主机<code>62.41.90.2</code>的443端口:</p>
+<pre><code>iptables -F -t nat
+echo 1 &gt;| /proc/sys/net/ipv4/ip_forward
+iptables -t nat -A  PREROUTING -p tcp -d  localhost --dport 808 -j DNAT --to 62.41.90.2:443
+iptables -t nat  -A POSTROUTING -j MASQUERADE
+</code></pre><p>列出改变的规则:</p>
+<pre><code>iptables -L -t nat
+</code></pre><blockquote>
+<p>部分转载总结自https://parrotsec-china.org/</p>
+</blockquote>
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://blog.taielab.com">码中春秋</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.taielab.com/2017-12-21/parrot-os-handbook.html">https://blog.taielab.com/2017-12-21/parrot-os-handbook.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='https://blog.taielab.com/tags/parrot-os'>parrot-os</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "udpsec/blog-comments"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-11-25/ios-13-checkra-in-repair-the-internet-connection-appears-to-be-offline.html" title="IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误">IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-29/red-team-and-physical-entry-gear-tips.html" title="护网之红方物理入侵旁门左道">护网之红方物理入侵旁门左道</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-05/intranet-roaming-network-traffic-control.html" title="内网漫游系列之流量操控与Socks代理总结">内网漫游系列之流量操控与Socks代理总结</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-27/intranet-roaming-ss-privoxy.html" title="内网漫游系列之正向全局代理ss&#43;Privoxy">内网漫游系列之正向全局代理ss&#43;Privoxy</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-20/centos-7-upgrade-Kernel.html" title="Centos7安装升级最新内核">Centos7安装升级最新内核</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/digital-forensics-live-and-dead.html" title="数字取证-死活取证">数字取证-死活取证</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html" title="Centos7搭建本地yum仓库">Centos7搭建本地yum仓库</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/osint-101-auto-visual.html" title="OSINT101 技术自动化和可视化">OSINT101 技术自动化和可视化</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-21/ubuntu-migrate-to-ssd.html" title="Ubuntu19.04迁移到SSD">Ubuntu19.04迁移到SSD</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-16/kali-linux-double-display-solutions.html" title="双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案">双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.taielab.com/categories/IOS%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">IOS应用逆向与安全 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/Linux/">Linux (11)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%B7%A5%E5%85%B7%E6%95%88%E7%8E%87/">工具效率 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%BC%80%E6%BA%90%E6%83%85%E6%8A%A5%E6%94%B6%E9%9B%86/">开源情报收集 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (30)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/">红蓝对抗 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全 (6)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4/">网络运维 (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.taielab.com/tags/Debian/">Debian</a>
+    
+    <a href="https://blog.taielab.com/tags/IOS/">IOS</a>
+    
+    <a href="https://blog.taielab.com/tags/OSINT/">OSINT</a>
+    
+    <a href="https://blog.taielab.com/tags/archlinux/">archlinux</a>
+    
+    <a href="https://blog.taielab.com/tags/centos/">centos</a>
+    
+    <a href="https://blog.taielab.com/tags/github/">github</a>
+    
+    <a href="https://blog.taielab.com/tags/gitup/">gitup</a>
+    
+    <a href="https://blog.taielab.com/tags/gpg/">gpg</a>
+    
+    <a href="https://blog.taielab.com/tags/hexo/">hexo</a>
+    
+    <a href="https://blog.taielab.com/tags/hugo/">hugo</a>
+    
+    <a href="https://blog.taielab.com/tags/kali-linux/">kali-linux</a>
+    
+    <a href="https://blog.taielab.com/tags/lnmp/">lnmp</a>
+    
+    <a href="https://blog.taielab.com/tags/manjaro/">manjaro</a>
+    
+    <a href="https://blog.taielab.com/tags/meedu/">meedu</a>
+    
+    <a href="https://blog.taielab.com/tags/nessus/">nessus</a>
+    
+    <a href="https://blog.taielab.com/tags/parrot-os/">parrot-os</a>
+    
+    <a href="https://blog.taielab.com/tags/pentestbox/">pentestbox</a>
+    
+    <a href="https://blog.taielab.com/tags/shadowsocks/">shadowsocks</a>
+    
+    <a href="https://blog.taielab.com/tags/tor/">tor</a>
+    
+    <a href="https://blog.taielab.com/tags/ubuntu/">ubuntu</a>
+    
+    <a href="https://blog.taielab.com/tags/vps/">vps</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">内网渗透命令</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%BC%AB%E6%B8%B8/">内网漫游</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/">奇淫技巧</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/">数字安全基础篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%AF%87/">数字安全工具篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">数据库系统原理</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81/">死活取证</a>
+    
+    <a href="https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5/">物理入侵</a>
+    
+    <a href="https://blog.taielab.com/tags/%E8%B8%8F%E9%9B%AA%E6%97%A0%E7%97%95%E7%B3%BB%E5%88%97/">踏雪无痕系列</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="#" title=""></a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://blog.taielab.com/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+</body>
+
+</html>

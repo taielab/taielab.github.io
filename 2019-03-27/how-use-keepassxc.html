@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>数字安全培训·工具篇（八）如何使用KeePassXC | 码中春秋&#39;s Blog</title>
+    <meta property="og:title" content="数字安全培训·工具篇（八）如何使用KeePassXC - 码中春秋&#39;s Blog">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2019-03-27T14:23:23&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2019-03-27T14:23:23&#43;08:00'>
+        
+    <meta name="Keywords" content="码中春秋,博客,,taielab,java,python,项目管理,软件架构,网络安全,数字安全,隐私保护,反侦查,反技侦,匿名方案,open,freedom,democracy,decentralization">
+    <meta name="description" content="数字安全培训·工具篇（八）如何使用KeePassXC">
+        
+    <meta name="author" content="码中春秋">
+    <meta property="og:url" content="https://blog.taielab.com/2019-03-27/how-use-keepassxc.html">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.taielab.com">
+                        码中春秋&#39;s Blog
+                    </a>
+                
+                <p class="description">专注于Java企业级开发、数字安全、信息安全、安全运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.taielab.com">首页</a>
+                    
+                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    
+                    <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#keepassxc是如何工作的">KeePassXC是如何工作的</a></li>
+    <li><a href="#使用主密码">使用主密码</a></li>
+    <li><a href="#开始使用keepassxc">开始使用KeePassXC</a></li>
+    <li><a href="#组织密码">组织密码</a></li>
+    <li><a href="#存储生成编辑密码">存储/生成/编辑密码</a></li>
+    <li><a href="#正常使用">正常使用</a></li>
+    <li><a href="#其他功能">其他功能</a></li>
+    <li><a href="#如何安装浏览器扩展">如何安装浏览器扩展</a>
+      <ul>
+        <li><a href="#如何将-keepassxc-browser与keepassxc连接">如何将 KeePassXC-Browser与KeePassXC连接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">数字安全培训·工具篇（八）如何使用KeePassXC</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年3月27日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8'>数字安全</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <p>KeePassXC是一个跨平台的密码管理器，允许您将所有密码存储在一个位置。密码管理器是一个为您创建和存储密码的工具，因此您可以在不同的站点和服务上使用许多不同的密码，而不必记住它们。您只需要记住一个主密码，它允许您访问所有密码的加密密码管理器数据库。</p>
+<p>有许多程序的名称与KeePassXC相似，如KeePassX、KeePass和KeePass2。其中一些是基于相同的代码，而另一些只是使用相同的数据库格式。本指南建议使用KeePassXC，因为它是跨平台的，比一些替代产品开发得更积极。</p>
+<p>使用密码管理器会创建一个单点故障，并为黑客或对手建立一个明显的目标。研究表明，许多常用的密码管理器都有漏洞，因此在确定这是否是适合您的工具时要谨慎。</p>
+<p><strong>下载地址:</strong> For Windows/macOS/Linux: <a href="https://keepassxc.org/download">https://keepassxc.org/download</a></p>
+<p><strong>设备要求:</strong> Windows 7或更高版本，macOS 10.7或更高版本，Linux(大多数发行版)</p>
+<p><strong>教程使用的版本</strong>:KeePassXC 2.2.0 (KeePassXC是只支持windows的KeePass程序的跨平台版本)。</p>
+<p><strong>许可证</strong>: FOSS (primarily GPLv2)</p>
+<p><strong>其他阅读</strong>: <a href="https://github.com/keepassxreboot/keepassxc/wiki">https://github.com/keepassxreboot/keepassxc/wiki</a></p>
+<p><strong>级别</strong>: 初学者</p>
+<p>**所需时间：**5分钟即可完成设置，之后可以使用强大的密码。</p>
+<h2 id="keepassxc是如何工作的">KeePassXC是如何工作的</h2>
+<p>KeePassXC与密码数据库一起工作，密码数据库是存储所有密码列表的文件。当这些数据库存储在您的计算机硬盘上时，它们将被加密。所以，如果你的电脑关机了，有人偷走了它，他们将无法读取你的密码。</p>
+<p>密码数据库可以使用主密码加密。由于您的主密码保护您所有的其他密码，您应该使它尽可能强。</p>
+<h2 id="使用主密码">使用主密码</h2>
+<p>主密码的作用类似于密钥，为了打开密码数据库，您需要正确的主密码。没有它，没有人能看到密码数据库中有什么。当使用主密码来保护密码数据库时，请记住以下几点</p>
+<ul>
+<li>这个主密码将解密所有密码，因此需要复杂！ 它应该很难猜测而且很长。 它越长，你就越需要担心有特殊字符或大写字母或数字。 因此，请将您的主密码设为密码。 密码短语是一串很多单词，很容易记住，但其他人难以猜测。</li>
+<li>您可以使用常规随机单词创建强大的主密码。 这些比符号和大写字母的非自然组合更容易记住。 有关创建强密码的详细信息，请参阅我们的<a href="https://blog.inofd.com/2019-03-02/how-to-creating-strong-passwords.html">密码指南</a>。</li>
+</ul>
+<h2 id="开始使用keepassxc">开始使用KeePassXC</h2>
+<p>安装KeePassXC并启动它。 单击Database菜单并选择“New Database”。系统将提示您保存密码数据库。 请注意，您可以稍后将密码数据库文件移动到硬盘上的任何位置，或将其移动到其他计算机 - 您仍然可以使用之前指定的KeePassXC和密码或密钥文件打开它。</p>
+<p><img src="https://ssd.eff.org/files/2017/12/19/1._creating_an_account.png" alt="img"></p>
+<p>什么是密钥文件？ 除了主密码之外，使用密钥文件可能会使某人在窃取密码时更难解密密码数据库。 您可以将任何现有文件用作密钥文件 - 例如，您的cat的图像可以用作密钥文件。 您只需要确保您选择的文件永远不会被修改，因为如果其内容被更改，那么它将不再解密您的密码数据库。 有时在另一个程序中打开文件就足以修改它，所以除了解锁KeePassXC之外不要打开文件。 （但是移动或重命名密钥文件是安全的。）通常强大的主密码本身就足够了。 如果您选择使用除主密码之外的密钥文件，请确保将其与密码数据库分开存储。</p>
+<p>接下来，将要求您输入主密码和/或使用密钥文件。 根据您的选择选择相应的复选框。</p>
+<blockquote>
+<p>如果你想看到你输入的密码(而不是用点模糊它)，点击右眼的按钮。</p>
+</blockquote>
+<p><img src="https://ssd.eff.org/files/2017/12/19/2._creating_master_key.png" alt="img"></p>
+<h2 id="组织密码">组织密码</h2>
+<p>KeePassXC允许您将密码组织成组，这些组基本上就是文件夹。您可以通过进入menubar中的Groups菜单，或者通过右键单击KeePassXC窗口左侧窗格中的组来创建、删除或编辑组或子组。分组密码不会影响KeePassXC的任何功能，它只是一个方便的组织工具。</p>
+<h2 id="存储生成编辑密码">存储/生成/编辑密码</h2>
+<p>要创建新密码或存储您已有的密码，请单击要存储密码的组，右键单击右窗格，然后选择“添加新条目”。（您还可以选择“条目&gt;” 从菜单栏中添加新条目。）对于基本密码用法：</p>
+<ul>
+<li>输入一个描述性的标题，您可以使用它来识别标题字段中的密码条目。例如，这可以是网站的名称或密码用于的服务。</li>
+<li>在username字段中输入与密码项关联的用户名。(如果没有用户名，请留空。)</li>
+<li>在“密码”字段中输入您的密码。 如果您要创建新密码，请单击右侧的骰子图标。 您可能希望在注册新网站时，或者使用新的，唯一的随机密码替换旧的，较弱的密码时执行此操作。 单击骰子图标后，窗口中将显示密码生成器。 您可以使用它来生成随机密码。 您将看到许多选项，包括要包含的字符类型和密码的使用时间。
+<ul>
+<li>请注意，如果您生成随机密码，您不必记住(甚至不知道！)密码是什么。KeePassXC为您存储它，您可以随时将它复制/粘贴到适当的程序中。这是密码管理器的全部要点——您可以为每个网站/服务使用不同的长随机密码，甚至不知道密码是什么！</li>
+<li>因此，您应该在服务允许的范围内设置密码，并尽可能多地使用不同类型的字符。</li>
+<li>当您对这些选项满意之后，单击右下角的Generate来生成密码。生成的随机密码将自动输入密码并为您重复字段。如果您使用旧版本的KeePassXC，随机密码可能不会自动输入到“password”和“Repeat”字段中，因此您应该首先单击“Apply”。(如果没有生成随机密码，则需要在Repeat字段中再次输入所选密码。)然后单击OK。</li>
+</ul>
+</li>
+<li>您的密码现在存储在密码数据库中。要确保更改已保存，请通过进入数据库&gt; save database保存已编辑的密码数据库。</li>
+</ul>
+<p><img src="https://ssd.eff.org/files/2017/12/19/3._adding_an_entry.png" alt="img"></p>
+<p>如果需要更改/编辑存储的密码，只需选择其组，然后在右侧窗格中双击其标题，将弹出“编辑条目”对话框。</p>
+<h2 id="正常使用">正常使用</h2>
+<p>要在密码数据库中使用条目，请右键单击该条目，然后选择“复制用户名”或“复制密码”。转到要输入用户名/密码的窗口/网站，并将其粘贴到相应的字段中 。（您也可以双击所需条目的用户名或密码，而不是右键单击该条目，用户名或密码将自动复制到剪贴板。）</p>
+<p><img src="https://ssd.eff.org/files/2017/12/19/4._viewing_the_database.png" alt="img"></p>
+<p><img src="https://ssd.eff.org/files/2017/12/19/5._using_an_entry.png" alt="img"></p>
+<h2 id="其他功能">其他功能</h2>
+<ul>
+<li>
+<p>KeePassXC允许您：</p>
+<p>使用搜索框（主KeePassXC窗口工具栏中的文本框）搜索数据库。</p>
+<p>通过单击主窗口中的列标题对您的条目进行排序。</p>
+</li>
+<li>
+<p>通过选择“工具&gt;锁定数据库”锁定“KeePassXC。”这允许您让KeePassXC保持打开状态，但是在您再次访问密码数据库之前让它请求您的主密码（和/或密钥文件）。 您还可以让KeePassXC在一段时间不活动后自动锁定。 如果您离开计算机或丢失密码，这可能会阻止某人访问您的密码。 要在macOS上启用此功能，请从菜单中选择“首选项&gt;设置”，然后单击安全选项。 然后选中“在[数字]秒不活动后锁定数据库”复选框。对于Linux或Windows，从菜单中选择“工具&gt;设置”，然后单击安全选项。 然后选中“在[number]秒不活动后锁定数据库”框。</p>
+</li>
+</ul>
+<p>KeePassXC还可以存储不仅仅是用户名和密码。例如，您可以创建条目来存储重要的东西，比如帐号、产品密钥、航空公司的常客信息或序列号。没有要求输入密码字段的数据必须是密码。只需输入您想要存储在Password字段中的内容，而不是实际的密码(如果没有用户名，则将Username字段留空)，KeePassXC就会为您安全地记住它。</p>
+<h2 id="如何安装浏览器扩展">如何安装浏览器扩展</h2>
+<p>这些说明来自2018年4月30日访问的https://keepassxc.org/docs/keepassxc-browser-migration/。</p>
+<p>浏览器扩展是向web浏览器添加附加功能的软件组件。使用KeePassXC浏览器扩展为浏览器和KeePassXC应用程序之间的通信提供了一种方便的方式。这将允许您在web上快速保存或自动填充密码。</p>
+<p>从2.3版开始，KeePassXC提供了一个名为KeePassXC- browser的<a href="https://keepassxc.org/docs/keepassxc-browser-migration/">新浏览器插件</a>。它兼容谷歌Chrome、Chromium、Firefox和Vivaldi，并可在<a href="https://chrome.google.com/webstore/detail/keepassxc-browser/oboonakemofpalcgghocfoadofidjkkk?utm_source=chrome-ntp-icon">Chrome网络商店</a>和<a href="https://addons.mozilla.org/en-US/firefox/addon/keepassxc-browser/">Mozilla插件库</a>中使用。</p>
+<p>新的附加组件取代了旧的KeePassHTTP附加组件（KeePassHttp-Connector，chromeIPass，PassIFox等），并且将在未来的KeePassXC版本中删除对这些附加组件的支持。</p>
+<h3 id="如何将-keepassxc-browser与keepassxc连接">如何将 KeePassXC-Browser与KeePassXC连接</h3>
+<p>安装KeePassXC- browser和KeePassXC之后，必须首先启动KeePassXC，并调整一些默认情况下未启用的设置。</p>
+<ol>
+<li>使浏览器集成</li>
+</ol>
+<p>转到KeePassXC设置并在浏览器集成/启用KeePassXC浏览器集成下启用浏览器集成支持。 如果没有这个，浏览器扩展无法与KeePassXC通信：</p>
+<p><img src="https://ssd.eff.org/files/2018/04/30/settings.png" alt="img"></p>
+<p>如果启用，可以通过取消选中“传统浏览器集成/启用保留HTTP服务器”复选框来禁用旧的保留HTTP接口。任何已安装的相应浏览器插件(保持组件Http连接器等)。)可以卸载。</p>
+<ol start="2">
+<li>启用浏览器支持</li>
+</ol>
+<p>要允许浏览器访问KeePassXC，需要告诉它在哪里可以找到KeePassXC程序文件。幸运的是，KeePassXC会自动为您完成这项工作。您所需要做的就是在Enable integration for these browser下的复选框中打勾，选择您想要使用KeePassXC的任何浏览器。</p>
+<p>3.连接到数据库</p>
+<p>打开KeePassXC并解锁数据库(这很重要，如果数据库被锁定或KeePassXC没有运行，以下步骤将不起作用)。</p>
+<p>切换到您的浏览器，然后单击地址栏旁边的KeePassXC图标。 出现一个弹出窗口，告诉您尚未配置KeePassXC-Browser（如果您看到其他错误消息，请单击“刷新”并等待几秒钟）。</p>
+<p><img src="https://ssd.eff.org/files/2018/04/30/connect.png" alt="img"></p>
+<p>按下连接按钮。这时会出现一个窗口，要求您输入一个名称并授予访问权限</p>
+<p><img src="https://ssd.eff.org/files/2018/04/30/connect-name.png" alt="img"></p>
+<p>输入您选择的名称（最好是用于标识浏览器的名称），然后单击“保存并允许访问”。 您的浏览器现已连接到KeePassXC。</p>
+<p><img src="https://ssd.eff.org/files/2018/04/30/browser-ready.png" alt="img"></p>
+<p>使用自动填充可能会对您的隐私造成不利影响。 要禁用它，请取消选中“自动填写单个凭据条目”和“激活用户名字段的自动填充”设置。</p>
+<p>完成了！ 现在，您可以保存在Web上输入的任何凭据。 您还可以自动填写用户名/密码。</p>
+<p>KeePassXC是一个易于使用、健壮的软件，我们建议研究一下这个程序，了解它可以做的所有有用的事情。</p>
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://blog.taielab.com">码中春秋</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.taielab.com/2019-03-27/how-use-keepassxc.html">https://blog.taielab.com/2019-03-27/how-use-keepassxc.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/2019-03-27/how-encrypt-your-iphone.html">数字安全培训·工具篇（七）如何加密你的iPhone</a></li>
+        
+        <li><a href="/2019-03-27/how-enable-two-factor-authentication.html">数字安全培训·工具篇（六）如何开启双因素验证</a></li>
+        
+        <li><a href="/2019-03-27/how-delete-your-data-securely-windows.html">数字安全培训·工具篇（五）如何在Windows上安全删除您的数据</a></li>
+        
+        <li><a href="/2019-03-14/how-delete-your-data-securely-macos.html">数字安全培训·工具篇（四）如何在macOS安全删除您的数据</a></li>
+        
+        <li><a href="/2019-03-14/how-delete-your-data-securely-linux.html">数字安全培训·工具篇（三）如何在Linux上安全删除您的数据</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%AF%87'>数字安全工具篇</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "udpsec/blog-comments"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-11-25/ios-13-checkra-in-repair-the-internet-connection-appears-to-be-offline.html" title="IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误">IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-29/red-team-and-physical-entry-gear-tips.html" title="护网之红方物理入侵旁门左道">护网之红方物理入侵旁门左道</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-05/intranet-roaming-network-traffic-control.html" title="内网漫游系列之流量操控与Socks代理总结">内网漫游系列之流量操控与Socks代理总结</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-27/intranet-roaming-ss-privoxy.html" title="内网漫游系列之正向全局代理ss&#43;Privoxy">内网漫游系列之正向全局代理ss&#43;Privoxy</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-20/centos-7-upgrade-Kernel.html" title="Centos7安装升级最新内核">Centos7安装升级最新内核</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/digital-forensics-live-and-dead.html" title="数字取证-死活取证">数字取证-死活取证</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html" title="Centos7搭建本地yum仓库">Centos7搭建本地yum仓库</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/osint-101-auto-visual.html" title="OSINT101 技术自动化和可视化">OSINT101 技术自动化和可视化</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-21/ubuntu-migrate-to-ssd.html" title="Ubuntu19.04迁移到SSD">Ubuntu19.04迁移到SSD</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-16/kali-linux-double-display-solutions.html" title="双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案">双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.taielab.com/categories/IOS%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">IOS应用逆向与安全 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/Linux/">Linux (11)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%B7%A5%E5%85%B7%E6%95%88%E7%8E%87/">工具效率 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%BC%80%E6%BA%90%E6%83%85%E6%8A%A5%E6%94%B6%E9%9B%86/">开源情报收集 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (30)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/">红蓝对抗 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全 (6)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4/">网络运维 (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.taielab.com/tags/Debian/">Debian</a>
+    
+    <a href="https://blog.taielab.com/tags/IOS/">IOS</a>
+    
+    <a href="https://blog.taielab.com/tags/OSINT/">OSINT</a>
+    
+    <a href="https://blog.taielab.com/tags/archlinux/">archlinux</a>
+    
+    <a href="https://blog.taielab.com/tags/centos/">centos</a>
+    
+    <a href="https://blog.taielab.com/tags/github/">github</a>
+    
+    <a href="https://blog.taielab.com/tags/gitup/">gitup</a>
+    
+    <a href="https://blog.taielab.com/tags/gpg/">gpg</a>
+    
+    <a href="https://blog.taielab.com/tags/hexo/">hexo</a>
+    
+    <a href="https://blog.taielab.com/tags/hugo/">hugo</a>
+    
+    <a href="https://blog.taielab.com/tags/kali-linux/">kali-linux</a>
+    
+    <a href="https://blog.taielab.com/tags/lnmp/">lnmp</a>
+    
+    <a href="https://blog.taielab.com/tags/manjaro/">manjaro</a>
+    
+    <a href="https://blog.taielab.com/tags/meedu/">meedu</a>
+    
+    <a href="https://blog.taielab.com/tags/nessus/">nessus</a>
+    
+    <a href="https://blog.taielab.com/tags/parrot-os/">parrot-os</a>
+    
+    <a href="https://blog.taielab.com/tags/pentestbox/">pentestbox</a>
+    
+    <a href="https://blog.taielab.com/tags/shadowsocks/">shadowsocks</a>
+    
+    <a href="https://blog.taielab.com/tags/tor/">tor</a>
+    
+    <a href="https://blog.taielab.com/tags/ubuntu/">ubuntu</a>
+    
+    <a href="https://blog.taielab.com/tags/vps/">vps</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">内网渗透命令</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%BC%AB%E6%B8%B8/">内网漫游</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/">奇淫技巧</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/">数字安全基础篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%AF%87/">数字安全工具篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">数据库系统原理</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81/">死活取证</a>
+    
+    <a href="https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5/">物理入侵</a>
+    
+    <a href="https://blog.taielab.com/tags/%E8%B8%8F%E9%9B%AA%E6%97%A0%E7%97%95%E7%B3%BB%E5%88%97/">踏雪无痕系列</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="#" title=""></a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://blog.taielab.com/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+</body>
+
+</html>

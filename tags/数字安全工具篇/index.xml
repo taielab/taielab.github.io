@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>数字安全工具篇 on 码中春秋&#39;s Blog</title>
+    <link>https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%AF%87/</link>
+    <description>Recent content in 数字安全工具篇 on 码中春秋&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 27 Mar 2019 14:23:23 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%AF%87/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>数字安全培训·工具篇（八）如何使用KeePassXC</title>
+      <link>https://blog.taielab.com/2019-03-27/how-use-keepassxc.html</link>
+      <pubDate>Wed, 27 Mar 2019 14:23:23 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-27/how-use-keepassxc.html</guid>
+      <description>&lt;p&gt;KeePassXC是一个跨平台的密码管理器，允许您将所有密码存储在一个位置。密码管理器是一个为您创建和存储密码的工具，因此您可以在不同的站点和服务上使用许多不同的密码，而不必记住它们。您只需要记住一个主密码，它允许您访问所有密码的加密密码管理器数据库。&lt;/p&gt;
+&lt;p&gt;有许多程序的名称与KeePassXC相似，如KeePassX、KeePass和KeePass2。其中一些是基于相同的代码，而另一些只是使用相同的数据库格式。本指南建议使用KeePassXC，因为它是跨平台的，比一些替代产品开发得更积极。&lt;/p&gt;
+&lt;p&gt;使用密码管理器会创建一个单点故障，并为黑客或对手建立一个明显的目标。研究表明，许多常用的密码管理器都有漏洞，因此在确定这是否是适合您的工具时要谨慎。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;下载地址:&lt;/strong&gt; For Windows/macOS/Linux: &lt;a href=&#34;https://keepassxc.org/download&#34;&gt;https://keepassxc.org/download&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;设备要求:&lt;/strong&gt; Windows 7或更高版本，macOS 10.7或更高版本，Linux(大多数发行版)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;教程使用的版本&lt;/strong&gt;:KeePassXC 2.2.0 (KeePassXC是只支持windows的KeePass程序的跨平台版本)。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;许可证&lt;/strong&gt;: FOSS (primarily GPLv2)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;其他阅读&lt;/strong&gt;: &lt;a href=&#34;https://github.com/keepassxreboot/keepassxc/wiki&#34;&gt;https://github.com/keepassxreboot/keepassxc/wiki&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;级别&lt;/strong&gt;: 初学者&lt;/p&gt;
+&lt;p&gt;**所需时间：**5分钟即可完成设置，之后可以使用强大的密码。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·工具篇（七）如何加密你的iPhone</title>
+      <link>https://blog.taielab.com/2019-03-27/how-encrypt-your-iphone.html</link>
+      <pubDate>Wed, 27 Mar 2019 14:02:30 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-27/how-encrypt-your-iphone.html</guid>
+      <description>&lt;p&gt;如果你有iPhone 3GS或更高版本，iPod touch第三代或更高版本，或任何iPad，你都可以使用加密保护你设备的内容。这意味着，如果有人能够实际访问您的设备，他们还需要您的密码来解密存储在设备上的内容，包括联系人、即时消息或文本、通话记录和电子邮件。&lt;/p&gt;
+&lt;p&gt;事实上，大多数现代苹果设备默认情况下都会对其内容进行加密，并提供不同级别的保护。但是为了防止有人通过物理方式窃取您的设备来获取您的数据，您需要将加密与只有您知道的密码或代码联系起来。有关如何做到这一点的说明，请参见下文。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·工具篇（六）如何开启双因素验证</title>
+      <link>https://blog.taielab.com/2019-03-27/how-enable-two-factor-authentication.html</link>
+      <pubDate>Wed, 27 Mar 2019 13:50:05 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-27/how-enable-two-factor-authentication.html</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://www.eff.org/deeplinks/2016/12/12-days-2fa-how-enable-two-factor-authentication-your-online-accounts&#34;&gt;双因素身份验证&lt;/a&gt;（或“2FA”）是一种让用户通过要求两种不同身份验证方法的组合来向服务提供者标识自己的方法。 这些可能是用户知道的东西（如密码或PIN），用户拥有的东西（如硬件令牌或移动电话），或者附着在用户身上或与用户不可分离的东西（如他们的指纹）。&lt;/p&gt;
+&lt;p&gt;你可能已经在生活的其他部分使用了2FA。当你使用自动取款机取钱时，你必须同时拥有你的银行卡(你拥有的东西)和你的密码(你知道的东西)。然而，目前许多在线服务在默认密码下只使用一个因素来识别用户。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·工具篇（五）如何在Windows上安全删除您的数据</title>
+      <link>https://blog.taielab.com/2019-03-27/how-delete-your-data-securely-windows.html</link>
+      <pubDate>Wed, 27 Mar 2019 13:34:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-27/how-delete-your-data-securely-windows.html</guid>
+      <description>&lt;p&gt;下载位置：https://www.bleachbit.org/download/windows&lt;/p&gt;
+&lt;p&gt;计算机要求：Windows XP或更高版本&lt;/p&gt;
+&lt;p&gt;本指南中使用的版本：BleachBit 2.0&lt;/p&gt;
+&lt;p&gt;许可证：GPLv3&lt;/p&gt;
+&lt;p&gt;级别：初学者&lt;/p&gt;
+&lt;p&gt;所需时间：10分钟到几个小时（取决于要安全删除的文件/磁盘的大小）&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·工具篇（四）如何在macOS安全删除您的数据</title>
+      <link>https://blog.taielab.com/2019-03-14/how-delete-your-data-securely-macos.html</link>
+      <pubDate>Thu, 14 Mar 2019 22:34:14 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-14/how-delete-your-data-securely-macos.html</guid>
+      <description>&lt;p&gt;注意：现代版本的macOS将提示您使用FileVault 2加密整个驱动器。 我们强烈建议您采取此步骤来保护您的数据。 如果您加密整个驱动器，则不必担心安全删除，因为主加密密钥受您控制的密码保护，并且您可以更改或擦除以使驱动器上的数据无法恢复。 有关使用FileVault 2加密的&lt;a href=&#34;https://support.apple.com/en-us/ht204837&#34;&gt;更多信息&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;以下说明只能用于从旋转驱动器中安全删除数据。这些说明仅适用于传统磁盘驱动器，不适用于固态驱动器，固态驱动器是现代计算机、u盘/u盘或SD卡/闪存卡的标准配置。安全删除固态硬盘、u盘和SD卡非常困难！这是因为这些类型的驱动器使用一种称为磨损均衡的技术，并且不提供对存储在驱动器上的位的低级访问。(您可以在这里阅读更多关于这导致安全删除问题的原因。)如果您使用固态硬盘或u盘，您可以跳到下面的部分。&lt;/p&gt;
+&lt;p&gt;您是否知道当您将计算机上的文件移动到计算机的垃圾文件夹并清空垃圾箱时，该文件是否已完全删除？ 计算机通常不会“删除”文件; 当您将文件移动到垃圾箱时，您的计算机只会使该文件不可见，并允许其占用的空间在将来的某个时间被其他内容覆盖。 因此，在覆盖该文件之前可能需要数周，数月甚至数年。 在此之前，“已删除”文件仍在您的磁盘上; 它只是对正常操作不可见。 通过一些工作和正确的工具（例如“取消删除”软件或取证方法），可以检索“已删除”文件。&lt;/p&gt;
+&lt;p&gt;那么，永久删除文件的最佳方法是什么？ 确保它立即被覆盖。 这使得难以检索那里曾经写过的内容。 您的操作系统已经拥有可以为您执行此操作的软件 - 可以用乱码覆盖磁盘上所有空白空间的软件，从而保护已删除数据的机密性。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·工具篇（三）如何在Linux上安全删除您的数据</title>
+      <link>https://blog.taielab.com/2019-03-14/how-delete-your-data-securely-linux.html</link>
+      <pubDate>Thu, 14 Mar 2019 21:48:07 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-14/how-delete-your-data-securely-linux.html</guid>
+      <description>&lt;p&gt;下载位置：https://www.bleachbit.org/download/linux&lt;/p&gt;
+&lt;p&gt;计算机要求：任何主要的Linux发行版。 作为参考，本指南使用Ubuntu 18.04。&lt;/p&gt;
+&lt;p&gt;本指南中使用的版本：BleachBit 2.0&lt;/p&gt;
+&lt;p&gt;许可证：GPLv3&lt;/p&gt;
+&lt;p&gt;级别：初学者&lt;/p&gt;
+&lt;p&gt;所需时间：10分钟到几个小时（取决于要安全删除的文件/磁盘的大小）&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·工具篇（二）如何规避在线审查</title>
+      <link>https://blog.taielab.com/2019-03-11/how-circumvent-online-censorship.html</link>
+      <pubDate>Mon, 11 Mar 2019 21:25:59 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-11/how-circumvent-online-censorship.html</guid>
+      <description>&lt;p&gt;这是对规避在线审查的简短概述，但绝不是全面的。&lt;/p&gt;
+&lt;p&gt;政府、公司、学校和互联网供应商有时使用软件来阻止用户访问某些网站和服务。这被称为互联网过滤或封锁，是一种审查形式。过滤有不同的形式。审查人员可以封锁个别网页，甚至整个网站。有时，内容会根据其包含的关键字屏蔽。&lt;/p&gt;
+&lt;p&gt;打击网络审查有不同的方法。有些人保护你免受监视，但许多人却没有。当控制你的网络连接的人过滤或阻止一个站点时，你几乎总是可以使用规避工具来获取你需要的信息。注意:承诺隐私或安全的规避工具并不总是私有或安全的。使用“anonymizer”等术语的工具并不总是完全保密你的身份。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字安全培训·工具篇（一）如何避免网络钓鱼攻击</title>
+      <link>https://blog.taielab.com/2019-03-11/how-avoid-phishing-attacks.html</link>
+      <pubDate>Mon, 11 Mar 2019 20:57:08 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-11/how-avoid-phishing-attacks.html</guid>
+      <description>&lt;p&gt;在提高数字安全的道路上，你可能会遇到试图破坏你的安全目标的坏人。我们称这些坏人为对手。当对手发送一封看似正常但实际上恶意的电子邮件或链接时，这被称为网络钓鱼。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

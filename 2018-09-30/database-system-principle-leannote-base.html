@@ -1,0 +1,910 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>数据库系统原理学习笔记（一）-基本概念 | 码中春秋&#39;s Blog</title>
+    <meta property="og:title" content="数据库系统原理学习笔记（一）-基本概念 - 码中春秋&#39;s Blog">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2018-09-30T12:49:57&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2018-09-30T12:49:57&#43;08:00'>
+        
+    <meta name="Keywords" content="码中春秋,博客,,taielab,java,python,项目管理,软件架构,网络安全,数字安全,隐私保护,反侦查,反技侦,匿名方案,open,freedom,democracy,decentralization">
+    <meta name="description" content="数据库系统原理学习笔记（一）-基本概念">
+        
+    <meta name="author" content="码中春秋">
+    <meta property="og:url" content="https://blog.taielab.com/2018-09-30/database-system-principle-leannote-base.html">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.taielab.com">
+                        码中春秋&#39;s Blog
+                    </a>
+                
+                <p class="description">专注于Java企业级开发、数字安全、信息安全、安全运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.taielab.com">首页</a>
+                    
+                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    
+                    <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents"></nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">数据库系统原理学习笔记（一）-基本概念</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2018年9月30日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93'>数据库</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <h1 id="1数据管理技术的发展">1.数据管理技术的发展</h1>
+<ol>
+<li>分为四个阶段:人工管理阶段、文件系统阶段、数据库阶段和高级数据库阶段</li>
+</ol>
+<p><strong>(1)人工管理阶段</strong></p>
+<p>此阶段只有程序,没有文件概念;一组数据对应一个程序</p>
+<p>人工管理阶段数据管理的特点</p>
+<p>①数据不保存在计算机内;(只有RAM(随机存取存储器),没有ROM(只读存储器))</p>
+<p>②没有专用的软件对数据进行管理;(程序和数据放在一起,相互影响)</p>
+<p>③只有程序的概念,没有文件的概念:(没有数据库文件)</p>
+<p>④数据面向程序。(一组数据对应一个程序)</p>
+<p><strong>(2)文件系统阶段</strong></p>
+<p>数据以“文件”形式可长期保存在外部存储器的磁盘上。</p>
+<p>程序与数据之间具有“设备独立性”(程序只需用文件名可与数据打交道,不必关心数据的物理位置)。</p>
+<p>文件系统阶段,对数据的操作以记录为单位。</p>
+<p>文件系统三个缺陷</p>
+<p>①数据冗余,文件之间缺乏联系,造成每个应用程序都有对应的文件,有可能同样的数
+据在多个文件中重复存储文件</p>
+<p>Student （学生信息）：</p>
+<table>
+<thead>
+<tr>
+<th>学号</th>
+<th>姓名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>001</td>
+<td>张三</td>
+</tr>
+<tr>
+<td>002</td>
+<td>李四</td>
+</tr>
+</tbody>
+</table>
+<p>文件Score （成绩信息）:</p>
+<table>
+<thead>
+<tr>
+<th>学号</th>
+<th>姓名</th>
+<th>成绩</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>001</td>
+<td>张小三</td>
+<td>88</td>
+</tr>
+<tr>
+<td>002</td>
+<td>李四</td>
+<td>99</td>
+</tr>
+</tbody>
+</table>
+<p>②数据不一致。这是由于数据冗余造成的。</p>
+<p>文件Student （学生信息）：</p>
+<table>
+<thead>
+<tr>
+<th>学号</th>
+<th>姓名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>001</td>
+<td>张三</td>
+</tr>
+<tr>
+<td>002</td>
+<td>李四</td>
+</tr>
+</tbody>
+</table>
+<p>文件Score （成绩信息）:</p>
+<table>
+<thead>
+<tr>
+<th>学号</th>
+<th>姓名</th>
+<th>成绩</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>001</td>
+<td>章三</td>
+<td>88</td>
+</tr>
+<tr>
+<td>002</td>
+<td>李四</td>
+<td>99</td>
+</tr>
+</tbody>
+</table>
+<p>③数据联系弱。这是由于文件之间相互独立,缺乏联系造成的</p>
+<p><strong>(3)数据库阶段</strong></p>
+<p>1968年-1970年发生的数据库阶段的标志的三件大事:</p>
+<p>①1968年,美国IBM公司推出层次模型的IMS系统</p>
+<p>②1969年,美国 CODASYL组织发布DNTG报告,提出网状模型。</p>
+<p>③1970年,美国BM公司的E.FCod连续发表论文,提出关系模型奠定了关系数据库的理论基础</p>
+<p>数据模型:数据之间的逻辑关系,属于逻辑模型。包括:层次、网状和关系模型</p>
+<p><strong>(4)高级数据库阶段</strong></p>
+<h1 id="2数据库阶段数据管理的特点">2.数据库阶段数据管理的特点</h1>
+<p>(1)采用数据模型表示复杂的数据结构。</p>
+<p>(2)有较高的数据独立性。</p>
+<p>3)数据库系统为用户提供了方便的用户接口。</p>
+<p>用户可以使用查询语言或终端命令操作数据库,也可以用程序方式操作数据库</p>
+<p>(4)提供四方面的数据控制功能:</p>
+<p>①数据库的恢复。</p>
+<p>②数据库的并发控制</p>
+<p>对程序的并发操作加以控制,防止数据库被破坏,杜绝提供给用户不正确的数据。</p>
+<p>③数据的完整性。(如学生成绩不能大于100分)</p>
+<p>④数据安全性。</p>
+<p>(5)增加了系统的灵活性,对数据的操作不一定以记录为单位,可以以数据项为单位</p>
+<h1 id="3数据库dba">3.数据库(DBA)</h1>
+<p>是长期存储在计算机内、有组织的、统一管理的相关数据的集合</p>
+<p>DB的特点</p>
+<p>DB能为各种用户共享、具有较小冗余度、数据间联系紧密又有较高的数据独立性等。(数据库中的数据具有较小冗余度、较高的数据独立性和用户共享等特点)。</p>
+<h1 id="4数据库管理系统dbms">4.数据库管理系统(DBMS)</h1>
+<p>是位于用户与操作系统(OS)之间的一层数据管理软件,它为用户或应用程序提供访
+问DB的方法,包括DB的建立、查询、更新及各种数据控制。</p>
+<h1 id="5数据库应用系统dbas">5数据库应用系统(DBAS)</h1>
+<p>在某一特定领域的数据库软件系统,它包括:DB、数据库DBMS、应用程序(使用高
+级语言编写的)等</p>
+<h1 id="6数据库系统dbs">6.数据库系统(DBS)</h1>
+<p>是实现有组织地、动态地存储大量关联数据、方便多用户访问的计算机硬件、软件和数
+据资源组成的系统,即它是采用数据库技术的计算机系统。</p>
+<p>(DBS:硬件、DB、OS、DBMS、DBAS、管理员)</p>
+<p>数据库技术:是研究数据库的结构、存储、设计、管理和使用的一门软件学科。</p>
+<h1 id="7高级数据库阶段">7.高级数据库阶段</h1>
+<p>(1)面向对象(OOP)的概念建模</p>
+<p>(2)开放数据库互连(ODBC技术）</p>
+<p>二、数据描述</p>
+<p>分为三个阶段</p>
+<p>(1)数据描述三个阶段</p>
+<p>概念设计、逻辑设计和物理设计。</p>
+<p>(2)概念设计</p>
+<p>概念设计是根据用户的需求设计数据库的概念结构,它以规范的形式,表达对用户需求
+所涉及事物的理解。</p>
+<p>如:实体名1(属性,属性12,…,属性lm)</p>
+<p>实体名2(属性,属性2,…,属性2a)</p>
+<p>注:波浪线表示属性1在实体名1中与属性1是是一个属性,它反映两个实体之
+间的联系。</p>
+<p>(3)逻辑设计</p>
+<p>数据库逻辑设计是根据概念设计的结果设计数据库的逻辑结构,即表达方式
+与实现方法</p>
+<p><strong>2概念设计中的术语</strong></p>
+<p>(1)实体:客观存在,可以相互区别的事物称为实体。</p>
+<p>(2)实体集:性质相同的同类实体的集合。实体集简称实体</p>
+<p>(3)属性:实体有很多特性,每一个特性称为属性。</p>
+<p>(4)实体标识符(关键码或键):能惟一标识实体的属性或属性集</p>
+<p>以上概念均有类型和值之分。</p>
+<p><strong>3逻辑设计中的术语</strong></p>
+<p>(1)字段(数据项):标记实体属性的命名单位称为字段或数据项。</p>
+<p>(2)记录:字段的有序集合。</p>
+<p>(3)文件:同一类记录的集合(实体集)。(一个文件对应一张二维表( Fox Base+)</p>
+<p>(4)关键码:能惟一标识文件中每个记录的字段或字段集</p>
+<p>以上概念均有类型和值之分。</p>
+<p><strong>4概念设计和逻辑设计中术语的对应关系</strong></p>
+<p>概念设计		逻辑设计</p>
+<p>实体	记录</p>
+<p>属性	字段(数据项)</p>
+<p>实体集	文件</p>
+<p>实体标识符	关键码</p>
+<p><strong>5.实体之间联系的元数</strong></p>
+<p>与一个联系有关的实体集个数。常用二元联系。二元联系的类型有三种:一对一联系、一对多联系、多对多联系联系的元数:与一个联系有关的实体集个数</p>
+<p>注意:一元联系。如:零件由子零件组成。</p>
+<p><strong>6.一对一联系</strong></p>
+<p>如果实体集E1中每个实体至多和实体集E2中的一个实体有联系,反之亦然,那么实体集E1和E2的联系称为“一对一联系”,记为“1:1”</p>
+<p><strong>7.一对多联系</strong></p>
+<p>如果实体集E1中每个实体与实体集E2中任意个(零个或多个)实体间有联系,而E中每个实体至多和E1中一个实体有联系,那么称E1对E2的联系是“一对多联系”,记为“1:N”。</p>
+<p><strong>8.多对多联系</strong></p>
+<p>如果实体集E1中每个实体可以与实体集E2中任意个(零个或多个)实体间有联系</p>
+<p>反之亦然,那么称E1和E2的联系是“多对多联系”,记为“M:N”。</p>
+<p><strong>9.记录类型</strong></p>
+<p>记录类型是一种数据类型,如:学生有姓名、学号、性别等内容。</p>
+<p>记录类型定义:</p>
+<p>type记录名= record</p>
+<p>域名1:类型1;</p>
+<p>域名2:类型2;</p>
+<p>域名n:类型n</p>
+<p>三、数据抽象的级别</p>
+<p>1.数据模型</p>
+<p>模型:现实世界的抽象</p>
+<p>数据模型:描述数据库的结构和语义,对现实世界的数据进行抽象从现实世界的信息到数据库存储的数据以及用户使用的数据是一个逐步抽象过程,根据数据抽象的级别定义了四种模型:概念模型、逻辑模型、外部模型和内部模型</p>
+<p>四种模型之间的相互关系如图。</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0d1a60a86a.png" alt=""></p>
+<p>(1)概念模型</p>
+<p>表达用户需求观点的数据全局逻辑结构的模型。概念模型的抽象级别最高。</p>
+<p>现在采用的概念模型主要是实体联系(ER)模型。</p>
+<p>E:Entity(实体),用矩形表示</p>
+<p>A: Attribute(属性),用椭圆形表示:</p>
+<p>R: Relationship(联系),用菱形表示</p>
+<p>直线:表示连接实体与属性、实体与联系;</p>
+<p>注意:</p>
+<p>①实体类型:问题的对象;</p>
+<p>②联系类型(实体间联系)</p>
+<p>③联系类型可以没有属性,也可能有属性。</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0d20e7923f.png" alt=""></p>
+<p>(2)逻辑模型</p>
+<p>表达计算机实现观点的DB全局逻辑结构的模型</p>
+<p>(3)外部模型</p>
+<p>表达用户使用观点的DB局部逻辑结构的模型。</p>
+<p>(4)内部模型</p>
+<p>表达DB物理结构的模型。</p>
+<p>2.数据抽象的过程、即数据库设计的过程具体步骤:</p>
+<p>(1)根据用户需求,设计数据库的概念模型;</p>
+<p>(2)根据转换规则,把概念模型转换成数据库的逻辑模型;</p>
+<p>(3)根据用户的业务特点,设计不同的外部模型,给程序员使用</p>
+<p>(4)数据库实现时,要根据逻辑模型设计其内部模型。</p>
+<p>数据库设计(描述)通常分为概念设计、逻辑设计(2和3步)和物理设计三个阶段。</p>
+<p>3.常用的概念模型是实体联系(ER)模型,ER模型主要用ER图来表示。</p>
+<p>4.逻辑模型的分类:层次模型、网状模型、关系模型等。</p>
+<p>(1)层次模型:用树型(层次)结构表示实体及实体间联系的数据模型。树中的节点
+是记录类型</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0d22d8c9dc.png" alt=""></p>
+<p>其关系模式:</p>
+<p>S(S#, SNAME, AGE, SEX)</p>
+<p>T(T#, TNAME, TITLE)</p>
+<p>SC(S#, C#, SCORE)</p>
+<p>层次模型有两个缺陷:</p>
+<p>①只能表示1:N联系(即上一层记录类型和下一层记录类型之间的联系是1:N联系)。</p>
+<p>②由于层次顺序的严格和复杂,引起数据的查询和更新操作复杂,因此应用程序的编写
+也比较复杂。</p>
+<p>1969年,美国IBM公司的IMS系统是典型的层次模型系统</p>
+<p>(2)网状模型:用有向图结构表示实体及实体间联系的数据模型</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0d2444f256.png" alt=""></p>
+<p>其关系模式</p>
+<p>S(S#, SNAME, AGE, SEX)</p>
+<p>C(C#, CNAME)</p>
+<p>SC(S#, C#, SCORE)</p>
+<p>T(T#, TNAME, TITLE)</p>
+<p>1969年, CODASYL组织提出DBTG报告中的数据模型是网状模型的主要代表
+网状模型中,M:N联系也容易实现(一个M:N联系可拆成两个1:N联系),查询
+效率高</p>
+<p>(3)关系模型:是由若干个关系模式组成的集合。关系模式即记录类型,它的实例称
+为关系,每个关系实际上是一张二维表格</p>
+<p>例如:关系模式:R(A,B,C.而如下的为R的一个关系</p>
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th><strong>C</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2</td>
+<td>4</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p>例如:</p>
+<p>(1)关系模型(ER图),如下ER图。</p>
+<p>(2)关系模式:</p>
+<p>S(S#. SNAME AGE, SEX)</p>
+<p>C(C#. CNAME)</p>
+<p>Sc(S#,C#, SCORE)SC实际上称为一个联系类型转换成来</p>
+<p>T(T#. TNAME, TITLE)</p>
+<p>(3)对应的关系如下:</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0d25ebfa63.png" alt=""></p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0d25f05fc9.png" alt=""></p>
+<p>关系定义</p>
+<p>​	R(U,D,DOM,F),R称为关系名,U属性集,D为域,F为依赖,DOM为属性向域的映射的集合。(数学中的关系定义)</p>
+<p>​	关系模型和层次、网状模型的最大差别是用关键码而不是用指针导航数据,其表格简单,用户易懂</p>
+<p>1970年,美国BM公司的 E F Codo连续发表论文,提出关系模型,奠定了关系数据库的理论基础。关系数据库是目前的主流数据库。</p>
+<p><img src="https://i.loli.net/2018/09/30/5bb0d28b84ae1.png" alt=""></p>
+<p>其可分解成四个关系模式</p>
+<p>S(S#. SNAME AGE, SEX)</p>
+<p>C(C#, CNAME)</p>
+<p>Sc(#,C#, SCORE)	SC实际上称为一个联系类型转换成来</p>
+<p>T(T#, TNAME, TITLE)</p>
+<p>关系描述格式:</p>
+<p>关系名(属性1,属性2,…,属性n)</p>
+<p>(1)一个关系模型由若干个关系模式组成</p>
+<p>(2)一个关系模式对应一个记录类型:</p>
+<p>(3)关系模式的实例称为关系,每个关系实际上是一张二维表。</p>
+<p>(4)联系类型相关关系模式属性由联系类型属性和与之联系的实体类型的键一起组合而成</p>
+<p>外部模型中的模式称为视图</p>
+<p>外部模型具有如下特点:</p>
+<p>(1)外部模型是逻辑模型的一个逻辑子集</p>
+<p>(2)外部模型独立于硬件,依赖于软件;</p>
+<p>(3)外部模型反映了用户使用数据库的观点</p>
+<p>外部模型具有如下优点</p>
+<p>(1)简化了用户的观点</p>
+<p>(2)有助于数据库的安全性保护</p>
+<p>(3)外部模型是对概念模型的支持。</p>
+<p>6.内部模型</p>
+<p>内部模型也称物理模型;是数据库最低层的抽象;它描述数据在磁盘或磁带上的存储方式(存储结构)、存取设备(外存空间分配)和存取方法(主索引和辅助索引)。</p>
+<p>7.三级模式</p>
+<p>从用户(或应用程序)到数据库之间,DB的数据结构描述有三个层次:外部模型、逻辑模型和内部模型。这三个层次用DB的数据定义语言(DDL)(DataDefinition Language.DDL)定义,定义的内容称为“模式”。</p>
+<p>DDL:创建( create)数据库、表、视图、索引、存储过程、触发器、规则等数据库对象的语言</p>
+<p>对应为:外模式、逻辑模式、和内模式</p>
+<p>(1)外模式:用户与数据库系统的接口,是用户用到的那部分数据的描述。外模式由若干个记录类型组成。外部模型为的模式也称为“视图”。</p>
+<p>(2)逻辑模式:是数据库中全部数据的整体逻辑结构的描述,也称为“模式”。</p>
+<p>(3)内模式:是数据库在物理存储方面的描述</p>
+<p>注意:外模式是逻辑模式的子集</p>
+<p>三级模式体系结构具有如下的特点</p>
+<p>(1)用户使用DB的数据操纵语言语句对数据库进行操作</p>
+<p>有了外模式后,程序不必关心逻辑模式,只与外模式发生关系,按照外模式的结构存储和操纵数据,实际上,外模式是逻辑模式的子模式。</p>
+<p>(2)逻辑模式必须不涉及到存储结构;</p>
+<p>(3)内模式并不涉及到物理设备的约束</p>
+<p>11.两级映像</p>
+<p>(1)外模式/逻辑模式映像:存在于外模式和逻辑模式之间,用于定义外模式和逻辑模式之间的对应性。</p>
+<p>(2)逻辑模式/内模式映像:存在于逻辑模式和内模式之间,用于定义逻辑模式和内模之间的对应性。</p>
+<p>8.数据库系统的三级模式、两级映像结构使数据库系统达到了高度的数据独立性</p>
+<p>(1)数据独立性</p>
+<p>数据独立性是指应用程序与数据库的数据结构之间相互独立,在修改数据结构时,尽可能不修改应用程序</p>
+<p>(2)数据独立性分为逻辑数据独立性和物理数据独立性</p>
+<p>①逻辑数据独立性</p>
+<p>如果数据库的逻辑模式要修改,那么只要对外模式/逻辑模式映像作相应的修改,可以使外模式和应用程序尽可能保持不变。这样就认为数据库达到了逻辑数据独立性。</p>
+<p>数据库的三层结构是一种理想的结构,使数据库系统达到了高度的数据独立性</p>
+<p>②物理数据独立性</p>
+<p>数据库的内模式要修改,即数据库的物理结构有所变化,那么只要对逻辑模式/内模式映像作相应的修改,可以使逻辑模式尽可能保持不变。也就是对内模式的修改尽量不影响逻辑模式,当然对外模式和应用程序的影响更小,这样就认为数据库达到了物理数据独立性</p>
+<p>一般,关系数据库系统在支持数据独立性方面优于层次和网状系统</p>
+<p>四、数据库管理系统(DBMS)</p>
+<p>1.数据库管理系统(DBMS)是指数据库系统中对数据进行管理的软件系统,它是数据库系统的核心组成部分。
+2.DBMS的工作模式</p>
+<p>DBMS位于应用程序和OS之间的软件。</p>
+<p>外模式是用户编写应用程序与数据库的接口</p>
+<p>2.DBMS的主要功能</p>
+<p>(1)数据库的定义功能</p>
+<p>DBMS提供DDL定义数据库的三级模式、两级映像,定义数据的完整性约束、保密限制等约束。</p>
+<p>(2)数据库的操纵功能</p>
+<p>DBMS提供DM实现对数据的操作,基本的数据操作有检索和更新(插入、删除和更新)</p>
+<p>(3)数据库的保护功能</p>
+<p>DBMS的包括四个子系统:</p>
+<p>①数据库恢复,在数据库被破坏或数据不正确时,系统有能力把库恢复到正确的状态</p>
+<p>②数据库的并发控制,在多个用户同时对同一个数据进行操作时,系统应能加以控制,
+防止破坏DB中的数据;</p>
+<p>③数据完整性控制,保证数据库中的数据及语义的正确性和有效性,防止任何对数据造
+成错误的的操作;(实体完整性,引用完整性,用户自定义完整性)</p>
+<p>④数据安全性控制,防止未经授权的用户存取数据库中的数据,以免的泄露、更改和破坏
+(4)数据库的维护功能</p>
+<p>(5)数据字典
+数据库系统中存放三级结构定义的数据库称数据字典。三级结构:外部模型、逻辑模型和内部模型。</p>
+<p>五、数据库系统(DBS)</p>
+<p>(一)DBS组成</p>
+<p>DB分为两类:应用数据的集合称为物理数据库,它是数据库的主体(相当于用户自定义数据库);另一类是各级数据结构的描述,称为描述数据库(相当于数据字典,由系统产生存放数据字典等信息的数据库),由DD系统管理</p>
+<p>定义1.11	DBA是控制数据整体结构的一组人员,负责DBS的正常运行,承担创建、监控和维护数据库结构的责任。</p>
+<p>DBA主要职责:</p>
+<p>(1)定义模式(逻辑模式)</p>
+<p>(2)定义内模式;</p>
+<p>(3)与用户的联络;</p>
+<p>(4)定义安全性规则,对用户访问数据库授权</p>
+<p>(5)定义完整性规则,监督数据库的运行</p>
+<p>3.软件</p>
+<p>包括DBMS、OS、各种主语言和应用开发支撑软件等程序。其中,DBMS是DBS的核心软件,要在OS支持下才能工作
+4.DBS的组成:是数据库、硬件、软件和数据库管理员的集合体。</p>
+<p>(二)DBS的全局结构</p>
+<p>1.数据库用户</p>
+<p>(1)DBA:负责三级结构的定义和修改、以及访问受权,且常维护等工作。</p>
+<p>DBA是控制数据整体结构的一组人员,负责DBS的正常运行,承担创建、监控和维护数据库结构的责任。</p>
+<p>(2)专业用户:指数据库设计中的上层人士(例如系统分析员),他们使用专用的数据库查询语言操作数据,专业用户和DBS之间的界面是数据库查询工具</p>
+<p>3)应用程序员:指使用主语言和DL( Data Manipulation Language,数据操纵语言)语言编写应用程序的计算机工作者</p>
+<p>(4)终端用户:指使用应用程序的非计算机人员。如出纳员、销售员等。</p>
+<ol start="2">
+<li>
+<p>DBMS的查询处理器</p>
+<p>(1)DDL解释器;</p>
+<p>(2)DML编译器;</p>
+<p>(3)嵌入式DML的预编译器</p>
+<p>(4)查询求值引擎</p>
+</li>
+<li>
+<p>DBMS的存储管理器存储管理器提供存储在数据库的低层数据和应用程序、查询之间的接口。</p>
+</li>
+<li>
+<p>DBMS是位于用户与0S之间的一层数据管理软件。</p>
+</li>
+</ol>
+<p>存储管理器分为:</p>
+<p>(1)权限和完整性管理器。测试应用程序对数据库的修改是否满足完整性约束,检查用户访问数据的合法性;</p>
+<p>(2)事务管理器</p>
+<p>(3)文件管理器;</p>
+<p>(4)缓冲区管理器:为应用程序开辟DB的系统缓冲区,负责将从磁盘中读出的数据送入内存的缓冲区。</p>
+<p>4.磁盘存储器的数据结构</p>
+<p>(1)数据文件;存储数据库管理的用户数据自身;</p>
+<p>(2)数据字典:存储三级结构的描述(一般称为元数据 Metadata)</p>
+<p>百度:DD( Data dictionary,数据字典)是一种用户可以访问的记录数据库和应用程序元数据的目录。元数据( MetaData)是关于数据仓库的数据,指在数据仓库建设过程中所产生的有关数据源定义,目标定义,转换规则等相关的关键数据。</p>
+<p>(3)索引:为提高查询速度而设置的逻辑排序手段</p>
+<p>(4)统计数据:存储DBS运行时统计分析的数据</p>
+<p>(5)日志:存储DBS运行时对DB的操作情况,以备以后查阅数据库的使用情况及数据库恢复时使用。</p>
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://blog.taielab.com">码中春秋</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.taielab.com/2018-09-30/database-system-principle-leannote-base.html">https://blog.taielab.com/2018-09-30/database-system-principle-leannote-base.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86'>数据库系统原理</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "udpsec/blog-comments"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-11-25/ios-13-checkra-in-repair-the-internet-connection-appears-to-be-offline.html" title="IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误">IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-29/red-team-and-physical-entry-gear-tips.html" title="护网之红方物理入侵旁门左道">护网之红方物理入侵旁门左道</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-05/intranet-roaming-network-traffic-control.html" title="内网漫游系列之流量操控与Socks代理总结">内网漫游系列之流量操控与Socks代理总结</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-27/intranet-roaming-ss-privoxy.html" title="内网漫游系列之正向全局代理ss&#43;Privoxy">内网漫游系列之正向全局代理ss&#43;Privoxy</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-20/centos-7-upgrade-Kernel.html" title="Centos7安装升级最新内核">Centos7安装升级最新内核</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/digital-forensics-live-and-dead.html" title="数字取证-死活取证">数字取证-死活取证</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html" title="Centos7搭建本地yum仓库">Centos7搭建本地yum仓库</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/osint-101-auto-visual.html" title="OSINT101 技术自动化和可视化">OSINT101 技术自动化和可视化</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-21/ubuntu-migrate-to-ssd.html" title="Ubuntu19.04迁移到SSD">Ubuntu19.04迁移到SSD</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-16/kali-linux-double-display-solutions.html" title="双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案">双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.taielab.com/categories/IOS%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">IOS应用逆向与安全 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/Linux/">Linux (11)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%B7%A5%E5%85%B7%E6%95%88%E7%8E%87/">工具效率 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%BC%80%E6%BA%90%E6%83%85%E6%8A%A5%E6%94%B6%E9%9B%86/">开源情报收集 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (30)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/">红蓝对抗 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全 (6)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4/">网络运维 (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.taielab.com/tags/Debian/">Debian</a>
+    
+    <a href="https://blog.taielab.com/tags/IOS/">IOS</a>
+    
+    <a href="https://blog.taielab.com/tags/OSINT/">OSINT</a>
+    
+    <a href="https://blog.taielab.com/tags/archlinux/">archlinux</a>
+    
+    <a href="https://blog.taielab.com/tags/centos/">centos</a>
+    
+    <a href="https://blog.taielab.com/tags/github/">github</a>
+    
+    <a href="https://blog.taielab.com/tags/gitup/">gitup</a>
+    
+    <a href="https://blog.taielab.com/tags/gpg/">gpg</a>
+    
+    <a href="https://blog.taielab.com/tags/hexo/">hexo</a>
+    
+    <a href="https://blog.taielab.com/tags/hugo/">hugo</a>
+    
+    <a href="https://blog.taielab.com/tags/kali-linux/">kali-linux</a>
+    
+    <a href="https://blog.taielab.com/tags/lnmp/">lnmp</a>
+    
+    <a href="https://blog.taielab.com/tags/manjaro/">manjaro</a>
+    
+    <a href="https://blog.taielab.com/tags/meedu/">meedu</a>
+    
+    <a href="https://blog.taielab.com/tags/nessus/">nessus</a>
+    
+    <a href="https://blog.taielab.com/tags/parrot-os/">parrot-os</a>
+    
+    <a href="https://blog.taielab.com/tags/pentestbox/">pentestbox</a>
+    
+    <a href="https://blog.taielab.com/tags/shadowsocks/">shadowsocks</a>
+    
+    <a href="https://blog.taielab.com/tags/tor/">tor</a>
+    
+    <a href="https://blog.taielab.com/tags/ubuntu/">ubuntu</a>
+    
+    <a href="https://blog.taielab.com/tags/vps/">vps</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">内网渗透命令</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%BC%AB%E6%B8%B8/">内网漫游</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/">奇淫技巧</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/">数字安全基础篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%AF%87/">数字安全工具篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">数据库系统原理</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81/">死活取证</a>
+    
+    <a href="https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5/">物理入侵</a>
+    
+    <a href="https://blog.taielab.com/tags/%E8%B8%8F%E9%9B%AA%E6%97%A0%E7%97%95%E7%B3%BB%E5%88%97/">踏雪无痕系列</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="#" title=""></a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://blog.taielab.com/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+</body>
+
+</html>

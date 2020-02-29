@@ -1,0 +1,1150 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>树莓派系列（一）- 基础入门 | 码中春秋&#39;s Blog</title>
+    <meta property="og:title" content="树莓派系列（一）- 基础入门 - 码中春秋&#39;s Blog">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2017-09-20T12:39:32&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2017-09-20T12:39:32&#43;08:00'>
+        
+    <meta name="Keywords" content="码中春秋,博客,,taielab,java,python,项目管理,软件架构,网络安全,数字安全,隐私保护,反侦查,反技侦,匿名方案,open,freedom,democracy,decentralization">
+    <meta name="description" content="树莓派系列（一）- 基础入门">
+        
+    <meta name="author" content="码中春秋">
+    <meta property="og:url" content="https://blog.taielab.com/2017-09-20/raspberry-uses-notes.html">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.taielab.com">
+                        码中春秋&#39;s Blog
+                    </a>
+                
+                <p class="description">专注于Java企业级开发、数字安全、信息安全、安全运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.taielab.com">首页</a>
+                    
+                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    
+                    <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#安装系统">安装系统</a>
+      <ul>
+        <li><a href="#需求">需求：</a></li>
+        <li><a href="#初始化">初始化</a></li>
+        <li><a href="#启用-root-账户">启用 root 账户</a></li>
+        <li><a href="#更换软件源">更换软件源</a></li>
+        <li><a href="#配置树莓派">配置树莓派</a></li>
+        <li><a href="#vnc">VNC</a></li>
+        <li><a href="#连接-wifi">连接 WiFi</a></li>
+      </ul>
+    </li>
+    <li><a href="#固件更新">固件更新</a></li>
+    <li><a href="#安装中文输入法fcitx及google拼音输入法">安装中文输入法Fcitx及Google拼音输入法</a></li>
+    <li><a href="#安装中文字体">安装中文字体</a></li>
+    <li><a href="#无ssh情况下为树莓派配置wifi">无SSH情况下为树莓派配置WiFi</a></li>
+    <li><a href="#树莓派静态ip设置">树莓派静态ip设置</a></li>
+    <li><a href="#挂载-ntfs">挂载 NTFS</a></li>
+    <li><a href="#aria2-一键安装管理脚本">Aria2 一键安装管理脚本</a></li>
+    <li><a href="#安装transmisson实现下载功能">安装Transmisson实现下载功能</a></li>
+    <li><a href="#树莓派启用bbr加速">树莓派启用BBR加速</a>
+      <ul>
+        <li><a href="#启用bbr">启用bbr</a></li>
+        <li><a href="#一个不靠谱的测试">一个不靠谱的测试</a></li>
+      </ul>
+    </li>
+    <li><a href="#自搭ngrok实现树莓派内网穿透">自搭Ngrok实现树莓派内网穿透</a>
+      <ul>
+        <li><a href="#编译ngrok">编译Ngrok</a></li>
+      </ul>
+    </li>
+    <li><a href="#lnmp全面优化集合nginxmysqlphp">lnmp全面优化集合nginx+mysql+php</a></li>
+    <li><a href="#树莓派系统备份">树莓派系统备份</a>
+      <ul>
+        <li><a href="#备份sd卡">备份SD卡</a></li>
+        <li><a href="#还原系统">还原系统</a></li>
+      </ul>
+    </li>
+    <li><a href="#u盘安装树莓派系统利用u盘启动raspberry">U盘安装树莓派系统，利用U盘启动Raspberry</a>
+      <ul>
+        <li><a href="#一准备条件">一、准备条件</a></li>
+        <li><a href="#二安装系统">二、安装系统</a></li>
+        <li><a href="#三扩展u盘空间">三、扩展U盘空间</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">树莓派系列（一）- 基础入门</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2017年9月20日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E6%A0%91%E8%8E%93%E6%B4%BE'>树莓派</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <h2 id="安装系统">安装系统</h2>
+<h3 id="需求">需求：</h3>
+<ul>
+<li>树莓派一只</li>
+<li>SD卡（不小于8G，SD卡速度影响系统性能，建议用 Class 10 或更高）</li>
+</ul>
+<p>　　首先去<a href="https://www.raspberrypi.org/">树莓派官网</a>下载最新的<a href="https://www.raspberrypi.org/downloads/raspbian/">镜像</a>，建议新手用 RASPBIAN JESSIE。</p>
+<p>　　下载完解压，得到 img 格式的镜像文件。然后下载安装工具 <a href="https://yunpan.cn/cqMIJYY5WV7XZ">Win32DiskImager</a>。SD卡插上电脑，打开 Win32DiskImager。</p>
+<p>点击文件夹图标选择镜像，后面选择SD卡的盘符，点击 <code>Write</code> 等待几分钟即可（写入时间取决于SD卡的速度），当提示 <code>Write Successful</code> 表示完成了。退出 Win32DiskImager，拔下SD卡，装入树莓派，开机。</p>
+<h3 id="初始化">初始化</h3>
+<p>　　由于没有 [
+](<a href="https://zh.wikipedia.org/wiki/HDMI">https://zh.wikipedia.org/wiki/HDMI</a>) 线，所以我没有连接显示器，这就导致树莓派必须连接网线进行配置。连接网线后上路由器获得树莓派的IP（前提路由器是自动分配IP）。如果无法登陆路由器，可以用手机去下载 <a href="https://play.google.com/store/apps/details?id=com.tools.netgel.netx">NetX</a> 来扫描获得树莓派的IP。</p>
+<p>　　然后去下载安装 <a href="http://www.netsarang.com/download/down_xsh5.html">Xshell 5</a> 作为 SSH 客户端（手机用 <a href="https://play.google.com/store/apps/details?id=com.sonelli.juicessh">JuiceSSH</a> ）。</p>
+<p>　　打开 Xshell 5，新建会话，名称自定义、协议默认、主机填上树莓派IP、端口号默认，确定，选中会话，点击连接。（如果弹出 SSH 安全警告，点击接受）</p>
+<p>　　新系统的用户名一般都是默认 <code>pi</code>。</p>
+<p>　　然后输入密码，一般默认是 <code>raspberry</code>。</p>
+<p>　　这样就成功远程登陆树莓派了。</p>
+<h3 id="启用-root-账户">启用 root 账户</h3>
+<p>　　我习惯第一件事就是启用 root。执行：</p>
+<pre><code>sudo passwd root
+</code></pre><p>　　输入两遍密码，如果提示 <code>passwd: password updated successfully</code> 则表示成功更改 root 密码。然后执行：</p>
+<pre><code>sudo passwd --unlock root
+</code></pre><p>　　这样 root 账户就解锁了，执行 <code>su</code> 并输入密码即可使用 root 用户。</p>
+<p>　　接下来是启用 root 直接登录。如果使用 vi 来编辑，不知为何键盘总是乱七八糟的，所以推荐用 <a href="https://winscp.net/eng/docs/lang:chs">WinSCP</a> ，可以本地编辑。</p>
+<p>　　打开 WinSCP，登录树莓派。</p>
+<p>　　打开 <code>/etc/ssh/sshd_config</code> （千万不要用自带的记事本打开，推荐用 Notepad++），并确保右下角是 <code>UNIX</code> 和 <code>UTF-8</code> 格式的。（新建文件打开默认是 <code>Dos\Windows</code> 格式，Linux 无法读取。可以在<code>编辑-文档格式转换-转换为UNIX格式</code>更改）</p>
+<p>　　找到：</p>
+<pre><code>PermitRootLogin without-password
+</code></pre><p>　　改成：</p>
+<pre><code>PermitRootLogin yes
+</code></pre><p>　　保存。如果提示无法覆盖，<code>Permission denied</code>，执行：</p>
+<pre><code>chmod 777 /etc/ssh/sshd_config
+</code></pre><p>　　重试即可，只要提示上传成功就表示已经成功，权限和时间戳没关系，跳过即可。执行下面代码重启 SSH：</p>
+<pre><code>service ssh restart
+</code></pre><p>　　在 WinSCP 和 Xshell 5 都修改成 root 用户登录即可。</p>
+<h3 id="更换软件源">更换软件源</h3>
+<p>修改软件源后仍然很慢，树莓派仍然还要从<code>*.raspberrypi.org</code>下载</p>
+<p>编辑<code>/etc/apt/sources.list</code>文件</p>
+<pre><code>deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ jessie main non-free contrib
+deb-src http://mirrors.ustc.edu.cn/raspbian/raspbian/ jessie main non-free contrib
+</code></pre><p>raspberry-最新stretch源</p>
+<pre><code>###中科大源
+#deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ stretch main non-free contrib
+#deb-src http://mirrors.ustc.edu.cn/raspbian/raspbian/ stretch main non-free contrib
+#deb http://mirrors.ustc.edu.cn/archive.raspberrypi.org/debian/ stretch main ui
+#deb-src http://mirrors.ustc.edu.cn/archive.raspberrypi.org/debian/ stretch main ui
+deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ stretch main contrib non-free rpi
+#deb-src http://mirrors.ustc.edu.cn/raspbian/raspbian/ stretch main contrib non-free rpi
+###清华源
+deb http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ stretch main non-free contrib
+deb-src http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ stretch main non-free contrib
+</code></pre><p>改完以后你会发现，<code>apt</code>下载还是会请求<code>archive.raspberrypi.org</code>。除了以上这些，还要注释掉<code>/etc/apt/sources.list.d/raspi.list</code>里所有内容。</p>
+<pre><code>#deb http://archive.raspberrypi.org/debian/ jessie main ui
+# Uncomment line below then 'apt-get update' to enable 'apt-get source'
+#deb-src http://archive.raspberrypi.org/debian/ jessie main ui
+</code></pre><p>重新更新并升级软件源</p>
+<pre><code>sudo apt update #更新源
+sudo apt upgrade #更新软件包
+</code></pre><h3 id="配置树莓派">配置树莓派</h3>
+<p>　　如果你要使用中文，可以在配置之前先安装中文字体，建议使用英文的。执行：</p>
+<pre><code>apt-get -y install ttf-wqy-zenhei
+</code></pre><p>　　raspi-config 是树莓派的系统配置工具，现在执行：</p>
+<pre><code>raspi-config
+</code></pre><p>　　选择：</p>
+<ul>
+<li>
+<p><code>Expand Filesystem</code>（扩展文件系统）
+使树莓派充分利用整个SD卡。</p>
+</li>
+<li>
+<pre><code>Internationalisation Options
+</code></pre><p>（国际化选项)</p>
+<ul>
+<li><code>Change Locale</code>（更改语言环境）
+去掉 <code>en_GB.UTF-8 UTF-8</code>，选择 <code>es_US.UTF-8 UTF-8</code>、<code>zh_CN.GBK GBK</code>、<code>zh_CN.UTF-8 UTF-8</code>，按 Tab 键 OK 回车，默认系统语言设置为 <code>zh_CN.UTF-8</code>。</li>
+<li><code>Change Timezone</code>（更改时区）
+<code>Asia</code>-<code>Chongqing</code>。</li>
+</ul>
+</li>
+</ul>
+<p>　　<code>&lt;Finish&gt;</code>，回车，回车重启即可。</p>
+<h3 id="vnc">VNC</h3>
+<p>　　树莓派也是有图形界面的，并且可以通过网络远程连接。安装 <code>VNC server</code>：</p>
+<pre><code>apt-get -y install tightvncserver
+</code></pre><p>　　首先修改密码，执行：</p>
+<pre><code>vncpasswd
+</code></pre><p>　　输入两遍密码，提示 <code>Would you like to enter a view-only password?</code> 选择否即可。执行 <code>vncserver</code> 启动 VNC server。然后去下载 <a href="http://www.realvnc.com/download/viewer/">VNC Viewer</a>（手机下载 <a href="https://play.google.com/store/apps/details?id=com.realvnc.viewer.android">VNC Viewer</a> ）。打开 VNC Viewer：</p>
+<p>　　填上： IP:端口，然后输入密码即可。</p>
+<h3 id="连接-wifi">连接 WiFi</h3>
+<p>　　由于我的是树莓派3代，自带蓝牙和无线，所以无需外接设备就能使用 WiFi。连接 WiFi 有两种方法：一种图形界面，用上面的 VNC 设置，太简单就不讲了；重点讲讲第二种。</p>
+<p>　　编辑 <code>/etc/wpa_supplicant/wpa_supplicant.conf</code>，添加：</p>
+<pre><code>network={
+    ssid=&quot;WiFi name&quot;
+    psk=&quot;12345678&quot;
+	key_mgmt=WPA-PSK
+}
+</code></pre><p>　　这个可以参考手机上的 <code>/data/misc/wifi/wpa_supplicant.conf</code>。添加完之后重启网络来连接 WiFi：</p>
+<pre><code>/etc/init.d/networking restart
+</code></pre><p>　　喔，现在可以拔掉网线到处跑了。</p>
+<p>树莓派 配置kali linux wifi连接</p>
+<p>1.配置WIFI，使用nano命令修改/etc/network/interfaces文件；</p>
+<p>2.增加</p>
+<pre><code>auto wlan0 iface wlan0 inet dhcp wpa-ssid “your network name” wpa-psk “the network password”
+</code></pre><p>##外接显示器不显示东西
+在将SD卡插入Raspberry Pi之前，修改SD卡目录中的<code>config.txt</code>文件，内容如下：</p>
+<pre><code>#强制使用HDMI输出
+
+hdmi_force_hotplug=1
+
+#HDMI信号增强
+
+config_hdmi_boost=4
+
+#HDMI输出适配于计算机显示器
+
+hdmi_group=2
+
+#HDMI输出的分辨率及刷新频率
+
+hdmi_mode=9
+
+#禁止树莓派检测显示器分辨率，直接使用配置文件中制定的分辨率输出
+
+hdmi_ignore_edid=0xa5000080
+
+#禁止黑边
+
+disable_overscan=1
+
+start_x=1
+
+gpu_mem=128
+</code></pre><h2 id="固件更新">固件更新</h2>
+<p><code>sudo rpi-update</code>
+如果提示找不到命令，需要安装<code>rpi-update</code>
+<code>sudo apt-get install rpi-update</code>
+OK，等待固件更新完成，然后重启</p>
+<h2 id="安装中文输入法fcitx及google拼音输入法">安装中文输入法Fcitx及Google拼音输入法</h2>
+<p><code>sudo apt-get install fcitx fcitx-googlepinyin fcitx-module-cloudpinyin fcitx-sunpinyin</code>
+<code>sudo apt-get install scim-pinyin </code></p>
+<h2 id="安装中文字体">安装中文字体</h2>
+<p><code>sudo apt-get install ttf-wqy-microhei</code></p>
+<h2 id="无ssh情况下为树莓派配置wifi">无SSH情况下为树莓派配置WiFi</h2>
+<p>有<code>WiFi</code>却没网线的地方如何控制树莓派</p>
+<p>首先下载<code>Win</code>挂载<code>EXT</code>分区格式工具<code>Paragon ExtFS for Windows</code>。安装完成后需要重启才能加载驱动文件。</p>
+<pre><code>wget http://dl.paragon-software.com/demo/extwin_trial_en.msi
+
+</code></pre><p>电脑上插入<code>SD</code>卡，这时win会识别树莓派的根文件系统。</p>
+<p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/1.png"><img src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/1.png" alt="20170115095411.png"></a></p>
+<p>找到<code>/etc/wpa_supplicant/wpa_supplicant.conf</code>，注意不要使用记事本打开，<code>notepad++</code>或其他编辑器都可以。</p>
+<p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/2.png"><img src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/2.png" alt="20170115095518.png"></a></p>
+<pre><code>country=GB
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+    ssid=&quot;WiFi的名称&quot;
+    psk=&quot;WiFi密码&quot;
+}
+
+</code></pre><p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/3.png"><img src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/3.png" alt="20170115092406.png"></a></p>
+<p>保存之后注意退出<code>Paragon ExtFS for Windows</code>，安全退出SD卡后再插入树莓派上电启动。</p>
+<p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/4.png"><img src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/4.png" alt="20170115095801.png"></a></p>
+<p>手机上可以通过<code>Fing</code>扫描树莓派是否成功联网。</p>
+<h2 id="树莓派静态ip设置">树莓派静态ip设置</h2>
+<p>修改*/etc/dhcpcd.conf *文件</p>
+<p>sudo vim <em>/etc/dhcpcd.conf</em></p>
+<pre><code>interface eth0
+
+static ip_address=192.168.0.10/24
+static routers=192.168.0.1
+static domain_name_servers=192.168.0.1
+
+interface wlan0
+
+static ip_address=192.168.0.200/24
+static routers=192.168.0.1
+static domain_name_servers=192.168.0.1
+</code></pre><p>上面的配置文件中 , eth0是有线的配置  , wlan0是无线配置</p>
+<p>ip_address就是静态IP , 后面要接/24</p>
+<p>routers是网关</p>
+<p>static domain_name_servers是DNS</p>
+<h2 id="挂载-ntfs">挂载 NTFS</h2>
+<p>　　我的U盘是 NTFS 格式的，而挂载 NTFS 需要 NTFS-3G，写博客的时候才知道大多数系统都是自带 NTFS-3G 的，所以无需重新下载源码重新编译了，如果你的系统太老以至于没有 NTFS-3G，请自行 Google 安装方法。（检验方法：输入 <code>ntfs</code> 按两下 Tab 能够出现 <code>ntfs-3g</code> ）</p>
+<p>12.png</p>
+<p>　　查看 NTFS 分区：</p>
+<pre><code>fdisk -l | grep NTFS
+</code></pre><p>13.png</p>
+<p>　　得到 <code>/dev/sda1</code>，执行：</p>
+<pre><code>mkdir /mnt/storage
+ntfs-3g /dev/sda1 /mnt/storage
+</code></pre><p>　　如果提示 <code>Mount is denied because the NTFS volume is already exclusively opened.</code>，则执行：</p>
+<pre><code>umount /dev/sda1
+ntfs-3g /dev/sda1 /mnt/storage
+</code></pre><p>　　这下 NTFS 就成功挂载了，如果要开机自动挂载，就编辑 <code>/etc/fstab</code>，添加一行：</p>
+<pre><code>/dev/sda1         /mnt/storage     ntfs-3g silent,umask=0,locale=zh_CN.utf8 0 0
+</code></pre><h2 id="aria2-一键安装管理脚本">Aria2 一键安装管理脚本</h2>
+<p>执行下面的代码下载并运行脚本。</p>
+<pre><code>wget -N --no-check-certificate https://softs.fun/Bash/aria2.sh &amp;&amp; chmod +x aria2.sh &amp;&amp; bash aria2.sh # 如果上面这个脚本无法下载，尝试使用备用下载：wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/aria2.sh &amp;&amp; chmod +x aria2.sh &amp;&amp; bash aria2.sh
+</code></pre><h2 id="安装transmisson实现下载功能">安装Transmisson实现下载功能</h2>
+<p>安装好树莓派OS之后，使用<a href="http://smartty.sysprogs.com/">SmarTTY</a>登陆树莓派。</p>
+<p>更新树莓派：
+<code>sudo apt-get install update</code>
+安装transmission：
+<code>sudo apt-get install transmission-daemon</code>
+给用户授权：
+<code>sudo usermod -a -G pi debian-transmission</code>
+设置Transmission的配置文件：
+<code>sudo vim /etc/transmission-daemon/settings.json</code></p>
+<pre><code>{
+    &quot;alt-speed-down&quot;: 15,
+    &quot;alt-speed-enabled&quot;: false,
+    &quot;alt-speed-time-begin&quot;: 540,
+    &quot;alt-speed-time-day&quot;: 127,
+    &quot;alt-speed-time-enabled&quot;: false,
+    &quot;alt-speed-time-end&quot;: 1020,
+    &quot;alt-speed-up&quot;: 15,
+    &quot;bind-address-ipv4&quot;: &quot;0.0.0.0&quot;,
+    &quot;bind-address-ipv6&quot;: &quot;::&quot;,
+    &quot;blocklist-enabled&quot;: true,
+    &quot;blocklist-url&quot;: &quot;http://list.iblocklist.com/?list=ydxerpxkpcfqjaybcssw&amp;fileformat=p2p&amp;archiveformat=gz&quot;,
+    &quot;cache-size-mb&quot;: 4,
+    &quot;dht-enabled&quot;: true,
+    &quot;download-dir&quot;: &quot;/home/pi/Downloads&quot;,
+    &quot;download-limit&quot;: 100,
+    &quot;download-limit-enabled&quot;: 0,
+    &quot;download-queue-enabled&quot;: true,
+    &quot;download-queue-size&quot;: 5,
+    &quot;encryption&quot;: 1,
+    &quot;idle-seeding-limit&quot;: 30,
+    &quot;idle-seeding-limit-enabled&quot;: false,
+    &quot;incomplete-dir&quot;: &quot;/home/pi/Downloads&quot;,
+    &quot;incomplete-dir-enabled&quot;: true,
+    &quot;lpd-enabled&quot;: false,
+    &quot;max-peers-global&quot;: 200,
+    &quot;message-level&quot;: 2,
+    &quot;peer-congestion-algorithm&quot;: &quot;&quot;,
+    &quot;peer-id-ttl-hours&quot;: 6,
+    &quot;peer-limit-global&quot;: 240,
+    &quot;peer-limit-per-torrent&quot;: 50,
+    &quot;peer-port&quot;: 51413,
+    &quot;peer-port-random-high&quot;: 65535,
+    &quot;peer-port-random-low&quot;: 49152,
+    &quot;peer-port-random-on-start&quot;: false,
+    &quot;peer-socket-tos&quot;: &quot;default&quot;,
+    &quot;pex-enabled&quot;: true,
+    &quot;port-forwarding-enabled&quot;: true,
+    &quot;preallocation&quot;: 1,
+    &quot;prefetch-enabled&quot;: 1,
+    &quot;queue-stalled-enabled&quot;: true,
+    &quot;queue-stalled-minutes&quot;: 30,
+    &quot;ratio-limit&quot;: 2,
+    &quot;ratio-limit-enabled&quot;: false,
+    &quot;rename-partial-files&quot;: true,
+    &quot;rpc-authentication-required&quot;: true,
+    &quot;rpc-bind-address&quot;: &quot;0.0.0.0&quot;,
+    &quot;rpc-enabled&quot;: true,
+    &quot;rpc-password&quot;: &quot;raspberry&quot;,
+    &quot;rpc-port&quot;: 9091,
+    &quot;rpc-url&quot;: &quot;/transmission/&quot;,
+    &quot;rpc-username&quot;: &quot;transmission&quot;,
+    &quot;rpc-whitelist&quot;: &quot;127.0.0.1&quot;,
+    &quot;rpc-whitelist-enabled&quot;: false,
+    &quot;scrape-paused-torrents-enabled&quot;: true,
+    &quot;script-torrent-done-enabled&quot;: false,
+    &quot;script-torrent-done-filename&quot;: &quot;&quot;,
+    &quot;seed-queue-enabled&quot;: false,
+    &quot;seed-queue-size&quot;: 10,
+    &quot;speed-limit-down&quot;: 100,
+    &quot;speed-limit-down-enabled&quot;: false,
+    &quot;speed-limit-up&quot;: 100,
+    &quot;speed-limit-up-enabled&quot;: false,
+    &quot;start-added-torrents&quot;: true,
+    &quot;trash-original-torrent-files&quot;: true,
+    &quot;umask&quot;: 0,
+    &quot;upload-limit&quot;: 100,
+    &quot;upload-limit-enabled&quot;: 0,
+    &quot;upload-slots-per-torrent&quot;: 14,
+    &quot;utp-enabled&quot;: true
+}
+</code></pre><p>在这个配置文件中有很多可以更改的选项，对应着上面的配置文件说几个重点的部分，方便理解和自行修改。
+blocklist参考了<a href="https://gist.github.com/techjawab/447c9f0168620d760796#file-settings-json">techjawab的github</a>：
+<code>&quot;blocklist-url&quot;: &quot;http://list.iblocklist.com/?list=ydxerpxkpcfqjaybcssw&amp;fileformat=p2p&amp;archiveformat=gz&quot;,</code>
+设置下载目录为用户目录下的Downloads文件夹：
+<code>&quot;download-dir&quot;: &quot;/home/pi/Downloads&quot;,</code>
+设置未下载完成数据存放地点为Downloads文件夹：
+<code>&quot;incomplete-dir&quot;: &quot;/home/pi/Downloads&quot;,</code>
+设置Web登陆密码为：raspberry
+<code>&quot;rpc-password&quot;: &quot;raspberry&quot;,</code>
+设置Web登陆用户名：transmission
+<code>&quot;rpc-username&quot;: &quot;transmission&quot;,</code>
+允许Web登陆：（设置为true）
+<code>&quot;utp-enabled&quot;: true</code>
+设置完成之后，保存setting.json文件，重新启动transmission服务：
+<code>sudo service transmission-daemon reload</code></p>
+<p>到这里可以在浏览器中输入你的树莓派的ip地址和端口号放完transmission的web界面了，比如你的树莓派地址是：192.168.1.10，那么在浏览器中输入：
+<code>192.168.1.10:9091</code>
+登陆的用户名和密码使用配置文件中设置的内容，例子中的用户名是：transmission，密码是：raspberry。</p>
+<p>如果遇到permission问题，按照文中的下载地址，使用以下命令提升Downloads目录的权限：
+<code>sudo chmod 777 -R /home/pi/Downloads/</code></p>
+<p>登陆到Web界面之后，点击左上角的文件夹图标可以添加种子文件，树莓派就会开始下载了。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1180079-4f0a6010eb57c5d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<h2 id="树莓派启用bbr加速">树莓派启用BBR加速</h2>
+<h3 id="启用bbr">启用bbr</h3>
+<pre><code>sudo sysctl net.ipv4.tcp_congestion_control=bbr
+
+</code></pre><p>查看<code>bbr</code>模块是否加载</p>
+<pre><code>lsmod | grep bbr
+</code></pre><p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/lsmod.png"><img src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/lsmod.png" alt="img"></a></p>
+<h3 id="一个不靠谱的测试">一个不靠谱的测试</h3>
+<p>简单的测试了一下<code>bbr</code>的性能，在严重干扰的<code>wifi</code>网络下进行<code>100M</code>文件传输，传输方式为<code>sftp</code></p>
+<p>拥塞控制为<code>cubic</code>的速度</p>
+<p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/20170119164024.png"><img src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/20170119164024.png" alt="img"></a></p>
+<p>拥塞控制为<code>bbr</code>的速度</p>
+<p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/20170119164154.png"><img src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/20170119164154.png" alt="img"></a></p>
+<p>虽然这个测试不严谨，截图也只是个人估计出的平均速度。评测终归评测，真正的性能提升还得实际体验来证明。</p>
+<p>附带一份<code>github</code>上网友实测记录</p>
+<p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/20170119165029.png"><img src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/20170119165029.png" alt="img"></a></p>
+<p>144P到1080P的提升已经相当惊艳了</p>
+<h2 id="自搭ngrok实现树莓派内网穿透">自搭Ngrok实现树莓派内网穿透</h2>
+<p>如果把花生壳类比为使用别人搭好的ss服务，那么自建Ngrok就是使用自己的ss服务，可见自搭Ngrok的优势不言而喻，流量费用十分经济，速度，稳定性和安全性将远远胜过花生壳。</p>
+<p>现在花生壳是一种比较流行的穿透内网的方式，不过其稳定性随着使用人数的增多而大打折扣，内网穿透的价格也不便宜，一套花生棒就是动轭上百，而且流量还要单独买，如果遭遇流量攻击套餐基本就泡汤了。</p>
+<blockquote>
+<p>Ngrok编译部署条件:</p>
+<ul>
+<li>域名 (.top域名4元首年)</li>
+<li>拥有独立IP的VPS或云主机 (标准配置低于50一年)</li>
+</ul>
+</blockquote>
+<p>编译Ngrok客户端时会使用openssl生成证书来加密通讯，保证了安全性，使用时必须和签署证书时的域名吻合。</p>
+<p>一个拥有独立IP的VPS或云主机,地区的话推荐选择 <strong>香港</strong>或 <strong>国外</strong>的，配置可以参考 <strong>搭建ss服务</strong>的标准，其对 <strong>延迟</strong>， <strong>带宽</strong>和 <strong>速度</strong>的要求高于内存和CPU。(这里我用的只是openvzcc年付35元的vps,当然这个配置还不是最低价的)</p>
+<p>使用国内云主机的话第一个是要考虑域名备案，因为一般反向代理网页时使用了服务器的80端口。第二个是国内符合配置条件的vps比较少，因为没人直接拿国内的服务器番茄，市场的需求催生了国外VPS低内存高带宽而且非常优惠的配置。</p>
+<blockquote>
+<p>编译环境:腾讯云上海节点CentOS 6.7
+部署环境:阿里云青岛节点CentOS 6.7+OpenVZCC洛杉矶节点CentOS 6</p>
+</blockquote>
+<p>也可以选择在本地编译好客户端然后部署在服务器上</p>
+<h3 id="编译ngrok">编译Ngrok</h3>
+<h4 id="配置科学上网环境香港或国外主机可省略此步骤">配置科学上网环境(香港或国外主机可省略此步骤)</h4>
+<p>由于编译过程中会导入包的网址，而这些网址基本都被墙了。</p>
+<p>方法不用多说了，这里我图方便采取修改hosts的方法(有点low)，最新的hosts文件可以在老D博客获取。</p>
+<pre><code>vim /etc/hosts
+
+</code></pre><h4 id="安装go语言环境">安装Go语言环境</h4>
+<p>安装必要包</p>
+<pre><code>yum -y install zlib-devel openssl-devel perl hg cpio expat-devel gettext-devel curl curl-devel perl-ExtUtils-MakeMaker hg wget gcc gcc-c++ build-essential  mercurial
+
+</code></pre><p>由于Go官方地址也被墙了，这里使用国内镜像下载源码。</p>
+<pre><code>wget http://www.golangtc.com/static/go/1.7rc6/go1.7rc6.linux-386.tar.gz
+tar -zxvf go1.7.6.linux-386.tar.gz
+mv go /usr/local/
+ln -s /usr/local/go/bin/* /usr/bin/
+
+</code></pre><p>安装成功后查看可Go编译环境</p>
+<pre><code>go env
+
+</code></pre><h4 id="升级git版本">升级Git版本</h4>
+<p>Go编译过程中要求高版本的git，而yum源里面默认只有1.7.1版本。</p>
+<pre><code>#原版kernel.org国内访问过慢，替换为中科大源
+wget http://mirrors.ustc.edu.cn/kernel.org/software/scm/git/git-2.9.3.tar.gz
+#wget https://coding.net/u/sfantree/p/self_use_OSS/git/raw/master/ngrok/git-2.6.0.tar.gz
+#wget https://coding.net/u/sfantree/p/self_use_OSS/git/raw/master/ngrok/git-2.9.3.tar.gz
+tar zxvf git-2.9.3.tar.gz
+cd git-2.9.3
+./configure --prefix=/usr/local/git-2.9.3
+make
+make install
+
+</code></pre><p>取代yum安装的低版本git</p>
+<pre><code>yum remove git*
+ln -s /usr/local/git-2.9.3/bin/* /usr/bin/
+
+</code></pre><p>检查git版本是否为2.9.3</p>
+<pre><code>git --version
+
+</code></pre><h4 id="ngrok源码配置">Ngrok源码配置</h4>
+<p>声明编译的路径和必要的域名(域名改成你自己的)</p>
+<pre><code>#这是原版代码，编译过程会从github下载依赖包，国内网络坏境基本无解
+#git clone https://github.com/inconshreveable/ngrok.git ~/ngrok
+
+#推荐直接下载完整包，一次性编译无需下载
+wget https://coding.net/u/sfantree/p/self_use_OSS/git/raw/master/ngrok/ngrok.zip
+unzip ngrok.zip
+export GOPATH=~/ngrok/
+export NGROK_DOMAIN=&quot;ngrok.sfantree.com&quot;
+cd ~/ngrok
+
+</code></pre><p>生成证书，Ngrok会使用此证书加密通讯</p>
+<pre><code>openssl genrsa -out base.key 2048
+openssl req -new -x509 -nodes -key base.key -days 10000 -subj &quot;/CN=$NGROK_DOMAIN&quot; -out rootCA.pem
+openssl genrsa -out server.key 2048
+openssl req -new -key server.key -subj &quot;/CN=$NGROK_DOMAIN&quot; -out server.csr
+openssl x509 -req -in server.csr -CA rootCA.pem -CAkey base.key -CAcreateserial -days 10000 -out server.crt
+
+</code></pre><p>将证书文件复制到指定位置</p>
+<pre><code>cp rootCA.pem assets/client/tls/ngrokroot.crt -i
+cp server.crt assets/server/tls/snakeoil.crt -i
+cp server.key assets/server/tls/snakeoil.key -i
+
+</code></pre><h4 id="编译服务器端与客户端">编译服务器端与客户端</h4>
+<p>服务器端为linux-x86-64</p>
+<pre><code>export GOOS=linux 
+export GOARCH=386
+make release-server
+
+</code></pre><p>编译完成过后<code>~/ngrok/bin/ngrokd</code>即为服务端运行文件</p>
+<p>树莓派为linux-arm架构，重新声明<code>go env</code>里的变量</p>
+<pre><code>export GOOS=linux 
+export GOARCH=arm
+make release-client
+
+</code></pre><p>编译完成过后<code>~/ngrok/bin/linux_arm/ngrok</code>即为树莓派客户端运行文件</p>
+<p>注:这里测试时只编译了i386的服务器端和arm的客户端，实际上可以通过改变<code>GOOS</code>与<code>GOARCH</code>来获取各个平台的客户端与服务端，<code>GOOS</code>可以指定为<code>windows</code>、<code>linux</code> 、 <code>freebsd</code> 、<code>darwin</code> (Mac OS X 10.5 or 10.6) 和 <code>nacl</code>(Chrome 的Native Client 接口) ,<code>GOARCH</code>可以指定为<code>amd64</code> (64-bit x86) 、<code>386</code> (32-bit x86) 、 和<code>arm</code> (32-bit ARM)，可见Go语言的跨平台能力相当彪悍。</p>
+<h2 id="lnmp全面优化集合nginxmysqlphp">lnmp全面优化集合nginx+mysql+php</h2>
+<p>lnmp的全名是linux+nginx+mysql+php，既然是全面优化那我们就从linux系统的选择入手。debian系统可以算是 linux各分支中做的比较突出的一类，连谷歌都抛弃linux订制，由此可见debian系统之优秀，相较其它linux系统debian具有稳定、占 用资源少对于网站web环境来说这些正是我们所需要的，其中debian6版本算是这一优点的集中体现。目前市面上有很多的安装包，其中军哥的lnmp是 被站长使用较多的一种。</p>
+<pre><code>也许有朋友会问小三啊，为啥不用lanmp呢？
+参考：lnmp和lnmpa性能测试
+用nginx的目地是为提高并发能力。
+在同一台机器上使用nginx反向 apache，等于脱裤子放屁。+_+*
+</code></pre><p><code>一：lnmp的nginx优化</code>
+主要是修改 /usr/local/nginx/conf/nginx.conf
+1.军哥的lnmp安装包中nginx的<strong>worker_processes</strong>默认设置是1，这里我们要根据服务器cpu具体的核心数来优化。通常4核的CPU我会把值设为3。</p>
+<pre><code>2核CPU，开启2个进程
+worker_processes 2;
+worker_cpu_affinity 01 10;
+
+4核CPU，开3个进程
+worker_processes 3;
+worker_cpu_affinity 0010 0100 1000;
+
+8核CPU，开8个进程
+worker_processes 8;
+worker_cpu_affinity 00000001 00000010 00000100 00001000 00010000 00100000 01000000 10000000;
+
+</code></pre><p>worker_processes参数解析可参考：<a href="http://www.zxsdw.com/index.php/archives/860/">worker_processes详解</a></p>
+<p>2.<strong>worker_rlimit_nofile参数</strong>默认是5xxxx.</p>
+<pre><code>worker_rlimit_nofile 65535;
+
+events
+	{
+		use epoll;
+		worker_connections 32700;
+	}
+</code></pre><p>worker_rlimit_nofile参数讲解可参考：<a href="http://www.zxsdw.com/index.php/archives/742/">nginx优化参数详解</a></p>
+<p>添加防压力测试
+if ($http_user_agent ~ ApacheBench|WebBench|Jmeter|must-revalidate|Havij) {retun 503;}
+添加针对CVE-2013-4547链接空格的补丁
+if ($request_uri ~ &quot; &ldquo;) {return 444;}</p>
+<p><code>二：lnmp的mysql优化</code></p>
+<p>用/usr/local/mysql/share/mysql/目录下的my-large.cnf 文件替换根目录etc下的my.cnf文件</p>
+<p>my-huge.cnf: 适合1GB - 2GB RAM主机使用
+my-large.cnf: 适合 512MB RAM使用
+my-medium.cnf: 只有 32MB - 64MB RAM使用
+my-small.cnf:小于64MB 用，MySQL会占用很少资源
+my-innodb-heavy-4G.cnf 适合4G以上使用</p>
+<pre><code>禁用mysql日志：
+修改 /etc/my.cnf 文件
+在log-bin=mysql-bin和binlog_format=mixed 
+这两行前面加#注释掉即可。
+
+在query_cache_size= 16M下面添加一行：
+tmp_table_size = 200M
+</code></pre><p>mysql参数讲解可参考：<a href="http://www.zxsdw.com/index.php/archives/858/">mysql优化</a><code>三：lnmp的php相关参数优化</code>
+优化主要是修改/usr/local/php/etc/目录下的php-fpm.conf和php.ini文件</p>
+<p><strong>1.php-fpm.conf参数优化</strong></p>
+<p>删除value name=&quot;display_errors&rdquo; 这一行的代码，防止坏人从PHP错误中找到漏洞。</p>
+<p>max_children默认参数是开启5个进程。数值要根据内存大小来定，每一个php-cgi所耗费的内存在20M左右。</p>
+<pre><code>126M内存默认即可
+256M 10个
+512M 20个
+1G 40个
+</code></pre><p>request_terminate_timeout参数默认是0s，修改为300s</p>
+<p>rlimit_files参数默认5xxxx，修改为65535</p>
+<p>php-fpm参数讲解可参考：<a href="http://www.zxsdw.com/index.php/archives/204/?page=2">php-fpm详解</a></p>
+<p><strong>2.php.ini参数优化</strong></p>
+<p>disable_functions = 默认禁用了一些参数，PHP中有一些函数的风险性还是相当大的,如果允许这些函数执行,当PHP 程序出现漏洞时,损失是非常严重的</p>
+<pre><code>fsockopen这个参数用的比较多，可以删除。
+
+另外从安全方面考虑可隐藏PHP版本号
+将文件里面的 expose_php = On 
+修改为 expose_php = Off 即可
+
+将display_errors =On改为Off
+
+</code></pre><p>最后修改最大连接数使重启后也可生效，在/etc/profile 最后增加一行 ulimit -SHn 65535</p>
+<p>另外LNMP安装包里有一个eAccelerator的安装文件。最好装一下。这个是加速PHP缓存的还不错。
+关于eAccelerator的设置我就给出两个修改的地方吧：</p>
+<pre><code>eaccelerator.shm_size=&quot;16&quot; 
+</code></pre><p>#默认是占用16M共享内存，军哥好像是1，你就改成16吧。大小也可根据你的内存情况设置。</p>
+<p>另外默认是eaccelerator缓存目录是/usr/local/eaccelerator_cache，这样用硬盘缓存的话，某些情况会影响php的响应时间。我们可以直接放到共享内存里面老。
+运行命令：mkdir -p /dev/shm/eaccelerator_cache
+修改目录为以下就OK了。</p>
+<pre><code>eaccelerator.cache_dir=&quot;/dev/shm/eaccelerator_cache&quot;
+</code></pre><p><strong>最后全部修改完记得重启生效：/root/lnmp restart</strong></p>
+<h2 id="树莓派系统备份">树莓派系统备份</h2>
+<h3 id="备份sd卡">备份SD卡</h3>
+<p>使用 dd 命令可以直接备份SD卡。这里树莓派的SD卡的路径是 /dev/sdc1 和 /dev/sdc2 ，所以备份整个SD卡的路径就是 /dev/sdc。</p>
+<p>输入备份命令：</p>
+<p><code>$ sudo dd if=/dev/sdb|gzip&gt;/home/netsafe/rasp/raspberry.gz</code></p>
+<p><em>其中备份文件要保存的位置、文件名和 SD卡的路径要根据实际选择。</em></p>
+<p>这个命令可以在备份的同时压缩镜像大小，压缩完成后镜像有6.7G.</p>
+<h3 id="还原系统">还原系统</h3>
+<p>备份完成后，如果需要还原树莓派，我们可以通过以下方法进行。</p>
+<p>方法一：</p>
+<p>在windows环境下，将备份文件解压，然后使用 win32diskimager 将备份文件写入到新的SD卡。</p>
+<p>方法二：</p>
+<p>在linux环境下，使用以下步骤将备份文件写入到SD卡。</p>
+<p>1、删除SD卡分区。</p>
+<p>使用 fdisk 命令对SD卡格式化2、写入备份文件</p>
+<p><code>$ sudo gzip -dc /home/netsafe/rasp/raspberry.gz| sudo dd of=/dev/sdb</code></p>
+<p>*其中备份文件的位置、文件名和 SD卡的路径要根据实际选择。*这样就将备份还原到树莓派了，可以将SD卡插入树莓派启动！</p>
+<h2 id="u盘安装树莓派系统利用u盘启动raspberry">U盘安装树莓派系统，利用U盘启动Raspberry</h2>
+<p>树莓派的系统一般是安装在SD卡上，但是SD卡比较脆弱，如果频繁的读写数据，会导致SD卡损坏。SD卡的读写速度也比U盘慢。如果我们将树莓派系统安装在U盘中，利用更加强壮、速度更快的U盘启动树莓派，则可以解决使用SD卡遇到的问题。</p>
+<p>以下是U盘安装树莓派系统，利用U盘启动Raspberry的教程。</p>
+<h3 id="一准备条件">一、准备条件</h3>
+<ul>
+<li>树莓派一台</li>
+<li>SD卡一个，容量不用太大，但必须大于128M.</li>
+<li>U盘一个，8G以上</li>
+<li><a href="http://blog.lxx1.com/raspberrypi-jingxiang">树莓派系统镜像</a></li>
+</ul>
+<h3 id="二安装系统">二、安装系统</h3>
+<p>将树莓派系统写入到U盘中，方法和写入SD卡的方法一样，windows下可以使用<strong>win32diskimager</strong>（镜像写U盘工具）将系统写入。</p>
+<p>格式化SD卡，然后将写好系统的U盘下的内容全部复制到SD卡根目录中。</p>
+<p>修改SD卡根目录下的 <strong>cmdline.txt</strong> 文件。因为U盘现在有2个分区，一个是boot(/dev/sda1)分区，另一个才是root(/dev/sda2)分区。 将<code>root=/dev/mmcblk0p2</code>修改为<code>root=/dev/sda2</code>。</p>
+<p>然后，将U盘和SD卡同时插到树莓派上，上电就可以将树莓派从U盘启动了。</p>
+<p>启动后可以感受到，树莓派的运行速度快了许多，这是因为我们使用了速度更快的U盘安装系统。</p>
+<h3 id="三扩展u盘空间">三、扩展U盘空间</h3>
+<p>U盘安装完系统后，发现虽然我的U盘是32G大小的，但是使用df命令可以看到只有4G大小，使用sudo raspi-config扩展，提示不能自动扩展：</p>
+<pre><code>sda2 is not an SD card. Don't know how to expand
+</code></pre><p><a href="http://blog.lxx1.com/2574/2017-05-03_211729"><img src="http://blog-qiniu.lxx1.com/wp-content/uploads/2017/05/2017-05-03_211729.jpg" alt="img"></a></p>
+<p>这时需要使用fdisk命令手动扩展空间，信息过程如下。带有注释的行是需要输入的信息。</p>
+<pre><code>pi@raspberrypi:~ $ **sudo fdisk /dev/sda    #扩展分区**
+
+Welcome to fdisk (util-linux 2.25.2).  
+Changes will remain in memory only, until you decide to write them.  
+Be careful before using the write command.
+
+
+Command (m for help): p    #查看现有分区  
+Disk /dev/sda: 28.7 GiB, 30752000000 bytes, 60062500 sectors  
+Units: sectors of 1 * 512 = 512 bytes  
+Sector size (logical/physical): 512 bytes / 512 bytes  
+I/O size (minimum/optimal): 512 bytes / 512 bytes  
+Disklabel type: dos  
+Disk identifier: 0x2d52e4bb
+
+Device     Boot  Start      End  Sectors  Size Id Type  
+/dev/sda1         8192   137215   129024   63M  c W95 FAT32 (LBA)
+/dev/sda2       137216 60062499 59925284 28.6G 83 Linux
+
+
+Command (m for help): d    #删除分区2  
+Partition number (1,2, default 2): 2    #选择要删除的分区号
+
+Partition 2 has been deleted.
+
+Command (m for help): n        #新建分区  
+Partition type  
+   p   primary (1 primary, 0 extended, 3 free)
+   e   extended (container for logical partitions)
+Select (default p): p    #选择p，即为主分区  
+Partition number (2-4, default 2): 2    #选择要新建的分区号  
+First sector (2048-60062499, default 2048): 137216    #输入删除分区前/dev/sda2的起始磁盘柱  
+Last sector, +sectors or +size{K,M,G,T,P} (137216-60062499, default 60062499): #默认即可
+
+Created a new partition 2 of type 'Linux' and of size 28.6 GiB.
+
+Command (m for help): p    #查看修改后的分区  
+Disk /dev/sda: 28.7 GiB, 30752000000 bytes, 60062500 sectors  
+Units: sectors of 1 * 512 = 512 bytes  
+Sector size (logical/physical): 512 bytes / 512 bytes  
+I/O size (minimum/optimal): 512 bytes / 512 bytes  
+Disklabel type: dos  
+Disk identifier: 0x2d52e4bb
+
+Device     Boot  Start      End  Sectors  Size Id Type  
+/dev/sda1         8192   137215   129024   63M  c W95 FAT32 (LBA)
+/dev/sda2       137216 60062499 59925284 28.6G 83 Linux
+
+
+Command (m for help): wq    #保存退出  
+The partition table has been altered.  
+Calling ioctl() to re-read partition table.  
+Re-reading the partition table failed.: Device or resource busy
+
+The kernel still uses the old table. The new table will be used at the next reboot or after you run partprobe(8) or kpartx(8).
+</code></pre><p>然后重启系统 <code>sudo reboot</code>。</p>
+<p>重启完成后，使用 <code>sudo resize2fs /dev/sda2</code> 命令进行实际的空间拓展，等待命令执行完成，再次重启系统，即完成了U盘空间的拓展。</p>
+<p><a href="http://blog.lxx1.com/2574/2017-05-03_210532"><img src="http://blog-qiniu.lxx1.com/wp-content/uploads/2017/05/2017-05-03_210532.jpg" alt="img"></a></p>
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://blog.taielab.com">码中春秋</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.taielab.com/2017-09-20/raspberry-uses-notes.html">https://blog.taielab.com/2017-09-20/raspberry-uses-notes.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='https://blog.taielab.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE'>树莓派</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "udpsec/blog-comments"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-11-25/ios-13-checkra-in-repair-the-internet-connection-appears-to-be-offline.html" title="IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误">IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-29/red-team-and-physical-entry-gear-tips.html" title="护网之红方物理入侵旁门左道">护网之红方物理入侵旁门左道</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-05/intranet-roaming-network-traffic-control.html" title="内网漫游系列之流量操控与Socks代理总结">内网漫游系列之流量操控与Socks代理总结</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-27/intranet-roaming-ss-privoxy.html" title="内网漫游系列之正向全局代理ss&#43;Privoxy">内网漫游系列之正向全局代理ss&#43;Privoxy</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-20/centos-7-upgrade-Kernel.html" title="Centos7安装升级最新内核">Centos7安装升级最新内核</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/digital-forensics-live-and-dead.html" title="数字取证-死活取证">数字取证-死活取证</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html" title="Centos7搭建本地yum仓库">Centos7搭建本地yum仓库</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/osint-101-auto-visual.html" title="OSINT101 技术自动化和可视化">OSINT101 技术自动化和可视化</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-21/ubuntu-migrate-to-ssd.html" title="Ubuntu19.04迁移到SSD">Ubuntu19.04迁移到SSD</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-16/kali-linux-double-display-solutions.html" title="双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案">双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.taielab.com/categories/IOS%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">IOS应用逆向与安全 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/Linux/">Linux (11)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%B7%A5%E5%85%B7%E6%95%88%E7%8E%87/">工具效率 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%BC%80%E6%BA%90%E6%83%85%E6%8A%A5%E6%94%B6%E9%9B%86/">开源情报收集 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (30)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/">红蓝对抗 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全 (6)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4/">网络运维 (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.taielab.com/tags/Debian/">Debian</a>
+    
+    <a href="https://blog.taielab.com/tags/IOS/">IOS</a>
+    
+    <a href="https://blog.taielab.com/tags/OSINT/">OSINT</a>
+    
+    <a href="https://blog.taielab.com/tags/archlinux/">archlinux</a>
+    
+    <a href="https://blog.taielab.com/tags/centos/">centos</a>
+    
+    <a href="https://blog.taielab.com/tags/github/">github</a>
+    
+    <a href="https://blog.taielab.com/tags/gitup/">gitup</a>
+    
+    <a href="https://blog.taielab.com/tags/gpg/">gpg</a>
+    
+    <a href="https://blog.taielab.com/tags/hexo/">hexo</a>
+    
+    <a href="https://blog.taielab.com/tags/hugo/">hugo</a>
+    
+    <a href="https://blog.taielab.com/tags/kali-linux/">kali-linux</a>
+    
+    <a href="https://blog.taielab.com/tags/lnmp/">lnmp</a>
+    
+    <a href="https://blog.taielab.com/tags/manjaro/">manjaro</a>
+    
+    <a href="https://blog.taielab.com/tags/meedu/">meedu</a>
+    
+    <a href="https://blog.taielab.com/tags/nessus/">nessus</a>
+    
+    <a href="https://blog.taielab.com/tags/parrot-os/">parrot-os</a>
+    
+    <a href="https://blog.taielab.com/tags/pentestbox/">pentestbox</a>
+    
+    <a href="https://blog.taielab.com/tags/shadowsocks/">shadowsocks</a>
+    
+    <a href="https://blog.taielab.com/tags/tor/">tor</a>
+    
+    <a href="https://blog.taielab.com/tags/ubuntu/">ubuntu</a>
+    
+    <a href="https://blog.taielab.com/tags/vps/">vps</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">内网渗透命令</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%BC%AB%E6%B8%B8/">内网漫游</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/">奇淫技巧</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/">数字安全基础篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%AF%87/">数字安全工具篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">数据库系统原理</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81/">死活取证</a>
+    
+    <a href="https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5/">物理入侵</a>
+    
+    <a href="https://blog.taielab.com/tags/%E8%B8%8F%E9%9B%AA%E6%97%A0%E7%97%95%E7%B3%BB%E5%88%97/">踏雪无痕系列</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="#" title=""></a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://blog.taielab.com/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+</body>
+
+</html>

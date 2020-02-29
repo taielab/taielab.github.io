@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>死活取证 on 码中春秋&#39;s Blog</title>
+    <link>https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81/</link>
+    <description>Recent content in 死活取证 on 码中春秋&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 09 May 2019 22:36:12 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>数字取证-死活取证</title>
+      <link>https://blog.taielab.com/2019-05-09/digital-forensics-live-and-dead.html</link>
+      <pubDate>Thu, 09 May 2019 22:36:12 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-05-09/digital-forensics-live-and-dead.html</guid>
+      <description>&lt;p&gt;活取证:在主机存活时发现系统被入侵,然后直接把机器的运行内存dump下来，对运行内存进行分析，还原一些进程的中的信息。主要抓取文件metadata,创建时间线,命令历史,分析日志文件,哈希摘要,转存内存信息等数据.&lt;/p&gt;
+&lt;p&gt;死取证:是对机器的磁盘做镜像之后分析的取证方法。用于在关机后制作硬盘镜像,分析镜像(MBR硬盘分区,GPT全局分区表,LVM逻辑卷)是否存在病毒,木马等恶意程序.&lt;/p&gt;
+&lt;p&gt;相比于死取证,活取证是更加的重要,能够获取到当前系统第一手资料,对于分析入侵过程起到了至关重要的作用&lt;/p&gt;
+&lt;p&gt;我们现在构造一个场景,假如公司的一台主机被黑客侵入,当前主机处于运行状态,我们对其进行活取证,调查黑客是如何入侵本系统的.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

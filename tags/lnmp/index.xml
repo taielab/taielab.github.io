@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>lnmp on 码中春秋&#39;s Blog</title>
+    <link>https://blog.taielab.com/tags/lnmp/</link>
+    <description>Recent content in lnmp on 码中春秋&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 17 Oct 2018 13:56:11 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.taielab.com/tags/lnmp/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>LNMP架构基础调优</title>
+      <link>https://blog.taielab.com/2018-10-17/lnmp-architecture-base-optimization.html</link>
+      <pubDate>Wed, 17 Oct 2018 13:56:11 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-10-17/lnmp-architecture-base-optimization.html</guid>
+      <description>&lt;h1 id=&#34;php优化&#34;&gt;PHP优化&lt;/h1&gt;
+&lt;p&gt;修改&lt;code&gt;/usr/local/php/etc/php-fpm.conf &lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;php 5.2&lt;/p&gt;
+&lt;p&gt;调整：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;max_children&lt;/code&gt;的值
+php 5.3+&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

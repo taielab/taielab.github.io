@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kali-linux on 码中春秋&#39;s Blog</title>
+    <link>https://blog.taielab.com/tags/kali-linux/</link>
+    <description>Recent content in kali-linux on 码中春秋&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 16 Apr 2019 19:39:40 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.taielab.com/tags/kali-linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案</title>
+      <link>https://blog.taielab.com/2019-04-16/kali-linux-double-display-solutions.html</link>
+      <pubDate>Tue, 16 Apr 2019 19:39:40 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-04-16/kali-linux-double-display-solutions.html</guid>
+      <description>&lt;h1 id=&#34;kali安装完系统登录后黑屏&#34;&gt;Kali安装完系统，登录后黑屏&lt;/h1&gt;
+&lt;p&gt;在启动需要选择项的时候，按下e键，进行编辑grub命令，命令如下&lt;/p&gt;
+&lt;p&gt;在倒数第三行加入了&lt;code&gt;nouveau.modeset=0&lt;/code&gt;  【也就是字符quite的后面】&lt;/p&gt;
+&lt;p&gt;然后按下ctrl键+X键，进行启动即可，然后输入登录账户密码，成功进入系统&lt;/p&gt;
+&lt;p&gt;之后成功进入操作系统，然后发现一个问题这个办法需要每次进入操作系统之前执行一遍。&lt;/p&gt;
+&lt;p&gt;按照上面的方法进入系统后，先配置如下：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>KaliLinux - 基础入门</title>
+      <link>https://blog.taielab.com/2017-09-20/kali-linux-learning.html</link>
+      <pubDate>Wed, 20 Sep 2017 12:39:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017-09-20/kali-linux-learning.html</guid>
+      <description>&lt;h2 id=&#34;修改更新源&#34;&gt;修改更新源&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;leafpad /etc/apt/sources.list
+&lt;/code&gt;&lt;/pre&gt;&lt;pre&gt;&lt;code&gt;apt-get update &amp;amp;&amp;amp; apt-get upgrade &amp;amp;&amp;amp; apt-get dist-upgrade 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;kali-rolling版本：（中科大的就够用了，个人按需吧）&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

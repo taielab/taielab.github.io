@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>manjaro on 码中春秋&#39;s Blog</title>
+    <link>https://blog.taielab.com/tags/manjaro/</link>
+    <description>Recent content in manjaro on 码中春秋&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 14 Apr 2019 18:55:29 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.taielab.com/tags/manjaro/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Manjaro&amp;&amp;Ubuntu双显卡解决方案和Manjaro常用配置</title>
+      <link>https://blog.taielab.com/2019-04-14/manjaro-ubuntu-double-display-solutions-muanul-config.html</link>
+      <pubDate>Sun, 14 Apr 2019 18:55:29 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-04-14/manjaro-ubuntu-double-display-solutions-muanul-config.html</guid>
+      <description>&lt;p&gt;&lt;strong&gt;可以结合作者下面两篇文章一起学会更肥宅&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.inofd.com/2018/06/01/archlinux-install-guide.html&#34;&gt;Archlinux - 基础入门&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.inofd.com/2018/06/16/manjaro-installer-beautify-config.html&#34;&gt;Manjaro配置美化指南&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;基于笔记本型号：惠普光影精灵4&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Manjaro配置美化指南</title>
+      <link>https://blog.taielab.com/2018/06/16/manjaro-installer-beautify-config.html</link>
+      <pubDate>Sat, 16 Jun 2018 15:48:42 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018/06/16/manjaro-installer-beautify-config.html</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;本篇文章可以结合本博客的&lt;a href=&#34;&#34;&gt;Archlinux安装指南&lt;/a&gt;的后续优化的后面文章来整体的配置美化。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

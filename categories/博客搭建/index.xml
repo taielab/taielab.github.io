@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>博客搭建 on 码中春秋&#39;s Blog</title>
+    <link>https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</link>
+    <description>Recent content in 博客搭建 on 码中春秋&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 28 Sep 2017 16:40:33 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hugo使用大全</title>
+      <link>https://blog.taielab.com/2017-09-28/hugo-blog-config.html</link>
+      <pubDate>Thu, 28 Sep 2017 16:40:33 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017-09-28/hugo-blog-config.html</guid>
+      <description>&lt;p&gt;&lt;strong&gt;为什么选择 hugo ？&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;快！世界上最快的静态网站生成工具！&lt;a href=&#34;https://twitter.com/dzello/status/895835610476199939&#34;&gt;5秒生成6000个页面！&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;超详细的文档，&lt;del&gt;虽然是英文的&lt;/del&gt;&lt;/li&gt;
+&lt;li&gt;活跃的&lt;a href=&#34;https://discourse.gohugo.io/&#34;&gt;社区&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;更加自由的内容组织方式&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;hugo 有哪些劣势 ？&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;死气沉沉的中文社区&amp;hellip;&lt;a href=&#34;https://discourse.gohugo.io/c/chinese&#34;&gt;中文板块&lt;/a&gt;平均一年一个主题&amp;hellip;&lt;/li&gt;
+&lt;li&gt;不是用前端语言编写，在主题多样性上可能存在一定的短板&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;那么&amp;hellip;&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Hexo-next主题全面配置教程</title>
+      <link>https://blog.taielab.com/2017-09-20/hexo-theme-next-config.html</link>
+      <pubDate>Wed, 20 Sep 2017 12:39:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017-09-20/hexo-theme-next-config.html</guid>
+      <description>&lt;p&gt;NexT 拥有丰富而简单的配置,结合第三方服务,打造属于您自己的博客主题配置。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>使用Git Hook - 自动部署hexo到vps</title>
+      <link>https://blog.taielab.com/2017-09-20/git-hook-autodeploy-vps.html</link>
+      <pubDate>Wed, 20 Sep 2017 12:39:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017-09-20/git-hook-autodeploy-vps.html</guid>
+      <description>&lt;p&gt;这个VPS当时很大程度就是为这个博客而买，虽然目前博客占用很小的空间，免费的github page已经足够使用，但VPS闲着也是闲着况且是些html静态文件，所以今天折腾了下如何自自动上传到github的时候自动部署到这台VPS上，当然访问速度也可以更快些。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

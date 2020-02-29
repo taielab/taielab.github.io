@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>在线教育点播Meedu部署细节 | 码中春秋&#39;s Blog</title>
+    <meta property="og:title" content="在线教育点播Meedu部署细节 - 码中春秋&#39;s Blog">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2019-03-27T12:48:26&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2019-03-27T12:48:26&#43;08:00'>
+        
+    <meta name="Keywords" content="码中春秋,博客,,taielab,java,python,项目管理,软件架构,网络安全,数字安全,隐私保护,反侦查,反技侦,匿名方案,open,freedom,democracy,decentralization">
+    <meta name="description" content="在线教育点播Meedu部署细节">
+        
+    <meta name="author" content="码中春秋">
+    <meta property="og:url" content="https://blog.taielab.com/2019-03-27/online-teach-vod-meedu-deploy-details.html">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.taielab.com">
+                        码中春秋&#39;s Blog
+                    </a>
+                
+                <p class="description">专注于Java企业级开发、数字安全、信息安全、安全运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.taielab.com">首页</a>
+                    
+                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    
+                    <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#介绍">介绍</a></li>
+    <li><a href="#安装">安装</a></li>
+    <li><a href="#常见问题">常见问题</a></li>
+    <li><a href="#1安装宝塔"><strong>1、安装宝塔</strong></a></li>
+    <li><a href="#2安装zip扩展"><strong>2、安装Zip扩展</strong></a></li>
+    <li><a href="#3安装composer"><strong>3、安装Composer</strong></a></li>
+    <li><a href="#4安装程序"><strong>4、安装程序</strong></a></li>
+    <li><a href="#5设置伪静态"><strong>5、设置伪静态</strong></a></li>
+    <li><a href="#6设置定时任务"><strong>6、设置定时任务</strong></a></li>
+    <li><a href="#7配置队列监听器"><strong>7、配置队列监听器</strong></a></li>
+    <li><a href="#8开启微信小程序">8、开启微信小程序</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">在线教育点播Meedu部署细节</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年3月27日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4'>网络运维</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <h2 id="介绍">介绍</h2>
+<p>随着知识付费领域的兴起，尤其是知识付费领域的龙头“得到”的成功，知识付费领域俨然成为了新的风口。经过这几年的发展，知识付费领域的基础建设有了很大的进步，市场上面很多知识付费的平台可以在短短几分钟之内搭建一套属于自己的知识付费应用。但是，这并不是我想要的！可能是处于程序员的角度出发，我更在乎的是这套应用是我自己可以完全控制的！所以 <em>MeEdu</em> 诞生了。<em>MeEdu</em> 寄托了我对当前知识付费领域的期望。我相信未来的每位身负技能的人都可以通过 <em>MeEdu</em> 来构建自己的知识付费应用，通过 <em>MeEdu</em> 将自己的知识进行变现。适用于企业内网培训多媒体建立，培训机构线下录课点播。</p>
+<h2 id="安装">安装</h2>
+<p>**Github地址：**<a href="https://github.com/Qsnh/meedu">https://github.com/Qsnh/meedu</a></p>
+<p>**环境要求：**<code>PHP &gt;= 7.2</code>、<code>MySql &gt;= 5.6</code>、<code>Composer</code>。</p>
+<p>**PHP扩展：**<code>Zip</code>、<code>OpenSSL</code>、<code>PDO</code>、<code>Mbstring</code>、<code>Tokenizer</code>、<code>XML</code>、<code>Fileinfo</code>。</p>
+<h2 id="常见问题">常见问题</h2>
+<ul>
+<li><a href="https://www.bilibili.com/video/av36024146/">MeEdu 作者录制的简单安装视频教程</a></li>
+<li><a href="https://www.bilibili.com/video/av44963351/">使用Docker简单快速的搭建MeEdu（适合小白）</a></li>
+<li><a href="https://www.bilibili.com/video/av45755754/">MeEdu使用阿里云视频加密服务保障视频安全性(手把手教程)</a></li>
+</ul>
+<h2 id="1安装宝塔"><strong>1、安装宝塔</strong></h2>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic">#CentOS系统</span>
+wget -O install.sh http://download.bt.cn/install/install_6.0.sh <span style="color:#000;font-weight:bold">&amp;&amp;</span> sh install.sh
+<span style="color:#998;font-style:italic">#Ubuntu系统</span>
+wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh <span style="color:#000;font-weight:bold">&amp;&amp;</span> sudo bash install.sh
+<span style="color:#998;font-style:italic">#Debian系统</span>
+wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh <span style="color:#000;font-weight:bold">&amp;&amp;</span> bash install.sh
+</code></pre></td></tr></table>
+</div>
+</div><p>安装完成后，进入面板，点击左侧软件管理，然后安装<code>PHP 7.2+</code>(这里先建议使用<code>PHP 7.2</code>)、<code>Nginx</code>、<code>Mysql 5.6+</code>。</p>
+<p>接下来再找到左侧软件管理-<code>PHP</code>管理-设置-安装<code>Fileinfo</code>扩展。</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic">#如果Fileinfo拓展安装失败，就是内存太小，我们可以添加swap，不适用于ovz</span>
+1、脚本添加，脚本地址：https://www.moerats.com/archives/722/。
+2、面板添加，找到左侧软件管理-系统工具-安装Linux工具箱，然后进入工具箱添加。
+</code></pre></td></tr></table>
+</div>
+</div><p>然后同样的在<code>PHP</code>设置里找到禁用函数，删除<code>proc_open</code>和<code>symlink</code>，<code>exec</code>,<code>shell_exec</code>,<code>popen</code>函数，再重启<code>PHP</code>。</p>
+<h2 id="2安装zip扩展"><strong>2、安装Zip扩展</strong></h2>
+<pre><code>提示：安装PHP 7.2的可以跳过该步骤。
+</code></pre><p>一般安装宝塔的时候，<code>PHP</code>一些常用的扩展都会顺便给你装上，但目前<code>7.3</code>版本的貌似还没<code>zip</code>扩展，以后说不准，所以在安装之前可以使用<code>php -m</code>检查下扩展，然后再确定要不要安装。</p>
+<p>这里就选择编译安装该扩展。编译之前需要先安装<code>libzip</code>，考虑到一些版本过低的问题，这里都采用编译安装或升级。</p>
+<p>由于这里是编译最新版的<code>libzip</code>，需要<code>CMake 3.0.2+</code>，可以查看下版本，使用命令：</p>
+<pre><code>cmake --version
+</code></pre><p>一般情况下是低于这个版本的，这里我们开始升级<code>CMake</code>版本，使用命令：</p>
+<pre><code>#CMake下载地址：https://cmake.org/files
+cd ~
+wget https://cmake.org/files/v3.13/cmake-3.13.4.tar.gz
+tar -zxvf cmake-3.13.4.tar.gz &amp;&amp; cd cmake-3.13.4
+./configure
+make &amp;&amp; make install
+</code></pre><p>开始安装<code>libzip</code>，使用命令：</p>
+<pre><code>#libzip下载地址：https://libzip.org/download/
+cd ~
+wget https://libzip.org/download/libzip-1.5.1.tar.gz
+tar -zxvf libzip-1.5.1.tar.gz &amp;&amp; cd libzip-1.5.1
+mkdir build &amp;&amp; cd build &amp;&amp; cmake .. 
+make &amp;&amp; make install
+</code></pre><p>再安装<code>zip</code>，使用命令：</p>
+<pre><code>#zip下载地址：http://pecl.php.net/package/zip，这里以最新版1.15.4为准
+cd ~
+wget http://pecl.php.net/get/zip-1.15.4.tgz
+tar -zxvf zip-1.15.4.tgz &amp;&amp; cd zip-1.15.4
+phpize
+./configure --with-php-config=/www/server/php/73/bin/php-config
+make &amp;&amp; make install
+echo &quot;extension=zip.so;&quot; &gt;&gt; /www/server/php/73/etc/php.ini
+</code></pre><h2 id="3安装composer"><strong>3、安装Composer</strong></h2>
+<pre><code>一般宝塔安装完的自带composer 可以执行composer -V 看版本1.5不是最新版
+/usr/bin/composer self-update #更新版本
+#自动安装脚本
+curl -sS https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
+</code></pre><h2 id="4安装程序"><strong>4、安装程序</strong></h2>
+<p>我们先点击左侧网站，添加域名；然后再点击左侧数据库-添加数据库。</p>
+<p>运行命令：</p>
+<pre><code>#进入网站根目录，将路径修改成自己的再运行
+cd /www/wwwroot/meedu
+#安装meedu
+composer create-project qsnh/meedu=dev-master
+#将源码移动到根目录
+mv meedu/{,.}* ./
+cp -rf meedu/. .
+#编辑环境变量
+nano .env
+</code></pre><p>修改相关信息：</p>
+<pre><code>#数据库信息
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=meedu
+DB_USERNAME=meedu
+DB_PASSWORD=meedu
+
+#其它信息
+APP_NAME=MeEdu
+APP_ENV=local(这里如果正式运行，请修改为：production)
+APP_KEY=
+APP_DEBUG=true(如果安装没问题，建议改为false)
+APP_LOG_LEVEL=debug
+APP_URL=http://localhost(这里修改你自己的域名地址)
+</code></pre><p>接着再使用命令：</p>
+<pre><code>#删除public目录下的.user.ini
+#创建上传目录软链接
+php artisan storage:link
+#设置storage目录权限为777
+chmod -R  0777 storage
+设置addons目录权限为777
+chmod -R 0777 addons
+设置storage/app/public/images目录权限为777
+chmod -R 0777 images 
+#安装数据表
+php artisan migrate
+#初始化系统权限
+php artisan install role
+#初始化管理员，安装提示输入管理员的账号和密码！
+php artisan install administrator
+#初始化后台菜单
+php artisan install backend_menu
+#生成安装锁
+php artisan install:lock
+</code></pre><h2 id="5设置伪静态"><strong>5、设置伪静态</strong></h2>
+<p>点击域名设置-网站目录，运行目录选择<code>public</code>，并把防跨站的勾去掉并重启<code>PHP</code>。然后点击伪静态，输入以下代码：</p>
+<pre><code>location / {  
+    try_files $uri $uri/ /index.php$is_args$query_string;  
+}
+</code></pre><p>然后就可以正常访问网站了，后台地址<code>/backend/login</code>。</p>
+<h2 id="6设置定时任务"><strong>6、设置定时任务</strong></h2>
+<p>点击宝塔面板左侧计划任务，设置为每<code>1</code>分钟执行一次，执行内容为：</p>
+<pre><code>#修改为自己的域名再设置
+php /www/wwwroot/meedu/artisan schedule:run &gt;&gt; /dev/null 2&gt;&amp;1
+</code></pre><h2 id="7配置队列监听器"><strong>7、配置队列监听器</strong></h2>
+<p><strong>看.env如果是sync就不需要配监听器</strong></p>
+<p>安装<code>Supervisor</code>：</p>
+<pre><code>pip install supervisor
+wget -N -P /etc/ --no-check-certificate  https://coding.net/u/cvc/p/supervisor/git/raw/master/supervisord.conf
+</code></pre><p>新增配置代码：</p>
+<pre><code>#以下为一整条命令，先修改为自己的域名，再一起复制到SSH运行
+echo &quot;[program:meedu]
+process_name=%(program_name)s_%(process_num)02d
+command=php /www/wwwroot/meedu/artisan queue:work --sleep=3 --tries=3
+autostart=true
+autorestart=true
+user=root
+numprocs=4
+redirect_stderr=true
+stdout_logfile=/www/wwwroot/meedu/storage/logs/supervisor.log&quot; &gt;&gt; /etc/supervisord.conf
+</code></pre><p>启动服务：</p>
+<pre><code>/usr/bin/supervisord -c /etc/supervisord.conf
+</code></pre><p>如果配置正确，你会看到<code>supervisor</code>的输出日志，日志路径就是上面配置的<code>stdout_logfile</code>的值。</p>
+<p>再设置<code>supervisor</code>开机自启，如果你是<code>Debian 9</code>、<code>Ubuntu 17+</code>，需要先使用命令：</p>
+<pre><code>1、添加rc-local.service，以下为一整条命令，一起复制运行
+cat &gt; /etc/systemd/system/rc-local.service &lt;&lt;EOF
+[Unit]
+Description=/etc/rc.local
+ConditionPathExists=/etc/rc.local
+ 
+[Service]
+Type=forking
+ExecStart=/etc/rc.local start
+TimeoutSec=0
+StandardOutput=tty
+RemainAfterExit=yes
+SysVStartPriority=99
+ 
+[Install]
+WantedBy=multi-user.target
+EOF
+
+2、新建rc-local文件，以下为一整条命令，一起复制运行
+cat &gt; /etc/rc.local &lt;&lt;EOF
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will &quot;exit 0&quot; on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.    
+EOF
+
+3、添加权限并设置开机自启
+chmod +x /etc/rc.local
+systemctl start rc-local
+systemctl enable rc-local
+</code></pre><p>再将启动命令加入<code>rc.local</code>文件，使用命令：</p>
+<pre><code>#CentOS 7系统
+echo &quot;/usr/bin/supervisord -c /etc/supervisord.conf&quot; &gt;&gt; /etc/rc.d/rc.local
+chmod +x /etc/rc.d/rc.local
+
+#CentOS 6、Debian、Ubuntu系统
+echo &quot;/usr/bin/supervisord -c /etc/supervisord.conf&quot; &gt;&gt; /etc/rc.local
+chmod +x /etc/rc.local
+</code></pre><h2 id="8开启微信小程序">8、开启微信小程序</h2>
+<p>如果需要开启微信小程序，需要执行命令：</p>
+<pre><code>php artisan passport:install
+</code></pre><p>该命令是生成<code>RSA</code>加密密钥和小程序端的<code>ID</code>和<code>Secret</code>。注意将输出的<code>id</code>和<code>secret</code>填写到小程序配置文件中。</p>
+<p>参考修改自https://www.moerats.com/archives/845/</p>
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://blog.taielab.com">码中春秋</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.taielab.com/2019-03-27/online-teach-vod-meedu-deploy-details.html">https://blog.taielab.com/2019-03-27/online-teach-vod-meedu-deploy-details.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='https://blog.taielab.com/tags/meedu'>meedu</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "udpsec/blog-comments"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-11-25/ios-13-checkra-in-repair-the-internet-connection-appears-to-be-offline.html" title="IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误">IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-29/red-team-and-physical-entry-gear-tips.html" title="护网之红方物理入侵旁门左道">护网之红方物理入侵旁门左道</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-05/intranet-roaming-network-traffic-control.html" title="内网漫游系列之流量操控与Socks代理总结">内网漫游系列之流量操控与Socks代理总结</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-27/intranet-roaming-ss-privoxy.html" title="内网漫游系列之正向全局代理ss&#43;Privoxy">内网漫游系列之正向全局代理ss&#43;Privoxy</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-20/centos-7-upgrade-Kernel.html" title="Centos7安装升级最新内核">Centos7安装升级最新内核</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/digital-forensics-live-and-dead.html" title="数字取证-死活取证">数字取证-死活取证</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html" title="Centos7搭建本地yum仓库">Centos7搭建本地yum仓库</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/osint-101-auto-visual.html" title="OSINT101 技术自动化和可视化">OSINT101 技术自动化和可视化</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-21/ubuntu-migrate-to-ssd.html" title="Ubuntu19.04迁移到SSD">Ubuntu19.04迁移到SSD</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-16/kali-linux-double-display-solutions.html" title="双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案">双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.taielab.com/categories/IOS%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">IOS应用逆向与安全 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/Linux/">Linux (11)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%B7%A5%E5%85%B7%E6%95%88%E7%8E%87/">工具效率 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%BC%80%E6%BA%90%E6%83%85%E6%8A%A5%E6%94%B6%E9%9B%86/">开源情报收集 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (30)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/">红蓝对抗 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全 (6)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4/">网络运维 (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.taielab.com/tags/Debian/">Debian</a>
+    
+    <a href="https://blog.taielab.com/tags/IOS/">IOS</a>
+    
+    <a href="https://blog.taielab.com/tags/OSINT/">OSINT</a>
+    
+    <a href="https://blog.taielab.com/tags/archlinux/">archlinux</a>
+    
+    <a href="https://blog.taielab.com/tags/centos/">centos</a>
+    
+    <a href="https://blog.taielab.com/tags/github/">github</a>
+    
+    <a href="https://blog.taielab.com/tags/gitup/">gitup</a>
+    
+    <a href="https://blog.taielab.com/tags/gpg/">gpg</a>
+    
+    <a href="https://blog.taielab.com/tags/hexo/">hexo</a>
+    
+    <a href="https://blog.taielab.com/tags/hugo/">hugo</a>
+    
+    <a href="https://blog.taielab.com/tags/kali-linux/">kali-linux</a>
+    
+    <a href="https://blog.taielab.com/tags/lnmp/">lnmp</a>
+    
+    <a href="https://blog.taielab.com/tags/manjaro/">manjaro</a>
+    
+    <a href="https://blog.taielab.com/tags/meedu/">meedu</a>
+    
+    <a href="https://blog.taielab.com/tags/nessus/">nessus</a>
+    
+    <a href="https://blog.taielab.com/tags/parrot-os/">parrot-os</a>
+    
+    <a href="https://blog.taielab.com/tags/pentestbox/">pentestbox</a>
+    
+    <a href="https://blog.taielab.com/tags/shadowsocks/">shadowsocks</a>
+    
+    <a href="https://blog.taielab.com/tags/tor/">tor</a>
+    
+    <a href="https://blog.taielab.com/tags/ubuntu/">ubuntu</a>
+    
+    <a href="https://blog.taielab.com/tags/vps/">vps</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">内网渗透命令</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%BC%AB%E6%B8%B8/">内网漫游</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/">奇淫技巧</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/">数字安全基础篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%AF%87/">数字安全工具篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">数据库系统原理</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81/">死活取证</a>
+    
+    <a href="https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5/">物理入侵</a>
+    
+    <a href="https://blog.taielab.com/tags/%E8%B8%8F%E9%9B%AA%E6%97%A0%E7%97%95%E7%B3%BB%E5%88%97/">踏雪无痕系列</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="#" title=""></a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://blog.taielab.com/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+</body>
+
+</html>

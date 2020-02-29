@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gpg on 码中春秋&#39;s Blog</title>
+    <link>https://blog.taielab.com/tags/gpg/</link>
+    <description>Recent content in gpg on 码中春秋&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 20 Oct 2018 13:20:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.taielab.com/tags/gpg/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>数据加密系列——GPG加密Email</title>
+      <link>https://blog.taielab.com/2018-10-20/gpg-encrypt-mail.html</link>
+      <pubDate>Sat, 20 Oct 2018 13:20:00 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-10-20/gpg-encrypt-mail.html</guid>
+      <description>&lt;p&gt;通常，术语GnuPG，GPG，GNU Privacy Guard，OpenPGP和PGP 可互换使用（可交换地）。从技术上讲，OpenPGP的是 加密标准，以及GNU隐私卫士（通常缩短（缩短）至GPG和或GnuPG）是程序工具（工具）的标准。Enigmail是一个插件（插件程序）程序，用于您的电子邮件程序，为GnuPG 提供界面（界面）。Email 是一个伟大的发明。但多数人不知道，网络上的 email, 与其说是邮件，倒不如说是明信片：任何一个参与投递的节点，都可以阅览其中的内容。他们不仅可以搜集信息，还能伪造你的身份，做不法的勾当。想要安全地投递邮件，就要把明信片装进信封里，贴上自己的防伪标签。这样邮件的内容就无法被第三方获知，第三方也不能以你的身份发邮件了。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数据加密系列——如何创建完美的GPG密钥对</title>
+      <link>https://blog.taielab.com/2018-10-19/create-gpg-key.html</link>
+      <pubDate>Fri, 19 Oct 2018 21:57:54 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-10-19/create-gpg-key.html</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://www.gnupg.org/&#34;&gt;GnuPG&lt;/a&gt;是一款非常优秀加密软件，它在我们的数字生活中扮演了极其重要的角色。越来越多的同学都开始尝试用它进行日常的签名、验证、加密和解密等工作。虽然与其相关的中文教程已经有很多，写出这篇博文，希望大家都能够用加密技术保护好自己的隐私及生命。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数据加密系列——GPG加密 Github Commits</title>
+      <link>https://blog.taielab.com/2018-10-19/gpg-encrypt-github-commits.html</link>
+      <pubDate>Fri, 19 Oct 2018 21:30:55 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-10-19/gpg-encrypt-github-commits.html</guid>
+      <description>&lt;p&gt;GnuPG（简称 GPG），它是目前最流行、最好用的开源加密工具之一。使用教程可以看本博客的&lt;a href=&#34;https://blog.inofd.com/2018-10-19/create-gpg-key.html&#34;&gt;数据加密系列——如何创建完美的GPG密钥对&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;GPG 有许多用途，比如对文件，邮件的加密。而本文要说的是，如何使用 GPG 来加密 Github Commits。
+在 Github 上查看一些项目的 Commits 时，偶尔会发现「This commit was signed with a verified signature.」字样。可以防止一些渗透测试挖洞者在github抓你commits漏洞而产出的一个安全防护措施。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

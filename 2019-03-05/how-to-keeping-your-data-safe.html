@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>数字安全培训·基础篇（八）如何保护您的数字安全 | 码中春秋&#39;s Blog</title>
+    <meta property="og:title" content="数字安全培训·基础篇（八）如何保护您的数字安全 - 码中春秋&#39;s Blog">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2019-03-05T11:14:20&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2019-03-05T11:14:20&#43;08:00'>
+        
+    <meta name="Keywords" content="码中春秋,博客,,taielab,java,python,项目管理,软件架构,网络安全,数字安全,隐私保护,反侦查,反技侦,匿名方案,open,freedom,democracy,decentralization">
+    <meta name="description" content="数字安全培训·基础篇（八）如何保护您的数字安全">
+        
+    <meta name="author" content="码中春秋">
+    <meta property="og:url" content="https://blog.taielab.com/2019-03-05/how-to-keeping-your-data-safe.html">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.taielab.com">
+                        码中春秋&#39;s Blog
+                    </a>
+                
+                <p class="description">专注于Java企业级开发、数字安全、信息安全、安全运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.taielab.com">首页</a>
+                    
+                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    
+                    <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#加密您的数据">加密您的数据</a></li>
+    <li><a href="#创建安全设备">创建安全设备</a></li>
+    <li><a href="#设置安全计算机时您可以采取哪些措施来确保其安全">设置安全计算机时，您可以采取哪些措施来确保其安全？</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">数字安全培训·基础篇（八）如何保护您的数字安全</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年3月5日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8'>数字安全</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <p>如果你有智能手机、笔记本电脑或平板电脑，你随时都会随身携带大量数据。你的社交联系人、私人通信、个人文档和个人照片(其中许多都有数十人甚至数千人的机密信息)只是你可能存储在数字设备上的一些例子。因为我们存储和携带了如此多的数据，所以很难保证数据的安全——尤其是因为数据可以相对容易地从你这里取走。</p>
+<p>你的数据可以在边境被没收，在街上被取走，或者从你家被盗，几秒钟内就被复制。不幸的是，如果你的设备被截获，用密码、PIN或手势锁定你的设备可能无法保护你的数据。绕过这种锁相对容易，因为你的数据以易于阅读的形式存储在设备中。对手只需要直接访问存储，就可以在没有密码的情况下复制或检查您的数据。</p>
+<p>话虽如此，你可以让那些窃取你数据的人更难解开数据的秘密。这里有几种方法可以帮助您保护数据安全。</p>
+<h2 id="加密您的数据">加密您的数据</h2>
+<p>如果您使用加密，您的对手需要您的设备和密码才能解密加密数据。 因此，加密所有数据是最安全的，而不仅仅是几个文件夹。 大多数智能手机和计算机都提供完整的全盘加密选项</p>
+<p>对于智能手机和平板电脑：</p>
+<ul>
+<li>当您首次在较新的设备上设置设备时，Android会在所有设备的“安全”设置下随时提供全盘加密。</li>
+<li>iPhone和iPad等Apple设备将其描述为“数据保护”，如果设置密码则将其打开。</li>
+</ul>
+<p>对于电脑：</p>
+<ul>
+<li>Apple在macOS上提供了一个名为FileVault的内置全盘加密功能。</li>
+<li>首次设置系统时，Linux发行版通常会提供全盘加密。</li>
+<li>Windows Vista或更高版本包括名为BitLocker的全盘加密功能。</li>
+</ul>
+<blockquote>
+<p>BitLocker的代码是封闭和专有的，这意味着外部审查者很难确切知道它的安全性。使用BitLocker要求您相信微软提供了一个没有隐藏漏洞的安全存储系统。另一方面，如果你已经在使用Windows，你已经在同样程度上信任微软了。如果你担心来自那些可能知道Windows或BitLocker后门或从中获益的对手的监视，请考虑另一种开源操作系统，比如GNU/Linux或BSD，尤其是一种已经针对安全攻击而强化的版本，比如Tails或Qubes OS。或者，考虑安装另一种磁盘加密软件<a href="https://www.veracrypt.fr/en/Home.html">Veracrypt</a>来加密硬盘。</p>
+</blockquote>
+<p>记住:无论你的设备怎么称呼它，加密的好坏取决于你的密码。。如果对手拥有你的设备，他们有足够的时间来破解你的密码。创建一个强大而难忘的密码的有效方法是使用骰子和单词列表随机选择单词。这些词合在一起构成了你的“密码”“密码短语”是一种密码类型，为了增加安全性，它更长。对于磁盘加密，我们建议至少选择六个单词。有关详细信息，请参阅我们的《<a href="https://blog.inofd.com/2019-03-02/how-to-creating-strong-passwords.html">创建强密码指南</a>》。</p>
+<p>在你的智能手机或移动设备上学习并输入一个长密码可能是不现实的。因此，虽然加密可以有效地防止随意访问，但是您应该通过将真正机密的数据隐藏起来，不让对手进行物理访问，或者在安全得多的设备上封锁起来。</p>
+<h2 id="创建安全设备">创建安全设备</h2>
+<p>维护一个安全的环境可能很困难。 最好的情况是，您必须更改密码，习惯，以及您在主计算机或设备上使用的软件。 在最坏的情况下，您必须不断考虑是否泄露机密信息或使用不安全的做法。 即使您知道问题，也可能无法使用解决方案，因为有时与您需要通信的人使用不安全的数字安全操作。 例如，工作同事可能希望您打开他们的电子邮件附件，即使您知道您的对手可能会冒充他们并向您发送恶意软件。</p>
+<p>那么解决方案是什么呢?考虑在更安全的设备上封锁有价值的数据和通信。您可以使用安全设备来保存机密数据的主要副本。只偶尔使用这个设备，当你这样做的时候，有意识地多注意你的行为。如果需要打开附件或使用不安全的软件，请在另一台机器上打开。</p>
+<blockquote>
+<p>额外的、安全的计算机可能不像你想的那么昂贵。一台很少使用的计算机，只运行一些程序，不需要特别快或新的。你可以用现代笔记本电脑或手机的一小部分价格买到一台旧的上网本。旧机器还有一个优势，即像tail这样的安全软件可能比新型号更适合它们。一般建议几乎总是如此:当你购买一台设备或操作系统时，让它与软件更新保持同步。更新通常会修复攻击可能导致的旧代码中的安全问题</p>
+</blockquote>
+<h2 id="设置安全计算机时您可以采取哪些措施来确保其安全">设置安全计算机时，您可以采取哪些措施来确保其安全？</h2>
+<ol>
+<li>把你的设备藏好，不要谈论它的位置，在哪里你可以辨别它是否被篡改，比如一个锁着的机柜。</li>
+<li>使用强密码加密计算机的硬盘驱动器，这样如果它被盗，数据将在没有密码短语的情况下仍然无法读取。</li>
+<li>安装以隐私和安全为重点的操作系统，如Tails。 您可能无法（或想要）在日常工作中使用开源操作系统，但如果您只需要存储，编辑和编写来自此安全设备的机密电子邮件或即时消息，Tails将运行良好并且默认 高安全性设置。</li>
+<li>让你的设备离线。毫无疑问，保护自己不受网络攻击或在线监视的最好方法就是永远不要上网。您可以确保您的安全设备永远不会连接到本地网络或Wifi，只能使用物理介质(如dvd或USB驱动器)将文件复制到机器上。在网络安全中，这被称为计算机和世界其他地方之间的“空气间隙”。虽然有些极端，但如果您希望保护很少访问但又不想丢失的数据(例如加密密钥、密码列表或备份)，则可以使用此选项。在大多数情况下，您可能希望考虑只使用一个隐藏的存储设备，而不是一台完整的计算机。例如，一个被安全隐藏的加密USB密钥，可能和一台从互联网上断开连接的完整计算机一样有用(或无用)。</li>
+<li>不要登录到您的常用帐户。 如果您确实使用安全设备连接到Internet，请创建用于从此设备进行通信的单独Web或电子邮件帐户，并使用<a href="https://www.torproject.org/index.html.en">Tor</a>（请参阅Linux，macOS，Windows指南）以保护您的IP地址不受这些服务的影响 。 如果有人选择使用恶意软件专门定位您的身份，或者只是拦截您的通信，单独的账户和Tor可以帮助切断你的身份和这台特定机器之间的联系。</li>
+</ol>
+<blockquote>
+<p>虽然拥有一个包含重要机密信息的安全设备可能有助于保护它免受对手攻击，但它也创造了一个明显的目标。如果机器被摧毁，也有丢失数据唯一副本的风险。如果你的对手会从你丢失的所有数据中受益，无论多么安全，都不要把它保存在一个地方。加密一份拷贝并将其保存在其他地方。</p>
+</blockquote>
+<p>安全机器概念的另一种变化是拥有不安全的机器:只在进入危险场所或尝试危险操作时使用的设备。例如，许多记者和活动人士在旅行时都会随身携带一本基本的上网本。这台电脑上没有他们的任何文件，也没有常用的联系方式或电子邮件信息，所以如果被没收或扫描，损失很小。同样的策略也适用于手机。如果你经常使用智能手机，那就考虑在出差时买一部便宜的老人机或山寨机。</p>
+<blockquote>
+<p>翻译自：https://ssd.eff.org/en/module/keeping-your-data-safe</p>
+</blockquote>
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://blog.taielab.com">码中春秋</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.taielab.com/2019-03-05/how-to-keeping-your-data-safe.html">https://blog.taielab.com/2019-03-05/how-to-keeping-your-data-safe.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/2019-03-02/how-to-creating-strong-passwords.html">数字安全培训·基础篇（七）如何创建强密码</a></li>
+        
+        <li><a href="/2019-03-02/how-to-choosing-your-tools.html">数字安全培训·基础篇（五）如何选择保护自己的数据安全工具</a></li>
+        
+        <li><a href="/2019-03-02/how-to-communicating-others.html">数字安全培训·基础篇（六）如何安全的与他人网络社交</a></li>
+        
+        <li><a href="/2019-02-28/how-to-using-password-managers-stay-safe-online.html">数字安全培训·基础篇（四）如何使用密码管理器保证账户安全</a></li>
+        
+        <li><a href="/2019-02-28/how-to-protecting-your-device-hackers.html">数字安全培训·基础篇（三）如何保护设备避免黑客攻击</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87'>数字安全基础篇</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "udpsec/blog-comments"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-11-25/ios-13-checkra-in-repair-the-internet-connection-appears-to-be-offline.html" title="IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误">IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-29/red-team-and-physical-entry-gear-tips.html" title="护网之红方物理入侵旁门左道">护网之红方物理入侵旁门左道</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-05/intranet-roaming-network-traffic-control.html" title="内网漫游系列之流量操控与Socks代理总结">内网漫游系列之流量操控与Socks代理总结</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-27/intranet-roaming-ss-privoxy.html" title="内网漫游系列之正向全局代理ss&#43;Privoxy">内网漫游系列之正向全局代理ss&#43;Privoxy</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-20/centos-7-upgrade-Kernel.html" title="Centos7安装升级最新内核">Centos7安装升级最新内核</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/digital-forensics-live-and-dead.html" title="数字取证-死活取证">数字取证-死活取证</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html" title="Centos7搭建本地yum仓库">Centos7搭建本地yum仓库</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/osint-101-auto-visual.html" title="OSINT101 技术自动化和可视化">OSINT101 技术自动化和可视化</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-21/ubuntu-migrate-to-ssd.html" title="Ubuntu19.04迁移到SSD">Ubuntu19.04迁移到SSD</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-16/kali-linux-double-display-solutions.html" title="双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案">双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.taielab.com/categories/IOS%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">IOS应用逆向与安全 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/Linux/">Linux (11)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%B7%A5%E5%85%B7%E6%95%88%E7%8E%87/">工具效率 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%BC%80%E6%BA%90%E6%83%85%E6%8A%A5%E6%94%B6%E9%9B%86/">开源情报收集 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (30)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/">红蓝对抗 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全 (6)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4/">网络运维 (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.taielab.com/tags/Debian/">Debian</a>
+    
+    <a href="https://blog.taielab.com/tags/IOS/">IOS</a>
+    
+    <a href="https://blog.taielab.com/tags/OSINT/">OSINT</a>
+    
+    <a href="https://blog.taielab.com/tags/archlinux/">archlinux</a>
+    
+    <a href="https://blog.taielab.com/tags/centos/">centos</a>
+    
+    <a href="https://blog.taielab.com/tags/github/">github</a>
+    
+    <a href="https://blog.taielab.com/tags/gitup/">gitup</a>
+    
+    <a href="https://blog.taielab.com/tags/gpg/">gpg</a>
+    
+    <a href="https://blog.taielab.com/tags/hexo/">hexo</a>
+    
+    <a href="https://blog.taielab.com/tags/hugo/">hugo</a>
+    
+    <a href="https://blog.taielab.com/tags/kali-linux/">kali-linux</a>
+    
+    <a href="https://blog.taielab.com/tags/lnmp/">lnmp</a>
+    
+    <a href="https://blog.taielab.com/tags/manjaro/">manjaro</a>
+    
+    <a href="https://blog.taielab.com/tags/meedu/">meedu</a>
+    
+    <a href="https://blog.taielab.com/tags/nessus/">nessus</a>
+    
+    <a href="https://blog.taielab.com/tags/parrot-os/">parrot-os</a>
+    
+    <a href="https://blog.taielab.com/tags/pentestbox/">pentestbox</a>
+    
+    <a href="https://blog.taielab.com/tags/shadowsocks/">shadowsocks</a>
+    
+    <a href="https://blog.taielab.com/tags/tor/">tor</a>
+    
+    <a href="https://blog.taielab.com/tags/ubuntu/">ubuntu</a>
+    
+    <a href="https://blog.taielab.com/tags/vps/">vps</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">内网渗透命令</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%BC%AB%E6%B8%B8/">内网漫游</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/">奇淫技巧</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/">数字安全基础篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%AF%87/">数字安全工具篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">数据库系统原理</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81/">死活取证</a>
+    
+    <a href="https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5/">物理入侵</a>
+    
+    <a href="https://blog.taielab.com/tags/%E8%B8%8F%E9%9B%AA%E6%97%A0%E7%97%95%E7%B3%BB%E5%88%97/">踏雪无痕系列</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="#" title=""></a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://blog.taielab.com/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+</body>
+
+</html>

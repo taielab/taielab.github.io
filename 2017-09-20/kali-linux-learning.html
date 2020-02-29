@@ -1,0 +1,1632 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>KaliLinux - 基础入门 | 码中春秋&#39;s Blog</title>
+    <meta property="og:title" content="KaliLinux - 基础入门 - 码中春秋&#39;s Blog">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2017-09-20T12:39:32&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2017-09-20T12:39:32&#43;08:00'>
+        
+    <meta name="Keywords" content="码中春秋,博客,,taielab,java,python,项目管理,软件架构,网络安全,数字安全,隐私保护,反侦查,反技侦,匿名方案,open,freedom,democracy,decentralization">
+    <meta name="description" content="KaliLinux - 基础入门">
+        
+    <meta name="author" content="码中春秋">
+    <meta property="og:url" content="https://blog.taielab.com/2017-09-20/kali-linux-learning.html">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.taielab.com">
+                        码中春秋&#39;s Blog
+                    </a>
+                
+                <p class="description">专注于Java企业级开发、数字安全、信息安全、安全运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.taielab.com">首页</a>
+                    
+                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    
+                    <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#修改更新源">修改更新源</a></li>
+    <li><a href="#ssh开启">ssh开启</a></li>
+    <li><a href="#新建用户-替换root权限">新建用户 替换root权限</a></li>
+    <li><a href="#软件安装">软件安装</a>
+      <ul>
+        <li><a href="#输入法安装">输入法安装</a></li>
+        <li><a href="#e-sub-process-usrbindpkg-returned-an-error-code-1报错解决办法">E: Sub-process /usr/bin/dpkg returned an error code (1)报错解决办法</a></li>
+        <li><a href="#自带浏览器其汉化方法">自带浏览器，其汉化方法：</a></li>
+        <li><a href="#安装谷歌浏览器">安装谷歌浏览器</a></li>
+        <li><a href="#安装flash源中已被废弃可去官网下载安装">安装flash(源中已被废弃可去官网下载安装)</a></li>
+        <li><a href="#安装tor"><strong>安装tor</strong></a></li>
+        <li><a href="#安装网易云音乐此处有问题-安装依赖报错">安装网易云音乐（此处有问题 安装依赖报错）</a></li>
+        <li><a href="#安装代码编辑器">安装代码编辑器</a></li>
+        <li><a href="#1新建并保存下面的代码为sublime_imfixc">（1）新建并保存下面的代码为sublime_imfix.c</a></li>
+        <li><a href="#安装eclipe及pydevdjango"><strong>安装eclipe及pydev,django</strong></a></li>
+        <li><a href="#安装-django"><strong>安装 django:</strong></a></li>
+        <li><a href="#安装pycharm">安装Pycharm</a></li>
+        <li><a href="#配置java开发环境">配置Java开发环境</a></li>
+        <li><a href="#安装add-apt-repository和pip">安装add-apt-repository和pip</a></li>
+        <li><a href="#科学上网">科学上网</a></li>
+        <li><a href="#安装wine以及qq">安装wine以及qq</a></li>
+        <li><a href="#用-crossover-安装-qq">用 CrossOver 安装 QQ</a></li>
+        <li><a href="#kali下安装虚拟机">Kali下安装虚拟机</a></li>
+        <li><a href="#系统优化美化">系统优化、美化</a></li>
+        <li><a href="#系统备份">系统备份</a></li>
+        <li><a href="#声卡保存音量和解决声卡独占">声卡保存音量和解决声卡独占</a></li>
+        <li><a href="#设置屏幕截屏">设置屏幕截屏</a></li>
+        <li><a href="#安装teamviewerwindows-qq远程控制的替代方案">安装teamviewer,windows QQ远程控制的替代方案</a></li>
+        <li><a href="#安装skype建议">安装skype[建议]</a></li>
+        <li><a href="#steam-游戏平台的安装">Steam 游戏平台的安装</a></li>
+        <li><a href="#各种可装可不装软件">各种可装可不装软件</a></li>
+        <li><a href="#docker安装">docker安装</a></li>
+        <li><a href="#tox安装">Tox安装</a></li>
+        <li><a href="#nvidia显卡独显">Nvidia显卡,独显</a></li>
+        <li><a href="#nvidia显卡双显">Nvidia显卡,双显</a></li>
+        <li><a href="#nvidia显卡双显-第三种方法">Nvidia显卡,双显 第三种方法</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">KaliLinux - 基础入门</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2017年9月20日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='https://blog.taielab.com/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <h2 id="修改更新源">修改更新源</h2>
+<pre><code>leafpad /etc/apt/sources.list
+</code></pre><pre><code>apt-get update &amp;&amp; apt-get upgrade &amp;&amp; apt-get dist-upgrade 
+</code></pre><p><strong>kali-rolling版本：（中科大的就够用了，个人按需吧）</strong></p>
+<pre><code>#中科大
+deb http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib
+deb-src http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib
+
+#阿里云
+#deb http://mirrors.aliyun.com/kali kali-rolling main non-free contrib
+#deb-src http://mirrors.aliyun.com/kali kali-rolling main non-free contrib
+
+#清华大学
+#deb http://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main contrib non-free
+#deb-src https://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main contrib non-free
+
+#浙大
+#deb http://mirrors.zju.edu.cn/kali kali-rolling main contrib non-free
+#deb-src http://mirrors.zju.edu.cn/kali kali-rolling main contrib non-free
+
+#东软大学
+#deb http://mirrors.neusoft.edu.cn/kali kali-rolling/main non-free contrib
+#deb-src http://mirrors.neusoft.edu.cn/kali kali-rolling/main non-free contrib
+
+#官方源
+#deb http://http.kali.org/kali kali-rolling main non-free contrib
+#deb-src http://http.kali.org/kali kali-rolling main non-free contrib
+
+#重庆大学
+#deb http://http.kali.org/kali kali-rolling main non-free contrib
+#deb-src http://http.kali.org/kali kali-rolling main non-free contrib
+</code></pre><p><strong>sana版本：（其实你把上面的版本都改成sana就可以了）</strong></p>
+<pre><code>#科大的云
+deb http://mirrors.ustc.edu.cn/kali sana main non-free contrib
+deb-src http://mirrors.ustc.edu.cn/kali sana main non-free contrib
+deb http://mirrors.ustc.edu.cn/kali-security sana/updates main contrib non-free
+
+#阿里云
+deb http://mirrors.aliyun.com/kali sana main non-free contrib
+deb-src http://mirrors.aliyun.com/kali sana main non-free contrib
+deb http://mirrors.aliyun.com/kali-security sana/updates main contrib non-free
+</code></pre><p><strong>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-Kali 1.0&ndash;更新源&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-</strong></p>
+<pre><code>#官方源
+deb http://http.kali.org/kali kali main non-free contrib
+deb-src http://http.kali.org/kali kali main non-free contrib
+deb http://security.kali.org/kali-security kali/updates main contrib non-free
+
+#中科大kali源
+deb http://mirrors.ustc.edu.cn/kali kali main non-free contrib
+deb-src http://mirrors.ustc.edu.cn/kali kali main non-free contrib
+deb http://mirrors.ustc.edu.cn/kali-security kali/updates main contrib non-free
+
+#新加坡kali源
+deb http://mirror.nus.edu.sg/kali/kali/ kali main non-free contrib
+deb-src http://mirror.nus.edu.sg/kali/kali/ kali main non-free contrib
+deb http://security.kali.org/kali-security kali/updates main contrib non-free
+deb http://mirror.nus.edu.sg/kali/kali-security kali/updates main contrib non-free
+deb-src http://mirror.nus.edu.sg/kali/kali-security kali/updates main contrib non-free
+
+#阿里云kali源
+deb http://mirrors.aliyun.com/kali kali main non-free contrib
+deb-src http://mirrors.aliyun.com/kali kali main non-free contrib
+deb http://mirrors.aliyun.com/kali-security kali/updates main contrib non-free
+
+#163 Kali源
+deb http://mirrors.163.com/debian wheezy main non-free contrib 
+deb-src http://mirrors.163.com/debian wheezy main non-free contrib 
+deb http://mirrors.163.com/debian wheezy-proposed-updates main non-free contrib 
+deb-src http://mirrors.163.com/debian wheezy-proposed-updates main non-free contrib 
+deb-src http://mirrors.163.com/debian-security wheezy/updates main non-free contrib 
+deb http://mirrors.163.com/debian-security wheezy/updates main non-free contrib
+
+
+#上海交大 Kali源 (比较慢，直接忽略)
+#deb http://ftp.sjtu.edu.cn/debian wheezy main non-free contrib
+#deb-src http://ftp.sjtu.edu.cn/debian wheezy main non-free contrib 
+#deb http://ftp.sjtu.edu.cn/debian wheezy-proposed-updates main non-free contrib 
+#deb-src http://ftp.sjtu.edu.cn/debian wheezy-proposed-updates main non-free contrib 
+#deb http://ftp.sjtu.edu.cn/debian-security wheezy/updates main non-free contrib 
+#deb-src http://ftp.sjtu.edu.cn/debian-security wheezy/updates main non-free contrib
+</code></pre><p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-这个是我的sources.list(64位kali)&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-</p>
+<pre><code>#
+
+# deb cdrom:[Debian GNU/Linux 7.0 _Kali_ - Official Snapshot amd64 LIVE/INSTALL Binary 20150312-17:50]/ kali contrib main non-free
+
+#deb cdrom:[Debian GNU/Linux 7.0 _Kali_ - Official Snapshot amd64 LIVE/INSTALL Binary 20150312-17:50]/ kali contrib main non-free
+
+deb http://http.kali.org/kali moto main non-free contrib
+deb-src http://http.kali.org/kali moto main non-free contrib
+
+deb http://security.kali.org/ moto/updates main contrib non-free
+deb-src http://security.kali.org/ moto/updates main contrib non-free
+
+#中科大kali源
+deb http://mirrors.ustc.edu.cn/kali kali main non-free contrib
+deb-src http://mirrors.ustc.edu.cn/kali kali main non-free contrib
+deb http://mirrors.ustc.edu.cn/kali-security kali/updates main contrib non-free
+
+#新加坡kali源
+deb http://mirror.nus.edu.sg/kali/kali/ kali main non-free contrib
+deb-src http://mirror.nus.edu.sg/kali/kali/ kali main non-free contrib
+deb http://security.kali.org/kali-security kali/updates main contrib non-free
+deb http://mirror.nus.edu.sg/kali/kali-security kali/updates main contrib non-free
+deb-src http://mirror.nus.edu.sg/kali/kali-security kali/updates main contrib non-free
+
+#阿里云kali源
+deb http://mirrors.aliyun.com/kali kali main non-free contrib
+deb-src http://mirrors.aliyun.com/kali kali main non-free contrib
+deb http://mirrors.aliyun.com/kali-security kali/updates main contrib non-free
+
+
+#163 Kali源
+deb http://mirrors.163.com/debian wheezy main non-free contrib 
+deb-src http://mirrors.163.com/debian wheezy main non-free contrib 
+deb http://mirrors.163.com/debian wheezy-proposed-updates main non-free contrib 
+deb-src http://mirrors.163.com/debian wheezy-proposed-updates main non-free contrib 
+deb-src http://mirrors.163.com/debian-security wheezy/updates main non-free contrib 
+deb http://mirrors.163.com/debian-security wheezy/updates main non-free contrib
+</code></pre><h2 id="ssh开启">ssh开启</h2>
+<pre><code>  a）打开sshd_config文件，命令为：leafpad /etc/ssh/sshd_config 或者vi /etc/ssh/sshd_config ；
+  b）将#PasswordAuthentication no 该行前面的#去掉，并且将NO修改为YES；
+  c）将#PermitRootLogin  without-password 该行前面的#去掉，并且将“without-password”修改为YES；
+</code></pre><p>一、若在使用工具登录时，当输完用户名密码后提示SSH服务器拒绝了密码，请再试一遍。
+这时请大家不要着急，只需要在Kali控制端口重新生成两个秘钥即可。秘钥生成命令如下：</p>
+<pre><code>ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key
+ssh-keygen -t dsa -f /etc/ssh/ssh_host_rsa_key
+</code></pre><p>当回车后系统会提示输入密码，此时直接回车即可。</p>
+<pre><code>二、为防止Kali重启后，无法远程Kali我们可以设置系统自动启动SSH服务。方法如下：
+方法一：
+sysv-rc-conf
+sysv-rc-conf --list | grep ssh
+sysv-rc-conf ssh on  //系统自动启动SSH服务
+sysv-rc-conf ssh off  // 关闭系统自动启动SSH服务
+方法二：
+update-rc.d ssh enable  //系统自动启动SSH服务
+update-rc.d ssh disabled // 关闭系统自动启动SSH服务
+</code></pre><pre><code>#检查ssh状态
+/etc/init.d/ssh start #启动sshd
+/etc/init.d/ssh status #查看SSH服务状态是否正常运行
+</code></pre><h2 id="新建用户-替换root权限">新建用户 替换root权限</h2>
+<pre><code>useradd -m -G video,audio,cdrom,sudo -s /bin/bash 用户名
+passwd 用户名
+</code></pre><p>设置IP,kali默认使用了dhcp,如果你想设置静态IP修改/etc/network/interfaces,修改过interfaces文件后网
+络管理器上会显示设备未托管,所以修改/etc/NetworkManager/NetworkManager.conf</p>
+<pre><code>sed -i 's/iface eth0 inet dhcp/iface eth0 inet static/' /etc/network/interfaces
+cat &gt;&gt; /etc/network/interfaces &lt;&lt; EOF
+address 192.168.1.1       #静态IP地址
+netmask 255.255.255.0 #掩码
+gateway 192.168.1.1      #网关地址
+EOF
+sed -i 's/managed=false/managed=true/' /etc/NetworkManager/NetworkManager.conf
+/etc/init.d/networking restart  #使网络配置生效
+</code></pre><p>#配置DNS和源,这里用的是官方源,有需要也可以添加自己喜欢的源</p>
+<pre><code>cat &gt; /etc/resolv.conf &lt;&lt; EOF
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+EOF
+cat &gt; /etc/apt/sources.list &lt;&lt; EOF
+deb http://http.kali.org/kali kali main non-free contrib
+deb-src http://http.kali.org/kali kali main non-free contrib
+deb http://security.kali.org/kali-security kali/updates main contrib non-free
+EOF
+</code></pre><p>优化字体显示</p>
+<pre><code>apt-get install ttf-wqy-microhei ttf-wqy-zenhei xfonts-wqy
+</code></pre><p>修改默认语言</p>
+<pre><code>dpkg-reconfigure locales 以zh_CN开头的区域设置全部勾上
+</code></pre><p>kali linux 工具综合包安装</p>
+<pre><code>#一共分以下这么多类工具包，可以根据自己需要进行选择安装
+
+* kali-linux
+
+在kali-linu 原数据包是一个完全裸机安装kali-linux，仅包括各种网络服务，如Apache和SSH，kali内核，以及一些类似git，svn等所有列出其他综合包控制应用。安装大小：1.5GB
+
+* kali-linux-all 
+
+为了保证ISO大小合理，我们无法包括kali所有包和不能够被硬件使用的工具，例如各种GPU的一些工具，如果你想安装所有可用的kali-linux软件包，可用安装 kali-linux-all。安装大小：15GB
+* kali-linux-forensic
+
+
+如果你正在做取证工作，你不希望你的分析系统包含一堆不必要工具。就使用自带，其中包含kali-linux取证工具。安装大小：3.1GB
+
+* kali-linux-full 
+
+当你下载一个kali-linux ISO，你基本是已经安装kali-linux full综合包。该综合包包含你所有熟悉kali工具。安装大小：9.0GB
+
+* kali-linux-gpu
+
+现在GPU都非常强大，但需要特殊的硬件才能正常工作，出于这个原因，它们不包括在默认安装的kali-linux中，但是你可以用kali-linux-gpu 全部安装一次，安装大小：4.8GB
+
+* kali-linux-pwtools
+
+在kali-linux-pwtools综合包中，包含超过40个不同密码破解实用工具，以及包含在kali-linux-gpu综合包的GPU工具。安装大小：6.0GB
+
+* kali-linux-rfid
+
+对于我们的用户有些在做RFID研究和开发，我们已经包含所有在kali linux RDIF工具在kali-linux-rfid综合包中。安装大小：1.5GB
+
+* kali-linux-sdr
+
+在kali-linux-sdr综合包中包含大量供你选择工具，从而你的满足无线电黑客需求。安装大小：2.4GB
+* kali-linux-top10 
+
+在kali-linux，我们有一个菜单名为：“TOP 10 security Tools”。此数据包将为你安装这些工具。安装大小：3.5GB。
+
+* kali-linux-voip
+
+许多人告诉我们，他们在使用kali-linux进行VOIP测试和研究，所以他们会很乐意知道，现在我们有一个专门有20+工具的kali-linux-voip综合包，安装大小：1.8GB
+
+* kali-linux-web
+
+Web应用程序评估在渗透测试领域很常见，为此，kali-linux包含数十种与Web应用程序的黑客工具在kali-linux-web综合包里面。安装大小：4.9GB
+
+* kali-linux-wireless
+
+像Web应用程序一样，需要渗透测试评估，有针对于无线网络。所以提供包含所有你需要且易于安装的工具在kali-linux-wireless综合包中。安装大小：6.6GB
+#虽然我们试图将综合包名称不言自明，但是实际情况，我们使用是有限的，所以让我们来简单了解一下他们每一个大致情况：
+apt-get update &amp;&amp; apt-cache search kali-linux
+#想查看包含在综合包工具列表，你可以使用简单容易的命令来查询。例如，要列出所有包含在kali-linux-web综合包的工具，我们就输入
+apt-cache show kali-linux-web |grep Depends
+
+#第二种方法通过python自动化
+sudo git clone https://github.com/LionSec/katoolin.git
+将katoolin目录下的python脚本复制到/usr/bin/目录下
+sudo cp katoolin/katoolin.py /usr/bin/katoolin
+为python脚本添加可执行权限
+sudo chmod ugo+x /usr/bin/katoolin
+输入下面的命令启动katoolin
+sudo katoolin
+#安装具体步骤
+我们先选择1
+在选择2来更新软件源
+完成后，输入back返回上一级菜单。然后选择2) View Categories，然后再输入数字0
+安装所有工具
+如果你不想安装所有工具
+你也可以只安装那些你需要的软件，而不必安装所有工具，比如你只想安装aircrack-ng（无线密码破解工具），那些在分类里选择3) Wireless Attacks 在选择1
+然后 Ctrl+c 退出就可以了
+</code></pre>
+<p>火狐浏览器渗透测试插件一键shell</p>
+<pre><code>git clone https://github.com/mazen160/Firefox-Security-Toolkit
+Available Addons:-
+Cookie Export/Import
+Cookie Manager
+Copy as Plain Text
+Crypto Fox
+CSRF-Finder
+Disable WebRTC
+FireBug
+Fireforce
+FlagFox
+Foxy Proxy
+HackBar
+Live HTTP Headers
+Multi Fox
+PassiveRecon
+Right-Click XSS
+Tamper Data
+User Agent Switcher
+Wappalyzer
+Web Developer
+执行.sh脚本安装即可
+</code></pre><h2 id="软件安装">软件安装</h2>
+<h3 id="输入法安装">输入法安装</h3>
+<pre><code> #以下任选一种
+ apt-get install ibus ibus-pinyin  #经典的ibus
+ apt-get install fcitx-table-wbpy ttf-wqy-microhei ttf-wqy-zenhei      #拼音五笔   
+ apt-get install fcitx fcitx-googlepinyin fcitx-pinyin fcitx-module-cloudpinyin                
+</code></pre><p><strong>如果遇见更新源的时候总出现没有公钥的情况</strong></p>
+<pre><code>apt-key adv --recv-keys --keyserver keyserver.Ubuntu.com xxxxxxxxxx
+xxxxxxxxxx替换为 那一长串字母数字
+apt-key adv --keyserver hkp://keys.gnupg.net --recv-keys xxxxxxxxxxxxx
+</code></pre><h3 id="e-sub-process-usrbindpkg-returned-an-error-code-1报错解决办法">E: Sub-process /usr/bin/dpkg returned an error code (1)报错解决办法</h3>
+<pre><code>1.$ sudo mv /var/lib/dpkg/info /var/lib/dpkg/info_old //现将info文件夹更名  
+2.$ sudo mkdir /var/lib/dpkg/info //再新建一个新的info文件夹  
+3.$ sudo apt-get update,   
+$ apt-get -f install //不用解释了吧  
+4.$ sudo mv /var/lib/dpkg/info/* /var/lib/dpkg/info_old //执行完上一步操作后会在新的info文件夹下生成一些文件，现将这些文件全部移到info_old文件夹下  
+5.$ sudo rm -rf /var/lib/dpkg/info //把自己新建的info文件夹删掉  
+6.$ sudo mv /var/lib/dpkg/info_old /var/lib/dpkg/info //把以前的info文件夹重新改回名字  
+</code></pre><h3 id="自带浏览器其汉化方法">自带浏览器，其汉化方法：</h3>
+<pre><code>apt-get install iceweasel-l10n-zh-cn
+</code></pre><h3 id="安装谷歌浏览器">安装谷歌浏览器</h3>
+<p>答：官网上下载谷歌浏览器（可能你访问不了，有时候等等还是可以出现下载链接的，如果访问不了去百度上搜索下然后下载个deb包），然后到下载目录安装下：root@kali:dpkg -i google-chrome-stable（具体以实际包的名称为准）。安装完之后，如果你是root运行，会提示你不给root执行的。解决方法：root@kali:gedit /usr/bin/google-chrome，然后在最后一行尾加入–user-data-dir（注意空格喔）。</p>
+<pre><code>#下载安装包
+http://www.google.cn/chrome/browser/desktop/
+#安装
+dpkg -i google-chrome-*.deb
+#修复依赖
+apt-get install -f
+</code></pre><h5 id="权限问题">权限问题：</h5>
+<p>安装完了之后会发现无法用 <strong>root</strong> 用户打开 <strong>Chrome</strong>；</p>
+<p>{% qnimg kali学习笔记-google.png title:google  %}</p>
+<h6 id="解决方法">解决方法：</h6>
+<ol>
+<li>
+<p>创建新用户</p>
+<pre><code>useradd test
+passwd test    #设置新用户口令
+su test
+google-chrome
+</code></pre></li>
+<li>
+<p>添加参数</p>
+<pre><code>google-chrome --no-sandbox
+</code></pre></li>
+<li>
+<p>修改配置</p>
+<pre><code>leafpad /opt/google/chrome/google-chrome
+</code></pre><p>找到最后三行：</p>
+<blockquote>
+<p>else
+exec -a &ldquo;$0&rdquo; &ldquo;$HERE/chrome&rdquo; &ldquo;$@&rdquo; &ndash;no-sandbox 　#添加&ndash;no-sandbox
+fi</p>
+</blockquote>
+</li>
+</ol>
+<p>{% qnimg kali学习笔记-google-2.png title:google   %}</p>
+<h3 id="安装flash源中已被废弃可去官网下载安装">安装flash(源中已被废弃可去官网下载安装)</h3>
+<pre><code>apt-get install flashplugin-nonfree
+update-flashplugin-nonfree –install
+</code></pre><h3 id="安装tor"><strong>安装tor</strong></h3>
+<pre><code>apt-get install tor 
+service tor start
+
+设置 ProxyChains
+
+vi /etc/proxychains.conf
+去掉dynamic_chain前面的注释符
+
+添加代理服务器列表
+在最下方这个地方，默认是socks4 xxxx xxx
+改成sock5 127.0.0.1 xxxx // xxxx是你自己的端口
+我这里用的是1080
+
+proxychains firefox  
+使用ProxyChains代理其他程序和启动Firefox同理
+proxychains msfconsole //启动msf
+proxychains sqlmap //通过代理启动sqlmap
+</code></pre><h3 id="安装网易云音乐此处有问题-安装依赖报错">安装网易云音乐（此处有问题 安装依赖报错）</h3>
+<pre><code>
+安装Powerline fonts
+# clone
+git clone https://github.com/powerline/fonts.git
+# install
+cd fonts
+./install.sh
+# clean-up a bit
+cd ..
+rm -rf fonts
+
+sudo apt-get install mpv
+
+sudo apt-get install python3-pip
+sudo -H pip3 install feeluown
+feeluown-install-dev   # 安装依赖
+mkdir ~/.FeelUOwn
+feeluown-genicon   # 生成图标
+
+### 运行
+feeluown
+
+### 开发者运行
+feeluown -d
+
+### 更新，建议没事可以更新它，会有一些小的bug修复
+### 有大的更新的时候，运行软件的时候会提示
+pip3 install feeluown --upgrade
+
+### 更快捷方便版本
+安装(Linux版)：
+下载：
+修改版
+PS：根据 netease-cloud-music1.0.0-1amd64_deepin15.deb 修改
+安装：
+root@Cyborg:~/下载# dpkg -i netease-cloud-music_1.0.0-1_amd64.kali.deb
+root@Cyborg:~/下载# apt-get install -f
+优化启动：
+
+root@Cyborg:~# which netease-cloud-music 
+/usr/bin/netease-cloud-music
+把
+#!/bin/bash
+cd /usr/lib/netease-cloud-music
+if [ $# -gt 0 ]; then
+  /usr/lib/netease-cloud-music/netease-cloud-music &quot;$1&quot;
+else
+  /usr/lib/netease-cloud-music/netease-cloud-music
+fi
+修改成：
+#!/bin/bash
+cd /usr/lib/netease-cloud-music
+if [ $# -gt 0 ]; then
+  /usr/lib/netease-cloud-music/netease-cloud-music &quot;$1&quot; --no-sandbox
+else
+  /usr/lib/netease-cloud-music/netease-cloud-music --no-sandbox
+fi
+</code></pre><h3 id="安装代码编辑器">安装代码编辑器</h3>
+<p>sublime text 3 <a href="http://www.sublimetext.com/docs/3/linux_repositories.html">http://www.sublimetext.com/docs/3/linux_repositories.html</a></p>
+<pre><code>wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+Stable
+echo &quot;deb https://download.sublimetext.com/ apt/stable/&quot; | sudo tee /etc/apt/sources.list.d/sublime-text.list
+Dev
+echo &quot;deb https://download.sublimetext.com/ apt/dev/&quot; | sudo tee /etc/apt/sources.list.d/sublime-text.list
+sudo apt-get update
+sudo apt-get install sublime-text
+</code></pre><p>解决不能输入中文方法：</p>
+<h3 id="1新建并保存下面的代码为sublime_imfixc">（1）新建并保存下面的代码为sublime_imfix.c</h3>
+<pre><code>/*
+sublime-imfix.c
+Use LD_PRELOAD to interpose some function to fix sublime input method support for linux.
+By Cjacker Huang 
+ 
+gcc -shared -o libsublime-imfix.so sublime_imfix.c  `pkg-config --libs --cflags gtk+-2.0` -fPIC
+LD_PRELOAD=./libsublime-imfix.so sublime_text
+*/
+#include 
+#include 
+typedef GdkSegment GdkRegionBox;
+ 
+struct _GdkRegion
+{
+  long size;
+  long numRects;
+  GdkRegionBox *rects;
+  GdkRegionBox extents;
+};
+ 
+GtkIMContext *local_context;
+ 
+void
+gdk_region_get_clipbox (const GdkRegion *region,
+            GdkRectangle    *rectangle)
+{
+  g_return_if_fail (region != NULL);
+  g_return_if_fail (rectangle != NULL);
+ 
+  rectangle-&gt;x = region-&gt;extents.x1;
+  rectangle-&gt;y = region-&gt;extents.y1;
+  rectangle-&gt;width = region-&gt;extents.x2 - region-&gt;extents.x1;
+  rectangle-&gt;height = region-&gt;extents.y2 - region-&gt;extents.y1;
+  GdkRectangle rect;
+  rect.x = rectangle-&gt;x;
+  rect.y = rectangle-&gt;y;
+  rect.width = 0;
+  rect.height = rectangle-&gt;height; 
+  //The caret width is 2; 
+  //Maybe sometimes we will make a mistake, but for most of the time, it should be the caret.
+  if(rectangle-&gt;width == 2 &amp;&amp; GTK_IS_IM_CONTEXT(local_context)) {
+        gtk_im_context_set_cursor_location(local_context, rectangle);
+  }
+}
+ 
+//this is needed, for example, if you input something in file dialog and return back the edit area
+//context will lost, so here we set it again.
+ 
+static GdkFilterReturn event_filter (GdkXEvent *xevent, GdkEvent *event, gpointer im_context)
+{
+    XEvent *xev = (XEvent *)xevent;
+    if(xev-&gt;type == KeyRelease &amp;&amp; GTK_IS_IM_CONTEXT(im_context)) {
+       GdkWindow * win = g_object_get_data(G_OBJECT(im_context),&quot;window&quot;);
+       if(GDK_IS_WINDOW(win))
+         gtk_im_context_set_client_window(im_context, win);
+    }
+    return GDK_FILTER_CONTINUE;
+}
+ 
+void gtk_im_context_set_client_window (GtkIMContext *context,
+          GdkWindow    *window)
+{
+  GtkIMContextClass *klass;
+  g_return_if_fail (GTK_IS_IM_CONTEXT (context));
+  klass = GTK_IM_CONTEXT_GET_CLASS (context);
+  if (klass-&gt;set_client_window)
+    klass-&gt;set_client_window (context, window);
+ 
+  if(!GDK_IS_WINDOW (window))
+    return;
+  g_object_set_data(G_OBJECT(context),&quot;window&quot;,window);
+  int width = gdk_window_get_width(window);
+  int height = gdk_window_get_height(window);
+  if(width != 0 &amp;&amp; height !=0) {
+    gtk_im_context_focus_in(context);
+    local_context = context;
+  }
+  gdk_window_add_filter (window, event_filter, context); 
+}
+</code></pre><ol>
+<li>编译动态库</li>
+</ol>
+<pre><code>gcc -shared -o libsublime-imfix.so sublime_imfix.c `pkg-config --libs --cflags gtk+-2.0` -fPIC
+</code></pre><p>3.设置 LD_PRELOAD 并启动 Sublime Text：</p>
+<pre><code> LD_PRELOAD=./libsublime-imfix.so sublime_text
+</code></pre><p>解决界面汉化：网上搜索下载Sublime_Text_CN_3059.zip，解压之后得到Default.sublime-package文件，其实就是个package，在菜单中选择preferences——Browse packages进入到<code>/home/siat/.config/sublime-text-3/Packages</code>然后向上一级进入到<code>/home/siat/.config/sublime-text-3/Installed Packages</code>，把Default.sublime-package包复制到Installed Packages文件夹下，这时sublime text3立刻变成中文了。</p>
+<p>其他编辑器安装（由于我没有测试过，仅复制链接为各位省去搜索时间）</p>
+<h3 id="安装eclipe及pydevdjango"><strong>安装eclipe及pydev,django</strong></h3>
+<p>可参考 <a href="http://blog.csdn.net/allen_zhao_2012/article/details/7988389">http://blog.csdn.net/allen_zhao_2012/article/details/7988389</a></p>
+<p>首先</p>
+<pre><code>apt-get install -y eclipse
+</code></pre><p>默认安装的 eclipse plugins 路径为: /usr/lib/eclipse/</p>
+<p>其次下载pydev</p>
+<pre><code>wget http://downloads.sourceforge.net/project/pydev/pydev/PyDev%203.2.0/PyDev%203.2.0.zip?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fpydev%2Ffiles%2Fpydev%2FPyDev%25203.2.0%2F&amp;ts=1407645058&amp;use_mirror=cznic
+</code></pre><p>最后</p>
+<pre><code>unzip PyDev\ 3.2.0.zip
+cp -r features /usr/lib/eclipse/
+cp -r plugins /usr/lib/eclipse/
+</code></pre><p>最最后</p>
+<p>打开eclipse</p>
+<p><code>Windows → Preferences → PyDev → Python Interpreters → </code></p>
+<p>(可以Auto config也可手动)</p>
+<pre><code>Interpreter name: Python 2.73 
+Interpreter Executable: /usr/bin/python2.7
+/usr/bin/python2.7
+</code></pre><h3 id="安装-django"><strong>安装 django:</strong></h3>
+<pre><code>curl https://bootstrap.pypa.io/ez_setup.py -o - | python
+
+apt-get install -y apache2 libapache2-mod-wsgi mysql-server python-mysqldb
+</code></pre><p>下载 django: #下载页面 <a href="https://www.djangoproject.com/download/">https://www.djangoproject.com/download/</a></p>
+<pre><code>wget https://www.djangoproject.com/download/1.6.5/tarball/
+tar -zxvf Django-1.6.5.tar.gz
+cd Django-1.6.5
+python setup.py install
+</code></pre><h3 id="安装pycharm">安装Pycharm</h3>
+<h5 id="选择版本下载-linux-版">选择版本下载( <strong>Linux</strong> 版)：</h5>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>专业版</th>
+<th>社区版</th>
+<th>教育版</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>英文名</td>
+<td><strong>Professional</strong></td>
+<td><strong>Community</strong></td>
+<td><strong>Edu</strong></td>
+</tr>
+<tr>
+<td>优点</td>
+<td>功能丰富</td>
+<td>免费</td>
+<td><strong>Edu</strong> 邮箱申请免费</td>
+</tr>
+<tr>
+<td>缺点</td>
+<td>付费</td>
+<td>禁用部分功能</td>
+<td>需要 <strong>Edu</strong> 邮箱</td>
+</tr>
+<tr>
+<td>价格</td>
+<td>$159(￥1095) ~ $199(￥1370) 第一年</td>
+<td><strong>Free</strong></td>
+<td><strong>Free</strong></td>
+</tr>
+<tr>
+<td>下载地址</td>
+<td><a href="http://www.jetbrains.com/pycharm/download/"><strong>Professional</strong></a></td>
+<td><a href="http://www.jetbrains.com/pycharm/download/"><strong>Community</strong></a></td>
+<td><a href="https://www.jetbrains.com/pycharm-edu/download/"><strong>Edu</strong></a></td>
+</tr>
+</tbody>
+</table>
+<h5 id="安装">安装：</h5>
+<ul>
+<li>
+<p>解压</p>
+<pre><code>root@Cyborg: ~# tar -xzvf pycharm*.tar.gz
+</code></pre></li>
+<li>
+<p>再把解压后的文件夹移动到自己喜欢的路径下</p>
+<pre><code>root@Cyborg: ~# mv pycharm*/ /opt/
+</code></pre></li>
+<li>
+<p>进入 <strong>pycharm</strong> 里面的 <em>/bin</em> 目录</p>
+<pre><code>root@Cyborg:/opt# cd pycharm/
+</code></pre></li>
+</ul>
+<p><strong>pycharm.sh</strong> 就是软件的启动脚本</p>
+<pre><code>root@Cyborg:/opt/pycharm/bin# ./pycharm.sh
+</code></pre><p>在弹出的选择框里选择 &ldquo;<strong>Accept</strong>&rdquo; 同意协议；</p>
+<p>现在需要许可证登录，有三个方法：</p>
+<ul>
+<li>
+<p><strong>登录JetBains Account</strong>
+不过前提是你用这个账户购买了许可证；</p>
+</li>
+<li>
+<p>使用Activation code：</p>
+<p>先下载<a href="http://idea.lanyus.com/jar/JetbrainsCrack-2.6.2.jar"><strong>JetbrainsCrack</strong></a>和<a href="http://idea.lanyus.com/jar/JetbrainsPatchKeygen-1.2.1.jar"><strong>JetbrainsPatchKeygen</strong></a>的插件包放到
+<strong>pycharm</strong> 下的 <em>lib/</em> 目录下，并</p>
+<p>在</p>
+<p>/etc/hosts</p>
+<p>文件中添加</p>
+<pre><code> 0.0.0.0 account.jetbrains.com
+</code></pre><p>再去</p>
+<p><strong>IntelliJ IDEA</strong> 注册码</p>
+<p>点击 &ldquo;获得注册码&rdquo;，把得到的注册码复制到</p>
+<p>Activation code</p>
+<p>里就好了；</p>
+<ul>
+<li><strong>License servers</strong>
+见教程<a href="http://blog.lanyus.com/archives/174.html"><strong>ilanyu&rsquo;s Blog</strong></a>；</li>
+</ul>
+<h5 id="5-优化启动">5. 优化启动</h5>
+<p>　　每次启动都需要</p>
+<pre><code>root@Cyborg:~# /opt/pycharm/bin/pycharm.sh
+</code></pre><p>现在把 <strong>pycharm</strong> 添加到 <em>/usr/bin</em> 里每次只要输入 <strong>pycharm</strong> 就可以打开使用了。</p>
+<pre><code>root@Cyborg:~# ln -s /opt/pycharm/bin/pycharm.sh /usr/bin/pycharm
+</code></pre><h5 id="6-汉化">6. 汉化：</h5>
+<p>　　相信大家有时候有各种的 &ldquo;英语综合症&rdquo;，所以特地推出汉化教程。但是要知道，如果能坚持用英文版，那就坚持下去，坚持使用英文版绝对是有好处的。</p>
+<p>汉化也是非常的简单：
+　　下载<a href="http://dl.download.csdn.net/down11/20170324/f82bcb226fb53788e4b4eebd13ffe69c.zip?response-content-disposition=attachment;filename=%22pycharm3.3%E6%B1%89%E5%8C%96.zip%22&amp;OSSAccessKeyId=9q6nvzoJGowBj4q1&amp;Expires=1495610447&amp;Signature=vrtuc4VfD0qRRwur/EP6EJrLHvo=">汉化包</a>放到 <strong>pycharm</strong> 下的 <em>lib/</em> 目录下，再把 <strong>resources_en.jar</strong> 文件移出来就
+<strong>OK</strong> 了。</p>
+<h5 id="7-补充">7. 补充：</h5>
+<p>　　除了有社区版，专业版和教育版之外，<strong>Jetbrains</strong> 对创业公司也有扶持，详见<a href="https://www.jetbrains.com/shop/eform/startup">针对创业公司的优惠计划</a>；</p>
+</li>
+</ul>
+<h3 id="配置java开发环境">配置Java开发环境</h3>
+<h5 id="1-介绍">1. 介绍：</h5>
+<p>　　<strong>Java</strong>开发环境包括 <strong>Jdk</strong> 以及各种 <strong>IDE</strong>，最流行的莫过于 <strong>jdk + eclipse <strong>组合。
+本章将对 <strong>jdk</strong> 以及</strong> eclipse</strong> 的安装进行讲解。</p>
+<h5 id="2-展示">2. 展示：</h5>
+<p><strong>Jdk&amp;Eclipse</strong></p>
+<h5 id="3-安装linux版">3. 安装(Linux版)：</h5>
+<h6 id="1-jdk">1) JDK</h6>
+<ul>
+<li><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">下载 <strong>jdk</strong></a></li>
+</ul>
+<p><strong>DOWNLOAD</strong></p>
+<p>　　点击 <strong>DOWNLOAD</strong>；</p>
+<p><strong>License Agreement</strong></p>
+<p>　　点击 Accept License Agreement
+　　然后选择包：<strong>Linux x64</strong></p>
+<p>　　** PS **：<strong>Linux x86</strong> 是32位的 <strong>linux</strong> 系统使用</p>
+<p>　　<strong>『</strong> 这里 <strong>Linux x64</strong> 有两种包，分别是 <strong>rpm</strong> 和 <strong>tar.gz</strong> 。
+　　两种都可以，只不过安装工具不同 。
+　　个人比较喜欢用 <strong>tar.gz</strong> 的，所以本次以 <strong>tar.gz</strong> 介绍 。<strong>』</strong> 　</p>
+<ul>
+<li>
+<p>解压</p>
+<pre><code>root@Cyborg:~/下载# tar -zxvf jdk*.tar.gz
+</code></pre></li>
+<li>
+<p>再把解压后的文件夹移动到自己喜欢的路径下</p>
+<pre><code>root@Cyborg:~/下载# mv jdk1.8.0_131/ /opt/
+</code></pre></li>
+<li>
+<p>配置环境变量</p>
+<p>进入jdk1.8.0_121/，得到 jdk的路径&rdquo; /opt/jdk1.8.0_131&rdquo;</p>
+<p>打开配置文件：</p>
+<pre><code>root@Cyborg:/opt/jdk1.8.0_131# leafpad /etc/profile
+</code></pre><p>在弹出的文本文件末尾加上代码：</p>
+<blockquote>
+<p>JAVA_HOME=/opt/jdk1.8.0_131　　　　　#把值修改成自己的路径
+CLASSPATH=.:$JAVA_HOME/lib.tools.jar
+PATH=$JAVA_HOME/bin:$PATH
+export JAVA_HOME CLASSPATH PATH</p>
+</blockquote>
+</li>
+</ul>
+<p>　保存，退出；
+　再更新一下：</p>
+<pre><code>    root@Cyborg:/opt/jdk1.8.0_131# source /etc/profile
+</code></pre><ul>
+<li>
+<p>切换版本
+安装完后需要把默认的<strong>java</strong>切换到刚刚安装的<strong>java</strong>版本上来(<strong>Kali Linux</strong>自带<strong>OpenJdk</strong>版本)
+删除原本默认软链：</p>
+<pre><code>root@Cyborg:/etc# rm /usr/bin/javac &amp;&amp; rm /usr/bin/java
+</code></pre><p>添加新软链：</p>
+<pre><code>root@Cyborg:/# ln -s /opt/jdk1.8.0_131/bin/java /usr/bin/java
+root@Cyborg:/# ln -s /opt/jdk1.8.0_131/bin/javac /usr/bin/javac
+</code></pre></li>
+<li>
+<p>测试</p>
+<pre><code>root@Cyborg:/opt/jdk1.8.0_131# java -version
+</code></pre><p>如果返回：</p>
+<pre><code>java version &quot;1.8.0_131&quot;
+Java(TM) SE Runtime Environment (build 1.8.0_131-b11)
+Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
+</code></pre><p>则成功。</p>
+</li>
+</ul>
+<h6 id="2-eclipse">2) Eclipse</h6>
+<ul>
+<li>
+<p>下载
+<a href="http://mirrors.ustc.edu.cn/eclipse/technology/epp/downloads/release/neon/3/eclipse-java-neon-3-linux-gtk-x86_64.tar.gz">直接下载</a> / <a href="https://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/neon3">去官网下载</a>；</p>
+</li>
+<li>
+<p>解压</p>
+<pre><code>root@Cyborg:~/下载# tar -zxvf eclipse-*.tar.gz
+</code></pre></li>
+<li>
+<p>再把解压后的文件夹移动到自己喜欢的路径下</p>
+<pre><code>root@Cyborg:~/下载# mv eclipse /opt/
+</code></pre></li>
+<li>
+<p>配置环境变量
+进入 <em>eclipse/</em>，得到 <strong>eclipse</strong> 的路径 <em>&quot;/opt/eclipse&rdquo;</em>
+打开配置文件：</p>
+<pre><code>root@Cyborg:/opt/eclipse# leafpad /etc/profile
+</code></pre><p>在弹出的文本文件末尾加上代码：</p>
+<blockquote>
+<p>ECLIPSE=/opt/eclipse　　　　　 #把值修改成自己的路径
+PATH=$ECLIPSE:$PATH
+export ECLIPSE PATH</p>
+</blockquote>
+</li>
+<li>
+<p>再更新一下：</p>
+<pre><code>root@Cyborg:/opt/eclipse# source /etc/profile
+</code></pre></li>
+<li>
+<p>启动优化
+每次用<strong>eclipse</strong>都要运行：</p>
+<pre><code>root@Cyborg:/# /opt/eclipse/eclipse
+</code></pre><p>这无疑很麻烦，现在把 <strong>eclipse</strong> 添加到 <em>/usr/bin</em> 里每次只要输入<strong>eclipse</strong> 就可以打开使用了。</p>
+<pre><code>root@Cyborg:/# ln -s /opt/eclipse/eclipse /usr/bin/eclipse
+</code></pre></li>
+</ul>
+<h3 id="安装add-apt-repository和pip">安装add-apt-repository和pip</h3>
+<pre><code>add-apt-repository
+apt-get install python-software-properties 
+nano app-apt-repository.sh
+
+</code></pre><pre><code>#!/bin/bash        // 添加如下代码
+if [ $# -eq 1 ]
+NM=`uname -a &amp;&amp; date`
+NAME=`echo $NM | md5sum | cut -f1 -d&quot; &quot;`
+
+</code></pre><p>或者其他方法：<a href="http://www.blackmoreops.com/2014/02/21/kali-linux-add-ppa-repository-add-apt-repository/">http://www.blackmoreops.com/2014/02/21/kali-linux-add-ppa-repository-add-apt-repository/  Pip</a></p>
+<pre><code>apt-get python-setuptools
+easy_install pip
+pip gevent --upgrade
+
+</code></pre><p>注：如果最后一步出错，执行root@kali:<code>pip install setuptools --no-use-wheel --upgrade</code></p>
+<h3 id="科学上网">科学上网</h3>
+<p>（1）默认安装，是没有激活VPN的，能看到VPN选项，但是不能点击VPN连接</p>
+<pre><code>apt-get install -y pptpd network-manager-openvpn network-manager-openvpn-gnome network-manager-pptp network-manager-pptp-gnome network-manager-strongswan network-manager-vpnc network-manager-vpnc-gnome 
+</code></pre><p>（1）lantern <a href="https://github.com/getlantern/lantern-binaries">https://github.com/getlantern/lantern-binaries</a></p>
+<p>方法就是下载对应的版本，然后dpkg安装下，然后打开lantern自动跳转到浏览器，然后就没有然后了。。。</p>
+<p>（2）其次还有就是ss</p>
+<p>首先搭建shadowsocks客户端</p>
+<p>git下 <a href="https://github.com/shadowsocks/shadowsocks-qt5">https://github.com/shadowsocks/shadowsocks-qt5</a>以及其安装指南<a href="https://github.com/shadowsocks/shadowsocks-qt5/wiki/%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97">https://github.com/shadowsocks/shadowsocks-qt5/wiki/%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97</a></p>
+<p>或者直接用pip安装</p>
+<pre><code>pip install shadowsocks
+</code></pre><pre><code>/usr/local/python/bin/sslocal   //ss位置
+</code></pre><p>建立一个为ss.conf的配置文件</p>
+<pre><code>{
+&quot;server&quot; : &quot;100.100.100.100&quot;,
+&quot;server_port&quot; : 8888,
+&quot;local_port&quot; : 1080,
+&quot;password&quot; : &quot;123456&quot;,
+&quot;timeout&quot; : 600,
+&quot;method&quot; : &quot;aes-256-cfb&quot;
+}
+</code></pre><p>然后运行</p>
+<pre><code>sslocal -c /filepath/ss.conf
+</code></pre><p>其次安装privoxy实现socks5转换成http</p>
+<p>privoxy-3.0.23-stable-src.tar.gz   //<a href="http://www.privoxy.org/">http://www.privoxy.org/</a>官网下载源码</p>
+<pre><code>tar xf privoxy-3.0.23-stable-src.tar.gz   //解压缩
+cd privoxy-3.0.23-stable
+useradd privoxy                      //进入目录后创建privoxy用户，然后安装
+ autoheader &amp;&amp; autoconf
+./configure
+ make &amp;&amp; make install
+Vim /usr/local/etc/privoxy/config   修改配置文件
+listen-address 127.0.0.1:8118         //找到783行，去掉注释即可
+forward-socks5t / 127.0.0.1:1080.    //找到1336行，去掉注释即可，保证1080端口和ss配置中一致，注意1080后面与个小数点。
+
+</code></pre><p>最后让终端走代理</p>
+<pre><code>vim /ect/profile
+</code></pre><p>添加一下两行</p>
+<pre><code>export http_proxy=http://127.0.0.1:8118
+export ftp_proxy=http://127.0.0.1:8118
+
+</code></pre><p>然后打开shadowsocks privoxy</p>
+<pre><code>sslocal -c /filepath/ss.conf
+service privoxy start
+</code></pre><p>测试<code>curl www.google.com</code></p>
+<p>访问谷歌即可，如果不行查看配置或者重启下。</p>
+<h3 id="安装wine以及qq">安装wine以及qq</h3>
+<p>(我是32位，如果是64位要配置下32位架构，还有wine感觉靠rp)</p>
+<pre><code>sudo add-apt-repository ppa:ubuntu-wine/ppa
+sudo apt-get update
+sudo apt-get install wine
+
+</code></pre><p>Wine安装好了之后，qq只要下载我共享目录中的qq三个文件即可。（注：qq安装后有的会提示版本过久，或者安装后不能用。我自己用的7.8版本，由于上传太慢就不gx了，网上搜搜也能搜到的)</p>
+<h3 id="用-crossover-安装-qq">用 CrossOver 安装 QQ</h3>
+<p>安装截图</p>
+<p>{% qnimg kali学习笔记-1.png title:crossover alt:安装qq  %}</p>
+<p>下载 <strong>CrossOver</strong>：</p>
+<pre><code>https://media.codeweavers.com/pub/crossover/cxlinux/demo/crossover_16.2.0-1.deb
+</code></pre><p>下载配置文件：</p>
+<pre><code>https://pan.baidu.com/s/1eS047GQ
+</code></pre><p>安装 <strong>CrossOver</strong>：</p>
+<pre><code>dpkg --add-architecture i386
+apt-get update
+apt-get install gdebi -y
+cd 下载/
+root@Cyborg:~/下载# gdebi crossover*.deb
+root@Cyborg:~/下载# apt-get install libgphoto2-6:i386
+</code></pre><p>配置：
+打开 <strong>CrossOver</strong> → 安装 <strong>Windows</strong> 软件 → 现在更新 → 查看所有可用应用程序 → 网络与通讯 → 即时聊天工具 → 腾讯<strong>QQ</strong> 8.9 → 继续 → 安装 → 出现 <strong>CrossOver linux Demo</strong> 选择暂先试用 → 弹出 <strong>QQ</strong> 安装界面 → 安装 → 结束。</p>
+<p>增强试用：</p>
+<pre><code>root@Cyborg:~/下载# cp winewrapper.exe.so /opt/cxoffice/lib/wine
+</code></pre><h3 id="kali下安装虚拟机">Kali下安装虚拟机</h3>
+<p>首先先下载<a href="https://download3.vmware.com/software/wkst/file/VMware-Workstation-Full-10.0.2-1744117.i386.bundle">https://download3.vmware.com/software/wkst/file/VMware-Workstation-Full-10.0.2-1744117.i386.bundle</a></p>
+<p>然后给修改权限</p>
+<pre><code>chmod u+x VMware-Workstation-Full-10.0.2-1744117.i386.bundle
+./Mware-Workstation-Full-10.0.2-1744117.i386.bundle
+
+</code></pre><p>注意:  ./vmware提示before run vmware xxxxxxxxxxxxx</p>
+<p>出现这样的问题，就是没有安装对应内核的开发包</p>
+<pre><code>apt-get install linux-headers-xxxxxxxxxxxxxxxxxxx  tab  huigei  tips
+
+</code></pre><p>debian的话安装linux-headers就行了，确实没有“kernel-devel”</p>
+<p>stable的话</p>
+<pre><code>apt-get install linux-headers-xxxxxxxxxxxxxxxx
+
+</code></pre><p>其他的比如vbox，或者是docker等均官网有方法。</p>
+<p>第二种方法</p>
+<p>安装vmware虚拟机,需要先安装内核头文件,vmware的netif.c文件要修改才能正确编译</p>
+<pre><code>apt-get install linux-headers-$(uname -r)
+chmod +x ./VMware-Workstation-Full-10.0.5-2443746.i386.bundle
+./VMware-Workstation-Full-10.0.5-2443746.i386.bundle
+SN====&gt;CZ7E2-2FY5P-08DUP-6XNXG-WPKE8
+tar xvf /usr/lib/vmware/modules/source/vmnet.tar -C .
+vi vmnet-only/netif.c  #152行的 
+                                       #dev = alloc_netdev(sizeof *netIf, deviceName, VNetNetIfSetup);
+                                       #改为
+                                       #dev = alloc_netdev(sizeof *netIf, deviceName, NET_NAME_UNKNOWN, VNetNetIfSetup);
+tar cvf vmnet.tar vmnet-only/
+mv vmnet.tar /usr/lib/vmware/modules/source/
+</code></pre><p>安装Virtualbox</p>
+<pre><code>#内核头bug解决如下
+花费了我两天时间，终于解决这个问题了。为了减少大家的烦恼。把解决方法写出来
+1.下载inux-kbuild,链接:(http://http.kali.org/kali/pool/main/l/linux-tools/)具体版本参见自己的主机；
+2.编译linux-kbuild;dkpg -i linux-kbuild-4.3_4.3.1-2kali1_amd64.deb
+3.下载linux-header-common和主机版本对应的linux-header。链接（http://http.kali.org/kali/pool/main/l/linux/）,具体版本参见自己的主机
+4.首先编译linux-header-commondkpg -i linux-headers-4.3.0-kali1-common_4.3.3-5kali4_amd64.deb
+5.最后编译linux-headerdkpg -i linux-headers-4.3.0-kali1-amd64_4.3.3-5kali4_amd64.deb
+6.搞定。
+apt-get install virtualbox
+</code></pre><h3 id="系统优化美化">系统优化、美化</h3>
+<p>（1）Kali2.0自带了gnome-tweak-tool，然后网上下载对应的美化内容即可打造自己喜欢的环境（对于强迫症的我来说不美化到我习惯操作真不舒服的）<a href="https://wiki.archlinux.org/index.php/GNOME_%28%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87%29">https://wiki.archlinux.org/index.php/GNOME_%28%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87%29</a></p>
+<p>（2）以及桌面环境如果不喜欢gnome即可换其他的，个人比较推荐xfce吧，轻捷- -</p>
+<p><a href="http://cn.docs.kali.org/live-build-cn/%E5%AE%9A%E5%88%B6kali%E7%9A%84%E6%A1%8C%E9%9D%A2%E7%B3%BB%E7%BB%9F">http://cn.docs.kali.org/live-build-cn/%E5%AE%9A%E5%88%B6kali%E7%9A%84%E6%A1%8C%E9%9D%A2%E7%B3%BB%E7%BB%9F</a></p>
+<p>（3）安装新立得软件管理器（个人喜好）</p>
+<pre><code>apt-get install synaptic //一款图形化管理软件的管理器
+</code></pre><p>（4）添加用户和设置快捷键（个人喜好）</p>
+<p>添加个普通用户方便系统稳定性，设置快捷键方便自己习惯，我快捷键主要修改两个输入法和shell窗口，比如：shell窗口启动终端快捷键</p>
+<p>系统》设置》快捷键</p>
+<p>添加如下命令：</p>
+<pre><code>gnome-terminal 
+</code></pre><p>然后输入自己喜好的，我输入的是CTRL+R。</p>
+<h3 id="系统备份">系统备份</h3>
+<p>或者使用dd之类命令</p>
+<pre><code>tar cvpzf backup.tgz --exclude=/proc --exclude=/lost+found --exclude=/backup.tgz --exclude=/mnt --exclude=/sys --exclude=/media /
+</code></pre><h3 id="声卡保存音量和解决声卡独占">声卡保存音量和解决声卡独占</h3>
+<pre><code>apt-get install alsa-utils -y 确保启动时发出声音
+apt-get install alsa-base  #重启后执行下面的命令
+alsactl init                          #初始化
+alsamixer                          #按F6,然后选择不是- [default]的设备,调节好音量
+alsactl store       #保存设置
+</code></pre><h3 id="设置屏幕截屏">设置屏幕截屏</h3>
+<p>默认保存到/tmp目录,root用户默认保存到/,普通用户因为没有/的权限无法通过直接按PrtScrSysq抓图,建议安装gimp来给屏幕抓图做邪恶的马赛克</p>
+<pre><code>gsettings set org.gnome.gnome-screenshot auto-save-directory '
+apt-get install gimp   #建议安装
+</code></pre><p># 可选.有需要的话可以替换openjdk为oracle java jdk,从<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a>下载,我用32位的系统,下的是jdk-8u31-linux-i586.tar.gz</p>
+<p>#替换java的软链接指向要的版本而不必删除系统自带的openjdk,以备在需要的时候还可以通过修改软链接启用它
+#/usr/bin/java -&gt; /etc/alternatives/java -&gt; /usr/bin/java java /usr/lib/jvm/jdk1.8.0_31/bin/java</p>
+<pre><code>tar xvf jdk-8u31-linux-i586.tar.gz
+mv jdk1.8.0_31 /usr/lib/jvm/
+ls -la /usr/lib/jvm/
+cd /usr/lib/jvm/jdk1.8.0_31/
+update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.8.0_31/bin/java 1
+update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/jdk1.8.0_31/bin/javac 1
+update-alternatives --set java /usr/lib/jvm/jdk1.8.0_31/bin/java
+update-alternatives --set javac /usr/lib/jvm/jdk1.8.0_31/bin/javac
+java -version   #查看是否正确链接到java jdk版本
+</code></pre><h3 id="安装teamviewerwindows-qq远程控制的替代方案">安装teamviewer,windows QQ远程控制的替代方案</h3>
+<pre><code>wget https://download.teamviewer.com/download/teamviewer_i386.deb
+dpkg --add-architecture i386
+apt-get update
+dpkg -i teamviewer_i386.deb
+apt-get install -f
+update-rc.d teamviewerd disable  #让teamviewerd后台程序默认不随机启动
+</code></pre><p>$在需要teamviewerd的时候用普通用户启动</p>
+<pre><code>sudo service teamviewerd start
+</code></pre><h3 id="安装skype建议">安装skype[建议]</h3>
+<p>windows QQ语音聊天的替代方案,但是skype只提供了32位的.64位kali需要安装的话需要先打开32位架构支持.</p>
+<p>#dpkg –add-architecture i386 &amp;&amp; apt-get update</p>
+<pre><code>dpkg -i skype-debian_4.3.0.37-1_i386.deb
+</code></pre><h3 id="steam-游戏平台的安装">Steam 游戏平台的安装</h3>
+<p>Steam官方的deb是for ubuntu 12的.但是只要解决库依赖问题照样能良好运行在Kali上.安装好了显卡驱动的小伙伴们能够快乐的在Kali下玩Dota2,CS:GO,TF2等等大型3D.</p>
+<pre><code>#root用户执行的命令列表
+#安装依赖包
+cd /tmp
+apt-get install xfonts-100dpi pavucontrol pulseaudio-module-bluetooth libtxc-dxtn-s2tc0
+#从官方下载最新steam安装包
+wget http://media.steampowered.com/client/installer/steam.deb
+mkdir steam-debian                                            #创建一个目录用于解压官方steam包
+dpkg -x steam.deb steam-debian                      #把官方steam包解压到目录    
+dpkg -e steam.deb steam-debian/DEBIAN      #解压官方包的DEBIAN脚本
+vi steam-debian/DEBIAN/control                      #修改control文件,把依赖的glibc版本从2.15改成2.13 删除依赖jockey-common
+dpkg -b steam-debian                                         #重新打包
+dpkg -i steam-debian.deb                                   #安装我们修改过依赖关系的包
+rm -rf /etc/apt/sources.list.d/steam.list            #删掉steam的源和依赖,否则apt-get update的时候会把kali源和
+rm -rf /usr/bin/steamdeps                                  #steam的源混在一起
+rm -rf /etc/apt/trusted.gpg.d/steam.gpg
+$切换到普通用户.TIPS:steam登陆框不能输入ID和密码.但是可以通过在记事本复制右键点击登陆框粘贴解决
+steam                                       #执行一次steam,肯定会出错的,但是它会创建steam需要的目录结构                   
+cd /tmp
+mkdir steam                            #下载steam依赖的glibc 2.15
+wget   
+dpkg -x libc6_2.15-0ubuntu10.10_i386.deb steam/               #解包复制到依赖路径
+mv steam/lib/i386-linux-gnu/* ~/.local/share/Steam/ubuntu12_32
+steam                                       #再次执行,这下steam开始更新,直到更新完毕.
+</code></pre><h3 id="各种可装可不装软件">各种可装可不装软件</h3>
+<pre><code>apt-get install gedit emacs pidgin pidgin-otr iceweasel-l10n-zh-cn icedove icedove-l10n-zh-cn axel
+apt-get install synaptic                  #安装新立德
+</code></pre><h3 id="docker安装">docker安装</h3>
+<p>官方教程地址https://docs.docker.com/engine/installation/linux/docker-ce/debian/#install-using-the-repository</p>
+<pre><code>sudo apt-get install \
+     apt-transport-https \
+     ca-certificates \
+     curl \
+     gnupg2 \
+     software-properties-common
+#
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+#验证是否成功
+sudo apt-key fingerprint 0EBFCD88
+amd64:
+
+$ sudo add-apt-repository \
+   &quot;deb [arch=amd64] https://download.docker.com/linux/debian \
+   $(lsb_release -cs) \
+   stable&quot;
+   
+sudo apt-get update
+sudo apt-get install docker-ce    
+apt-cache madison docker-ce
+以下验证成功的方法
+nano /etc/apt/sources.list.d/backports.list
+deb http://http.debian.net/debian wheezy-backports main
+apt-get update
+apt-get install apt-transport-https ca-certificates gnupg2
+nano /etc/apt/sources.list.d/docker.list
+deb https://apt.dockerproject.org/repo debian-wheezy main
+apt-get update
+apt-cache policy docker-engine #更新apt存储库，并验证apt存储库是正确的
+apt-get install docker-engine #安装Docker
+service docker start #启动Docker服务
+#docker镜像加速器
+nano /etc/docker/daemon.json
+复制下面的粘贴进去
+{
+    &quot;registry-mirrors&quot;: [
+        &quot;(daocloud.io自己独特的加速地址)http://b6d1863d.m.daocloud.io&quot;
+    ],
+    &quot;insecure-registries&quot;: []
+}
+# 日常操作
+aptitude install dirmngr
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys  xxxxx没有的密钥
+apt-get upgrade docker-engine #更新docker软件包
+apt-get purge docker-engine #卸载docker所有程序包和依赖关系
+rm -rf /var/lib/docker #如果要删除所有图像，容器和卷，请运行以下命令
+</code></pre><h3 id="tox安装">Tox安装</h3>
+<pre><code>Debian (8/Jessie, 9/Stretch and Sid) and Ubuntu (16.04/Xenial and 16.10/Yakkety)
+echo &quot;deb https://pkg.tox.chat/debian stable $(lsb_release -cs)&quot; | sudo tee /etc/apt/sources.list.d/tox.list
+wget -qO - https://pkg.tox.chat/debian/pkg.gpg.key | sudo apt-key add -
+sudo apt-get install apt-transport-https
+sudo apt-get update
+sudo apt-get install utox
+cat /var/lib/apt/lists/pkg.tox.chat* | grep &quot;Package: &quot;
+</code></pre><h3 id="nvidia显卡独显">Nvidia显卡,独显</h3>
+<pre><code>apt-get update
+apt-get dist-upgrade
+apt-get install -y linux-headers-$(uname -r)
+apt-get install nvidia-kernel-dkms
+sed 's/quiet/quiet nouveau.modeset=0/g' -i /etc/default/grub
+update-grub
+reboot
+</code></pre><h3 id="nvidia显卡双显">Nvidia显卡,双显</h3>
+<pre><code>apt-get update
+apt-get upgrade
+#apt-get install linux-headers-$(uname -r)
+apt-get install bumblebee bumblebee-nvidia
+vi  /etc/bumblebee/bumblebee.conf                 #22行改成 Driver=nvidia
+lspci | egrep 'VGA|3D'|grep NVIDIA|cut -d&quot; &quot; -f1|sed 's/./:/'    #记住这行命令的结果
+vi /etc/bumblebee/xorg.conf.nvidia    #  修改 #    BusID &quot;PCI:01:00:0&quot;  成上面获得的结果
+reboot   #重启
+optirun glxgears -info           
+#执行提示错误[ERROR]Cannot access secondary GPU - error: [XORG] (EE) No devices detected
+#vi  /etc/bumblebee/xorg.conf.nvidia   BusID的PCI地址写错了
+ #执行提示错误[ERROR]Cannot access secondary GPU - error: Could not load GPU driver
+#vi /etc/bumblebee/bumblebee.conf   
+#KernelDriver=nvidia 改成 KernelDriver=nvidia-current
+#执行提示错误[ERROR]Cannot access secondary GPU - error: [XORG] (EE) /dev/dri/card0: failed to set DRM interface version 1.4: Permission denied
+#cat &gt;&gt;/etc/bumblebee/xorg.conf.nvidia &lt;&lt; EOF
+#Section &quot;Screen&quot; 
+#Identifier &quot;Default Screen&quot;    
+#Device &quot;DiscreteNvidia&quot;EndSection
+#EOF
+#service bumblebeed restart
+正确安装后运行以下命令应该结果是
+root@H:/tmp# glxinfo | grep -i &quot;direct rendering&quot;
+direct rendering: Yes
+root@H:/tmp# optirun glxinfo | grep -i &quot;direct rendering&quot;
+direct rendering: Yes
+</code></pre><h3 id="nvidia显卡双显-第三种方法">Nvidia显卡,双显 第三种方法</h3>
+<ul>
+<li>
+<p>内核头文件的安装</p>
+<p>首先安装内核头文件，终端输入</p>
+<pre><code>apt install linux-headers-$(uname -r)
+</code></pre><p>注意 $(uname -r)是你的kali发行版本号 我的是：4.9.0-kali3-amd64</p>
+</li>
+</ul>
+<p>会出现两种情况：
+第一种：安装成功
+第二种：找不到你的发行版本，如下</p>
+<pre><code>Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+E: Unable to locate package linux-headers-4.9.0-kali3-amd64
+E: Couldn't find any package by glob 'linux-headers-4.9.0-kali3-amd64'
+E: Couldn't find any package by regex 'linux-headers-4.9.0-kali3-amd64'
+</code></pre><p>翻译过来大概意思的库里面没有linux-headers-4.9.0-kali3-amd64这个发行版的头文件。
+这时候我不会去更换源，因为我知道我的源是中科大的刚更新的，所以我用如下命令在库里搜索</p>
+<pre><code>apt-cache search linux-header
+</code></pre><p>结果真的不是源的问题</p>
+<pre><code>root@linuxbox:~# apt-cache search linux-header |grep linux-header
+linux-headers-4.9.0-kali4-all - All header files for Linux 4.9 (meta-package)
+...
+</code></pre><p>一看才知道原来是我的库太新了的 里面全都是 linux-headers-4.9.0-kali4的而我的版本是linux-headers-4.9.0-kali3
+那就好办了我直接 <code>apt install linux-headers-4.9.0-kali4-all</code>一路点击确认即可！
+好第一步安装内核头文件终于完了一半了，这时候记住不要重启，我们的目标是安装nvidia驱动。</p>
+<p>安装与nvidia驱动相关的包</p>
+<pre><code>apt install  nvidia-kernel-dkms nvidia-cuda-toolkit nvidia-driver
+</code></pre><p>选择一路选择ok，千万不要重启！！！</p>
+<p>安装双显卡切换解决方案的“大黄蜂”</p>
+<pre><code>apt install  bumblebee-nvidia primus
+</code></pre><p>把你这个目前登录的用户加入大黄蜂组</p>
+<pre><code>adduser $USER bumblebee
+</code></pre><p>配置大黄蜂文件</p>
+<p>1 <code>vim /etc/bumblebee/bumblebee.conf</code></p>
+<p>让Driver=nvidia
+2 <code>vim /etc/bumblebee/xorg.conf.nvidia</code>
+在Section &ldquo;Device&quot;中添加PCI ID，</p>
+<pre><code>BusID        &quot;PCI:01:00:0&quot;
+</code></pre><p>（注意 这个值<code>&quot;PCI:01:00:0&quot;</code>是怎么来的？
+回答：输入<code>lspci |grep 3D</code>
+得到<code>01:00.0  3D controller: NVIDIA Corporation GM107M [GeForce GTX 950M] (rev a2)</code>，找到刚才得到的那行，用<code>vim /etc/bumblebee/xorg.conf.nvidia</code>将01:00.0改为01:00:0，注意！小数点改为冒号）</p>
+<p>注销当前的用户</p>
+<pre><code>gnome-session-quit
+</code></pre><p>启动bumblebee服务并且设置为开机自启动</p>
+<pre><code>service bumblebeed start
+
+update-rc.d bumblebeed enable
+</code></pre><p>grub界面设置</p>
+<p>重启进入grub bootloader界面一定要点击<code>advance...</code>选项让后 点击带有kali 4的选项也就是新安装的内核头文件版本</p>
+<p>用户登录后检查是否成功</p>
+<p>1.lspci 的输出中，对应独立显卡的那条记录已（rev ff）结尾，表示独立显卡以关闭
+2.终端 <code>glxgears</code> 查看帧数，再用<code>optirun glxgears</code>
+3.在使用独显的过程中，<code>lsmod |grep nvidia</code>会有输出信息
+4.独立显卡默认情况下是关闭的，用的时候把<code>optirun</code>放在命令前面激活
+例如：</p>
+<pre><code>hashcat -m 2500 *.hccapx 字典路径
+</code></pre><p>用aircrack-ng跑的kali自带rockyou.txt字典
+得一个小时，我这么衰的电脑用上面这个只要4分钟！！只要4分钟你就可以领回家！！！
+现在大家可以愉快破解握手包了哈哈哈，不过小心显卡被烧坏了！！看着笔记本在1分钟内温度跟开水一样我都绝望了！！</p>
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://blog.taielab.com">码中春秋</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.taielab.com/2017-09-20/kali-linux-learning.html">https://blog.taielab.com/2017-09-20/kali-linux-learning.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='https://blog.taielab.com/tags/kali-linux'>kali-linux</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "udpsec/blog-comments"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-11-25/ios-13-checkra-in-repair-the-internet-connection-appears-to-be-offline.html" title="IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误">IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-29/red-team-and-physical-entry-gear-tips.html" title="护网之红方物理入侵旁门左道">护网之红方物理入侵旁门左道</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-05/intranet-roaming-network-traffic-control.html" title="内网漫游系列之流量操控与Socks代理总结">内网漫游系列之流量操控与Socks代理总结</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-27/intranet-roaming-ss-privoxy.html" title="内网漫游系列之正向全局代理ss&#43;Privoxy">内网漫游系列之正向全局代理ss&#43;Privoxy</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-20/centos-7-upgrade-Kernel.html" title="Centos7安装升级最新内核">Centos7安装升级最新内核</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/digital-forensics-live-and-dead.html" title="数字取证-死活取证">数字取证-死活取证</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html" title="Centos7搭建本地yum仓库">Centos7搭建本地yum仓库</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/osint-101-auto-visual.html" title="OSINT101 技术自动化和可视化">OSINT101 技术自动化和可视化</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-21/ubuntu-migrate-to-ssd.html" title="Ubuntu19.04迁移到SSD">Ubuntu19.04迁移到SSD</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-16/kali-linux-double-display-solutions.html" title="双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案">双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.taielab.com/categories/IOS%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">IOS应用逆向与安全 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/Linux/">Linux (11)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%B7%A5%E5%85%B7%E6%95%88%E7%8E%87/">工具效率 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%BC%80%E6%BA%90%E6%83%85%E6%8A%A5%E6%94%B6%E9%9B%86/">开源情报收集 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (30)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/">红蓝对抗 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全 (6)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4/">网络运维 (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.taielab.com/tags/Debian/">Debian</a>
+    
+    <a href="https://blog.taielab.com/tags/IOS/">IOS</a>
+    
+    <a href="https://blog.taielab.com/tags/OSINT/">OSINT</a>
+    
+    <a href="https://blog.taielab.com/tags/archlinux/">archlinux</a>
+    
+    <a href="https://blog.taielab.com/tags/centos/">centos</a>
+    
+    <a href="https://blog.taielab.com/tags/github/">github</a>
+    
+    <a href="https://blog.taielab.com/tags/gitup/">gitup</a>
+    
+    <a href="https://blog.taielab.com/tags/gpg/">gpg</a>
+    
+    <a href="https://blog.taielab.com/tags/hexo/">hexo</a>
+    
+    <a href="https://blog.taielab.com/tags/hugo/">hugo</a>
+    
+    <a href="https://blog.taielab.com/tags/kali-linux/">kali-linux</a>
+    
+    <a href="https://blog.taielab.com/tags/lnmp/">lnmp</a>
+    
+    <a href="https://blog.taielab.com/tags/manjaro/">manjaro</a>
+    
+    <a href="https://blog.taielab.com/tags/meedu/">meedu</a>
+    
+    <a href="https://blog.taielab.com/tags/nessus/">nessus</a>
+    
+    <a href="https://blog.taielab.com/tags/parrot-os/">parrot-os</a>
+    
+    <a href="https://blog.taielab.com/tags/pentestbox/">pentestbox</a>
+    
+    <a href="https://blog.taielab.com/tags/shadowsocks/">shadowsocks</a>
+    
+    <a href="https://blog.taielab.com/tags/tor/">tor</a>
+    
+    <a href="https://blog.taielab.com/tags/ubuntu/">ubuntu</a>
+    
+    <a href="https://blog.taielab.com/tags/vps/">vps</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">内网渗透命令</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%BC%AB%E6%B8%B8/">内网漫游</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/">奇淫技巧</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/">数字安全基础篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%AF%87/">数字安全工具篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">数据库系统原理</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81/">死活取证</a>
+    
+    <a href="https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5/">物理入侵</a>
+    
+    <a href="https://blog.taielab.com/tags/%E8%B8%8F%E9%9B%AA%E6%97%A0%E7%97%95%E7%B3%BB%E5%88%97/">踏雪无痕系列</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="#" title=""></a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://blog.taielab.com/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+</body>
+
+</html>

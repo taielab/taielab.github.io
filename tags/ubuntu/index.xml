@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ubuntu on 码中春秋&#39;s Blog</title>
+    <link>https://blog.taielab.com/tags/ubuntu/</link>
+    <description>Recent content in ubuntu on 码中春秋&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 21 Apr 2019 13:06:32 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.taielab.com/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Ubuntu19.04迁移到SSD</title>
+      <link>https://blog.taielab.com/2019-04-21/ubuntu-migrate-to-ssd.html</link>
+      <pubDate>Sun, 21 Apr 2019 13:06:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-04-21/ubuntu-migrate-to-ssd.html</guid>
+      <description>&lt;h2 id=&#34;开工准备&#34;&gt;开工准备&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Ubuntu16.10，PC 上安装，各项迁移步骤运行的环境并作为要迁移到 SSD 的系统。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://gparted.sourceforge.net/&#34;&gt;Gparted Partition Editor&lt;/a&gt;，图形化的分区工具。&lt;/li&gt;
+&lt;li&gt;外接硬盘盒，通过 USB 线将 SSD 连接到 PC 上。&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Manjaro&amp;&amp;Ubuntu双显卡解决方案和Manjaro常用配置</title>
+      <link>https://blog.taielab.com/2019-04-14/manjaro-ubuntu-double-display-solutions-muanul-config.html</link>
+      <pubDate>Sun, 14 Apr 2019 18:55:29 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-04-14/manjaro-ubuntu-double-display-solutions-muanul-config.html</guid>
+      <description>&lt;p&gt;&lt;strong&gt;可以结合作者下面两篇文章一起学会更肥宅&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.inofd.com/2018/06/01/archlinux-install-guide.html&#34;&gt;Archlinux - 基础入门&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.inofd.com/2018/06/16/manjaro-installer-beautify-config.html&#34;&gt;Manjaro配置美化指南&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;基于笔记本型号：惠普光影精灵4&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

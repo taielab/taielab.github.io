@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>树莓派 on 码中春秋&#39;s Blog</title>
+    <link>https://blog.taielab.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/</link>
+    <description>Recent content in 树莓派 on 码中春秋&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 19 Sep 2018 11:51:41 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.taielab.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>树莓派系列（二）- 实战应用案例</title>
+      <link>https://blog.taielab.com/2018-09-19/raspberrypi-application-use-cases.html</link>
+      <pubDate>Wed, 19 Sep 2018 11:51:41 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-09-19/raspberrypi-application-use-cases.html</guid>
+      <description>&lt;p&gt;记录了自己使用树莓派期间的所有使用笔记记录-前人栽树后人乘凉也为了自己以后可以快速查找备忘。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>树莓派系列（一）- 基础入门</title>
+      <link>https://blog.taielab.com/2017-09-20/raspberry-uses-notes.html</link>
+      <pubDate>Wed, 20 Sep 2017 12:39:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017-09-20/raspberry-uses-notes.html</guid>
+      <description>&lt;h2 id=&#34;安装系统&#34;&gt;安装系统&lt;/h2&gt;
+&lt;h3 id=&#34;需求&#34;&gt;需求：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;树莓派一只&lt;/li&gt;
+&lt;li&gt;SD卡（不小于8G，SD卡速度影响系统性能，建议用 Class 10 或更高）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;　　首先去&lt;a href=&#34;https://www.raspberrypi.org/&#34;&gt;树莓派官网&lt;/a&gt;下载最新的&lt;a href=&#34;https://www.raspberrypi.org/downloads/raspbian/&#34;&gt;镜像&lt;/a&gt;，建议新手用 RASPBIAN JESSIE。&lt;/p&gt;
+&lt;p&gt;　　下载完解压，得到 img 格式的镜像文件。然后下载安装工具 &lt;a href=&#34;https://yunpan.cn/cqMIJYY5WV7XZ&#34;&gt;Win32DiskImager&lt;/a&gt;。SD卡插上电脑，打开 Win32DiskImager。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

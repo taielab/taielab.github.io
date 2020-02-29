@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on 码中春秋&#39;s Blog</title>
+    <link>https://blog.taielab.com/categories/Linux/</link>
+    <description>Recent content in Linux on 码中春秋&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 20 May 2019 22:35:32 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.taielab.com/categories/Linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Centos7安装升级最新内核</title>
+      <link>https://blog.taielab.com/2019-05-20/centos-7-upgrade-Kernel.html</link>
+      <pubDate>Mon, 20 May 2019 22:35:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-05-20/centos-7-upgrade-Kernel.html</guid>
+      <description>&lt;p&gt;虽然有些人使用 Linux 来表示整个操作系统，但要注意的是，严格地来说，Linux 只是个内核。另一方面，发行版是一个完整功能的系统，它建立在内核之上，具有各种各样的应用程序工具和库。&lt;/p&gt;
+&lt;p&gt;在正常操作期间，内核负责执行两个重要任务：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;作为硬件和系统上运行的软件之间的接口。&lt;/li&gt;
+&lt;li&gt;尽可能高效地管理系统资源。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;为此，内核通过内置的驱动程序或以后可作为模块安装的驱动程序与硬件通信。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Centos7搭建本地yum仓库</title>
+      <link>https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html</link>
+      <pubDate>Thu, 09 May 2019 22:34:20 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html</guid>
+      <description>&lt;h3 id=&#34;概述&#34;&gt;概述&lt;/h3&gt;
+&lt;p&gt;不管内部大量部署服务器还是私有云环境，为了能够不受互联网速度和带宽的限制，搭建一个本地yum源是很必要的，尤其在内网环境下。其中epel源是最主要的一个，也是用的最多的，本例介绍在Centos7环境下搭建epel源。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu19.04迁移到SSD</title>
+      <link>https://blog.taielab.com/2019-04-21/ubuntu-migrate-to-ssd.html</link>
+      <pubDate>Sun, 21 Apr 2019 13:06:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-04-21/ubuntu-migrate-to-ssd.html</guid>
+      <description>&lt;h2 id=&#34;开工准备&#34;&gt;开工准备&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Ubuntu16.10，PC 上安装，各项迁移步骤运行的环境并作为要迁移到 SSD 的系统。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://gparted.sourceforge.net/&#34;&gt;Gparted Partition Editor&lt;/a&gt;，图形化的分区工具。&lt;/li&gt;
+&lt;li&gt;外接硬盘盒，通过 USB 线将 SSD 连接到 PC 上。&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案</title>
+      <link>https://blog.taielab.com/2019-04-16/kali-linux-double-display-solutions.html</link>
+      <pubDate>Tue, 16 Apr 2019 19:39:40 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-04-16/kali-linux-double-display-solutions.html</guid>
+      <description>&lt;h1 id=&#34;kali安装完系统登录后黑屏&#34;&gt;Kali安装完系统，登录后黑屏&lt;/h1&gt;
+&lt;p&gt;在启动需要选择项的时候，按下e键，进行编辑grub命令，命令如下&lt;/p&gt;
+&lt;p&gt;在倒数第三行加入了&lt;code&gt;nouveau.modeset=0&lt;/code&gt;  【也就是字符quite的后面】&lt;/p&gt;
+&lt;p&gt;然后按下ctrl键+X键，进行启动即可，然后输入登录账户密码，成功进入系统&lt;/p&gt;
+&lt;p&gt;之后成功进入操作系统，然后发现一个问题这个办法需要每次进入操作系统之前执行一遍。&lt;/p&gt;
+&lt;p&gt;按照上面的方法进入系统后，先配置如下：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Manjaro&amp;&amp;Ubuntu双显卡解决方案和Manjaro常用配置</title>
+      <link>https://blog.taielab.com/2019-04-14/manjaro-ubuntu-double-display-solutions-muanul-config.html</link>
+      <pubDate>Sun, 14 Apr 2019 18:55:29 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-04-14/manjaro-ubuntu-double-display-solutions-muanul-config.html</guid>
+      <description>&lt;p&gt;&lt;strong&gt;可以结合作者下面两篇文章一起学会更肥宅&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.inofd.com/2018/06/01/archlinux-install-guide.html&#34;&gt;Archlinux - 基础入门&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.inofd.com/2018/06/16/manjaro-installer-beautify-config.html&#34;&gt;Manjaro配置美化指南&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;基于笔记本型号：惠普光影精灵4&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Centos7配置多版本ShadowSocks和全局代理</title>
+      <link>https://blog.taielab.com/2019-03-07/centos-7-install-multi-shadowsocks.html</link>
+      <pubDate>Thu, 07 Mar 2019 10:30:02 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-03-07/centos-7-install-multi-shadowsocks.html</guid>
+      <description>&lt;h1 id=&#34;两个版本选择&#34;&gt;两个版本选择&lt;/h1&gt;
+&lt;h2 id=&#34;安装配置-shadowsockspython版本&#34;&gt;安装配置 Shadowsocks（python版本）&lt;/h2&gt;
+&lt;p&gt;安装 YUM 源和编译链&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;yum install -y epel-release curl gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto udns-devel libev-devel mbedtls-devel libsodium-devel c-ares-devel
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Linux三剑客·字典数据清洗</title>
+      <link>https://blog.taielab.com/2018-10-19/linux-dictionary-data-cleaning.html</link>
+      <pubDate>Fri, 19 Oct 2018 12:54:04 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018-10-19/linux-dictionary-data-cleaning.html</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Manjaro配置美化指南</title>
+      <link>https://blog.taielab.com/2018/06/16/manjaro-installer-beautify-config.html</link>
+      <pubDate>Sat, 16 Jun 2018 15:48:42 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018/06/16/manjaro-installer-beautify-config.html</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;本篇文章可以结合本博客的&lt;a href=&#34;&#34;&gt;Archlinux安装指南&lt;/a&gt;的后续优化的后面文章来整体的配置美化。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Archlinux - 基础入门</title>
+      <link>https://blog.taielab.com/2018/06/01/archlinux-install-guide.html</link>
+      <pubDate>Fri, 01 Jun 2018 20:35:36 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2018/06/01/archlinux-install-guide.html</guid>
+      <description>&lt;h3 id=&#34;制作安装媒介&#34;&gt;制作安装媒介&lt;/h3&gt;
+&lt;p&gt;首先到&lt;a href=&#34;https://www.archlinux.org/download/&#34;&gt;这里&lt;/a&gt;下载最新的官方 Arch Linux 安装媒介。然后，可以选择刻录或者写入到 USB 闪存盘或存储卡。&lt;/p&gt;
+&lt;p&gt;利用 dd 命令可以将安装媒介写入 USB 闪存盘或存储卡，参见&lt;a href=&#34;https://wiki.archlinux.org/index.php/USB_Installation_Media&#34;&gt;这里&lt;/a&gt;：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ dd bs=4M if=/path/to/archlinux.iso of=/dev/sdx &amp;amp;&amp;amp; sync
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;完成后，用安装媒介启动电脑。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>KaliLinux - 基础入门</title>
+      <link>https://blog.taielab.com/2017-09-20/kali-linux-learning.html</link>
+      <pubDate>Wed, 20 Sep 2017 12:39:32 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017-09-20/kali-linux-learning.html</guid>
+      <description>&lt;h2 id=&#34;修改更新源&#34;&gt;修改更新源&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;leafpad /etc/apt/sources.list
+&lt;/code&gt;&lt;/pre&gt;&lt;pre&gt;&lt;code&gt;apt-get update &amp;amp;&amp;amp; apt-get upgrade &amp;amp;&amp;amp; apt-get dist-upgrade 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;kali-rolling版本：（中科大的就够用了，个人按需吧）&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Debian 9 - 基础入门</title>
+      <link>https://blog.taielab.com/2017/09/20/debian-9-learning.html</link>
+      <pubDate>Wed, 20 Sep 2017 12:37:10 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2017/09/20/debian-9-learning.html</guid>
+      <description>&lt;h3 id=&#34;系统安装&#34;&gt;系统安装&lt;/h3&gt;
+&lt;p&gt;下载非自由版DVD镜像，自由版的镜像没有网卡驱动 新手碰到会相死，由本人摸索出来，这里以64位系统为例
+&lt;a href=&#34;http://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/9.0.0+nonfree/amd64/bt-dvd/&#34;&gt;镜像下载&lt;/a&gt; 
+全程离线安装不要联网，语言设置英文 装完系统后连上wifi在设置中文&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>物理入侵 on 码中春秋&#39;s Blog</title>
+    <link>https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5/</link>
+    <description>Recent content in 物理入侵 on 码中春秋&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 29 Jun 2019 00:05:58 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>护网之红方物理入侵旁门左道</title>
+      <link>https://blog.taielab.com/2019-06-29/red-team-and-physical-entry-gear-tips.html</link>
+      <pubDate>Sat, 29 Jun 2019 00:05:58 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2019-06-29/red-team-and-physical-entry-gear-tips.html</guid>
+      <description>&lt;h2 id=&#34;摘要&#34;&gt;摘要&lt;/h2&gt;
+&lt;p&gt;这篇文章的目的是列出我用于红队参与和物理渗透的所有装备，从真实战争角度入手希望扩展其他人在下一次护网期间有更骚的操作，你们无人机，钻下水道，美人计都用了也不差这一步了=。=。&lt;/p&gt;
+&lt;p&gt;注意：&lt;/p&gt;
+&lt;p&gt;我不隶属于任何列出的商品的公司人员&lt;/p&gt;
+&lt;p&gt;我没有得到广告报酬&lt;/p&gt;
+&lt;p&gt;没有AFF链接&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
