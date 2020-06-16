@@ -224,13 +224,13 @@
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo apt-get update
 
-$ sudo apt-get install <span style="color:#d14">\</span>
-     apt-transport-https <span style="color:#d14">\</span>
-     ca-certificates <span style="color:#d14">\</span>
-     curl <span style="color:#d14">\</span>
-     gnupg2 <span style="color:#d14">\</span>
-     lsb-release <span style="color:#d14">\</span>
-     software-properties-common
+$ sudo apt-get install <span style="color:#d14">\
+</span><span style="color:#d14"></span>     apt-transport-https <span style="color:#d14">\
+</span><span style="color:#d14"></span>     ca-certificates <span style="color:#d14">\
+</span><span style="color:#d14"></span>     curl <span style="color:#d14">\
+</span><span style="color:#d14"></span>     gnupg2 <span style="color:#d14">\
+</span><span style="color:#d14"></span>     lsb-release <span style="color:#d14">\
+</span><span style="color:#d14"></span>     software-properties-common
 </code></pre></td></tr></table>
 </div>
 </div><p>鉴于国内网络问题，强烈建议使用国内源，官方源请在注释中查看。</p>
@@ -264,8 +264,8 @@ $ sudo apt-get install <span style="color:#d14">\</span>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo add-apt-repository <span style="color:#d14">\</span>
-    <span style="color:#d14">&#34;deb [arch=armhf] https://mirrors.ustc.edu.cn/docker-ce/linux/raspbian \
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo add-apt-repository <span style="color:#d14">\
+</span><span style="color:#d14"></span>    <span style="color:#d14">&#34;deb [arch=armhf] https://mirrors.ustc.edu.cn/docker-ce/linux/raspbian \
 </span><span style="color:#d14">    </span><span style="color:#000;font-weight:bold">$(</span>lsb_release -cs<span style="color:#000;font-weight:bold">)</span><span style="color:#d14"> \
 </span><span style="color:#d14">    stable&#34;</span>
 
@@ -1436,7 +1436,7 @@ func main<span style="color:#000;font-weight:bold">()</span> <span style="color:
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">OneinStack的php.ini在：/usr/local/php/etc/php.ini
-添加 cgi.fix_pathinfo <span style="color:#000;font-weight:bold">=</span> 1
+添加 cgi.fix_pathinfo <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>
 到/usr/local/php/etc/php.ini内
 然后在/usr/local/nginx/conf/vhost/you-domain.conf内的
 location ~ <span style="color:#000;font-weight:bold">[</span>^/<span style="color:#000;font-weight:bold">]</span><span style="color:#d14">\.</span>php<span style="color:#000;font-weight:bold">(</span>/|$<span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
@@ -1632,8 +1632,8 @@ nano frps.ini
 <span style="color:#008080">log_file</span> <span style="color:#000;font-weight:bold">=</span> /var/log/frps.log    <span style="color:#998;font-style:italic">#日志文件存储路径</span>
 <span style="color:#008080">log_level</span> <span style="color:#000;font-weight:bold">=</span> info    <span style="color:#998;font-style:italic">#日志记录级别</span>
 <span style="color:#008080">log_max_days</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">3</span>    <span style="color:#998;font-style:italic">#日志最大存储天数</span>
-<span style="color:#008080">max_pool_count</span> <span style="color:#000;font-weight:bold">=</span> 5
-<span style="color:#008080">authentication_timeout</span> <span style="color:#000;font-weight:bold">=</span> 900
+<span style="color:#008080">max_pool_count</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">5</span>
+<span style="color:#008080">authentication_timeout</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">900</span>
 
 <span style="color:#008080">subdomain_host</span> <span style="color:#000;font-weight:bold">=</span> test.com    <span style="color:#998;font-style:italic">#服务端绑定域名</span>
 <span style="color:#008080">tcp_mux</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">true</span>
@@ -1708,7 +1708,7 @@ vi frpc.ini
 <span style="color:#008080">log_file</span> <span style="color:#000;font-weight:bold">=</span> /var/log/frpc.log    <span style="color:#998;font-style:italic">#日志文件存储路径</span>
 <span style="color:#008080">log_level</span> <span style="color:#000;font-weight:bold">=</span> info    <span style="color:#998;font-style:italic">#日志记录级别</span>
 <span style="color:#008080">log_max_days</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">3</span>    <span style="color:#998;font-style:italic">#日志最大存储天数</span>
-<span style="color:#008080">pool_count</span> <span style="color:#000;font-weight:bold">=</span> 5
+<span style="color:#008080">pool_count</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">5</span>
 <span style="color:#008080">tcp_mux</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">true</span>
 
 <span style="color:#000;font-weight:bold">[</span>ssh<span style="color:#000;font-weight:bold">]</span>    <span style="color:#998;font-style:italic">#服务名称，可自定义</span>
@@ -1771,7 +1771,7 @@ vi frpc.ini
 <span style="color:#998;font-style:italic"># check network availability</span>
 <span style="color:#000;font-weight:bold">while</span> <span style="color:#0086b3">true</span>
 <span style="color:#000;font-weight:bold">do</span>
-  <span style="color:#008080">TIMEOUT</span><span style="color:#000;font-weight:bold">=</span>5
+  <span style="color:#008080">TIMEOUT</span><span style="color:#000;font-weight:bold">=</span><span style="color:#099">5</span>
   <span style="color:#008080">SITE_TO_CHECK</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;www.baidu.com&#34;</span>
   <span style="color:#008080">RET_CODE</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">`</span>curl -I -s --connect-timeout <span style="color:#008080">$TIMEOUT</span> <span style="color:#008080">$SITE_TO_CHECK</span> -w %<span style="color:#000;font-weight:bold">{</span>http_code<span style="color:#000;font-weight:bold">}</span> | tail -n1<span style="color:#d14">`</span>
   <span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">[</span> <span style="color:#d14">&#34;x</span><span style="color:#008080">$RET_CODE</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;x200&#34;</span> <span style="color:#000;font-weight:bold">]</span>; <span style="color:#000;font-weight:bold">then</span>
@@ -1816,7 +1816,7 @@ vi frpc.ini
 <span style="color:#998;font-style:italic"># check network availability</span>
 <span style="color:#000;font-weight:bold">while</span> <span style="color:#0086b3">true</span>
 <span style="color:#000;font-weight:bold">do</span>
-  <span style="color:#008080">TIMEOUT</span><span style="color:#000;font-weight:bold">=</span>5
+  <span style="color:#008080">TIMEOUT</span><span style="color:#000;font-weight:bold">=</span><span style="color:#099">5</span>
   <span style="color:#008080">SITE_TO_CHECK</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;www.baidu.com&#34;</span>
   <span style="color:#008080">RET_CODE</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">`</span>curl -I -s --connect-timeout <span style="color:#008080">$TIMEOUT</span> <span style="color:#008080">$SITE_TO_CHECK</span> -w %<span style="color:#000;font-weight:bold">{</span>http_code<span style="color:#000;font-weight:bold">}</span> | tail -n1<span style="color:#d14">`</span>
   <span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">[</span> <span style="color:#d14">&#34;x</span><span style="color:#008080">$RET_CODE</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;x200&#34;</span> <span style="color:#000;font-weight:bold">]</span>; <span style="color:#000;font-weight:bold">then</span>
@@ -1852,7 +1852,7 @@ sudo /usr/local/bin/frpc -c /etc/frp/frpc_pi.ini &amp;
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">SSH通过外网主机连接到内网主机
-    ssh root@xx.xx.xx.xx -p 6000
+    ssh root@xx.xx.xx.xx -p <span style="color:#099">6000</span>
 
 查看内网主机日志
     tail -f /var/log/frpc.log
@@ -1938,7 +1938,7 @@ sudo systemctl status frp</p>
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic"># Start Frpc</span>
-/bin/startfrpc.sh &gt;&gt; /dev/null 2&gt;&amp;1
+/bin/startfrpc.sh &gt;&gt; /dev/null 2&gt;&amp;<span style="color:#099">1</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>　　编辑<strong>服务端</strong>的<code>/etc/rc.local</code>，在文件末尾添加以下代码行(如果文件末行为<code>exit 0</code>，则应该将以下内容添加到<code>exit 0</code>之前):</p>
@@ -1949,7 +1949,7 @@ sudo systemctl status frp</p>
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic"># Start Frps</span>
-/bin/startfrps.sh &gt;&gt; /dev/null 2&gt;&amp;1
+/bin/startfrps.sh &gt;&gt; /dev/null 2&gt;&amp;<span style="color:#099">1</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>　　这时，关机并重新启动客户端和服务端，待开机后，在客户端或者服务端中执行以下命令:</p>
@@ -2165,7 +2165,7 @@ sudo systemctl status frp</p>
     
     <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证 (1)</a></li>
     
-    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (30)</a></li>
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (23)</a></li>
     
     <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (2)</a></li>
     
@@ -2220,8 +2220,6 @@ sudo systemctl status frp</p>
     
     <a href="https://blog.taielab.com/tags/shadowsocks/">shadowsocks</a>
     
-    <a href="https://blog.taielab.com/tags/tor/">tor</a>
-    
     <a href="https://blog.taielab.com/tags/ubuntu/">ubuntu</a>
     
     <a href="https://blog.taielab.com/tags/vps/">vps</a>
@@ -2249,8 +2247,6 @@ sudo systemctl status frp</p>
     <a href="https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81/">死活取证</a>
     
     <a href="https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5/">物理入侵</a>
-    
-    <a href="https://blog.taielab.com/tags/%E8%B8%8F%E9%9B%AA%E6%97%A0%E7%97%95%E7%B3%BB%E5%88%97/">踏雪无痕系列</a>
     
 </div>
     </section>

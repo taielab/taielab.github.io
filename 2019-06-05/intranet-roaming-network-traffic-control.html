@@ -304,10 +304,10 @@
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">server:
-ptunnel -x 123456
+ptunnel -x <span style="color:#099">123456</span>
 
 Client:
-sudo ptunnel -p proxy_ip -lp listen_port -da des_ip -dp des_port -x 123456
+sudo ptunnel -p proxy_ip -lp listen_port -da des_ip -dp des_port -x <span style="color:#099">123456</span>
 
 嵌套SSH隧道
 ssh -CNfg -D <span style="color:#099">7000</span> root@127.0.0.1 -p listen_port
@@ -337,7 +337,7 @@ make linux
 <pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./ishd -i <span style="color:#099">433</span> -t <span style="color:#099">0</span> -p 1024
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./ishd -i <span style="color:#099">433</span> -t <span style="color:#099">0</span> -p <span style="color:#099">1024</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>控制端：</p>
@@ -711,7 +711,7 @@ lcx_listen : 该管道通过监听本地端口接收数据，并将其转发给�
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ew_for_win32.exe -s ssocksd -l 8888
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ew_for_win32.exe -s ssocksd -l <span style="color:#099">8888</span>
 
 上述命令架设了一个端口为888，SOCKS的代理。然后使用sockscap64添加这个IP的代理就可以使用了。比较简单就不演示了。
 </code></pre></td></tr></table>
@@ -730,10 +730,10 @@ lcx_listen : 该管道通过监听本地端口接收数据，并将其转发给�
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic">#公网机器 把1080端口的代理请求转发给8888端口</span>
-ew_for_win32.exe -s rcsocks -l <span style="color:#099">1080</span> -e 8888
+ew_for_win32.exe -s rcsocks -l <span style="color:#099">1080</span> -e <span style="color:#099">8888</span>
 
 <span style="color:#998;font-style:italic">#内网机器 开启socks5代理并反弹到公网机器的8888端口</span>
-ew_for_win32.exe -s rssocks -d 192.168.1.175 -e 8888
+ew_for_win32.exe -s rssocks -d 192.168.1.175 -e <span style="color:#099">8888</span>
 </code></pre></td></tr></table>
 </div>
 </div><ol>
@@ -755,10 +755,10 @@ ew_for_win32.exe -s rssocks -d 192.168.1.175 -e 8888
 <span style="color:#998;font-style:italic">#B主机不能访问外网，能连接A</span>
 
 <span style="color:#998;font-style:italic">#B先启动socks代理</span>
-ew_for_win32.exe -s ssocksd -l 8888
+ew_for_win32.exe -s ssocksd -l <span style="color:#099">8888</span>
 
 <span style="color:#998;font-style:italic">#A 将1080收到的代理请求转发给B的8888端口</span>
-ew_for_win32.exe -s lcx_tran -l <span style="color:#099">1080</span> -f 192.168.99.101 -g 8888
+ew_for_win32.exe -s lcx_tran -l <span style="color:#099">1080</span> -f 192.168.99.101 -g <span style="color:#099">8888</span>
 </code></pre></td></tr></table>
 </div>
 </div><ol>
@@ -783,13 +783,13 @@ ew_for_win32.exe -s lcx_tran -l <span style="color:#099">1080</span> -f 192.168.
 <span style="color:#998;font-style:italic">#B主机不能访问外网，能连接A</span>
 
 <span style="color:#998;font-style:italic">#VPS下 将8899收到的代理请求转交给反连8888的主机</span>
-ew_for_win32.exe -s lcx_listen -l <span style="color:#099">8899</span> -e 8888
+ew_for_win32.exe -s lcx_listen -l <span style="color:#099">8899</span> -e <span style="color:#099">8888</span>
 
 <span style="color:#998;font-style:italic">#B主机下 开启9999端口的socks代理</span>
-ew_for_win32.exe -s ssocksd -l 9999
+ew_for_win32.exe -s ssocksd -l <span style="color:#099">9999</span>
 
 <span style="color:#998;font-style:italic">#A主机下 将公网的8888和内网B的9999连接起来</span>
-ew_for_win32.exe -s lcx_slave -d vpsIP -e <span style="color:#099">8888</span> -f 192.168.99.101 -g 9999
+ew_for_win32.exe -s lcx_slave -d vpsIP -e <span style="color:#099">8888</span> -f 192.168.99.101 -g <span style="color:#099">9999</span>
 </code></pre></td></tr></table>
 </div>
 </div><ol>
@@ -817,16 +817,16 @@ ew_for_win32.exe -s lcx_slave -d vpsIP -e <span style="color:#099">8888</span> -
 <pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic">#A没有公网IP但是可以访问外网，B不能访问外网但是可以被A主机访问、C可以被B访问而且能访问核心区域</span>
 
 <span style="color:#998;font-style:italic">#VPS</span> 
-ew_for_win32.exe -s rcsocks -l <span style="color:#099">1080</span> -e 8888
+ew_for_win32.exe -s rcsocks -l <span style="color:#099">1080</span> -e <span style="color:#099">8888</span>
 
 <span style="color:#998;font-style:italic">#A主机 将VPS的8888与B主机的9999的端口连接起来</span>
-ew_for_win32.exe -s lcx_slave -d VPSIP -e <span style="color:#099">8888</span> -f BIP -g 9999
+ew_for_win32.exe -s lcx_slave -d VPSIP -e <span style="color:#099">8888</span> -f BIP -g <span style="color:#099">9999</span>
 
 <span style="color:#998;font-style:italic">#B主机 将9999收到的代理请求转发给7777端口</span>
-ew_for_win32.exe -s lcx_listen -l <span style="color:#099">9999</span> -e 7777
+ew_for_win32.exe -s lcx_listen -l <span style="color:#099">9999</span> -e <span style="color:#099">7777</span>
 
 <span style="color:#998;font-style:italic">#C主机 启动socks服务，并反弹到B主机的7777端口</span>
-ew_for_win32.exe -s rssocks -d BIP -e 7777
+ew_for_win32.exe -s rssocks -d BIP -e <span style="color:#099">7777</span>
 
 socks -&gt; <span style="color:#099">1080</span> -&gt; <span style="color:#099">8888</span> -&gt; <span style="color:#099">9999</span> -&gt; <span style="color:#099">7777</span> -&gt; rssocks
 </code></pre></td></tr></table>
@@ -1119,7 +1119,7 @@ lcx -slave 110.1.1.1 2222 127.0.0.1 3389
     
     <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证 (1)</a></li>
     
-    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (30)</a></li>
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (23)</a></li>
     
     <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (2)</a></li>
     
@@ -1174,8 +1174,6 @@ lcx -slave 110.1.1.1 2222 127.0.0.1 3389
     
     <a href="https://blog.taielab.com/tags/shadowsocks/">shadowsocks</a>
     
-    <a href="https://blog.taielab.com/tags/tor/">tor</a>
-    
     <a href="https://blog.taielab.com/tags/ubuntu/">ubuntu</a>
     
     <a href="https://blog.taielab.com/tags/vps/">vps</a>
@@ -1203,8 +1201,6 @@ lcx -slave 110.1.1.1 2222 127.0.0.1 3389
     <a href="https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81/">死活取证</a>
     
     <a href="https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5/">物理入侵</a>
-    
-    <a href="https://blog.taielab.com/tags/%E8%B8%8F%E9%9B%AA%E6%97%A0%E7%97%95%E7%B3%BB%E5%88%97/">踏雪无痕系列</a>
     
 </div>
     </section>

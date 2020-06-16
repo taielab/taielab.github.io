@@ -400,41 +400,41 @@ privoxy --user privoxy /usr/local/etc/privoxy/config
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">fs.file-max <span style="color:#000;font-weight:bold">=</span> 51200
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">fs.file-max <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">51200</span>
 
-net.core.rmem_max <span style="color:#000;font-weight:bold">=</span> 67108864
+net.core.rmem_max <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">67108864</span>
 
-net.core.wmem_max <span style="color:#000;font-weight:bold">=</span> 67108864
+net.core.wmem_max <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">67108864</span>
 
-net.core.netdev_max_backlog <span style="color:#000;font-weight:bold">=</span> 250000
+net.core.netdev_max_backlog <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">250000</span>
 
-net.core.somaxconn <span style="color:#000;font-weight:bold">=</span> 4096
+net.core.somaxconn <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">4096</span>
 
-net.ipv4.tcp_syncookies <span style="color:#000;font-weight:bold">=</span> 1
+net.ipv4.tcp_syncookies <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>
 
-net.ipv4.tcp_tw_reuse <span style="color:#000;font-weight:bold">=</span> 1
+net.ipv4.tcp_tw_reuse <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>
 
-net.ipv4.tcp_tw_recycle <span style="color:#000;font-weight:bold">=</span> 0
+net.ipv4.tcp_tw_recycle <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>
 
-net.ipv4.tcp_fin_timeout <span style="color:#000;font-weight:bold">=</span> 30
+net.ipv4.tcp_fin_timeout <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">30</span>
 
-net.ipv4.tcp_keepalive_time <span style="color:#000;font-weight:bold">=</span> 1200
+net.ipv4.tcp_keepalive_time <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1200</span>
 
-net.ipv4.ip_local_port_range <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">10000</span> 65000
+net.ipv4.ip_local_port_range <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">10000</span> <span style="color:#099">65000</span>
 
-net.ipv4.tcp_max_syn_backlog <span style="color:#000;font-weight:bold">=</span> 8192
+net.ipv4.tcp_max_syn_backlog <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">8192</span>
 
-net.ipv4.tcp_max_tw_buckets <span style="color:#000;font-weight:bold">=</span> 5000
+net.ipv4.tcp_max_tw_buckets <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">5000</span>
 
-net.ipv4.tcp_fastopen <span style="color:#000;font-weight:bold">=</span> 3
+net.ipv4.tcp_fastopen <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">3</span>
 
-net.ipv4.tcp_mem <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">25600</span> <span style="color:#099">51200</span> 102400
+net.ipv4.tcp_mem <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">25600</span> <span style="color:#099">51200</span> <span style="color:#099">102400</span>
 
-net.ipv4.tcp_rmem <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">4096</span> <span style="color:#099">87380</span> 67108864
+net.ipv4.tcp_rmem <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">4096</span> <span style="color:#099">87380</span> <span style="color:#099">67108864</span>
 
-net.ipv4.tcp_wmem <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">4096</span> <span style="color:#099">65536</span> 67108864
+net.ipv4.tcp_wmem <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">4096</span> <span style="color:#099">65536</span> <span style="color:#099">67108864</span>
 
-net.ipv4.tcp_mtu_probing <span style="color:#000;font-weight:bold">=</span> 1
+net.ipv4.tcp_mtu_probing <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>
 
 net.ipv4.tcp_congestion_control <span style="color:#000;font-weight:bold">=</span> hybla
 
@@ -601,7 +601,7 @@ net.ipv4.tcp_congestion_control <span style="color:#000;font-weight:bold">=</spa
     
     <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证 (1)</a></li>
     
-    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (30)</a></li>
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (23)</a></li>
     
     <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (2)</a></li>
     
@@ -656,8 +656,6 @@ net.ipv4.tcp_congestion_control <span style="color:#000;font-weight:bold">=</spa
     
     <a href="https://blog.taielab.com/tags/shadowsocks/">shadowsocks</a>
     
-    <a href="https://blog.taielab.com/tags/tor/">tor</a>
-    
     <a href="https://blog.taielab.com/tags/ubuntu/">ubuntu</a>
     
     <a href="https://blog.taielab.com/tags/vps/">vps</a>
@@ -685,8 +683,6 @@ net.ipv4.tcp_congestion_control <span style="color:#000;font-weight:bold">=</spa
     <a href="https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81/">死活取证</a>
     
     <a href="https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5/">物理入侵</a>
-    
-    <a href="https://blog.taielab.com/tags/%E8%B8%8F%E9%9B%AA%E6%97%A0%E7%97%95%E7%B3%BB%E5%88%97/">踏雪无痕系列</a>
     
 </div>
     </section>

@@ -254,7 +254,7 @@
 <pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#000;font-weight:bold">[</span>epel<span style="color:#000;font-weight:bold">]</span>
 <span style="color:#008080">name</span><span style="color:#000;font-weight:bold">=</span>epel
 <span style="color:#008080">baseurl</span><span style="color:#000;font-weight:bold">=</span>http://1.1.1.1/pub/epel/7/x86_64
-<span style="color:#008080">enabled</span><span style="color:#000;font-weight:bold">=</span>1
+<span style="color:#008080">enabled</span><span style="color:#000;font-weight:bold">=</span><span style="color:#099">1</span>
 </code></pre></td></tr></table>
 </div>
 </div><ol start="3">
@@ -369,7 +369,7 @@ fi
 
 <span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;Updates via rsync already running.&#34;</span>
 
-<span style="color:#0086b3">exit</span> 0
+<span style="color:#0086b3">exit</span> <span style="color:#099">0</span>
 
 <span style="color:#000;font-weight:bold">fi</span>
 
@@ -383,14 +383,14 @@ touch /var/lock/subsys/rsync_updates
 
 <span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">[[</span> -d <span style="color:#d14">&#34;</span><span style="color:#008080">$epel6_mirror_dir</span><span style="color:#d14">&#34;</span>  <span style="color:#000;font-weight:bold">&amp;&amp;</span> -d <span style="color:#d14">&#34;</span><span style="color:#008080">$epel7_mirror_dir</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">]]</span> ; <span style="color:#000;font-weight:bold">then</span>
 
-    rsync  -avSHP --delete rsync://mirror.wbs.co.za/fedora-epel/6/x86_64/ <span style="color:#d14">&#34;</span><span style="color:#008080">$epel6_mirror_dir</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">&amp;&amp;</span> <span style="color:#d14">\</span>
-
-    rsync  -avSHP --delete rsync://mirror.wbs.co.za/fedora-epel/7/x86_64/ <span style="color:#d14">&#34;</span><span style="color:#008080">$epel7_mirror_dir</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">&amp;&amp;</span> <span style="color:#d14">\</span>
-
-    rsync  -avSHP --delete rsync://mirror.wbs.co.za/fedora-epel/RPM-GPG-KEY-EPEL-7 <span style="color:#d14">&#34;</span><span style="color:#008080">$base_dir</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">&amp;&amp;</span> <span style="color:#d14">\</span>
-
-    rsync  -avSHP --delete rsync://mirror.wbs.co.za/fedora-epel/RPM-GPG-KEY-EPEL-6 <span style="color:#d14">&#34;</span><span style="color:#008080">$base_dir</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">&amp;&amp;</span> <span style="color:#d14">\</span>
-
+    rsync  -avSHP --delete rsync://mirror.wbs.co.za/fedora-epel/6/x86_64/ <span style="color:#d14">&#34;</span><span style="color:#008080">$epel6_mirror_dir</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">&amp;&amp;</span> <span style="color:#d14">\
+</span><span style="color:#d14"></span>
+    rsync  -avSHP --delete rsync://mirror.wbs.co.za/fedora-epel/7/x86_64/ <span style="color:#d14">&#34;</span><span style="color:#008080">$epel7_mirror_dir</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">&amp;&amp;</span> <span style="color:#d14">\
+</span><span style="color:#d14"></span>
+    rsync  -avSHP --delete rsync://mirror.wbs.co.za/fedora-epel/RPM-GPG-KEY-EPEL-7 <span style="color:#d14">&#34;</span><span style="color:#008080">$base_dir</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">&amp;&amp;</span> <span style="color:#d14">\
+</span><span style="color:#d14"></span>
+    rsync  -avSHP --delete rsync://mirror.wbs.co.za/fedora-epel/RPM-GPG-KEY-EPEL-6 <span style="color:#d14">&#34;</span><span style="color:#008080">$base_dir</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">&amp;&amp;</span> <span style="color:#d14">\
+</span><span style="color:#d14"></span>
     rm -rf /var/lock/subsys/rsync_updates
 
 <span style="color:#000;font-weight:bold">else</span>
@@ -409,7 +409,7 @@ touch /var/lock/subsys/rsync_updates
 
 <span style="color:#0086b3">echo</span> <span style="color:#d14">&#34; Syncing failed&#34;</span>
 
-<span style="color:#0086b3">exit</span> 1
+<span style="color:#0086b3">exit</span> <span style="color:#099">1</span>
 
 <span style="color:#000;font-weight:bold">fi</span>
 </code></pre></td></tr></table>
@@ -706,7 +706,7 @@ gpgkey=http://epel.mirrors.domain.com/RPM-GPG-KEY-EPEL-$releasever
     
     <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证 (1)</a></li>
     
-    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (30)</a></li>
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (23)</a></li>
     
     <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (2)</a></li>
     
@@ -761,8 +761,6 @@ gpgkey=http://epel.mirrors.domain.com/RPM-GPG-KEY-EPEL-$releasever
     
     <a href="https://blog.taielab.com/tags/shadowsocks/">shadowsocks</a>
     
-    <a href="https://blog.taielab.com/tags/tor/">tor</a>
-    
     <a href="https://blog.taielab.com/tags/ubuntu/">ubuntu</a>
     
     <a href="https://blog.taielab.com/tags/vps/">vps</a>
@@ -790,8 +788,6 @@ gpgkey=http://epel.mirrors.domain.com/RPM-GPG-KEY-EPEL-$releasever
     <a href="https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81/">死活取证</a>
     
     <a href="https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5/">物理入侵</a>
-    
-    <a href="https://blog.taielab.com/tags/%E8%B8%8F%E9%9B%AA%E6%97%A0%E7%97%95%E7%B3%BB%E5%88%97/">踏雪无痕系列</a>
     
 </div>
     </section>
