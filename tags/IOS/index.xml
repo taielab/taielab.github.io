@@ -6,10 +6,30 @@
     <description>Recent content in IOS on 码中春秋&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 25 Nov 2019 14:25:42 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 06 Sep 2020 16:32:48 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.taielab.com/tags/IOS/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>移动应用合规和动态渗透测试技巧</title>
+      <link>https://blog.taielab.com/2020-09-06/mobile-pentesting-checklist.html</link>
+      <pubDate>Sun, 06 Sep 2020 16:32:48 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2020-09-06/mobile-pentesting-checklist.html</guid>
+      <description>&lt;h1 id=&#34;ios-渗透测试检查项&#34;&gt;iOS 渗透测试检查项&lt;/h1&gt;
+&lt;h2 id=&#34;信息收集&#34;&gt;信息收集&lt;/h2&gt;
+&lt;h3 id=&#34;砸壳&#34;&gt;砸壳&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;从客户端获取 IPA 或从应用程序商店下载 IPA。&lt;/li&gt;
+&lt;li&gt;应用商店中的 IPA 已加密，因此需要通过从内存中转储二进制文件来对其进行解密。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;使用的工具&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://GitHub.com/AloneMonkey/frida-iOS-dumpd&#34;&gt;Frida-iOS-Dump&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://GitHub.com/integrity-sa/frida-ipa-dump&#34;&gt;Frida-IPA-Dump&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
     
     <item>
       <title>IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误</title>
