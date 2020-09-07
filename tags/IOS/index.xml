@@ -6,10 +6,20 @@
     <description>Recent content in IOS on 码中春秋&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 06 Sep 2020 16:32:48 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 07 Sep 2020 21:22:33 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.taielab.com/tags/IOS/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>如何挖掘SRC漏洞平台移动端IOS漏洞技巧和教程</title>
+      <link>https://blog.taielab.com/2020-09-07/src-ios-bugbounty-tips.html</link>
+      <pubDate>Mon, 07 Sep 2020 21:22:33 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2020-09-07/src-ios-bugbounty-tips.html</guid>
+      <description>&lt;h1 id=&#34;摘要&#34;&gt;摘要&lt;/h1&gt;
+&lt;p&gt;继上篇移动合规的基本检测技巧文章之后来讲讲挖掘漏洞平台业务的移动端IOS平台的赏金技巧，不知是否有些测试点是你之前没关注过的呢那么就来看一下吧。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>移动应用合规和动态渗透测试技巧</title>
