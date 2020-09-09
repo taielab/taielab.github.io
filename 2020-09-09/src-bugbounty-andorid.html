@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>如何挖掘SRC漏洞平台移动端Android漏洞技巧和教程 | 码中春秋&#39;s Blog</title>
+    <meta property="og:title" content="如何挖掘SRC漏洞平台移动端Android漏洞技巧和教程 - 码中春秋&#39;s Blog">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2020-09-09T15:39:36&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2020-09-09T15:39:36&#43;08:00'>
+        
+    <meta name="Keywords" content="码中春秋,博客,,taielab,java,python,项目管理,软件架构,网络安全,数字安全,隐私保护,反侦查,反技侦,匿名方案,open,freedom,democracy,decentralization">
+    <meta name="description" content="如何挖掘SRC漏洞平台移动端Android漏洞技巧和教程">
+        
+    <meta name="author" content="码中春秋">
+    <meta property="og:url" content="https://blog.taielab.com/2020-09-09/src-bugbounty-andorid.html">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.taielab.com">
+                        码中春秋&#39;s Blog
+                    </a>
+                
+                <p class="description">专注于Java企业级开发、数字安全、信息安全、安全运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://blog.taielab.com">首页</a>
+                    
+                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    
+                    <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#要查找已安装的应用程序的软件包名称">要查找已安装的应用程序的软件包名称</a></li>
+    <li><a href="#获取应用程序的清单">获取应用程序的清单</a></li>
+    <li><a href="#获取攻击面">获取攻击面</a></li>
+    <li><a href="#检查可导出的活动">检查可导出的活动</a></li>
+    <li><a href="#检查launchintent主要活动">检查launchintent(主要活动)</a></li>
+    <li><a href="#调用可导出的活动">调用可导出的活动</a></li>
+    <li><a href="#检查导出的内容提供商">检查导出的内容提供商</a></li>
+    <li><a href="#查找内容uri">查找内容URI</a></li>
+    <li><a href="#如果在导出的内容提供者中找到了uri路径那么使用下面的命令运行该路径以找到有用的数据在筛选中所有的密码都被转储">如果在导出的内容提供者中找到了URI路径，那么使用下面的命令运行该路径以找到有用的数据，（在筛选中，所有的密码都被转储）。</a></li>
+    <li><a href="#在内容提供者数据库中插入条目">在内容提供者数据库中插入条目</a></li>
+    <li><a href="#查找具有特定权限的应用程序">查找具有特定权限的应用程序</a></li>
+    <li><a href="#查找以特定uid运行的应用程序在本例中系统">查找以特定UID运行的应用程序，在本例中，系统</a></li>
+    <li><a href="#寻找查看特定mime类型的应用程序">寻找查看特定mime类型的应用程序</a></li>
+    <li><a href="#查找设备上所有可浏览的活动">查找设备上所有可浏览的活动</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">如何挖掘SRC漏洞平台移动端Android漏洞技巧和教程</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年9月9日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8'>Android应用逆向与安全</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <h1 id="介绍">介绍</h1>
+<p>在测试漏洞的时候除了移动端逻辑漏洞别的我们可以使用drozer进行自动化去跑测试，会点Python脚本的可以把所需要的drozer命令封装成一个批量脚本达到全自动化的drozer测试输出结果报告，挖掘SRC会更效率。</p>
+<p>本篇文章包含了可以与Drozer一起使用的命令列表，Drozer是一个用于测试Android应用程序的工具。
+大部分的命令都是针对MWR Infosecurity开发的一个名为sieve(com.mwr.example.sieve)的Android应用实例进行的。Drozer和sieve都可以从https://labs.f-secure.com/tools/drozer/ 下载。</p>
+<p>这些命令根据它们的作用被分为不同的类别。</p>
+<h1 id="基础知识">基础知识</h1>
+<h2 id="要查找已安装的应用程序的软件包名称">要查找已安装的应用程序的软件包名称</h2>
+<pre><code>dz&gt; run app.pack.list -f Sieve
+
+</code></pre><h2 id="获取应用程序的清单">获取应用程序的清单</h2>
+<pre><code>dz&gt; run app.package.manifest com.mwr.example.sieve
+</code></pre><h2 id="获取攻击面">获取攻击面</h2>
+<pre><code>dz&gt; run app.package.attacksurface com.mwr.example.sieve
+</code></pre><h2 id="检查可导出的活动">检查可导出的活动</h2>
+<pre><code>dz&gt; run app.activity.info -a com.mwr.example.sieve
+</code></pre><h2 id="检查launchintent主要活动">检查launchintent(主要活动)</h2>
+<pre><code>dz&gt; run app.pack.launchintent com.mwr.example.sieve
+</code></pre><h2 id="调用可导出的活动">调用可导出的活动</h2>
+<pre><code>dz&gt; run app.activity.start --component &lt;package_name&gt; &lt;full_activity_name&gt;
+</code></pre><h2 id="检查导出的内容提供商">检查导出的内容提供商</h2>
+<pre><code>dz&gt; run app.provider.info -a com.mwr.example.sieve
+</code></pre><h2 id="查找内容uri">查找内容URI</h2>
+<pre><code>dz&gt; run app.provider.finduri com.mwr.example.sieve
+</code></pre><h2 id="如果在导出的内容提供者中找到了uri路径那么使用下面的命令运行该路径以找到有用的数据在筛选中所有的密码都被转储">如果在导出的内容提供者中找到了URI路径，那么使用下面的命令运行该路径以找到有用的数据，（在筛选中，所有的密码都被转储）。</h2>
+<pre><code>dz&gt; run app.provider.query content://com.mwr.example.sieve.DBContentProvider/passwords
+</code></pre><h2 id="在内容提供者数据库中插入条目">在内容提供者数据库中插入条目</h2>
+<pre><code>dz&gt; run app.provider.insert content://com.mwr.example.sieve.DBContentProvider/passwords --integer _id 3 --string service Facebook --string username tyrone --string password zA76WR9mURDNNEw4TUiidVKRuKLEamg5h84T --string email tyrone@gmail.com
+</code></pre><h2 id="查找具有特定权限的应用程序">查找具有特定权限的应用程序</h2>
+<pre><code>dz&gt; run app.package.list -p android.permission.INSTALL_PACKAGES
+</code></pre><h2 id="查找以特定uid运行的应用程序在本例中系统">查找以特定UID运行的应用程序，在本例中，系统</h2>
+<pre><code>dz&gt; run app.package.list -u 1000
+</code></pre><h2 id="寻找查看特定mime类型的应用程序">寻找查看特定mime类型的应用程序</h2>
+<pre><code>dz&gt; run app.activity.forintent --action android.intent.action.view --mimetype application/pdf
+</code></pre><h2 id="查找设备上所有可浏览的活动">查找设备上所有可浏览的活动</h2>
+<pre><code>dz&gt; run scanner.activity.browsable
+</code></pre><blockquote>
+<p>提示</p>
+</blockquote>
+<p>要找到启动活动的名称，请检查应用程序的manifest或使用drozer中的app.package.launchintent模块。你也可以使用theapp.activity.start模块从drozer启动主活动。
+通过 **(((android:targetActivity)))=&rdquo;.someactivity&rdquo;**来寻找代理活动。
+搜索filterTouchesWhenObscured来查找是否容易被tapjacking。
+尝试访问/Keys/而不是/Keys，它有时会绕过内容URI的模式匹配。</p>
+<h1 id="sqli漏洞">SQLi漏洞</h1>
+<p>SQLi关于使用projection参数连接到DB的内容提供者的问题。</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dz&gt; run app.provider.query content://com.mwr.example.sieve.DBContentProvider/Passwords --projection <span style="color:#d14">&#34;&#39;&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在内容提供商上自动执行SQLi</p>
+<pre><code>dz&gt; run scanner.provider.sqltables -a content://com.mwr.example.sieve.DBContentProvider/passwords
+</code></pre><p>用于启动本地主机服务器以显示内容提供者和运行类似sqlmap的工具。</p>
+<pre><code>dz&gt; run auxiliary.webcontentresolver -p 9999
+</code></pre><p>对设备上的所有内容提供商进行自动SQLi扫描。</p>
+<pre><code>dz&gt; run scanner.provider.injection
+</code></pre><h1 id="遍历">遍历</h1>
+<p>使用内容提供者读取外部文件</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dz&gt; run app.provider.read content://com.mwr.example.sieve.FileBackupProvider/system/etc/hosts
+</code></pre></td></tr></table>
+</div>
+</div><p>在目录中遍历/筛选数据库</p>
+<pre><code>&gt;dz&gt; run app.provider.read content://com.mwr.example.sieve.FileBackupProvider/system/etc/hosts。
+</code></pre><p>自动遍历</p>
+<pre><code>&gt;dz&gt; run scanner.provider.traversal -a content://com.mwr.example.sieve.FileBackupProvider
+</code></pre><blockquote>
+<p>可供阅读：https://www.sh4ka.fr/android/galaxys3/from_0perm_to_INSTALL_PACKAGES_on_galaxy_S3.html#_tl_dr</p>
+</blockquote>
+<h1 id="利用服务">利用服务</h1>
+<p>获取服务</p>
+<pre><code>dz&gt; run app.service.info -a com.mwr.example.sieve。
+</code></pre><p>在sieve中利用handleMessage()函数(AuthService服务的代码分析)</p>
+<pre><code>dz&gt; run app.service.send com.mwr.example.sieve com.mwr.example.sieve.AuthService --msg 2354 9234 1 --extra string com.mwr.example.sieve.PIN 1337 --bundle-as-obj。
+</code></pre><p>在上述要求中，PIN 1337可以被强制执行</p>
+<p>利用CryptoService加密一个消息</p>
+<pre><code>dz&gt; run app.service.send com.mwr.example.sieve com.mwr.example.sieve.CryptoService --msg 3452 2 3 --extra string com.mwr.example.sieve.KEY testpassword --extra string com.mwr.example.sieve.STRING &quot;string to be encrypted&quot; --bundle-as-obj
+</code></pre><p>在&ndash;msg中传递的参数是额外参数。分析代码，使用其中提到的参数，并增加额外的参数，直到完成3个参数。&ndash;msg期望有三个参数。</p>
+<h1 id="利用广播接收器">利用广播接收器</h1>
+<p>获取广播接收器</p>
+<pre><code>dz&gt; run app.broadcast.info -a com.mwr.example.browser
+</code></pre><p>如果一个应用程序希望广播接收器能够捕捉到一个意图，然后显示经过认证的活动，该广播的生成只有在登录后才有可能。但经过代码审查，攻击者可以使用drozer手动发送该意图。
+广播接收器的样本。</p>
+<pre><code>&lt;receiver android:name=&quot;.LoginReceiver&quot;
+android:exported=&quot;true&quot;&gt;
+&lt;intent-filter&gt;
+&lt;action android:name=&quot;com.myapp.CORRECT_CREDS&quot; /&gt;
+&lt;/intent-filter&gt;
+&lt;/receiver&gt;
+
+使用的命令
+dz&gt; run app.broadcast.send --action com.myapp.CORRECT_CREDS
+(Page 217 - MAHH)
+</code></pre><p>意图嗅探/使用广播接收器捕捉意图，而这些意图是为其他广播接收器准备的。</p>
+<pre><code>dz&gt; run app.broadcast.sniff --action  android.intent.action.BATTERY_CHANGED
+
+dz&gt; run app.broadcast.sniff --action com.myapp.USER_LOGIN (发送广播的动作名称)
+</code></pre><h1 id="其他命令">其他命令</h1>
+<p>使用drozer模块查找WebView是否可被利用。</p>
+<pre><code>dz&gt; run scanner.misc.checkjavascriptbridge -a com.vulnerable.js
+
+</code></pre><blockquote>
+<p>漏洞案例: <a href="https://labs.mwrinfosecurity.com/advisories/2013/09/24/webview-addjavascriptinterface-remote-code-execution/">https://labs.mwrinfosecurity.com/advisories/2013/09/24/webview-addjavascriptinterface-remote-code-execution/</a></p>
+</blockquote>
+<p>从剪贴板查看复制的文本</p>
+<pre><code>dz&gt; run post.capture.clipboard
+</code></pre><p>查找应用程序是否允许其数据备份</p>
+<pre><code>dz&gt; run app.pack.backup -f com.mwr.example.sieve
+</code></pre><p>找出一个包是否可以调试。</p>
+<pre><code>dz&gt; run app.pack.debuggable -f sieve
+</code></pre><p>如果可以调试，你可以以该程序的身份运行命令。</p>
+<pre><code>shell@android:/ $ run-as com.mwr.example.sieve
+</code></pre><h1 id="反编译编译签名apk">反编译/编译/签名apk</h1>
+<p>使用apktool将app转换为baksmali。</p>
+<pre><code>$ java -jar apktool.jar d com.joeykrim.rootcheck.apk rootcheck
+</code></pre><p>然后用grep查找类似 &ldquo;su &ldquo;这样的字符串来绕过root检查（发挥你的想象力）。</p>
+<p>再次编译应用程序。</p>
+<pre><code>$ java -jar apktool.jar b rootcheck/ rootcheck-modified.apk
+</code></pre><p>对apk进行签名。</p>
+<pre><code>$ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystoremykey.keystore rootcheck-modified.apk alias_name.
+</code></pre><p>注：使用jarsigner v1.6，用以下方法改变版本。</p>
+<pre><code>$ sudo update-alternatives --config jarsigner
+</code></pre><h1 id="其他技巧">其他技巧</h1>
+<p>在源代码中寻找openOrCreateDatabase()函数，它是SQLCipher用来存储密钥来加密DB的。</p>
+<p>SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(databaseFile, &ldquo;test123&rdquo;, null)。</p>
+<p>检查代码中的onReceivedSslError.函数，它告诉WebView忽略SSL错误并继续连接。可以被攻击者用来读取或完全改变显示给用户的内容。</p>
+<p>寻找setAllowUniversalAccessFromFileURLs选项设置为true，可以让攻击者在WebViews内加载其文件。</p>
+<p>经常在代码中寻找WebView或addJavaScriptInterface关键字，可以用来进一步利用。</p>
+<h1 id="学习安卓逆向的途径">学习安卓逆向的途径</h1>
+<ol>
+<li>
+<p>多逛吾爱破解，看雪论坛的移动安全版本的帖子。</p>
+</li>
+<li>
+<p>多动手去逆向应用分析应用。</p>
+</li>
+<li>
+<p>系统化的学习路径可以参考《教我兄弟学Android逆向系列课程+附件导航帖》</p>
+<p><a href="https://www.52pojie.cn/thread-742703-1-1.html">https://www.52pojie.cn/thread-742703-1-1.html</a></p>
+</li>
+<li>
+<p>书籍推荐《Android安全软件权威指南》，《Android应用安全防护和逆向分析》两本书足够了，如何选择自己可以看书的评论和目录根据自己喜欢去选。</p>
+</li>
+</ol>
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://blog.taielab.com">码中春秋</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://blog.taielab.com/2020-09-09/src-bugbounty-andorid.html">https://blog.taielab.com/2020-09-09/src-bugbounty-andorid.html</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/2020-09-06/mobile-pentesting-checklist.html">移动应用合规和动态渗透测试技巧</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='https://blog.taielab.com/tags/Android'>Android</a></li>
+                
+                <li><a href='https://blog.taielab.com/tags/drozer'>drozer</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "udpsec/blog-comments"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.taielab.com/2020-09-09/src-bugbounty-andorid.html" title="如何挖掘SRC漏洞平台移动端Android漏洞技巧和教程">如何挖掘SRC漏洞平台移动端Android漏洞技巧和教程</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2020-09-07/src-ios-bugbounty-tips.html" title="如何挖掘SRC漏洞平台移动端IOS漏洞技巧和教程">如何挖掘SRC漏洞平台移动端IOS漏洞技巧和教程</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2020-09-06/mobile-pentesting-checklist.html" title="移动应用合规和动态渗透测试技巧">移动应用合规和动态渗透测试技巧</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-11-25/ios-13-checkra-in-repair-the-internet-connection-appears-to-be-offline.html" title="IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误">IOS 13.2.2 越狱 修复 The internet connection appears to be offline 错误</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-29/red-team-and-physical-entry-gear-tips.html" title="护网之红方物理入侵旁门左道">护网之红方物理入侵旁门左道</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-06-05/intranet-roaming-network-traffic-control.html" title="内网漫游系列之流量操控与Socks代理总结">内网漫游系列之流量操控与Socks代理总结</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-27/intranet-roaming-ss-privoxy.html" title="内网漫游系列之正向全局代理ss&#43;Privoxy">内网漫游系列之正向全局代理ss&#43;Privoxy</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-20/centos-7-upgrade-Kernel.html" title="Centos7安装升级最新内核">Centos7安装升级最新内核</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/digital-forensics-live-and-dead.html" title="数字取证-死活取证">数字取证-死活取证</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html" title="Centos7搭建本地yum仓库">Centos7搭建本地yum仓库</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="" title="" target="_blank" style="color:red">
+                
+                    
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/IOS%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">IOS应用逆向与安全 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/Linux/">Linux (11)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建 (3)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%B7%A5%E5%85%B7%E6%95%88%E7%8E%87/">工具效率 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E5%BC%80%E6%BA%90%E6%83%85%E6%8A%A5%E6%94%B6%E9%9B%86/">开源情报收集 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8/">数字安全 (23)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派 (2)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BA%94%E7%94%A8%E5%90%88%E8%A7%84/">移动端应用合规 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/">红蓝对抗 (1)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全 (6)</a></li>
+    
+    <li><a href="https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4/">网络运维 (3)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.taielab.com/tags/Android/">Android</a>
+    
+    <a href="https://blog.taielab.com/tags/Debian/">Debian</a>
+    
+    <a href="https://blog.taielab.com/tags/IOS/">IOS</a>
+    
+    <a href="https://blog.taielab.com/tags/OSINT/">OSINT</a>
+    
+    <a href="https://blog.taielab.com/tags/archlinux/">archlinux</a>
+    
+    <a href="https://blog.taielab.com/tags/centos/">centos</a>
+    
+    <a href="https://blog.taielab.com/tags/drozer/">drozer</a>
+    
+    <a href="https://blog.taielab.com/tags/github/">github</a>
+    
+    <a href="https://blog.taielab.com/tags/gitup/">gitup</a>
+    
+    <a href="https://blog.taielab.com/tags/gpg/">gpg</a>
+    
+    <a href="https://blog.taielab.com/tags/hexo/">hexo</a>
+    
+    <a href="https://blog.taielab.com/tags/hugo/">hugo</a>
+    
+    <a href="https://blog.taielab.com/tags/kali-linux/">kali-linux</a>
+    
+    <a href="https://blog.taielab.com/tags/lnmp/">lnmp</a>
+    
+    <a href="https://blog.taielab.com/tags/manjaro/">manjaro</a>
+    
+    <a href="https://blog.taielab.com/tags/meedu/">meedu</a>
+    
+    <a href="https://blog.taielab.com/tags/nessus/">nessus</a>
+    
+    <a href="https://blog.taielab.com/tags/parrot-os/">parrot-os</a>
+    
+    <a href="https://blog.taielab.com/tags/pentestbox/">pentestbox</a>
+    
+    <a href="https://blog.taielab.com/tags/shadowsocks/">shadowsocks</a>
+    
+    <a href="https://blog.taielab.com/tags/ubuntu/">ubuntu</a>
+    
+    <a href="https://blog.taielab.com/tags/vps/">vps</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%91%BD%E4%BB%A4/">内网渗透命令</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%BC%AB%E6%B8%B8/">内网漫游</a>
+    
+    <a href="https://blog.taielab.com/tags/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/">奇淫技巧</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/">数字安全基础篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%AF%87/">数字安全工具篇</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">数据库系统原理</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
+    
+    <a href="https://blog.taielab.com/tags/%E6%AD%BB%E6%B4%BB%E5%8F%96%E8%AF%81/">死活取证</a>
+    
+    <a href="https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5/">物理入侵</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="#" title=""></a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://blog.taielab.com/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+</body>
+
+</html>

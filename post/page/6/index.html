@@ -73,6 +73,35 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.taielab.com/2018/06/01/archlinux-install-guide.html" title="Archlinux - 基础入门">Archlinux - 基础入门</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2018年6月1日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='https://blog.taielab.com/categories/Linux'>Linux</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            <h3 id="制作安装媒介">制作安装媒介</h3>
+<p>首先到<a href="https://www.archlinux.org/download/">这里</a>下载最新的官方 Arch Linux 安装媒介。然后，可以选择刻录或者写入到 USB 闪存盘或存储卡。</p>
+<p>利用 dd 命令可以将安装媒介写入 USB 闪存盘或存储卡，参见<a href="https://wiki.archlinux.org/index.php/USB_Installation_Media">这里</a>：</p>
+<pre><code>$ dd bs=4M if=/path/to/archlinux.iso of=/dev/sdx &amp;&amp; sync
+</code></pre><p>完成后，用安装媒介启动电脑。</p>……
+        </div>
+        <p class="readmore"><a href="https://blog.taielab.com/2018/06/01/archlinux-install-guide.html">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.taielab.com/2018-04-01/linux-getshell-guide.html" title="Linux提权指南">Linux提权指南</a>
             </h1>
         </header>
@@ -390,31 +419,6 @@ $ nmap -O -sV -T4 -Pn -p U:53,111,137,T:21-25,80,139,8080 -oG OS_Service_Detect 
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.taielab.com/2017-09-20/hexo-theme-next-config.html" title="Hexo-next主题全面配置教程">Hexo-next主题全面配置教程</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2017年9月20日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA'>博客搭建</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            <p>NexT 拥有丰富而简单的配置,结合第三方服务,打造属于您自己的博客主题配置。</p>……
-        </div>
-        <p class="readmore"><a href="https://blog.taielab.com/2017-09-20/hexo-theme-next-config.html">阅读全文</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -483,6 +487,10 @@ $ nmap -O -sV -T4 -Pn -p U:53,111,137,T:21-25,80,139,8080 -oG OS_Service_Detect 
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.taielab.com/2020-09-09/src-bugbounty-andorid.html" title="如何挖掘SRC漏洞平台移动端Android漏洞技巧和教程">如何挖掘SRC漏洞平台移动端Android漏洞技巧和教程</a>
+    </li>
+    
+    <li>
         <a href="https://blog.taielab.com/2020-09-07/src-ios-bugbounty-tips.html" title="如何挖掘SRC漏洞平台移动端IOS漏洞技巧和教程">如何挖掘SRC漏洞平台移动端IOS漏洞技巧和教程</a>
     </li>
     
@@ -516,10 +524,6 @@ $ nmap -O -sV -T4 -Pn -p U:53,111,137,T:21-25,80,139,8080 -oG OS_Service_Detect 
     
     <li>
         <a href="https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html" title="Centos7搭建本地yum仓库">Centos7搭建本地yum仓库</a>
-    </li>
-    
-    <li>
-        <a href="https://blog.taielab.com/2019-05-09/osint-101-auto-visual.html" title="OSINT101 技术自动化和可视化">OSINT101 技术自动化和可视化</a>
     </li>
     
 </ul>
@@ -561,6 +565,8 @@ $ nmap -O -sV -T4 -Pn -p U:53,111,137,T:21-25,80,139,8080 -oG OS_Service_Detect 
     <section class="widget">
         <h3 class="widget-title">分类</h3>
 <ul class="widget-list">
+    
+    <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
     
     <li><a href="https://blog.taielab.com/categories/IOS%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">IOS应用逆向与安全 (2)</a></li>
     
@@ -610,6 +616,8 @@ $ nmap -O -sV -T4 -Pn -p U:53,111,137,T:21-25,80,139,8080 -oG OS_Service_Detect 
     <a href="https://blog.taielab.com/tags/archlinux/">archlinux</a>
     
     <a href="https://blog.taielab.com/tags/centos/">centos</a>
+    
+    <a href="https://blog.taielab.com/tags/drozer/">drozer</a>
     
     <a href="https://blog.taielab.com/tags/github/">github</a>
     

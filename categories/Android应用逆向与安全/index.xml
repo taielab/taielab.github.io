@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Android应用逆向与安全 on 码中春秋&#39;s Blog</title>
+    <link>https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/</link>
+    <description>Recent content in Android应用逆向与安全 on 码中春秋&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 09 Sep 2020 15:39:36 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>如何挖掘SRC漏洞平台移动端Android漏洞技巧和教程</title>
+      <link>https://blog.taielab.com/2020-09-09/src-bugbounty-andorid.html</link>
+      <pubDate>Wed, 09 Sep 2020 15:39:36 +0800</pubDate>
+      
+      <guid>https://blog.taielab.com/2020-09-09/src-bugbounty-andorid.html</guid>
+      <description>&lt;h1 id=&#34;介绍&#34;&gt;介绍&lt;/h1&gt;
+&lt;p&gt;在测试漏洞的时候除了移动端逻辑漏洞别的我们可以使用drozer进行自动化去跑测试，会点Python脚本的可以把所需要的drozer命令封装成一个批量脚本达到全自动化的drozer测试输出结果报告，挖掘SRC会更效率。&lt;/p&gt;
+&lt;p&gt;本篇文章包含了可以与Drozer一起使用的命令列表，Drozer是一个用于测试Android应用程序的工具。
+大部分的命令都是针对MWR Infosecurity开发的一个名为sieve(com.mwr.example.sieve)的Android应用实例进行的。Drozer和sieve都可以从https://labs.f-secure.com/tools/drozer/ 下载。&lt;/p&gt;
+&lt;p&gt;这些命令根据它们的作用被分为不同的类别。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

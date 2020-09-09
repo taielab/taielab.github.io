@@ -71,6 +71,92 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.taielab.com/2017-09-20/penetration-testing-tools-practical-skills.html" title="渗透测试工具实战技巧">渗透测试工具实战技巧</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2017年9月20日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8'>网络安全</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            <h3 id="最好的-nmap-扫描策略">最好的 NMAP 扫描策略</h3>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic"># 适用所有大小网络最好的 nmap 扫描策略</span>
+
+<span style="color:#998;font-style:italic"># 主机发现，生成存活主机列表</span>
+$ nmap -sn -T4 -oG Discovery.gnmap 192.168.56.0/24
+$ grep <span style="color:#d14">&#34;Status: Up&#34;</span> Discovery.gnmap | cut -f <span style="color:#099">2</span> -d <span style="color:#d14">&#39; &#39;</span> &gt; LiveHosts.txt
+
+<span style="color:#998;font-style:italic"># 端口发现，发现大部分常用端口</span>
+<span style="color:#998;font-style:italic"># http://nmap.org/presentations/BHDC08/bhdc08-slides-fyodor.pdf</span>
+$ nmap -sS -T4 -Pn -oG TopTCP -iL LiveHosts.txt
+$ nmap -sU -T4 -Pn -oN TopUDP -iL LiveHosts.txt
+$ nmap -sS -T4 -Pn --top-ports <span style="color:#099">3674</span> -oG <span style="color:#099">3674</span> -iL LiveHosts.txt
+
+<span style="color:#998;font-style:italic"># 端口发现，发现全部端口，但 UDP 端口的扫描会非常慢</span>
+$ nmap -sS -T4 -Pn -p 0-65535 -oN FullTCP -iL LiveHosts.txt
+$ nmap -sU -T4 -Pn -p 0-65535 -oN FullUDP -iL LiveHosts.txt
+
+<span style="color:#998;font-style:italic"># 显示 TCP\UDP 端口</span>
+$ grep <span style="color:#d14">&#34;open&#34;</span> FullTCP|cut -f <span style="color:#099">1</span> -d <span style="color:#d14">&#39; &#39;</span> | sort -nu | cut -f <span style="color:#099">1</span> -d <span style="color:#d14">&#39;/&#39;</span> |xargs | sed <span style="color:#d14">&#39;s/ /,/g&#39;</span>|awk <span style="color:#d14">&#39;{print &#34;T:&#34;$0}&#39;</span>
+$ grep <span style="color:#d14">&#34;open&#34;</span> FullUDP|cut -f <span style="color:#099">1</span> -d <span style="color:#d14">&#39; &#39;</span> | sort -nu | cut -f <span style="color:#099">1</span> -d <span style="color:#d14">&#39;/&#39;</span> |xargs | sed <span style="color:#d14">&#39;s/ /,/g&#39;</span>|awk <span style="color:#d14">&#39;{print &#34;U:&#34;$0}&#39;</span>
+
+<span style="color:#998;font-style:italic"># 侦测服务版本</span>
+$ nmap -sV -T4 -Pn -oG ServiceDetect -iL LiveHosts.txt
+
+<span style="color:#998;font-style:italic"># 扫做系统扫描</span>
+$ nmap -O -T4 -Pn -oG OSDetect -iL LiveHosts.txt
+
+<span style="color:#998;font-style:italic"># 系统和服务检测</span>
+$ nmap -O -sV -T4 -Pn -p U:53,111,137,T:21-25,80,139,8080 -oG OS_Service_Detect -iL LiveHosts.txt
+</code></pre></td></tr></table>
+</div>
+</div>……
+        </div>
+        <p class="readmore"><a href="https://blog.taielab.com/2017-09-20/penetration-testing-tools-practical-skills.html">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.taielab.com/2017/09/20/debian-9-learning.html" title="Debian 9 - 基础入门">Debian 9 - 基础入门</a>
             </h1>
         </header>
@@ -159,6 +245,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.taielab.com/2020-09-09/src-bugbounty-andorid.html" title="如何挖掘SRC漏洞平台移动端Android漏洞技巧和教程">如何挖掘SRC漏洞平台移动端Android漏洞技巧和教程</a>
+    </li>
+    
+    <li>
         <a href="https://blog.taielab.com/2020-09-07/src-ios-bugbounty-tips.html" title="如何挖掘SRC漏洞平台移动端IOS漏洞技巧和教程">如何挖掘SRC漏洞平台移动端IOS漏洞技巧和教程</a>
     </li>
     
@@ -192,10 +282,6 @@
     
     <li>
         <a href="https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html" title="Centos7搭建本地yum仓库">Centos7搭建本地yum仓库</a>
-    </li>
-    
-    <li>
-        <a href="https://blog.taielab.com/2019-05-09/osint-101-auto-visual.html" title="OSINT101 技术自动化和可视化">OSINT101 技术自动化和可视化</a>
     </li>
     
 </ul>
@@ -237,6 +323,8 @@
     <section class="widget">
         <h3 class="widget-title">分类</h3>
 <ul class="widget-list">
+    
+    <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
     
     <li><a href="https://blog.taielab.com/categories/IOS%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">IOS应用逆向与安全 (2)</a></li>
     
@@ -286,6 +374,8 @@
     <a href="https://blog.taielab.com/tags/archlinux/">archlinux</a>
     
     <a href="https://blog.taielab.com/tags/centos/">centos</a>
+    
+    <a href="https://blog.taielab.com/tags/drozer/">drozer</a>
     
     <a href="https://blog.taielab.com/tags/github/">github</a>
     
