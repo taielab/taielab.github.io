@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>如何挖掘SRC漏洞平台移动端IOS漏洞技巧和教程 | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="如何挖掘SRC漏洞平台移动端IOS漏洞技巧和教程 - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2020-09-07/src-ios-bugbounty-tips.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -143,8 +146,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -163,6 +166,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -176,7 +183,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/IOS%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8'>IOS应用逆向与安全</a></span>
+            <span class="meta-category"><a href='/categories/IOS%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8'>IOS应用逆向与安全</a></span>
             
         </div>
         
@@ -303,20 +310,39 @@
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/IOS'>IOS</a></li>
+                <li><a href='/tags/IOS'>IOS</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -324,13 +350,47 @@
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -398,28 +458,12 @@
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -458,7 +502,7 @@
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -538,7 +582,7 @@
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -555,51 +599,6 @@
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

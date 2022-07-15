@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>树莓派系列（一）- 基础入门 | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="树莓派系列（一）- 基础入门 - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2017-09-20/raspberry-uses-notes.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -190,8 +193,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -210,6 +213,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -223,7 +230,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E6%A0%91%E8%8E%93%E6%B4%BE'>树莓派</a></span>
+            <span class="meta-category"><a href='/categories/%E6%A0%91%E8%8E%93%E6%B4%BE'>树莓派</a></span>
             
         </div>
         
@@ -260,29 +267,29 @@
 <p>　　这样就成功远程登陆树莓派了。</p>
 <h3 id="启用-root-账户">启用 root 账户</h3>
 <p>　　我习惯第一件事就是启用 root。执行：</p>
-<pre><code>sudo passwd root
+<pre tabindex="0"><code>sudo passwd root
 </code></pre><p>　　输入两遍密码，如果提示 <code>passwd: password updated successfully</code> 则表示成功更改 root 密码。然后执行：</p>
-<pre><code>sudo passwd --unlock root
+<pre tabindex="0"><code>sudo passwd --unlock root
 </code></pre><p>　　这样 root 账户就解锁了，执行 <code>su</code> 并输入密码即可使用 root 用户。</p>
 <p>　　接下来是启用 root 直接登录。如果使用 vi 来编辑，不知为何键盘总是乱七八糟的，所以推荐用 <a href="https://winscp.net/eng/docs/lang:chs">WinSCP</a> ，可以本地编辑。</p>
 <p>　　打开 WinSCP，登录树莓派。</p>
 <p>　　打开 <code>/etc/ssh/sshd_config</code> （千万不要用自带的记事本打开，推荐用 Notepad++），并确保右下角是 <code>UNIX</code> 和 <code>UTF-8</code> 格式的。（新建文件打开默认是 <code>Dos\Windows</code> 格式，Linux 无法读取。可以在<code>编辑-文档格式转换-转换为UNIX格式</code>更改）</p>
 <p>　　找到：</p>
-<pre><code>PermitRootLogin without-password
+<pre tabindex="0"><code>PermitRootLogin without-password
 </code></pre><p>　　改成：</p>
-<pre><code>PermitRootLogin yes
+<pre tabindex="0"><code>PermitRootLogin yes
 </code></pre><p>　　保存。如果提示无法覆盖，<code>Permission denied</code>，执行：</p>
-<pre><code>chmod 777 /etc/ssh/sshd_config
+<pre tabindex="0"><code>chmod 777 /etc/ssh/sshd_config
 </code></pre><p>　　重试即可，只要提示上传成功就表示已经成功，权限和时间戳没关系，跳过即可。执行下面代码重启 SSH：</p>
-<pre><code>service ssh restart
+<pre tabindex="0"><code>service ssh restart
 </code></pre><p>　　在 WinSCP 和 Xshell 5 都修改成 root 用户登录即可。</p>
 <h3 id="更换软件源">更换软件源</h3>
 <p>修改软件源后仍然很慢，树莓派仍然还要从<code>*.raspberrypi.org</code>下载</p>
 <p>编辑<code>/etc/apt/sources.list</code>文件</p>
-<pre><code>deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ jessie main non-free contrib
+<pre tabindex="0"><code>deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ jessie main non-free contrib
 deb-src http://mirrors.ustc.edu.cn/raspbian/raspbian/ jessie main non-free contrib
 </code></pre><p>raspberry-最新stretch源</p>
-<pre><code>###中科大源
+<pre tabindex="0"><code>###中科大源
 #deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ stretch main non-free contrib
 #deb-src http://mirrors.ustc.edu.cn/raspbian/raspbian/ stretch main non-free contrib
 #deb http://mirrors.ustc.edu.cn/archive.raspberrypi.org/debian/ stretch main ui
@@ -293,17 +300,17 @@ deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ stretch main contrib non-free 
 deb http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ stretch main non-free contrib
 deb-src http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ stretch main non-free contrib
 </code></pre><p>改完以后你会发现，<code>apt</code>下载还是会请求<code>archive.raspberrypi.org</code>。除了以上这些，还要注释掉<code>/etc/apt/sources.list.d/raspi.list</code>里所有内容。</p>
-<pre><code>#deb http://archive.raspberrypi.org/debian/ jessie main ui
-# Uncomment line below then 'apt-get update' to enable 'apt-get source'
+<pre tabindex="0"><code>#deb http://archive.raspberrypi.org/debian/ jessie main ui
+# Uncomment line below then &#39;apt-get update&#39; to enable &#39;apt-get source&#39;
 #deb-src http://archive.raspberrypi.org/debian/ jessie main ui
 </code></pre><p>重新更新并升级软件源</p>
-<pre><code>sudo apt update #更新源
+<pre tabindex="0"><code>sudo apt update #更新源
 sudo apt upgrade #更新软件包
 </code></pre><h3 id="配置树莓派">配置树莓派</h3>
 <p>　　如果你要使用中文，可以在配置之前先安装中文字体，建议使用英文的。执行：</p>
-<pre><code>apt-get -y install ttf-wqy-zenhei
+<pre tabindex="0"><code>apt-get -y install ttf-wqy-zenhei
 </code></pre><p>　　raspi-config 是树莓派的系统配置工具，现在执行：</p>
-<pre><code>raspi-config
+<pre tabindex="0"><code>raspi-config
 </code></pre><p>　　选择：</p>
 <ul>
 <li>
@@ -311,7 +318,7 @@ sudo apt upgrade #更新软件包
 使树莓派充分利用整个SD卡。</p>
 </li>
 <li>
-<pre><code>Internationalisation Options
+<pre tabindex="0"><code>Internationalisation Options
 </code></pre><p>（国际化选项)</p>
 <ul>
 <li><code>Change Locale</code>（更改语言环境）
@@ -324,29 +331,29 @@ sudo apt upgrade #更新软件包
 <p>　　<code>&lt;Finish&gt;</code>，回车，回车重启即可。</p>
 <h3 id="vnc">VNC</h3>
 <p>　　树莓派也是有图形界面的，并且可以通过网络远程连接。安装 <code>VNC server</code>：</p>
-<pre><code>apt-get -y install tightvncserver
+<pre tabindex="0"><code>apt-get -y install tightvncserver
 </code></pre><p>　　首先修改密码，执行：</p>
-<pre><code>vncpasswd
+<pre tabindex="0"><code>vncpasswd
 </code></pre><p>　　输入两遍密码，提示 <code>Would you like to enter a view-only password?</code> 选择否即可。执行 <code>vncserver</code> 启动 VNC server。然后去下载 <a href="http://www.realvnc.com/download/viewer/">VNC Viewer</a>（手机下载 <a href="https://play.google.com/store/apps/details?id=com.realvnc.viewer.android">VNC Viewer</a> ）。打开 VNC Viewer：</p>
 <p>　　填上： IP:端口，然后输入密码即可。</p>
 <h3 id="连接-wifi">连接 WiFi</h3>
 <p>　　由于我的是树莓派3代，自带蓝牙和无线，所以无需外接设备就能使用 WiFi。连接 WiFi 有两种方法：一种图形界面，用上面的 VNC 设置，太简单就不讲了；重点讲讲第二种。</p>
 <p>　　编辑 <code>/etc/wpa_supplicant/wpa_supplicant.conf</code>，添加：</p>
-<pre><code>network={
-    ssid=&quot;WiFi name&quot;
-    psk=&quot;12345678&quot;
+<pre tabindex="0"><code>network={
+    ssid=&#34;WiFi name&#34;
+    psk=&#34;12345678&#34;
 	key_mgmt=WPA-PSK
 }
 </code></pre><p>　　这个可以参考手机上的 <code>/data/misc/wifi/wpa_supplicant.conf</code>。添加完之后重启网络来连接 WiFi：</p>
-<pre><code>/etc/init.d/networking restart
+<pre tabindex="0"><code>/etc/init.d/networking restart
 </code></pre><p>　　喔，现在可以拔掉网线到处跑了。</p>
 <p>树莓派 配置kali linux wifi连接</p>
 <p>1.配置WIFI，使用nano命令修改/etc/network/interfaces文件；</p>
 <p>2.增加</p>
-<pre><code>auto wlan0 iface wlan0 inet dhcp wpa-ssid “your network name” wpa-psk “the network password”
+<pre tabindex="0"><code>auto wlan0 iface wlan0 inet dhcp wpa-ssid “your network name” wpa-psk “the network password”
 </code></pre><p>##外接显示器不显示东西
 在将SD卡插入Raspberry Pi之前，修改SD卡目录中的<code>config.txt</code>文件，内容如下：</p>
-<pre><code>#强制使用HDMI输出
+<pre tabindex="0"><code>#强制使用HDMI输出
 
 hdmi_force_hotplug=1
 
@@ -386,29 +393,35 @@ OK，等待固件更新完成，然后重启</p>
 <h2 id="无ssh情况下为树莓派配置wifi">无SSH情况下为树莓派配置WiFi</h2>
 <p>有<code>WiFi</code>却没网线的地方如何控制树莓派</p>
 <p>首先下载<code>Win</code>挂载<code>EXT</code>分区格式工具<code>Paragon ExtFS for Windows</code>。安装完成后需要重启才能加载驱动文件。</p>
-<pre><code>wget http://dl.paragon-software.com/demo/extwin_trial_en.msi
-
+<pre tabindex="0"><code>wget http://dl.paragon-software.com/demo/extwin_trial_en.msi
 </code></pre><p>电脑上插入<code>SD</code>卡，这时win会识别树莓派的根文件系统。</p>
-<p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/1.png"><img src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/1.png" alt="20170115095411.png"></a></p>
+<p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/1.png">
+        <img class="mx-auto" alt="20170115095411.png" src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/1.png" />   
+    </a></p>
 <p>找到<code>/etc/wpa_supplicant/wpa_supplicant.conf</code>，注意不要使用记事本打开，<code>notepad++</code>或其他编辑器都可以。</p>
-<p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/2.png"><img src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/2.png" alt="20170115095518.png"></a></p>
-<pre><code>country=GB
+<p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/2.png">
+        <img class="mx-auto" alt="20170115095518.png" src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/2.png" />   
+    </a></p>
+<pre tabindex="0"><code>country=GB
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 
 network={
-    ssid=&quot;WiFi的名称&quot;
-    psk=&quot;WiFi密码&quot;
+    ssid=&#34;WiFi的名称&#34;
+    psk=&#34;WiFi密码&#34;
 }
-
-</code></pre><p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/3.png"><img src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/3.png" alt="20170115092406.png"></a></p>
+</code></pre><p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/3.png">
+        <img class="mx-auto" alt="20170115092406.png" src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/3.png" />   
+    </a></p>
 <p>保存之后注意退出<code>Paragon ExtFS for Windows</code>，安全退出SD卡后再插入树莓派上电启动。</p>
-<p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/4.png"><img src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/4.png" alt="20170115095801.png"></a></p>
+<p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/4.png">
+        <img class="mx-auto" alt="20170115095801.png" src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/nosshsetwifi/4.png" />   
+    </a></p>
 <p>手机上可以通过<code>Fing</code>扫描树莓派是否成功联网。</p>
 <h2 id="树莓派静态ip设置">树莓派静态ip设置</h2>
 <p>修改*/etc/dhcpcd.conf *文件</p>
 <p>sudo vim <em>/etc/dhcpcd.conf</em></p>
-<pre><code>interface eth0
+<pre tabindex="0"><code>interface eth0
 
 static ip_address=192.168.0.10/24
 static routers=192.168.0.1
@@ -427,19 +440,19 @@ static domain_name_servers=192.168.0.1
 <p>　　我的U盘是 NTFS 格式的，而挂载 NTFS 需要 NTFS-3G，写博客的时候才知道大多数系统都是自带 NTFS-3G 的，所以无需重新下载源码重新编译了，如果你的系统太老以至于没有 NTFS-3G，请自行 Google 安装方法。（检验方法：输入 <code>ntfs</code> 按两下 Tab 能够出现 <code>ntfs-3g</code> ）</p>
 <p>12.png</p>
 <p>　　查看 NTFS 分区：</p>
-<pre><code>fdisk -l | grep NTFS
+<pre tabindex="0"><code>fdisk -l | grep NTFS
 </code></pre><p>13.png</p>
 <p>　　得到 <code>/dev/sda1</code>，执行：</p>
-<pre><code>mkdir /mnt/storage
+<pre tabindex="0"><code>mkdir /mnt/storage
 ntfs-3g /dev/sda1 /mnt/storage
 </code></pre><p>　　如果提示 <code>Mount is denied because the NTFS volume is already exclusively opened.</code>，则执行：</p>
-<pre><code>umount /dev/sda1
+<pre tabindex="0"><code>umount /dev/sda1
 ntfs-3g /dev/sda1 /mnt/storage
 </code></pre><p>　　这下 NTFS 就成功挂载了，如果要开机自动挂载，就编辑 <code>/etc/fstab</code>，添加一行：</p>
-<pre><code>/dev/sda1         /mnt/storage     ntfs-3g silent,umask=0,locale=zh_CN.utf8 0 0
+<pre tabindex="0"><code>/dev/sda1         /mnt/storage     ntfs-3g silent,umask=0,locale=zh_CN.utf8 0 0
 </code></pre><h2 id="aria2-一键安装管理脚本">Aria2 一键安装管理脚本</h2>
 <p>执行下面的代码下载并运行脚本。</p>
-<pre><code>wget -N --no-check-certificate https://softs.fun/Bash/aria2.sh &amp;&amp; chmod +x aria2.sh &amp;&amp; bash aria2.sh # 如果上面这个脚本无法下载，尝试使用备用下载：wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/aria2.sh &amp;&amp; chmod +x aria2.sh &amp;&amp; bash aria2.sh
+<pre tabindex="0"><code>wget -N --no-check-certificate https://softs.fun/Bash/aria2.sh &amp;&amp; chmod +x aria2.sh &amp;&amp; bash aria2.sh # 如果上面这个脚本无法下载，尝试使用备用下载：wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/aria2.sh &amp;&amp; chmod +x aria2.sh &amp;&amp; bash aria2.sh
 </code></pre><h2 id="安装transmisson实现下载功能">安装Transmisson实现下载功能</h2>
 <p>安装好树莓派OS之后，使用<a href="http://smartty.sysprogs.com/">SmarTTY</a>登陆树莓派。</p>
 <p>更新树莓派：
@@ -450,76 +463,76 @@ ntfs-3g /dev/sda1 /mnt/storage
 <code>sudo usermod -a -G pi debian-transmission</code>
 设置Transmission的配置文件：
 <code>sudo vim /etc/transmission-daemon/settings.json</code></p>
-<pre><code>{
-    &quot;alt-speed-down&quot;: 15,
-    &quot;alt-speed-enabled&quot;: false,
-    &quot;alt-speed-time-begin&quot;: 540,
-    &quot;alt-speed-time-day&quot;: 127,
-    &quot;alt-speed-time-enabled&quot;: false,
-    &quot;alt-speed-time-end&quot;: 1020,
-    &quot;alt-speed-up&quot;: 15,
-    &quot;bind-address-ipv4&quot;: &quot;0.0.0.0&quot;,
-    &quot;bind-address-ipv6&quot;: &quot;::&quot;,
-    &quot;blocklist-enabled&quot;: true,
-    &quot;blocklist-url&quot;: &quot;http://list.iblocklist.com/?list=ydxerpxkpcfqjaybcssw&amp;fileformat=p2p&amp;archiveformat=gz&quot;,
-    &quot;cache-size-mb&quot;: 4,
-    &quot;dht-enabled&quot;: true,
-    &quot;download-dir&quot;: &quot;/home/pi/Downloads&quot;,
-    &quot;download-limit&quot;: 100,
-    &quot;download-limit-enabled&quot;: 0,
-    &quot;download-queue-enabled&quot;: true,
-    &quot;download-queue-size&quot;: 5,
-    &quot;encryption&quot;: 1,
-    &quot;idle-seeding-limit&quot;: 30,
-    &quot;idle-seeding-limit-enabled&quot;: false,
-    &quot;incomplete-dir&quot;: &quot;/home/pi/Downloads&quot;,
-    &quot;incomplete-dir-enabled&quot;: true,
-    &quot;lpd-enabled&quot;: false,
-    &quot;max-peers-global&quot;: 200,
-    &quot;message-level&quot;: 2,
-    &quot;peer-congestion-algorithm&quot;: &quot;&quot;,
-    &quot;peer-id-ttl-hours&quot;: 6,
-    &quot;peer-limit-global&quot;: 240,
-    &quot;peer-limit-per-torrent&quot;: 50,
-    &quot;peer-port&quot;: 51413,
-    &quot;peer-port-random-high&quot;: 65535,
-    &quot;peer-port-random-low&quot;: 49152,
-    &quot;peer-port-random-on-start&quot;: false,
-    &quot;peer-socket-tos&quot;: &quot;default&quot;,
-    &quot;pex-enabled&quot;: true,
-    &quot;port-forwarding-enabled&quot;: true,
-    &quot;preallocation&quot;: 1,
-    &quot;prefetch-enabled&quot;: 1,
-    &quot;queue-stalled-enabled&quot;: true,
-    &quot;queue-stalled-minutes&quot;: 30,
-    &quot;ratio-limit&quot;: 2,
-    &quot;ratio-limit-enabled&quot;: false,
-    &quot;rename-partial-files&quot;: true,
-    &quot;rpc-authentication-required&quot;: true,
-    &quot;rpc-bind-address&quot;: &quot;0.0.0.0&quot;,
-    &quot;rpc-enabled&quot;: true,
-    &quot;rpc-password&quot;: &quot;raspberry&quot;,
-    &quot;rpc-port&quot;: 9091,
-    &quot;rpc-url&quot;: &quot;/transmission/&quot;,
-    &quot;rpc-username&quot;: &quot;transmission&quot;,
-    &quot;rpc-whitelist&quot;: &quot;127.0.0.1&quot;,
-    &quot;rpc-whitelist-enabled&quot;: false,
-    &quot;scrape-paused-torrents-enabled&quot;: true,
-    &quot;script-torrent-done-enabled&quot;: false,
-    &quot;script-torrent-done-filename&quot;: &quot;&quot;,
-    &quot;seed-queue-enabled&quot;: false,
-    &quot;seed-queue-size&quot;: 10,
-    &quot;speed-limit-down&quot;: 100,
-    &quot;speed-limit-down-enabled&quot;: false,
-    &quot;speed-limit-up&quot;: 100,
-    &quot;speed-limit-up-enabled&quot;: false,
-    &quot;start-added-torrents&quot;: true,
-    &quot;trash-original-torrent-files&quot;: true,
-    &quot;umask&quot;: 0,
-    &quot;upload-limit&quot;: 100,
-    &quot;upload-limit-enabled&quot;: 0,
-    &quot;upload-slots-per-torrent&quot;: 14,
-    &quot;utp-enabled&quot;: true
+<pre tabindex="0"><code>{
+    &#34;alt-speed-down&#34;: 15,
+    &#34;alt-speed-enabled&#34;: false,
+    &#34;alt-speed-time-begin&#34;: 540,
+    &#34;alt-speed-time-day&#34;: 127,
+    &#34;alt-speed-time-enabled&#34;: false,
+    &#34;alt-speed-time-end&#34;: 1020,
+    &#34;alt-speed-up&#34;: 15,
+    &#34;bind-address-ipv4&#34;: &#34;0.0.0.0&#34;,
+    &#34;bind-address-ipv6&#34;: &#34;::&#34;,
+    &#34;blocklist-enabled&#34;: true,
+    &#34;blocklist-url&#34;: &#34;http://list.iblocklist.com/?list=ydxerpxkpcfqjaybcssw&amp;fileformat=p2p&amp;archiveformat=gz&#34;,
+    &#34;cache-size-mb&#34;: 4,
+    &#34;dht-enabled&#34;: true,
+    &#34;download-dir&#34;: &#34;/home/pi/Downloads&#34;,
+    &#34;download-limit&#34;: 100,
+    &#34;download-limit-enabled&#34;: 0,
+    &#34;download-queue-enabled&#34;: true,
+    &#34;download-queue-size&#34;: 5,
+    &#34;encryption&#34;: 1,
+    &#34;idle-seeding-limit&#34;: 30,
+    &#34;idle-seeding-limit-enabled&#34;: false,
+    &#34;incomplete-dir&#34;: &#34;/home/pi/Downloads&#34;,
+    &#34;incomplete-dir-enabled&#34;: true,
+    &#34;lpd-enabled&#34;: false,
+    &#34;max-peers-global&#34;: 200,
+    &#34;message-level&#34;: 2,
+    &#34;peer-congestion-algorithm&#34;: &#34;&#34;,
+    &#34;peer-id-ttl-hours&#34;: 6,
+    &#34;peer-limit-global&#34;: 240,
+    &#34;peer-limit-per-torrent&#34;: 50,
+    &#34;peer-port&#34;: 51413,
+    &#34;peer-port-random-high&#34;: 65535,
+    &#34;peer-port-random-low&#34;: 49152,
+    &#34;peer-port-random-on-start&#34;: false,
+    &#34;peer-socket-tos&#34;: &#34;default&#34;,
+    &#34;pex-enabled&#34;: true,
+    &#34;port-forwarding-enabled&#34;: true,
+    &#34;preallocation&#34;: 1,
+    &#34;prefetch-enabled&#34;: 1,
+    &#34;queue-stalled-enabled&#34;: true,
+    &#34;queue-stalled-minutes&#34;: 30,
+    &#34;ratio-limit&#34;: 2,
+    &#34;ratio-limit-enabled&#34;: false,
+    &#34;rename-partial-files&#34;: true,
+    &#34;rpc-authentication-required&#34;: true,
+    &#34;rpc-bind-address&#34;: &#34;0.0.0.0&#34;,
+    &#34;rpc-enabled&#34;: true,
+    &#34;rpc-password&#34;: &#34;raspberry&#34;,
+    &#34;rpc-port&#34;: 9091,
+    &#34;rpc-url&#34;: &#34;/transmission/&#34;,
+    &#34;rpc-username&#34;: &#34;transmission&#34;,
+    &#34;rpc-whitelist&#34;: &#34;127.0.0.1&#34;,
+    &#34;rpc-whitelist-enabled&#34;: false,
+    &#34;scrape-paused-torrents-enabled&#34;: true,
+    &#34;script-torrent-done-enabled&#34;: false,
+    &#34;script-torrent-done-filename&#34;: &#34;&#34;,
+    &#34;seed-queue-enabled&#34;: false,
+    &#34;seed-queue-size&#34;: 10,
+    &#34;speed-limit-down&#34;: 100,
+    &#34;speed-limit-down-enabled&#34;: false,
+    &#34;speed-limit-up&#34;: 100,
+    &#34;speed-limit-up-enabled&#34;: false,
+    &#34;start-added-torrents&#34;: true,
+    &#34;trash-original-torrent-files&#34;: true,
+    &#34;umask&#34;: 0,
+    &#34;upload-limit&#34;: 100,
+    &#34;upload-limit-enabled&#34;: 0,
+    &#34;upload-slots-per-torrent&#34;: 14,
+    &#34;utp-enabled&#34;: true
 }
 </code></pre><p>在这个配置文件中有很多可以更改的选项，对应着上面的配置文件说几个重点的部分，方便理解和自行修改。
 blocklist参考了<a href="https://gist.github.com/techjawab/447c9f0168620d760796#file-settings-json">techjawab的github</a>：
@@ -542,23 +555,32 @@ blocklist参考了<a href="https://gist.github.com/techjawab/447c9f0168620d76079
 <p>如果遇到permission问题，按照文中的下载地址，使用以下命令提升Downloads目录的权限：
 <code>sudo chmod 777 -R /home/pi/Downloads/</code></p>
 <p>登陆到Web界面之后，点击左上角的文件夹图标可以添加种子文件，树莓派就会开始下载了。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1180079-4f0a6010eb57c5d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p>
+        <img class="mx-auto" alt="img" src="http://upload-images.jianshu.io/upload_images/1180079-4f0a6010eb57c5d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />   
+    </p>
 <h2 id="树莓派启用bbr加速">树莓派启用BBR加速</h2>
 <h3 id="启用bbr">启用bbr</h3>
-<pre><code>sudo sysctl net.ipv4.tcp_congestion_control=bbr
-
+<pre tabindex="0"><code>sudo sysctl net.ipv4.tcp_congestion_control=bbr
 </code></pre><p>查看<code>bbr</code>模块是否加载</p>
-<pre><code>lsmod | grep bbr
-</code></pre><p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/lsmod.png"><img src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/lsmod.png" alt="img"></a></p>
+<pre tabindex="0"><code>lsmod | grep bbr
+</code></pre><p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/lsmod.png">
+        <img class="mx-auto" alt="img" src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/lsmod.png" />   
+    </a></p>
 <h3 id="一个不靠谱的测试">一个不靠谱的测试</h3>
 <p>简单的测试了一下<code>bbr</code>的性能，在严重干扰的<code>wifi</code>网络下进行<code>100M</code>文件传输，传输方式为<code>sftp</code></p>
 <p>拥塞控制为<code>cubic</code>的速度</p>
-<p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/20170119164024.png"><img src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/20170119164024.png" alt="img"></a></p>
+<p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/20170119164024.png">
+        <img class="mx-auto" alt="img" src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/20170119164024.png" />   
+    </a></p>
 <p>拥塞控制为<code>bbr</code>的速度</p>
-<p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/20170119164154.png"><img src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/20170119164154.png" alt="img"></a></p>
+<p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/20170119164154.png">
+        <img class="mx-auto" alt="img" src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/20170119164154.png" />   
+    </a></p>
 <p>虽然这个测试不严谨，截图也只是个人估计出的平均速度。评测终归评测，真正的性能提升还得实际体验来证明。</p>
 <p>附带一份<code>github</code>上网友实测记录</p>
-<p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/20170119165029.png"><img src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/20170119165029.png" alt="img"></a></p>
+<p><a href="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/20170119165029.png">
+        <img class="mx-auto" alt="img" src="https://coding.net/u/sfantree/p/blogimage/git/raw/master/post/rasp_bbr/20170119165029.png" />   
+    </a></p>
 <p>144P到1080P的提升已经相当惊艳了</p>
 <h2 id="自搭ngrok实现树莓派内网穿透">自搭Ngrok实现树莓派内网穿透</h2>
 <p>如果把花生壳类比为使用别人搭好的ss服务，那么自建Ngrok就是使用自己的ss服务，可见自搭Ngrok的优势不言而喻，流量费用十分经济，速度，稳定性和安全性将远远胜过花生壳。</p>
@@ -582,24 +604,20 @@ blocklist参考了<a href="https://gist.github.com/techjawab/447c9f0168620d76079
 <h4 id="配置科学上网环境香港或国外主机可省略此步骤">配置科学上网环境(香港或国外主机可省略此步骤)</h4>
 <p>由于编译过程中会导入包的网址，而这些网址基本都被墙了。</p>
 <p>方法不用多说了，这里我图方便采取修改hosts的方法(有点low)，最新的hosts文件可以在老D博客获取。</p>
-<pre><code>vim /etc/hosts
-
+<pre tabindex="0"><code>vim /etc/hosts
 </code></pre><h4 id="安装go语言环境">安装Go语言环境</h4>
 <p>安装必要包</p>
-<pre><code>yum -y install zlib-devel openssl-devel perl hg cpio expat-devel gettext-devel curl curl-devel perl-ExtUtils-MakeMaker hg wget gcc gcc-c++ build-essential  mercurial
-
+<pre tabindex="0"><code>yum -y install zlib-devel openssl-devel perl hg cpio expat-devel gettext-devel curl curl-devel perl-ExtUtils-MakeMaker hg wget gcc gcc-c++ build-essential  mercurial
 </code></pre><p>由于Go官方地址也被墙了，这里使用国内镜像下载源码。</p>
-<pre><code>wget http://www.golangtc.com/static/go/1.7rc6/go1.7rc6.linux-386.tar.gz
+<pre tabindex="0"><code>wget http://www.golangtc.com/static/go/1.7rc6/go1.7rc6.linux-386.tar.gz
 tar -zxvf go1.7.6.linux-386.tar.gz
 mv go /usr/local/
 ln -s /usr/local/go/bin/* /usr/bin/
-
 </code></pre><p>安装成功后查看可Go编译环境</p>
-<pre><code>go env
-
+<pre tabindex="0"><code>go env
 </code></pre><h4 id="升级git版本">升级Git版本</h4>
 <p>Go编译过程中要求高版本的git，而yum源里面默认只有1.7.1版本。</p>
-<pre><code>#原版kernel.org国内访问过慢，替换为中科大源
+<pre tabindex="0"><code>#原版kernel.org国内访问过慢，替换为中科大源
 wget http://mirrors.ustc.edu.cn/kernel.org/software/scm/git/git-2.9.3.tar.gz
 #wget https://coding.net/u/sfantree/p/self_use_OSS/git/raw/master/ngrok/git-2.6.0.tar.gz
 #wget https://coding.net/u/sfantree/p/self_use_OSS/git/raw/master/ngrok/git-2.9.3.tar.gz
@@ -608,62 +626,54 @@ cd git-2.9.3
 ./configure --prefix=/usr/local/git-2.9.3
 make
 make install
-
 </code></pre><p>取代yum安装的低版本git</p>
-<pre><code>yum remove git*
+<pre tabindex="0"><code>yum remove git*
 ln -s /usr/local/git-2.9.3/bin/* /usr/bin/
-
 </code></pre><p>检查git版本是否为2.9.3</p>
-<pre><code>git --version
-
+<pre tabindex="0"><code>git --version
 </code></pre><h4 id="ngrok源码配置">Ngrok源码配置</h4>
 <p>声明编译的路径和必要的域名(域名改成你自己的)</p>
-<pre><code>#这是原版代码，编译过程会从github下载依赖包，国内网络坏境基本无解
+<pre tabindex="0"><code>#这是原版代码，编译过程会从github下载依赖包，国内网络坏境基本无解
 #git clone https://github.com/inconshreveable/ngrok.git ~/ngrok
 
 #推荐直接下载完整包，一次性编译无需下载
 wget https://coding.net/u/sfantree/p/self_use_OSS/git/raw/master/ngrok/ngrok.zip
 unzip ngrok.zip
 export GOPATH=~/ngrok/
-export NGROK_DOMAIN=&quot;ngrok.sfantree.com&quot;
+export NGROK_DOMAIN=&#34;ngrok.sfantree.com&#34;
 cd ~/ngrok
-
 </code></pre><p>生成证书，Ngrok会使用此证书加密通讯</p>
-<pre><code>openssl genrsa -out base.key 2048
-openssl req -new -x509 -nodes -key base.key -days 10000 -subj &quot;/CN=$NGROK_DOMAIN&quot; -out rootCA.pem
+<pre tabindex="0"><code>openssl genrsa -out base.key 2048
+openssl req -new -x509 -nodes -key base.key -days 10000 -subj &#34;/CN=$NGROK_DOMAIN&#34; -out rootCA.pem
 openssl genrsa -out server.key 2048
-openssl req -new -key server.key -subj &quot;/CN=$NGROK_DOMAIN&quot; -out server.csr
+openssl req -new -key server.key -subj &#34;/CN=$NGROK_DOMAIN&#34; -out server.csr
 openssl x509 -req -in server.csr -CA rootCA.pem -CAkey base.key -CAcreateserial -days 10000 -out server.crt
-
 </code></pre><p>将证书文件复制到指定位置</p>
-<pre><code>cp rootCA.pem assets/client/tls/ngrokroot.crt -i
+<pre tabindex="0"><code>cp rootCA.pem assets/client/tls/ngrokroot.crt -i
 cp server.crt assets/server/tls/snakeoil.crt -i
 cp server.key assets/server/tls/snakeoil.key -i
-
 </code></pre><h4 id="编译服务器端与客户端">编译服务器端与客户端</h4>
 <p>服务器端为linux-x86-64</p>
-<pre><code>export GOOS=linux 
+<pre tabindex="0"><code>export GOOS=linux 
 export GOARCH=386
 make release-server
-
 </code></pre><p>编译完成过后<code>~/ngrok/bin/ngrokd</code>即为服务端运行文件</p>
 <p>树莓派为linux-arm架构，重新声明<code>go env</code>里的变量</p>
-<pre><code>export GOOS=linux 
+<pre tabindex="0"><code>export GOOS=linux 
 export GOARCH=arm
 make release-client
-
 </code></pre><p>编译完成过后<code>~/ngrok/bin/linux_arm/ngrok</code>即为树莓派客户端运行文件</p>
 <p>注:这里测试时只编译了i386的服务器端和arm的客户端，实际上可以通过改变<code>GOOS</code>与<code>GOARCH</code>来获取各个平台的客户端与服务端，<code>GOOS</code>可以指定为<code>windows</code>、<code>linux</code> 、 <code>freebsd</code> 、<code>darwin</code> (Mac OS X 10.5 or 10.6) 和 <code>nacl</code>(Chrome 的Native Client 接口) ,<code>GOARCH</code>可以指定为<code>amd64</code> (64-bit x86) 、<code>386</code> (32-bit x86) 、 和<code>arm</code> (32-bit ARM)，可见Go语言的跨平台能力相当彪悍。</p>
 <h2 id="lnmp全面优化集合nginxmysqlphp">lnmp全面优化集合nginx+mysql+php</h2>
 <p>lnmp的全名是linux+nginx+mysql+php，既然是全面优化那我们就从linux系统的选择入手。debian系统可以算是 linux各分支中做的比较突出的一类，连谷歌都抛弃linux订制，由此可见debian系统之优秀，相较其它linux系统debian具有稳定、占 用资源少对于网站web环境来说这些正是我们所需要的，其中debian6版本算是这一优点的集中体现。目前市面上有很多的安装包，其中军哥的lnmp是 被站长使用较多的一种。</p>
-<pre><code>也许有朋友会问小三啊，为啥不用lanmp呢？
+<pre tabindex="0"><code>也许有朋友会问小三啊，为啥不用lanmp呢？
 参考：lnmp和lnmpa性能测试
 用nginx的目地是为提高并发能力。
 在同一台机器上使用nginx反向 apache，等于脱裤子放屁。+_+*
 </code></pre><p><code>一：lnmp的nginx优化</code>
 主要是修改 /usr/local/nginx/conf/nginx.conf
 1.军哥的lnmp安装包中nginx的<strong>worker_processes</strong>默认设置是1，这里我们要根据服务器cpu具体的核心数来优化。通常4核的CPU我会把值设为3。</p>
-<pre><code>2核CPU，开启2个进程
+<pre tabindex="0"><code>2核CPU，开启2个进程
 worker_processes 2;
 worker_cpu_affinity 01 10;
 
@@ -674,10 +684,9 @@ worker_cpu_affinity 0010 0100 1000;
 8核CPU，开8个进程
 worker_processes 8;
 worker_cpu_affinity 00000001 00000010 00000100 00001000 00010000 00100000 01000000 10000000;
-
 </code></pre><p>worker_processes参数解析可参考：<a href="http://www.zxsdw.com/index.php/archives/860/">worker_processes详解</a></p>
 <p>2.<strong>worker_rlimit_nofile参数</strong>默认是5xxxx.</p>
-<pre><code>worker_rlimit_nofile 65535;
+<pre tabindex="0"><code>worker_rlimit_nofile 65535;
 
 events
 	{
@@ -696,7 +705,7 @@ my-large.cnf: 适合 512MB RAM使用
 my-medium.cnf: 只有 32MB - 64MB RAM使用
 my-small.cnf:小于64MB 用，MySQL会占用很少资源
 my-innodb-heavy-4G.cnf 适合4G以上使用</p>
-<pre><code>禁用mysql日志：
+<pre tabindex="0"><code>禁用mysql日志：
 修改 /etc/my.cnf 文件
 在log-bin=mysql-bin和binlog_format=mixed 
 这两行前面加#注释掉即可。
@@ -706,9 +715,9 @@ tmp_table_size = 200M
 </code></pre><p>mysql参数讲解可参考：<a href="http://www.zxsdw.com/index.php/archives/858/">mysql优化</a><code>三：lnmp的php相关参数优化</code>
 优化主要是修改/usr/local/php/etc/目录下的php-fpm.conf和php.ini文件</p>
 <p><strong>1.php-fpm.conf参数优化</strong></p>
-<p>删除value name=&quot;display_errors&rdquo; 这一行的代码，防止坏人从PHP错误中找到漏洞。</p>
+<p>删除value name=&ldquo;display_errors&rdquo; 这一行的代码，防止坏人从PHP错误中找到漏洞。</p>
 <p>max_children默认参数是开启5个进程。数值要根据内存大小来定，每一个php-cgi所耗费的内存在20M左右。</p>
-<pre><code>126M内存默认即可
+<pre tabindex="0"><code>126M内存默认即可
 256M 10个
 512M 20个
 1G 40个
@@ -717,23 +726,22 @@ tmp_table_size = 200M
 <p>php-fpm参数讲解可参考：<a href="http://www.zxsdw.com/index.php/archives/204/?page=2">php-fpm详解</a></p>
 <p><strong>2.php.ini参数优化</strong></p>
 <p>disable_functions = 默认禁用了一些参数，PHP中有一些函数的风险性还是相当大的,如果允许这些函数执行,当PHP 程序出现漏洞时,损失是非常严重的</p>
-<pre><code>fsockopen这个参数用的比较多，可以删除。
+<pre tabindex="0"><code>fsockopen这个参数用的比较多，可以删除。
 
 另外从安全方面考虑可隐藏PHP版本号
 将文件里面的 expose_php = On 
 修改为 expose_php = Off 即可
 
 将display_errors =On改为Off
-
 </code></pre><p>最后修改最大连接数使重启后也可生效，在/etc/profile 最后增加一行 ulimit -SHn 65535</p>
 <p>另外LNMP安装包里有一个eAccelerator的安装文件。最好装一下。这个是加速PHP缓存的还不错。
 关于eAccelerator的设置我就给出两个修改的地方吧：</p>
-<pre><code>eaccelerator.shm_size=&quot;16&quot; 
+<pre tabindex="0"><code>eaccelerator.shm_size=&#34;16&#34; 
 </code></pre><p>#默认是占用16M共享内存，军哥好像是1，你就改成16吧。大小也可根据你的内存情况设置。</p>
 <p>另外默认是eaccelerator缓存目录是/usr/local/eaccelerator_cache，这样用硬盘缓存的话，某些情况会影响php的响应时间。我们可以直接放到共享内存里面老。
 运行命令：mkdir -p /dev/shm/eaccelerator_cache
 修改目录为以下就OK了。</p>
-<pre><code>eaccelerator.cache_dir=&quot;/dev/shm/eaccelerator_cache&quot;
+<pre tabindex="0"><code>eaccelerator.cache_dir=&#34;/dev/shm/eaccelerator_cache&#34;
 </code></pre><p><strong>最后全部修改完记得重启生效：/root/lnmp restart</strong></p>
 <h2 id="树莓派系统备份">树莓派系统备份</h2>
 <h3 id="备份sd卡">备份SD卡</h3>
@@ -770,10 +778,12 @@ tmp_table_size = 200M
 <p>启动后可以感受到，树莓派的运行速度快了许多，这是因为我们使用了速度更快的U盘安装系统。</p>
 <h3 id="三扩展u盘空间">三、扩展U盘空间</h3>
 <p>U盘安装完系统后，发现虽然我的U盘是32G大小的，但是使用df命令可以看到只有4G大小，使用sudo raspi-config扩展，提示不能自动扩展：</p>
-<pre><code>sda2 is not an SD card. Don't know how to expand
-</code></pre><p><a href="http://blog.lxx1.com/2574/2017-05-03_211729"><img src="http://blog-qiniu.lxx1.com/wp-content/uploads/2017/05/2017-05-03_211729.jpg" alt="img"></a></p>
+<pre tabindex="0"><code>sda2 is not an SD card. Don&#39;t know how to expand
+</code></pre><p><a href="http://blog.lxx1.com/2574/2017-05-03_211729">
+        <img class="mx-auto" alt="img" src="http://blog-qiniu.lxx1.com/wp-content/uploads/2017/05/2017-05-03_211729.jpg" />   
+    </a></p>
 <p>这时需要使用fdisk命令手动扩展空间，信息过程如下。带有注释的行是需要输入的信息。</p>
-<pre><code>pi@raspberrypi:~ $ **sudo fdisk /dev/sda    #扩展分区**
+<pre tabindex="0"><code>pi@raspberrypi:~ $ **sudo fdisk /dev/sda    #扩展分区**
 
 Welcome to fdisk (util-linux 2.25.2).  
 Changes will remain in memory only, until you decide to write them.  
@@ -807,7 +817,7 @@ Partition number (2-4, default 2): 2    #选择要新建的分区号
 First sector (2048-60062499, default 2048): 137216    #输入删除分区前/dev/sda2的起始磁盘柱  
 Last sector, +sectors or +size{K,M,G,T,P} (137216-60062499, default 60062499): #默认即可
 
-Created a new partition 2 of type 'Linux' and of size 28.6 GiB.
+Created a new partition 2 of type &#39;Linux&#39; and of size 28.6 GiB.
 
 Command (m for help): p    #查看修改后的分区  
 Disk /dev/sda: 28.7 GiB, 30752000000 bytes, 60062500 sectors  
@@ -830,7 +840,9 @@ Re-reading the partition table failed.: Device or resource busy
 The kernel still uses the old table. The new table will be used at the next reboot or after you run partprobe(8) or kpartx(8).
 </code></pre><p>然后重启系统 <code>sudo reboot</code>。</p>
 <p>重启完成后，使用 <code>sudo resize2fs /dev/sda2</code> 命令进行实际的空间拓展，等待命令执行完成，再次重启系统，即完成了U盘空间的拓展。</p>
-<p><a href="http://blog.lxx1.com/2574/2017-05-03_210532"><img src="http://blog-qiniu.lxx1.com/wp-content/uploads/2017/05/2017-05-03_210532.jpg" alt="img"></a></p>
+<p><a href="http://blog.lxx1.com/2574/2017-05-03_210532">
+        <img class="mx-auto" alt="img" src="http://blog-qiniu.lxx1.com/wp-content/uploads/2017/05/2017-05-03_210532.jpg" />   
+    </a></p>
         </div>
 
         
@@ -852,20 +864,39 @@ The kernel still uses the old table. The new table will be used at the next rebo
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE'>树莓派</a></li>
+                <li><a href='/tags/%E6%A0%91%E8%8E%93%E6%B4%BE'>树莓派</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -873,13 +904,47 @@ The kernel still uses the old table. The new table will be used at the next rebo
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -947,28 +1012,12 @@ The kernel still uses the old table. The new table will be used at the next rebo
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -1007,7 +1056,7 @@ The kernel still uses the old table. The new table will be used at the next rebo
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -1087,7 +1136,7 @@ The kernel still uses the old table. The new table will be used at the next rebo
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -1104,51 +1153,6 @@ The kernel still uses the old table. The new table will be used at the next rebo
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

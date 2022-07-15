@@ -6,11 +6,7 @@
     <description>Recent content on 码中春秋&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 09 Sep 2020 15:39:36 +0800</lastBuildDate>
-    
-	<atom:link href="https://blog.taielab.com/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 09 Sep 2020 15:39:36 +0800</lastBuildDate><atom:link href="https://blog.taielab.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>如何挖掘SRC漏洞平台移动端Android漏洞技巧和教程</title>
       <link>https://blog.taielab.com/2020-09-09/src-bugbounty-andorid.html</link>
@@ -65,7 +61,7 @@
 &lt;p&gt;这个问题只在中国区的苹果手机出现的多&lt;/p&gt;
 &lt;p&gt;修复IOS13.2.2越狱打开越狱程序显示The internet connection appears to be offline 错误和Cydia没有网络错误。&lt;/p&gt;
 &lt;p&gt;关于这个问题的官方ISSUES&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;https://github.com/checkra1n/BugTracker/issues/3 
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;https://github.com/checkra1n/BugTracker/issues/3 
 https://github.com/parrotgeek1/Globalize.git
 &lt;/code&gt;&lt;/pre&gt;</description>
     </item>
@@ -107,18 +103,20 @@ https://github.com/parrotgeek1/Globalize.git
       <pubDate>Mon, 27 May 2019 16:59:17 +0800</pubDate>
       
       <guid>https://blog.taielab.com/2019-05-27/intranet-roaming-ss-privoxy.html</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/05/27/5ceba69b6a2ee49700.png&#34; alt=&#34;正向代理-1024x491.png&#34;&gt;&lt;/p&gt;
+      <description>&lt;p&gt;
+        &lt;img class=&#34;mx-auto&#34; alt=&#34;正向代理-1024x491.png&#34; src=&#34;https://i.loli.net/2019/05/27/5ceba69b6a2ee49700.png&#34; /&gt;   
+    &lt;/p&gt;
 &lt;h1 id=&#34;安装-ss-客户端&#34;&gt;安装 ss 客户端&lt;/h1&gt;
 &lt;p&gt;shadowsocks安装时是不分客户端还是服务器端的, 只不过安装后有两个脚本一个是sslocal代表以客户端模式工作，一个是ssserver代表以服务器端模式工作。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
-&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
-&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;1
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;2
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;1
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;2
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
-&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;yum install -y python-pip
-pip install https://github.com/shadowsocks/shadowsocks/archive/master.zip -U
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;yum install -y python-pip
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pip install https://github.com/shadowsocks/shadowsocks/archive/master.zip -U
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;</description>
     </item>
@@ -272,9 +270,9 @@ pip install https://github.com/shadowsocks/shadowsocks/archive/master.zip -U
       <description>&lt;h2 id=&#34;介绍&#34;&gt;介绍&lt;/h2&gt;
 &lt;p&gt;随着知识付费领域的兴起，尤其是知识付费领域的龙头“得到”的成功，知识付费领域俨然成为了新的风口。经过这几年的发展，知识付费领域的基础建设有了很大的进步，市场上面很多知识付费的平台可以在短短几分钟之内搭建一套属于自己的知识付费应用。但是，这并不是我想要的！可能是处于程序员的角度出发，我更在乎的是这套应用是我自己可以完全控制的！所以 &lt;em&gt;MeEdu&lt;/em&gt; 诞生了。&lt;em&gt;MeEdu&lt;/em&gt; 寄托了我对当前知识付费领域的期望。我相信未来的每位身负技能的人都可以通过 &lt;em&gt;MeEdu&lt;/em&gt; 来构建自己的知识付费应用，通过 &lt;em&gt;MeEdu&lt;/em&gt; 将自己的知识进行变现。适用于企业内网培训多媒体建立，培训机构线下录课点播。&lt;/p&gt;
 &lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
-&lt;p&gt;**Github地址：**&lt;a href=&#34;https://github.com/Qsnh/meedu&#34;&gt;https://github.com/Qsnh/meedu&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;**环境要求：**&lt;code&gt;PHP &amp;gt;= 7.2&lt;/code&gt;、&lt;code&gt;MySql &amp;gt;= 5.6&lt;/code&gt;、&lt;code&gt;Composer&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;**PHP扩展：**&lt;code&gt;Zip&lt;/code&gt;、&lt;code&gt;OpenSSL&lt;/code&gt;、&lt;code&gt;PDO&lt;/code&gt;、&lt;code&gt;Mbstring&lt;/code&gt;、&lt;code&gt;Tokenizer&lt;/code&gt;、&lt;code&gt;XML&lt;/code&gt;、&lt;code&gt;Fileinfo&lt;/code&gt;。&lt;/p&gt;</description>
+&lt;p&gt;&lt;strong&gt;Github地址：&lt;/strong&gt;&lt;a href=&#34;https://github.com/Qsnh/meedu&#34;&gt;https://github.com/Qsnh/meedu&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;环境要求：&lt;/strong&gt;&lt;code&gt;PHP &amp;gt;= 7.2&lt;/code&gt;、&lt;code&gt;MySql &amp;gt;= 5.6&lt;/code&gt;、&lt;code&gt;Composer&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;PHP扩展：&lt;/strong&gt;&lt;code&gt;Zip&lt;/code&gt;、&lt;code&gt;OpenSSL&lt;/code&gt;、&lt;code&gt;PDO&lt;/code&gt;、&lt;code&gt;Mbstring&lt;/code&gt;、&lt;code&gt;Tokenizer&lt;/code&gt;、&lt;code&gt;XML&lt;/code&gt;、&lt;code&gt;Fileinfo&lt;/code&gt;。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -332,13 +330,13 @@ pip install https://github.com/shadowsocks/shadowsocks/archive/master.zip -U
       <description>&lt;h1 id=&#34;两个版本选择&#34;&gt;两个版本选择&lt;/h1&gt;
 &lt;h2 id=&#34;安装配置-shadowsockspython版本&#34;&gt;安装配置 Shadowsocks（python版本）&lt;/h2&gt;
 &lt;p&gt;安装 YUM 源和编译链&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
-&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
-&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;1
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;1
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
-&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;yum install -y epel-release curl gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto udns-devel libev-devel mbedtls-devel libsodium-devel c-ares-devel
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;yum install -y epel-release curl gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto udns-devel libev-devel mbedtls-devel libsodium-devel c-ares-devel
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;</description>
     </item>
@@ -558,25 +556,25 @@ pip install https://github.com/shadowsocks/shadowsocks/archive/master.zip -U
       <description>&lt;blockquote&gt;
 &lt;p&gt;现在很多朋友都有购买vps的需要，但是很多都是国外的商家，英文毕竟POOL的朋友不免有些头痛。本篇文章就介绍下VPS购买及后期沟通中常用的英文语句。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
-&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
-&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;1
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;2
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;3
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;4
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;5
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;6
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;7
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;1
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;2
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;3
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;4
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;5
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;6
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;7
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
-&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;续费：renew          
-退款：refund
-有货：in stock       
-没货：out of stock
-母鸡：Node           
-负载：load
-流量：bandwidth
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;续费：renew          
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;退款：refund
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;有货：in stock       
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;没货：out of stock
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;母鸡：Node           
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;负载：load
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;流量：bandwidth
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;</description>
     </item>
@@ -667,7 +665,7 @@ php 5.3+&lt;/p&gt;</description>
       <description>&lt;h3 id=&#34;制作安装媒介&#34;&gt;制作安装媒介&lt;/h3&gt;
 &lt;p&gt;首先到&lt;a href=&#34;https://www.archlinux.org/download/&#34;&gt;这里&lt;/a&gt;下载最新的官方 Arch Linux 安装媒介。然后，可以选择刻录或者写入到 USB 闪存盘或存储卡。&lt;/p&gt;
 &lt;p&gt;利用 dd 命令可以将安装媒介写入 USB 闪存盘或存储卡，参见&lt;a href=&#34;https://wiki.archlinux.org/index.php/USB_Installation_Media&#34;&gt;这里&lt;/a&gt;：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ dd bs=4M if=/path/to/archlinux.iso of=/dev/sdx &amp;amp;&amp;amp; sync
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ dd bs=4M if=/path/to/archlinux.iso of=/dev/sdx &amp;amp;&amp;amp; sync
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;完成后，用安装媒介启动电脑。&lt;/p&gt;</description>
     </item>
     
@@ -754,8 +752,8 @@ PentestBox官网：&lt;a href=&#34;https://pentestbox.org/zh/&#34;&gt;&lt;strong
       
       <guid>https://blog.taielab.com/2017-09-20/kali-linux-learning.html</guid>
       <description>&lt;h2 id=&#34;修改更新源&#34;&gt;修改更新源&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;leafpad /etc/apt/sources.list
-&lt;/code&gt;&lt;/pre&gt;&lt;pre&gt;&lt;code&gt;apt-get update &amp;amp;&amp;amp; apt-get upgrade &amp;amp;&amp;amp; apt-get dist-upgrade 
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;leafpad /etc/apt/sources.list
+&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;apt-get update &amp;amp;&amp;amp; apt-get upgrade &amp;amp;&amp;amp; apt-get dist-upgrade 
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;kali-rolling版本：（中科大的就够用了，个人按需吧）&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     
@@ -791,67 +789,67 @@ PentestBox官网：&lt;a href=&#34;https://pentestbox.org/zh/&#34;&gt;&lt;strong
       
       <guid>https://blog.taielab.com/2017-09-20/penetration-testing-tools-practical-skills.html</guid>
       <description>&lt;h3 id=&#34;最好的-nmap-扫描策略&#34;&gt;最好的 NMAP 扫描策略&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
-&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
-&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;11
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;12
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;13
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;14
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;15
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;16
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;17
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;18
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;19
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;20
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;21
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;22
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;23
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;24
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;25
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;26
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;27
-&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;28
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;11
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;12
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;13
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;14
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;15
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;16
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;17
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;18
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;19
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;20
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;21
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;22
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;23
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;24
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;25
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;26
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;27
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;28
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
-&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 适用所有大小网络最好的 nmap 扫描策略&lt;/span&gt;
-
-&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 主机发现，生成存活主机列表&lt;/span&gt;
-$ nmap -sn -T4 -oG Discovery.gnmap 192.168.56.0/24
-$ grep &lt;span style=&#34;color:#d14&#34;&gt;&amp;#34;Status: Up&amp;#34;&lt;/span&gt; Discovery.gnmap | cut -f &lt;span style=&#34;color:#099&#34;&gt;2&lt;/span&gt; -d &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; &amp;gt; LiveHosts.txt
-
-&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 端口发现，发现大部分常用端口&lt;/span&gt;
-&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# http://nmap.org/presentations/BHDC08/bhdc08-slides-fyodor.pdf&lt;/span&gt;
-$ nmap -sS -T4 -Pn -oG TopTCP -iL LiveHosts.txt
-$ nmap -sU -T4 -Pn -oN TopUDP -iL LiveHosts.txt
-$ nmap -sS -T4 -Pn --top-ports &lt;span style=&#34;color:#099&#34;&gt;3674&lt;/span&gt; -oG &lt;span style=&#34;color:#099&#34;&gt;3674&lt;/span&gt; -iL LiveHosts.txt
-
-&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 端口发现，发现全部端口，但 UDP 端口的扫描会非常慢&lt;/span&gt;
-$ nmap -sS -T4 -Pn -p 0-65535 -oN FullTCP -iL LiveHosts.txt
-$ nmap -sU -T4 -Pn -p 0-65535 -oN FullUDP -iL LiveHosts.txt
-
-&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 显示 TCP\UDP 端口&lt;/span&gt;
-$ grep &lt;span style=&#34;color:#d14&#34;&gt;&amp;#34;open&amp;#34;&lt;/span&gt; FullTCP|cut -f &lt;span style=&#34;color:#099&#34;&gt;1&lt;/span&gt; -d &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; | sort -nu | cut -f &lt;span style=&#34;color:#099&#34;&gt;1&lt;/span&gt; -d &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;/&amp;#39;&lt;/span&gt; |xargs | sed &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;s/ /,/g&amp;#39;&lt;/span&gt;|awk &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;{print &amp;#34;T:&amp;#34;$0}&amp;#39;&lt;/span&gt;
-$ grep &lt;span style=&#34;color:#d14&#34;&gt;&amp;#34;open&amp;#34;&lt;/span&gt; FullUDP|cut -f &lt;span style=&#34;color:#099&#34;&gt;1&lt;/span&gt; -d &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; | sort -nu | cut -f &lt;span style=&#34;color:#099&#34;&gt;1&lt;/span&gt; -d &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;/&amp;#39;&lt;/span&gt; |xargs | sed &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;s/ /,/g&amp;#39;&lt;/span&gt;|awk &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;{print &amp;#34;U:&amp;#34;$0}&amp;#39;&lt;/span&gt;
-
-&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 侦测服务版本&lt;/span&gt;
-$ nmap -sV -T4 -Pn -oG ServiceDetect -iL LiveHosts.txt
-
-&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 扫做系统扫描&lt;/span&gt;
-$ nmap -O -T4 -Pn -oG OSDetect -iL LiveHosts.txt
-
-&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 系统和服务检测&lt;/span&gt;
-$ nmap -O -sV -T4 -Pn -p U:53,111,137,T:21-25,80,139,8080 -oG OS_Service_Detect -iL LiveHosts.txt
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 适用所有大小网络最好的 nmap 扫描策略&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 主机发现，生成存活主机列表&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ nmap -sn -T4 -oG Discovery.gnmap 192.168.56.0/24
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ grep &lt;span style=&#34;color:#d14&#34;&gt;&amp;#34;Status: Up&amp;#34;&lt;/span&gt; Discovery.gnmap | cut -f &lt;span style=&#34;color:#099&#34;&gt;2&lt;/span&gt; -d &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; &amp;gt; LiveHosts.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 端口发现，发现大部分常用端口&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# http://nmap.org/presentations/BHDC08/bhdc08-slides-fyodor.pdf&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ nmap -sS -T4 -Pn -oG TopTCP -iL LiveHosts.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ nmap -sU -T4 -Pn -oN TopUDP -iL LiveHosts.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ nmap -sS -T4 -Pn --top-ports &lt;span style=&#34;color:#099&#34;&gt;3674&lt;/span&gt; -oG &lt;span style=&#34;color:#099&#34;&gt;3674&lt;/span&gt; -iL LiveHosts.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 端口发现，发现全部端口，但 UDP 端口的扫描会非常慢&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ nmap -sS -T4 -Pn -p 0-65535 -oN FullTCP -iL LiveHosts.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ nmap -sU -T4 -Pn -p 0-65535 -oN FullUDP -iL LiveHosts.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 显示 TCP\UDP 端口&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ grep &lt;span style=&#34;color:#d14&#34;&gt;&amp;#34;open&amp;#34;&lt;/span&gt; FullTCP|cut -f &lt;span style=&#34;color:#099&#34;&gt;1&lt;/span&gt; -d &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; | sort -nu | cut -f &lt;span style=&#34;color:#099&#34;&gt;1&lt;/span&gt; -d &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;/&amp;#39;&lt;/span&gt; |xargs | sed &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;s/ /,/g&amp;#39;&lt;/span&gt;|awk &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;{print &amp;#34;T:&amp;#34;$0}&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ grep &lt;span style=&#34;color:#d14&#34;&gt;&amp;#34;open&amp;#34;&lt;/span&gt; FullUDP|cut -f &lt;span style=&#34;color:#099&#34;&gt;1&lt;/span&gt; -d &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; | sort -nu | cut -f &lt;span style=&#34;color:#099&#34;&gt;1&lt;/span&gt; -d &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;/&amp;#39;&lt;/span&gt; |xargs | sed &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;s/ /,/g&amp;#39;&lt;/span&gt;|awk &lt;span style=&#34;color:#d14&#34;&gt;&amp;#39;{print &amp;#34;U:&amp;#34;$0}&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 侦测服务版本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ nmap -sV -T4 -Pn -oG ServiceDetect -iL LiveHosts.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 扫做系统扫描&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ nmap -O -T4 -Pn -oG OSDetect -iL LiveHosts.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#998;font-style:italic&#34;&gt;# 系统和服务检测&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ nmap -O -sV -T4 -Pn -p U:53,111,137,T:21-25,80,139,8080 -oG OS_Service_Detect -iL LiveHosts.txt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;</description>
     </item>

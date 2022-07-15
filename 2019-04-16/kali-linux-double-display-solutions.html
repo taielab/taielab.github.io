@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案 | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案 - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2019-04-16/kali-linux-double-display-solutions.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -153,8 +156,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -173,6 +176,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -186,7 +193,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/Linux'>Linux</a></span>
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
             
         </div>
         
@@ -224,31 +231,31 @@
 <p>然后再<code>init 6</code>重启电脑</p>
 <h1 id="kali双显卡解决方案">kali双显卡解决方案</h1>
 <p>更换源下面使用中科大的源</p>
-<pre><code>vi /etc/apt/sources.list
+<pre tabindex="0"><code>vi /etc/apt/sources.list
 #中科大
 deb http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib
 deb-src http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib
 </code></pre><p>添加完毕后执行下面的更新指令，进行系统或者工具的更新</p>
-<pre><code>apt-get update &amp;&amp; apt-get upgrade &amp;&amp; apt-get dist-upgrade
+<pre tabindex="0"><code>apt-get update &amp;&amp; apt-get upgrade &amp;&amp; apt-get dist-upgrade
 </code></pre><p>清理安装包：apt-get clean</p>
 <h2 id="1查看自己的内核版本信息">1.查看自己的内核版本信息</h2>
 <p>然后使用<code>uname -r</code>或者<code>uname -a</code>查看自己的Kali Linux内核版本信息</p>
 <h2 id="2-禁用开源显卡驱动-nouveau">2. 禁用开源显卡驱动 nouveau</h2>
 <p>禁用的命令如下：</p>
-<pre><code>echo -e &quot;blacklist nouveau\noptions nouveau modeset=0\nalias nouveau off&quot; &gt; /etc/modprobe.d/blacklist-nouveau.conf
+<pre tabindex="0"><code>echo -e &#34;blacklist nouveau\noptions nouveau modeset=0\nalias nouveau off&#34; &gt; /etc/modprobe.d/blacklist-nouveau.conf
 
 update-initramfs -u &amp;&amp; reboot
 </code></pre><p>经过上面的操作，开源显卡驱动就被禁用了，为了保险起见，开机后还是要确认以下是否禁用成功了。可以使用如下命令查看：</p>
-<pre><code>lsmod |grep -i nouveau
+<pre tabindex="0"><code>lsmod |grep -i nouveau
 </code></pre><p>如果执行上面的命令没有任何输出，则证明开源显卡驱动 nouveau 已被成功禁用。</p>
 <h2 id="然后再运行下下面的命令"><strong>然后再运行下下面的命令</strong></h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">apt-get install dkms
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt-get install dkms
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="3-下载-nvidia-官方驱动">3. 下载 NVIDIA 官方驱动</h2>
 <p>到 NVIDIA 的官网下载对应型号的驱动 <a href="http://www.nvidia.com/Download/index.aspx?lang=en-us">http://www.nvidia.com/Download/index.aspx?lang=en-us</a> ，注意，这里要选择和你显卡硬件型号对应的版本，否则一定失败。比如我的是 GTX1050ti 的显卡，点击 SEARCH 后就可以看到 DOWNLOAD 的按钮了，点击下载就可以了。</p>
@@ -256,114 +263,114 @@ update-initramfs -u &amp;&amp; reboot
 <p>下载好 NVIDA 的显卡驱动文件后，使用 <code>chmod a+x NVIDIA-Linux-x86_64-390.48.run</code> 命令给予驱动可执行权限。然后使用 <code>./NVIDIA-Linux-x86_64-390.48.run</code> 命令安装。安装过程中会提示警告，全部选择 yes。</p>
 <h2 id="5-配置">5. 配置</h2>
 <p>安装之后最重要的部分来了，必须要配置，让 kali Linux 知道你使用的是什么显卡驱动，否则开机是会失败的。执行 <code>nvidia-xconfig –query-gpu-info | grep ‘BusID : ‘ | cut -d ‘ ‘ -f6</code> 查看BusID，我的显示如下：<code>PCI:1:0:0</code>，这个信息用于配置下列文件，配置步骤如下：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nvidia-xconfig --query-gpu-info | grep <span style="color:#d14">&#39;BusID :&#39;</span> | cut -d <span style="color:#d14">&#39; &#39;</span> -f6
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nvidia-xconfig --query-gpu-info | grep <span style="color:#d14">&#39;BusID :&#39;</span> | cut -d <span style="color:#d14">&#39; &#39;</span> -f6
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>5.1. /etc/X11/xorg.conf</strong></p>
 <p><code>vi /etc/X11/xorg.conf</code> 填入如下信息：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Section <span style="color:#d14">&#34;ServerLayout&#34;</span>
- Identifier <span style="color:#d14">&#34;layout&#34;</span>
- Screen <span style="color:#099">0</span> <span style="color:#d14">&#34;nvidia&#34;</span>
- Inactive <span style="color:#d14">&#34;intel&#34;</span>
-EndSection
-
-Section <span style="color:#d14">&#34;Device&#34;</span>
- Identifier <span style="color:#d14">&#34;nvidia&#34;</span>
- Driver <span style="color:#d14">&#34;nvidia&#34;</span>
- BusID <span style="color:#d14">&#34;PCI:1:0:0&#34;</span>
-EndSection
-
-Section <span style="color:#d14">&#34;Screen&#34;</span>
- Identifier <span style="color:#d14">&#34;nvidia&#34;</span>
- Device <span style="color:#d14">&#34;nvidia&#34;</span>
- Option <span style="color:#d14">&#34;AllowEmptyInitialConfiguration&#34;</span>
-EndSection
-
-Section <span style="color:#d14">&#34;Device&#34;</span>
- Identifier <span style="color:#d14">&#34;intel&#34;</span>
- Driver <span style="color:#d14">&#34;modesetting&#34;</span>
-EndSection
-
-Section <span style="color:#d14">&#34;Screen&#34;</span>
- Identifier <span style="color:#d14">&#34;intel&#34;</span>
- Device <span style="color:#d14">&#34;intel&#34;</span>
-EndSection
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Section <span style="color:#d14">&#34;ServerLayout&#34;</span>
+</span></span><span style="display:flex;"><span> Identifier <span style="color:#d14">&#34;layout&#34;</span>
+</span></span><span style="display:flex;"><span> Screen <span style="color:#099">0</span> <span style="color:#d14">&#34;nvidia&#34;</span>
+</span></span><span style="display:flex;"><span> Inactive <span style="color:#d14">&#34;intel&#34;</span>
+</span></span><span style="display:flex;"><span>EndSection
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Section <span style="color:#d14">&#34;Device&#34;</span>
+</span></span><span style="display:flex;"><span> Identifier <span style="color:#d14">&#34;nvidia&#34;</span>
+</span></span><span style="display:flex;"><span> Driver <span style="color:#d14">&#34;nvidia&#34;</span>
+</span></span><span style="display:flex;"><span> BusID <span style="color:#d14">&#34;PCI:1:0:0&#34;</span>
+</span></span><span style="display:flex;"><span>EndSection
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Section <span style="color:#d14">&#34;Screen&#34;</span>
+</span></span><span style="display:flex;"><span> Identifier <span style="color:#d14">&#34;nvidia&#34;</span>
+</span></span><span style="display:flex;"><span> Device <span style="color:#d14">&#34;nvidia&#34;</span>
+</span></span><span style="display:flex;"><span> Option <span style="color:#d14">&#34;AllowEmptyInitialConfiguration&#34;</span>
+</span></span><span style="display:flex;"><span>EndSection
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Section <span style="color:#d14">&#34;Device&#34;</span>
+</span></span><span style="display:flex;"><span> Identifier <span style="color:#d14">&#34;intel&#34;</span>
+</span></span><span style="display:flex;"><span> Driver <span style="color:#d14">&#34;modesetting&#34;</span>
+</span></span><span style="display:flex;"><span>EndSection
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Section <span style="color:#d14">&#34;Screen&#34;</span>
+</span></span><span style="display:flex;"><span> Identifier <span style="color:#d14">&#34;intel&#34;</span>
+</span></span><span style="display:flex;"><span> Device <span style="color:#d14">&#34;intel&#34;</span>
+</span></span><span style="display:flex;"><span>EndSection
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>5.2. /usr/share/gdm/greeter/autostart/optimus.desktop 和 /etc/xdg/autostart/optimus.desktop</strong></p>
 <p><code>vi /usr/share/gdm/greeter/autostart/optimus.desktop</code> 填入如下信息：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#000;font-weight:bold">[</span>Desktop Entry<span style="color:#000;font-weight:bold">]</span>
-<span style="color:#008080">Type</span><span style="color:#000;font-weight:bold">=</span>Application
-<span style="color:#008080">Name</span><span style="color:#000;font-weight:bold">=</span>Optimus
-<span style="color:#008080">Exec</span><span style="color:#000;font-weight:bold">=</span>sh -c <span style="color:#d14">&#34;xrandr --setprovideroutputsource modesetting NVIDIA-0; xrandr --auto&#34;</span>
-<span style="color:#008080">NoDisplay</span><span style="color:#000;font-weight:bold">=</span><span style="color:#0086b3">true</span>
-X-GNOME-Autostart-Phase<span style="color:#000;font-weight:bold">=</span>DisplayServer
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span>Desktop Entry<span style="color:#000;font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">Type</span><span style="color:#000;font-weight:bold">=</span>Application
+</span></span><span style="display:flex;"><span><span style="color:#008080">Name</span><span style="color:#000;font-weight:bold">=</span>Optimus
+</span></span><span style="display:flex;"><span><span style="color:#008080">Exec</span><span style="color:#000;font-weight:bold">=</span>sh -c <span style="color:#d14">&#34;xrandr --setprovideroutputsource modesetting NVIDIA-0; xrandr --auto&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">NoDisplay</span><span style="color:#000;font-weight:bold">=</span><span style="color:#0086b3">true</span>
+</span></span><span style="display:flex;"><span>X-GNOME-Autostart-Phase<span style="color:#000;font-weight:bold">=</span>DisplayServer
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>vi /etc/xdg/autostart/optimus.desktop</code> 填入如下信息：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#000;font-weight:bold">[</span>Desktop Entry<span style="color:#000;font-weight:bold">]</span>
-<span style="color:#008080">Type</span><span style="color:#000;font-weight:bold">=</span>Application
-<span style="color:#008080">Name</span><span style="color:#000;font-weight:bold">=</span>Optimus
-<span style="color:#008080">Exec</span><span style="color:#000;font-weight:bold">=</span>sh -c <span style="color:#d14">&#34;xrandr --setprovideroutputsource modesetting NVIDIA-0; xrandr --auto&#34;</span>
-<span style="color:#008080">NoDisplay</span><span style="color:#000;font-weight:bold">=</span><span style="color:#0086b3">true</span>
-X-GNOME-Autostart-Phase<span style="color:#000;font-weight:bold">=</span>DisplayServer
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span>Desktop Entry<span style="color:#000;font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">Type</span><span style="color:#000;font-weight:bold">=</span>Application
+</span></span><span style="display:flex;"><span><span style="color:#008080">Name</span><span style="color:#000;font-weight:bold">=</span>Optimus
+</span></span><span style="display:flex;"><span><span style="color:#008080">Exec</span><span style="color:#000;font-weight:bold">=</span>sh -c <span style="color:#d14">&#34;xrandr --setprovideroutputsource modesetting NVIDIA-0; xrandr --auto&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">NoDisplay</span><span style="color:#000;font-weight:bold">=</span><span style="color:#0086b3">true</span>
+</span></span><span style="display:flex;"><span>X-GNOME-Autostart-Phase<span style="color:#000;font-weight:bold">=</span>DisplayServer
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="6-重启">6. 重启</h2>
 <p>到这里，显卡驱动就安装完成并配置好了,去设置里面查看，</p>
@@ -389,20 +396,39 @@ X-GNOME-Autostart-Phase<span style="color:#000;font-weight:bold">=</span>Display
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/kali-linux'>kali linux</a></li>
+                <li><a href='/tags/kali-linux'>kali linux</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -410,13 +436,47 @@ X-GNOME-Autostart-Phase<span style="color:#000;font-weight:bold">=</span>Display
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -484,28 +544,12 @@ X-GNOME-Autostart-Phase<span style="color:#000;font-weight:bold">=</span>Display
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -544,7 +588,7 @@ X-GNOME-Autostart-Phase<span style="color:#000;font-weight:bold">=</span>Display
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -624,7 +668,7 @@ X-GNOME-Autostart-Phase<span style="color:#000;font-weight:bold">=</span>Display
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -641,51 +685,6 @@ X-GNOME-Autostart-Phase<span style="color:#000;font-weight:bold">=</span>Display
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

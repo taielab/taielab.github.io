@@ -6,11 +6,7 @@
     <description>Recent content in gpg on 码中春秋&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 20 Oct 2018 13:20:00 +0800</lastBuildDate>
-    
-	<atom:link href="https://blog.taielab.com/tags/gpg/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 20 Oct 2018 13:20:00 +0800</lastBuildDate><atom:link href="https://blog.taielab.com/tags/gpg/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>数据加密系列——GPG加密Email</title>
       <link>https://blog.taielab.com/2018-10-20/gpg-encrypt-mail.html</link>

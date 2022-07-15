@@ -6,11 +6,7 @@
     <description>Recent content in archlinux on 码中春秋&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 01 Jun 2018 20:35:36 +0800</lastBuildDate>
-    
-	<atom:link href="https://blog.taielab.com/tags/archlinux/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 01 Jun 2018 20:35:36 +0800</lastBuildDate><atom:link href="https://blog.taielab.com/tags/archlinux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Archlinux - 基础入门</title>
       <link>https://blog.taielab.com/2018/06/01/archlinux-install-guide.html</link>
@@ -20,7 +16,7 @@
       <description>&lt;h3 id=&#34;制作安装媒介&#34;&gt;制作安装媒介&lt;/h3&gt;
 &lt;p&gt;首先到&lt;a href=&#34;https://www.archlinux.org/download/&#34;&gt;这里&lt;/a&gt;下载最新的官方 Arch Linux 安装媒介。然后，可以选择刻录或者写入到 USB 闪存盘或存储卡。&lt;/p&gt;
 &lt;p&gt;利用 dd 命令可以将安装媒介写入 USB 闪存盘或存储卡，参见&lt;a href=&#34;https://wiki.archlinux.org/index.php/USB_Installation_Media&#34;&gt;这里&lt;/a&gt;：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ dd bs=4M if=/path/to/archlinux.iso of=/dev/sdx &amp;amp;&amp;amp; sync
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ dd bs=4M if=/path/to/archlinux.iso of=/dev/sdx &amp;amp;&amp;amp; sync
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;完成后，用安装媒介启动电脑。&lt;/p&gt;</description>
     </item>
     

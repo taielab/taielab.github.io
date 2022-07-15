@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>数字安全培训·工具篇（八）如何使用KeePassXC | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="数字安全培训·工具篇（八）如何使用KeePassXC - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2019-03-27/how-use-keepassxc.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -158,8 +161,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -178,6 +181,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -191,7 +198,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8'>数字安全</a></span>
+            <span class="meta-category"><a href='/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8'>数字安全</a></span>
             
         </div>
         
@@ -230,13 +237,17 @@
 </ul>
 <h2 id="开始使用keepassxc">开始使用KeePassXC</h2>
 <p>安装KeePassXC并启动它。 单击Database菜单并选择“New Database”。系统将提示您保存密码数据库。 请注意，您可以稍后将密码数据库文件移动到硬盘上的任何位置，或将其移动到其他计算机 - 您仍然可以使用之前指定的KeePassXC和密码或密钥文件打开它。</p>
-<p><img src="https://ssd.eff.org/files/2017/12/19/1._creating_an_account.png" alt="img"></p>
+<p>
+        <img class="mx-auto" alt="img" src="https://ssd.eff.org/files/2017/12/19/1._creating_an_account.png" />   
+    </p>
 <p>什么是密钥文件？ 除了主密码之外，使用密钥文件可能会使某人在窃取密码时更难解密密码数据库。 您可以将任何现有文件用作密钥文件 - 例如，您的cat的图像可以用作密钥文件。 您只需要确保您选择的文件永远不会被修改，因为如果其内容被更改，那么它将不再解密您的密码数据库。 有时在另一个程序中打开文件就足以修改它，所以除了解锁KeePassXC之外不要打开文件。 （但是移动或重命名密钥文件是安全的。）通常强大的主密码本身就足够了。 如果您选择使用除主密码之外的密钥文件，请确保将其与密码数据库分开存储。</p>
 <p>接下来，将要求您输入主密码和/或使用密钥文件。 根据您的选择选择相应的复选框。</p>
 <blockquote>
 <p>如果你想看到你输入的密码(而不是用点模糊它)，点击右眼的按钮。</p>
 </blockquote>
-<p><img src="https://ssd.eff.org/files/2017/12/19/2._creating_master_key.png" alt="img"></p>
+<p>
+        <img class="mx-auto" alt="img" src="https://ssd.eff.org/files/2017/12/19/2._creating_master_key.png" />   
+    </p>
 <h2 id="组织密码">组织密码</h2>
 <p>KeePassXC允许您将密码组织成组，这些组基本上就是文件夹。您可以通过进入menubar中的Groups菜单，或者通过右键单击KeePassXC窗口左侧窗格中的组来创建、删除或编辑组或子组。分组密码不会影响KeePassXC的任何功能，它只是一个方便的组织工具。</p>
 <h2 id="存储生成编辑密码">存储/生成/编辑密码</h2>
@@ -253,12 +264,18 @@
 </li>
 <li>您的密码现在存储在密码数据库中。要确保更改已保存，请通过进入数据库&gt; save database保存已编辑的密码数据库。</li>
 </ul>
-<p><img src="https://ssd.eff.org/files/2017/12/19/3._adding_an_entry.png" alt="img"></p>
+<p>
+        <img class="mx-auto" alt="img" src="https://ssd.eff.org/files/2017/12/19/3._adding_an_entry.png" />   
+    </p>
 <p>如果需要更改/编辑存储的密码，只需选择其组，然后在右侧窗格中双击其标题，将弹出“编辑条目”对话框。</p>
 <h2 id="正常使用">正常使用</h2>
 <p>要在密码数据库中使用条目，请右键单击该条目，然后选择“复制用户名”或“复制密码”。转到要输入用户名/密码的窗口/网站，并将其粘贴到相应的字段中 。（您也可以双击所需条目的用户名或密码，而不是右键单击该条目，用户名或密码将自动复制到剪贴板。）</p>
-<p><img src="https://ssd.eff.org/files/2017/12/19/4._viewing_the_database.png" alt="img"></p>
-<p><img src="https://ssd.eff.org/files/2017/12/19/5._using_an_entry.png" alt="img"></p>
+<p>
+        <img class="mx-auto" alt="img" src="https://ssd.eff.org/files/2017/12/19/4._viewing_the_database.png" />   
+    </p>
+<p>
+        <img class="mx-auto" alt="img" src="https://ssd.eff.org/files/2017/12/19/5._using_an_entry.png" />   
+    </p>
 <h2 id="其他功能">其他功能</h2>
 <ul>
 <li>
@@ -282,7 +299,9 @@
 <li>使浏览器集成</li>
 </ol>
 <p>转到KeePassXC设置并在浏览器集成/启用KeePassXC浏览器集成下启用浏览器集成支持。 如果没有这个，浏览器扩展无法与KeePassXC通信：</p>
-<p><img src="https://ssd.eff.org/files/2018/04/30/settings.png" alt="img"></p>
+<p>
+        <img class="mx-auto" alt="img" src="https://ssd.eff.org/files/2018/04/30/settings.png" />   
+    </p>
 <p>如果启用，可以通过取消选中“传统浏览器集成/启用保留HTTP服务器”复选框来禁用旧的保留HTTP接口。任何已安装的相应浏览器插件(保持组件Http连接器等)。)可以卸载。</p>
 <ol start="2">
 <li>启用浏览器支持</li>
@@ -291,11 +310,17 @@
 <p>3.连接到数据库</p>
 <p>打开KeePassXC并解锁数据库(这很重要，如果数据库被锁定或KeePassXC没有运行，以下步骤将不起作用)。</p>
 <p>切换到您的浏览器，然后单击地址栏旁边的KeePassXC图标。 出现一个弹出窗口，告诉您尚未配置KeePassXC-Browser（如果您看到其他错误消息，请单击“刷新”并等待几秒钟）。</p>
-<p><img src="https://ssd.eff.org/files/2018/04/30/connect.png" alt="img"></p>
+<p>
+        <img class="mx-auto" alt="img" src="https://ssd.eff.org/files/2018/04/30/connect.png" />   
+    </p>
 <p>按下连接按钮。这时会出现一个窗口，要求您输入一个名称并授予访问权限</p>
-<p><img src="https://ssd.eff.org/files/2018/04/30/connect-name.png" alt="img"></p>
+<p>
+        <img class="mx-auto" alt="img" src="https://ssd.eff.org/files/2018/04/30/connect-name.png" />   
+    </p>
 <p>输入您选择的名称（最好是用于标识浏览器的名称），然后单击“保存并允许访问”。 您的浏览器现已连接到KeePassXC。</p>
-<p><img src="https://ssd.eff.org/files/2018/04/30/browser-ready.png" alt="img"></p>
+<p>
+        <img class="mx-auto" alt="img" src="https://ssd.eff.org/files/2018/04/30/browser-ready.png" />   
+    </p>
 <p>使用自动填充可能会对您的隐私造成不利影响。 要禁用它，请取消选中“自动填写单个凭据条目”和“激活用户名字段的自动填充”设置。</p>
 <p>完成了！ 现在，您可以保存在Web上输入的任何凭据。 您还可以自动填写用户名/密码。</p>
 <p>KeePassXC是一个易于使用、健壮的软件，我们建议研究一下这个程序，了解它可以做的所有有用的事情。</p>
@@ -337,20 +362,39 @@
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%AF%87'>数字安全工具篇</a></li>
+                <li><a href='/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%AF%87'>数字安全工具篇</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -358,13 +402,47 @@
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -432,28 +510,12 @@
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -492,7 +554,7 @@
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -572,7 +634,7 @@
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -589,51 +651,6 @@
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>数据库系统原理学习笔记（二）-数据库设计和ER图 | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="数据库系统原理学习笔记（二）-数据库设计和ER图 - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2018-09-30/database-system-principle-leannote-db-er-designer.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -143,8 +146,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -163,6 +166,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -176,7 +183,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93'>数据库</a></span>
+            <span class="meta-category"><a href='/categories/%E6%95%B0%E6%8D%AE%E5%BA%93'>数据库</a></span>
             
         </div>
         
@@ -257,22 +264,32 @@
 <p>简单属性:不能再分解的属性;</p>
 <p>复合属性:可再分解的属性</p>
 <p>如联系地址可分解为如图</p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0d6b9bdb64.jpg" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0d6b9bdb64.jpg" />   
+    </p>
 <p>(2)单值属性和多值属性:根据属性的取值特点又分为单值属性和多值属性</p>
 <p>单值属性:是同一实体的属性只能取一个值。</p>
 <p>多值属性:指同一实体的某些属性可能取多个值</p>
 <p>例如,销售价格分:经销价格、供销价格、批发价格、零售价格。</p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0d6efceb5d.jpg" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0d6efceb5d.jpg" />   
+    </p>
 <p>多值属性的转换方法:</p>
 <p>(1)多值属性可以分解为几个新的单值属性。</p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0d71c9f209.jpg" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0d71c9f209.jpg" />   
+    </p>
 <p>(2)可以增加一个弱实体来表示多值属性。</p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0d749cd5bf.jpg" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0d749cd5bf.jpg" />   
+    </p>
 <p>(3)存储属性和派生属性</p>
 <p>存储属性</p>
 <p>派生属性:从其他属性值推导出值的属性。例如:实发工资=应发工资-扣除项</p>
 <p>派生属性不必存储在数据库中(相当于计算列)。</p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0d79e3d90f.jpg" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0d79e3d90f.jpg" />   
+    </p>
 <p>其他属性称为存储属性</p>
 <p>(4)允许空值的属性</p>
 <p>当实体在某个属性上没有值时应使用空值。</p>
@@ -282,7 +299,9 @@
 (2)联系的元数</p>
 <p>个联系涉及的实体的集的个数,称为联系的元数或度数。</p>
 <p>三元联系与一元联系,如图。</p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0d9882cddd.png" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0d9882cddd.png" />   
+    </p>
 <p>联系是通过主键和外键来实现的。</p>
 <p>注意:单箭头表示联系的对应关系1端,双箭头表示联系的对应关系的N(或M)端</p>
 <p>这与第9章中单双箭头相对应</p>
@@ -294,18 +313,32 @@
 <p>②映射基数,最小映射基数(min)、最大映射基数(max)。基数表示(min,max)</p>
 <p>如(1,6)。</p>
 <p>【例题】设教师和课程之间有1:N联系。每位教师可讲授3门课,也可只搞科研而不讲课,每门课程必须有一位教师上课,则教师基数为(0,3)。双边表示完全参与。</p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0da8e9e785.jpg" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0da8e9e785.jpg" />   
+    </p>
 <p>例如:一元联系的映射基数,如图</p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0dae9cfd7e.jpg" alt=""></p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0db05f0273.jpg" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0dae9cfd7e.jpg" />   
+    </p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0db05f0273.jpg" />   
+    </p>
 <p>二元联系的映射基数,如图。</p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0db3c2a052.jpg" alt=""></p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0dbae07475.jpg" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0db3c2a052.jpg" />   
+    </p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0dbae07475.jpg" />   
+    </p>
 <p>例,三元联系的基数,M:N:P情况。</p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0dbd734c07.jpg" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0dbd734c07.jpg" />   
+    </p>
 <p>例:假设一个学生可选多门课程,而一门课程又有多个学生选修,一个教师可讲多门课
 程,一门课程至多只有一个教师讲授。ER图如下:</p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0dc18d8211.jpg" alt="">
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0dc18d8211.jpg" />   
+    
 7.采用ER模型的数据库概念设计三个步骤</p>
 <p>(1)设计局部ER模型</p>
 <p>设计局部ER模型三个步骤</p>
@@ -368,29 +401,47 @@
 <p>(2)联系类型的转换:主要掌握二元联系类型的转换
 ①若实体间联系是1:1,可以在两个实体类型转换成的关系模式中任意一个关系模式</p>
 <p>的属性中加入另一个关系模式的键(作为外键)和联系类型的属性</p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0de0075f35.jpg" alt="">
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0de0075f35.jpg" />   
+    
 注意:不能两个实体类型中都包括另一个实体类型中的主键,至于哪个实体类型包括另一个实体类型中的主键,要根据实际需要而定</p>
 <p>②若实体间联系是1:N,则在N端实体类型转换成的关系模式中加入1端实体类型的建(作为外键)和联系类型的属性</p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0de29862b9.jpg" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0de29862b9.jpg" />   
+    </p>
 <p>注意:实体类型中a属性的一划线表示从表(B表)的外键,在主表(A表)中必须是主键( SQL Server中是主键或唯一键(即候选键))</p>
 <p>③若实体间联系是M:N,则将联系类型也转换成关系模式,其属性为两端实体类型的键(作为外键)加上联系类型的属性,而键为两端实体键的组合(称为组合键)。</p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0de87ddc23.jpg" alt=""></p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0deaf86206.jpg" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0de87ddc23.jpg" />   
+    </p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0deaf86206.jpg" />   
+    </p>
 <p>注意:下划线横线表示主键(中间不能断开),波浪线表示外键(中间必须断开)。</p>
 <p>【例2.10】下面是教学管理的一个可能的ER图。图中,有三个实体类型:系、教师和课程;有四个联系类型:主管用、开设和任教。根据转换算法,把该图转换成关系模式集的步骤如下:</p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0def54fe69.jpg" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0def54fe69.jpg" />   
+    </p>
 <p>第一步:把三个实体类型转换成三个关系模式(注意关系模式的表示方法)
-<img src="https://i.loli.net/2018/09/30/5bb0dfb10c09d.jpg" alt="">
+
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0dfb10c09d.jpg" />   
+    
 第二步:对于1:1联系,可以在“系”模式中加入教工号(教工号为外键)</p>
 <p>对于1:N联系“聘用”,可以在“教师”模式中加入系编号和聘期两个属性(系编号
 为外键)</p>
 <p>对于1:N联系“开设”,可以在“课程”模式中加入系编号(系编号为外键)。这样第一步得到的三个模式改变成如下形式(注意:外键通常使用波浪线表示):</p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0dfcb7d3c1.jpg" alt="">
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0dfcb7d3c1.jpg" />   
+    
 课程的归口</p>
 <p>第三步:对于M:N联系“任教”,则生成一个新的关系模式</p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0dff5ba47b.jpg" alt="">
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0dff5ba47b.jpg" />   
+    
 这样,转换成的四个关系模式如下:</p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0e00b7946c.jpg" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0e00b7946c.jpg" />   
+    </p>
 <p>3.采用ER模型的逻辑设计步骤</p>
 <p>(1)导出初始关系模式集:把概念设计的结果(即全局ER模型)转换成初始关系模式集</p>
 <p>(2)规范化处理</p>
@@ -399,15 +450,23 @@
 <p>(5)设计子模式</p>
 <h1 id="实例分析">实例分析</h1>
 <p>【例】旅游管理信息系统的ER模型上海普教旅行社设计了一个小型的国内旅游管理信息系统,其中涉及到与业务有关的信息有旅游线路、班次、团体、旅客、保险员、导游、宾馆、交通工具等。其ER图如图所示。</p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0e175d43d3.jpg" alt=""></p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0e1a024e37.jpg" alt=""></p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0e1babc2ca.jpg" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0e175d43d3.jpg" />   
+    </p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0e1a024e37.jpg" />   
+    </p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0e1babc2ca.jpg" />   
+    </p>
 <h1 id="增强的er模型">增强的ER模型</h1>
 <p>1、弱实体和强实体</p>
 <p>定义:一个实体对于另一个实体(称为强实体)具有很强的依赖关系,而且该实体主键的一部分或全部从其强实体中获得,则称该实体为弱实体。</p>
 <p>例如:一个职工与亲属中,亲属是一个多值属性,为了消除冗余,设计两个实体:职工与亲属,在职工与亲属中,亲属信息是以职工信息的存在为前提,因此,亲属与职工之间存在着一种依赖关系。所以说,亲属是弱实体</p>
 <p>在职工与亲属的ER图中,转换成两个关系模式如下</p>
-<p><img src="https://i.loli.net/2018/09/30/5bb0e21815b1e.jpg" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2018/09/30/5bb0e21815b1e.jpg" />   
+    </p>
 <p>2、子类实体与超类实体</p>
 <p>定义:当较低层上实体类型表达了与之联系的较高层上的实体类型的特殊情况时,就称较高层上实体类型为超类型,较低层上的实体类型为子类型</p>
 <p>子类与超类有两个性质:</p>
@@ -448,20 +507,39 @@
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86'>数据库系统原理</a></li>
+                <li><a href='/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86'>数据库系统原理</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -469,13 +547,47 @@
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -543,28 +655,12 @@
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -603,7 +699,7 @@
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -683,7 +779,7 @@
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -700,51 +796,6 @@
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

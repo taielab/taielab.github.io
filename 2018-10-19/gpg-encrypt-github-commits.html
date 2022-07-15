@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>数据加密系列——GPG加密 Github Commits | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="数据加密系列——GPG加密 Github Commits - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2018-10-19/gpg-encrypt-github-commits.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -157,8 +160,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -177,6 +180,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -190,7 +197,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8'>数字安全</a></span>
+            <span class="meta-category"><a href='/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8'>数字安全</a></span>
             
         </div>
         
@@ -218,9 +225,11 @@
 <a href="https://tortoisegit.org/">https://tortoisegit.org</a></p>
 <h3 id="二生成密钥">二、生成密钥</h3>
 <p>在安装完 Git 之后，开始菜单项里会有个 Git Bash，打开，如下图所示：
-<img src="https://teddysun.com/wp-content/uploads/2017/gpg2.png" alt="Git Bash"></p>
+
+        <img class="mx-auto" alt="Git Bash" src="https://teddysun.com/wp-content/uploads/2017/gpg2.png" />   
+    </p>
 <p>Git 自带了 gpg 命令，因此可以直接在 Git Bash 里生成密钥。命令如下：</p>
-<pre><code>验证gpg版本
+<pre tabindex="0"><code>验证gpg版本
 
 gpg --version
 
@@ -232,7 +241,7 @@ gpg --full-generate-key
 
 gpg --default-new-key-algo rsa4096 --gen-key
 </code></pre><p>回车，提示信息如下：</p>
-<pre><code>gpg (GnuPG) 1.4.21; Copyright (C) 2015 Free Software Foundation, Inc.
+<pre tabindex="0"><code>gpg (GnuPG) 1.4.21; Copyright (C) 2015 Free Software Foundation, Inc.
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 
@@ -245,11 +254,11 @@ Your selection?
 </code></pre><p>选择加密算法，默认选择第一个选项即可，表示加密和签名都使用 RSA 算法。
 选 1，回车。</p>
 <p>选择密钥长度，默认为 2048，建议输入 4096。</p>
-<pre><code>RSA keys may be between 1024 and 4096 bits long.
+<pre tabindex="0"><code>RSA keys may be between 1024 and 4096 bits long.
 What keysize do you want? (2048)
 </code></pre><p>输入 4096，回车。</p>
 <p>设定密钥的有效期。</p>
-<pre><code>Please specify how long the key should be valid.
+<pre tabindex="0"><code>Please specify how long the key should be valid.
          0 = key does not expire
       &lt;n&gt;  = key expires in n days
       &lt;n&gt;w = key expires in n weeks
@@ -259,43 +268,43 @@ Key is valid for? (0)
 </code></pre><p>密钥只是个人使用的话，建议选择第一个选项，即永不过期。
 输入 0，回车。</p>
 <p>系统会问你上述设置是否正确。</p>
-<pre><code>Is this correct? (y/N)
+<pre tabindex="0"><code>Is this correct? (y/N)
 </code></pre><p>输入 y，回车。</p>
 <p>系统会要求你输入个人信息。</p>
-<pre><code>You need a user ID to identify your key; the software constructs the user ID
+<pre tabindex="0"><code>You need a user ID to identify your key; the software constructs the user ID
 from the Real Name, Comment and Email Address in this form:
-    &quot;Heinrich Heine (Der Dichter) &lt;heinrichh@duesseldorf.de&gt;&quot;
+    &#34;Heinrich Heine (Der Dichter) &lt;heinrichh@duesseldorf.de&gt;&#34;
 
 Real name:
 </code></pre><p>「Real name」填入你的名字，需是英文。回车。</p>
-<pre><code>Email address:
+<pre tabindex="0"><code>Email address:
 </code></pre><p>「Email address」填入你的邮箱地址。回车。</p>
-<pre><code>Comment:
+<pre tabindex="0"><code>Comment:
 </code></pre><p>「Comment」可以空着不填。回车。 
 系统会再次让你确认填入的信息。</p>
-<pre><code>You selected this USER-ID:
-    &quot;Teddysun &lt;i@teddysun.com&gt;&quot;
+<pre tabindex="0"><code>You selected this USER-ID:
+    &#34;Teddysun &lt;i@teddysun.com&gt;&#34;
 
 Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit?
 </code></pre><p>输入 O，回车。 
 系统会让你设定一个私钥的密码。</p>
-<pre><code>You need a Passphrase to protect your secret key.
+<pre tabindex="0"><code>You need a Passphrase to protect your secret key.
 Enter passphrase:
 Repeat passphrase:
 </code></pre><p>注意这里要留空不填，直接回车即可。这是因为 TortoiseGit 不支持 1.4.x 含有私钥密码。 
 系统这时开始生成密钥，这时会要求你做一些随机的举动，以生成一个随机数。你拿起鼠标随便晃晃，直到完成密钥生成。</p>
-<pre><code>We need to generate a lot of random bytes. It is a good idea to perform
+<pre tabindex="0"><code>We need to generate a lot of random bytes. It is a good idea to perform
 some other action (type on the keyboard, move the mouse, utilize the
 disks) during the prime generation; this gives the random number
 generator a better chance to gain enough entropy.
 </code></pre><p>最后，提示生成完毕。</p>
-<pre><code>gpg: key 0AD6C46D marked as ultimately trusted
+<pre tabindex="0"><code>gpg: key 0AD6C46D marked as ultimately trusted
 public and secret key created and signed.
 </code></pre><h3 id="三列出密钥">三、列出密钥</h3>
 <p>命令如下：</p>
-<pre><code>gpg --list-keys
+<pre tabindex="0"><code>gpg --list-keys
 </code></pre><p>输出结果如下：</p>
-<pre><code>gpg: checking the trustdb
+<pre tabindex="0"><code>gpg: checking the trustdb
 gpg: 3 marginal(s) needed, 1 complete(s) needed, PGP trust model
 gpg: depth: 0  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 1u
 /c/Users/teddysun/.gnupg/pubring.gpg
@@ -309,10 +318,10 @@ sub   4096R/5BB7BB4E 2017-02-22
 第四行显示私钥特征</p>
 <h3 id="四输出密钥">四、输出密钥</h3>
 <p>公钥文件（.gnupg/pubring.gpg）以二进制形式储存，armor 参数可以将其转换为 ASCII 码显示。</p>
-<pre><code>gpg --armor --output public-key.txt --export [密钥ID]
+<pre tabindex="0"><code>gpg --armor --output public-key.txt --export [密钥ID]
 </code></pre><p>[密钥ID]指定用户的公钥，如 0AD6C46D，output 参数指定输出文件名，如 public-key.txt</p>
 <p>同时，export-secret-keys 参数可以转换私钥。</p>
-<pre><code>gpg --armor --output private-key.txt --export-secret-keys
+<pre tabindex="0"><code>gpg --armor --output private-key.txt --export-secret-keys
 </code></pre><p>public-key.txt 和 private-key.txt 默认会导出至用户目录 C:\Users&lt;用户名&gt;\ 下。</p>
 <h3 id="五上传公钥至-github-帐号">五、上传公钥至 Github 帐号</h3>
 <p>点击用户头像，打开 Settings，左侧菜单点击 SSH and GPG keys，在 GPG keys 那里，点击 New GPG key。
@@ -321,13 +330,13 @@ sub   4096R/5BB7BB4E 2017-02-22
 <h3 id="六设置-git">六、设置 Git</h3>
 <p>回到 Git Bash 窗口，根据刚才 gpg –list-keys 显示的结果，此时已经知道密钥 ID 为 0AD6C46D。
 设置 Git 使用该密钥 ID 加密：</p>
-<pre><code>git config --global user.signingkey 0AD6C46D
+<pre tabindex="0"><code>git config --global user.signingkey 0AD6C46D
 </code></pre><p>设置 Git 全局使用该密钥加密：</p>
-<pre><code>git config --global commit.gpgsign true
+<pre tabindex="0"><code>git config --global commit.gpgsign true
 </code></pre><p>最后，再输入以下命令查看 Git 配置情况：</p>
-<pre><code>git config -l
+<pre tabindex="0"><code>git config -l
 </code></pre><p>包含以下信息。</p>
-<pre><code>user.signingkey=0AD6C46D
+<pre tabindex="0"><code>user.signingkey=0AD6C46D
 commit.gpgsign=true
 </code></pre><p>至此，使用 GPG 加密 Github Commits 就正式完成了。
 以后再 Git Commit，同步到 Github 上之后，就会发现该 Commit 已显示 Verified。</p>
@@ -361,20 +370,39 @@ commit.gpgsign=true
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/gpg'>gpg</a></li>
+                <li><a href='/tags/gpg'>gpg</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -382,13 +410,47 @@ commit.gpgsign=true
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -456,28 +518,12 @@ commit.gpgsign=true
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -516,7 +562,7 @@ commit.gpgsign=true
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -596,7 +642,7 @@ commit.gpgsign=true
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -613,51 +659,6 @@ commit.gpgsign=true
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

@@ -6,11 +6,7 @@
     <description>Recent content in Linux on 码中春秋&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 20 May 2019 22:35:32 +0800</lastBuildDate>
-    
-	<atom:link href="https://blog.taielab.com/categories/Linux/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 20 May 2019 22:35:32 +0800</lastBuildDate><atom:link href="https://blog.taielab.com/categories/Linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Centos7安装升级最新内核</title>
       <link>https://blog.taielab.com/2019-05-20/centos-7-upgrade-Kernel.html</link>
@@ -85,13 +81,13 @@
       <description>&lt;h1 id=&#34;两个版本选择&#34;&gt;两个版本选择&lt;/h1&gt;
 &lt;h2 id=&#34;安装配置-shadowsockspython版本&#34;&gt;安装配置 Shadowsocks（python版本）&lt;/h2&gt;
 &lt;p&gt;安装 YUM 源和编译链&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
-&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
-&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;1
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code&gt;&lt;span style=&#34;white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;1
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
-&lt;pre style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;yum install -y epel-release curl gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto udns-devel libev-devel mbedtls-devel libsodium-devel c-ares-devel
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;yum install -y epel-release curl gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto udns-devel libev-devel mbedtls-devel libsodium-devel c-ares-devel
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;</description>
     </item>
@@ -125,7 +121,7 @@
       <description>&lt;h3 id=&#34;制作安装媒介&#34;&gt;制作安装媒介&lt;/h3&gt;
 &lt;p&gt;首先到&lt;a href=&#34;https://www.archlinux.org/download/&#34;&gt;这里&lt;/a&gt;下载最新的官方 Arch Linux 安装媒介。然后，可以选择刻录或者写入到 USB 闪存盘或存储卡。&lt;/p&gt;
 &lt;p&gt;利用 dd 命令可以将安装媒介写入 USB 闪存盘或存储卡，参见&lt;a href=&#34;https://wiki.archlinux.org/index.php/USB_Installation_Media&#34;&gt;这里&lt;/a&gt;：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ dd bs=4M if=/path/to/archlinux.iso of=/dev/sdx &amp;amp;&amp;amp; sync
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ dd bs=4M if=/path/to/archlinux.iso of=/dev/sdx &amp;amp;&amp;amp; sync
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;完成后，用安装媒介启动电脑。&lt;/p&gt;</description>
     </item>
     
@@ -136,8 +132,8 @@
       
       <guid>https://blog.taielab.com/2017-09-20/kali-linux-learning.html</guid>
       <description>&lt;h2 id=&#34;修改更新源&#34;&gt;修改更新源&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;leafpad /etc/apt/sources.list
-&lt;/code&gt;&lt;/pre&gt;&lt;pre&gt;&lt;code&gt;apt-get update &amp;amp;&amp;amp; apt-get upgrade &amp;amp;&amp;amp; apt-get dist-upgrade 
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;leafpad /etc/apt/sources.list
+&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;apt-get update &amp;amp;&amp;amp; apt-get upgrade &amp;amp;&amp;amp; apt-get dist-upgrade 
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;kali-rolling版本：（中科大的就够用了，个人按需吧）&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     

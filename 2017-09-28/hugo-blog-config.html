@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>Hugo使用大全 | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="Hugo使用大全 - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2017-09-28/hugo-blog-config.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -170,8 +173,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -190,6 +193,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -203,7 +210,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA'>博客搭建</a></span>
+            <span class="meta-category"><a href='/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA'>博客搭建</a></span>
             
         </div>
         
@@ -236,33 +243,33 @@
 <p><strong>那么&hellip;</strong></p>
 <h2 id="安装-hugo">安装 Hugo</h2>
 <p>macOS</p>
-<pre><code>brew install hugo
+<pre tabindex="0"><code>brew install hugo
 </code></pre><p>Windows</p>
-<pre><code># 前往 https://github.com/gohugoio/hugo/releases
+<pre tabindex="0"><code># 前往 https://github.com/gohugoio/hugo/releases
 # 下载 hugo_X.XX_Windows-64bit.zip
 # 解压得到 hugo.exe
 # 将 hugo.exe 所在目录添加至系统环境变量
 # 安装完成！
 </code></pre><p>验证安装是否成功</p>
-<pre><code>hugo version
+<pre tabindex="0"><code>hugo version
 </code></pre><p>其他系统请参考<a href="https://gohugo.io/getting-started/installing/">官方文档——安装</a></p>
 <h2 id="建站">建站</h2>
-<pre><code>hugo new site quickstart
+<pre tabindex="0"><code>hugo new site quickstart
 </code></pre><h2 id="添加一个主题">添加一个主题</h2>
-<pre><code>cd quickstart;
+<pre tabindex="0"><code>cd quickstart;
 git init;
 git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke;
 
 # 编辑你的 config.toml 配置文件使用该主题
-echo 'theme = &quot;ananke&quot;' &gt;&gt; config.toml
+echo &#39;theme = &#34;ananke&#34;&#39; &gt;&gt; config.toml
 </code></pre><h2 id="开始写作">开始写作</h2>
-<pre><code>hugo new post/my-first-post.md
+<pre tabindex="0"><code>hugo new post/my-first-post.md
 </code></pre><p>编辑你新建的markdown文件。现在，在启用<a href="https://gohugo.io/getting-started/usage/#draft-future-and-expired-content">drafts</a>参数的条件下开启Hugo内置的服务器。</p>
-<pre><code>hugo server -D
+<pre tabindex="0"><code>hugo server -D
 </code></pre><p>你的网站已经在<a href="http://localhost:1313/">http://localhost:1313/</a>开启了。</p>
 <h2 id="基本使用">基本使用</h2>
 <p>最常用的命令一定是在你的站点目录下使用<code>hugo</code>命令，该命令将会生成静态文件。<del>（可以看到生成速度真的很快ᕦ(ò_óˇ)ᕤ）</del></p>
-<pre><code>hugo
+<pre tabindex="0"><code>hugo
 0 draft content
 0 future content
 99 pages created
@@ -271,7 +278,7 @@ echo 'theme = &quot;ananke&quot;' &gt;&gt; config.toml
 0 groups created
 in 90 ms
 </code></pre><p>这里节选出<code>new</code>与<code>server</code>这两个比较常用的命令和<code>-D</code>,<code>-E</code>,<code>-F</code>这三个参数的使用方法。更多的hugo命令可以参考<a href="https://gohugo.io/getting-started/usage/">官方文档</a>。</p>
-<pre><code>使用方法:
+<pre tabindex="0"><code>使用方法:
   hugo
   hugo [flags]
   hugo [command]
@@ -294,7 +301,7 @@ in 90 ms
 </code></pre><p><em>PS: hugo server 会自动监听你的原始文稿，你在编辑原始<code>.md</code>文件时的变化都会实时的反映在网站上。如果你不希望启用这个功能你可以使用<code>hugo server --watch=false</code>命令。</em></p>
 <h2 id="目录结构">目录结构</h2>
 <p>在执行完<code>hugo new site</code>命令后你会得到一个包含以下文件的目录。</p>
-<pre><code>.
+<pre tabindex="0"><code>.
 ├── archetypes
 ├── config.toml
 ├── content
@@ -314,78 +321,78 @@ in 90 ms
 </ul>
 <h2 id="配置-hugo">配置 Hugo</h2>
 <p>编辑你的<code>config.toml</code>文件以配置你的站点。以下节选了部分<del>有趣的</del>参数，完整的配置文件可以参考<a href="https://gohugo.io/getting-started/configuration/#toml-configuration">官方文档</a>。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml"><span style="color:#a61717;background-color:#e3d2d2">+++</span>
-<span style="color:#998;font-style:italic"># 主机名 例如: http://spf13.com/</span>
-baseURL =                     <span style="color:#d14">&#34;&#34;</span>
-<span style="color:#998;font-style:italic"># 语言编码(中文: zh-CN)</span>
-languageCode =                <span style="color:#d14">&#34;&#34;</span>
-<span style="color:#998;font-style:italic"># 默认的内容语言</span>
-defaultContentLanguage =      <span style="color:#d14">&#34;zh-CN&#34;</span>
-
-<span style="color:#998;font-style:italic"># 自动检测是否包含中文/日文/韩文，该参数会影响摘要和字数统计功能，建议设置为true</span>
-hasCJKLanguage =              <span style="color:#000;font-weight:bold">false</span>
-
-<span style="color:#998;font-style:italic"># 设置使用的主题名称 (默认储存在 /themes/THEMENAME/)</span>
-theme =        
-
-<span style="color:#998;font-style:italic"># 分页</span>
-paginate =                    <span style="color:#099">10</span>
-paginatePath =                <span style="color:#d14">&#34;page&#34;</span>
-
-<span style="color:#998;font-style:italic"># 启用 Emoji; see emoji-cheat-sheet.com</span>
-enableEmoji =                 <span style="color:#000;font-weight:bold">false</span>
-
-<span style="color:#998;font-style:italic"># 创建robots.txt，建议设置为true</span>
-enableRobotsTXT =             <span style="color:#000;font-weight:bold">false</span>
-
-<span style="color:#998;font-style:italic"># 定义文章访问路径，详细见下文&#34;URL管理&#34; See &#34;content-management/urls/&#34;</span>
-permalinks =                  <span style="color:#d14">&#34;&#34;</span>
-<span style="color:#a61717;background-color:#e3d2d2">+++</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">+++</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># 主机名 例如: http://spf13.com/</span>
+</span></span><span style="display:flex;"><span>baseURL =                     <span style="color:#d14">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># 语言编码(中文: zh-CN)</span>
+</span></span><span style="display:flex;"><span>languageCode =                <span style="color:#d14">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># 默认的内容语言</span>
+</span></span><span style="display:flex;"><span>defaultContentLanguage =      <span style="color:#d14">&#34;zh-CN&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># 自动检测是否包含中文/日文/韩文，该参数会影响摘要和字数统计功能，建议设置为true</span>
+</span></span><span style="display:flex;"><span>hasCJKLanguage =              <span style="color:#000;font-weight:bold">false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># 设置使用的主题名称 (默认储存在 /themes/THEMENAME/)</span>
+</span></span><span style="display:flex;"><span>theme =        
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># 分页</span>
+</span></span><span style="display:flex;"><span>paginate =                    <span style="color:#099">10</span>
+</span></span><span style="display:flex;"><span>paginatePath =                <span style="color:#d14">&#34;page&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># 启用 Emoji; see emoji-cheat-sheet.com</span>
+</span></span><span style="display:flex;"><span>enableEmoji =                 <span style="color:#000;font-weight:bold">false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># 创建robots.txt，建议设置为true</span>
+</span></span><span style="display:flex;"><span>enableRobotsTXT =             <span style="color:#000;font-weight:bold">false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># 定义文章访问路径，详细见下文&#34;URL管理&#34; See &#34;content-management/urls/&#34;</span>
+</span></span><span style="display:flex;"><span>permalinks =                  <span style="color:#d14">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">+++</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>除了预设的参数外，你也可以通过下面的方式自定义自己的参数。你可以在模板中获取到自定义的参数，通常情况下你使用的主题都会要求你这么做，具体信息可以阅读相关主题的文档。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[params]
-  author = <span style="color:#d14">&#34;olOwOlo&#34;</span>
-  github = <span style="color:#d14">&#34;olOwOlo&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[params]
+</span></span><span style="display:flex;"><span>  author = <span style="color:#d14">&#34;olOwOlo&#34;</span>
+</span></span><span style="display:flex;"><span>  github = <span style="color:#d14">&#34;olOwOlo&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><hr>
 <p>至此，你已经掌握了足够的知识，你只需要从<a href="https://themes.gohugo.io/">主题列表</a>中挑选一个你喜欢的主题，阅读主题的文档并提供主题所需的信息，便可以开始使用<code>hugo</code>来写作了。</p>
@@ -397,7 +404,7 @@ permalinks =                  <span style="color:#d14">&#34;&#34;</span>
 <h1 id="千反田同学很好奇">千反田同学很好奇！</h1>
 <h2 id="组织content文件夹">组织content/文件夹</h2>
 <p><code>hugo</code>会将<code>content/</code>目录下的结构反映到生成的静态网站中，如下：</p>
-<pre><code>.
+<pre tabindex="0"><code>.
 └── content
     └── about
     |   └── _index.md  // &lt;- https://example.com/about/
@@ -412,7 +419,7 @@ permalinks =                  <span style="color:#d14">&#34;&#34;</span>
         └── second.md      // &lt;- https://example.com/quote/second/
 </code></pre><p>需要注意的是<code>_index.md</code>是一个比较特殊的文件，如果你只是需要一个about页面，你只需要<code>hugo new about.md</code>即可。关于<code>_index.md</code>的相关信息可以参阅<a href="https://gohugo.io/content-management/organization/#path-breakdown-in-hugo">官方文档</a>。</p>
 <h2 id="hugo-中的路径分解">Hugo 中的路径分解</h2>
-<pre><code>                    section
+<pre tabindex="0"><code>                    section
                     ⊢--^--⊣
                                url
                     ⊢-------------^------------⊣
@@ -428,107 +435,107 @@ https://example.com/events/chicago/lollapalooza/
 <h2 id="front-matter">Front Matter</h2>
 <p>Hugo 支持TOML、YAML、JSON格式的Front Matter。</p>
 <p>以下列出一份完整的YAML格式的Front Matter，除了必要的<code>data</code>与<code>title</code>参数外，你可以有选择性的使用其他参数。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---<span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">title</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;文章标题&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">description</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;文章的描述信息&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">tags</span>:<span style="color:#bbb"> </span>[<span style="color:#bbb"> </span><span style="color:#d14">&#34;标签1&#34;</span>,<span style="color:#bbb"> </span><span style="color:#d14">&#34;标签2&#34;</span>,<span style="color:#bbb"> </span><span style="color:#d14">&#34;标签3&#34;</span><span style="color:#bbb"> </span>]<span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">categories</span>:<span style="color:#bbb"> </span>[<span style="color:#bbb"> </span><span style="color:#d14">&#34;分类1&#34;</span>,<span style="color:#bbb"> </span><span style="color:#d14">&#34;分类2&#34;</span><span style="color:#bbb"> </span>]<span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">keywords</span>:<span style="color:#bbb"> </span>[<span style="color:#bbb"> </span><span style="color:#d14">&#34;Hugo&#34;</span>,<span style="color:#bbb"> </span><span style="color:#d14">&#34;keyword&#34;</span><span style="color:#bbb"> </span>]<span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">date</span>:<span style="color:#bbb"> </span>2012-04-06<span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">lastmod</span>:<span style="color:#bbb"> </span>2015-12-23<span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># CJKLanguage: Chinese, Japanese, Korean</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">isCJKLanguage</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">true</span><span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># 如果draft为true，除非使用 --buildDrafts 参数，否则不会发布文章</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">draft</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">false</span><span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># 设置文章的过期时间，如果是已过期的文章则不会发布，除非使用 --buildExpired 参数</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">expiryDate</span>:<span style="color:#bbb"> </span>2020-01-01<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># 设置文章的发布时间，如果是未来的时间则不会发布，除非使用 --buildFuture 参数</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">publishDate</span>:<span style="color:#bbb"> </span>2020-01-01<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># 排序你的文章</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">weight</span>:<span style="color:#bbb"> </span><span style="color:#099">40</span><span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># 使用这两个参数将会重置permalink，默认使用文件名</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">url</span>:<span style="color:#bbb"> 
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">slug</span>:<span style="color:#bbb"> 
-</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># 别名将通过重定向实现</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">aliases</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>- 别名1<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>- /posts/my-original-url/<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>- /<span style="color:#099">2010</span>/<span style="color:#099">01</span>/<span style="color:#099">01</span>/another-url.html<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># type 与 layout 参数将会改变Hugo寻找该文章模板的顺序，将在下一节细述</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">type</span>:<span style="color:#bbb"> </span>review<span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">layout</span>:<span style="color:#bbb"> </span>reviewarticle<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># 三个比较复杂的参数</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">taxonomies</span>:<span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">linkTitle</span>:<span style="color:#bbb"> 
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">outputs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># 实验性的参数</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">markup</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;md&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># 你还可以自定义任何参数，这些参数可以在模板中使用</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">include_toc</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">true</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">show_comments</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">false</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>---<span style="color:#bbb">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#555">---</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">title</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;文章标题&#34;</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">description</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;文章的描述信息&#34;</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">tags</span>:<span style="color:#bbb"> </span>[<span style="color:#bbb"> </span><span style="color:#d14">&#34;标签1&#34;</span>,<span style="color:#bbb"> </span><span style="color:#d14">&#34;标签2&#34;</span>,<span style="color:#bbb"> </span><span style="color:#d14">&#34;标签3&#34;</span><span style="color:#bbb"> </span>]<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">categories</span>:<span style="color:#bbb"> </span>[<span style="color:#bbb"> </span><span style="color:#d14">&#34;分类1&#34;</span>,<span style="color:#bbb"> </span><span style="color:#d14">&#34;分类2&#34;</span><span style="color:#bbb"> </span>]<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">keywords</span>:<span style="color:#bbb"> </span>[<span style="color:#bbb"> </span><span style="color:#d14">&#34;Hugo&#34;</span>,<span style="color:#bbb"> </span><span style="color:#d14">&#34;keyword&#34;</span><span style="color:#bbb"> </span>]<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">date</span>:<span style="color:#bbb"> </span>2012-04-06<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">lastmod</span>:<span style="color:#bbb"> </span>2015-12-23<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># CJKLanguage: Chinese, Japanese, Korean</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">isCJKLanguage</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">true</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># 如果draft为true，除非使用 --buildDrafts 参数，否则不会发布文章</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">draft</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">false</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># 设置文章的过期时间，如果是已过期的文章则不会发布，除非使用 --buildExpired 参数</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">expiryDate</span>:<span style="color:#bbb"> </span>2020-01-01<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># 设置文章的发布时间，如果是未来的时间则不会发布，除非使用 --buildFuture 参数</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">publishDate</span>:<span style="color:#bbb"> </span>2020-01-01<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># 排序你的文章</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">weight</span>:<span style="color:#bbb"> </span><span style="color:#099">40</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># 使用这两个参数将会重置permalink，默认使用文件名</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">url</span>:<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">slug</span>:<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># 别名将通过重定向实现</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">aliases</span>:<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">  </span>- 别名1<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">  </span>- /posts/my-original-url/<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">  </span>- /2010/01/01/another-url.html<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># type 与 layout 参数将会改变Hugo寻找该文章模板的顺序，将在下一节细述</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">type</span>:<span style="color:#bbb"> </span>review<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">layout</span>:<span style="color:#bbb"> </span>reviewarticle<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># 三个比较复杂的参数</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">taxonomies</span>:<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">linkTitle</span>:<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">outputs</span>:<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># 实验性的参数</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">markup</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;md&#34;</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#998;font-style:italic"># 你还可以自定义任何参数，这些参数可以在模板中使用</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">include_toc</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">true</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">show_comments</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">false</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#555">---</span><span style="color:#bbb">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="模板选择顺序">模板选择顺序</h2>
 <p>这是一篇<code>content/posts/</code>下的文章寻找模板的顺序（此时我们未在文章的Front Matter指定<code>type</code>与<code>layout</code>属性）：</p>
@@ -545,15 +552,15 @@ https://example.com/events/chicago/lollapalooza/
 <li>/themes/&lt;THEME&gt;/layouts/_default/single.html</li>
 </ol>
 <p>如果我们在Front Matter中添加以下代码</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#000;font-weight:bold">type</span>:<span style="color:#bbb"> </span>review<span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">layout</span>:<span style="color:#bbb"> </span>reviewarticle<span style="color:#bbb">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#000080">type</span>:<span style="color:#bbb"> </span>review<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000080">layout</span>:<span style="color:#bbb"> </span>reviewarticle<span style="color:#bbb">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>该文章现在的寻找模板顺序为：</p>
 <ol>
@@ -572,148 +579,148 @@ https://example.com/events/chicago/lollapalooza/
 <p>所以在我们需要修改别人提供的主题时，可以将需要修改的文件复制一份到<code>/layouts/</code>目录下再做修改，这种方式可以避免直接对主题进行修改。</p>
 <h2 id="url管理">URL管理</h2>
 <p>正如前文所言，<code>hugo</code>会将<code>content/</code>目录下的结构反映到生成的静态网站中，但<code>config.toml</code>中的<code>permalinks</code>参数允许你自由更改内容的URL。例如：你想从<code>hexo</code>迁移到<code>hugo</code>，你可以将<code>permalinks</code>定义为下面这种形式以适应之前的URL。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[permalinks]
-  post = <span style="color:#d14">&#34;/:year/:month/:title/&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[permalinks]
+</span></span><span style="display:flex;"><span>  post = <span style="color:#d14">&#34;/:year/:month/:title/&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>上面的配置将改变<code>content/post/</code>文件夹下所有文章的URL。</p>
 <p>举个栗子，<code>content/post/sample-entry.md</code>的URL将从默认的<code>https://example.com/post/sample-entry/</code>改变为<code>https://example.com/2013/11/sample-entry/</code>。</p>
 <p>所有可用的属性如下：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml"><span style="color:#a61717;background-color:#e3d2d2">/:</span>monthname<span style="color:#a61717;background-color:#e3d2d2">/:</span>day<span style="color:#a61717;background-color:#e3d2d2">/:</span>weekday<span style="color:#a61717;background-color:#e3d2d2">/:</span>weekdayname<span style="color:#a61717;background-color:#e3d2d2">/:</span>yearday<span style="color:#a61717;background-color:#e3d2d2">/:</span>section<span style="color:#a61717;background-color:#e3d2d2">/:</span>title<span style="color:#a61717;background-color:#e3d2d2">/:</span>slug<span style="color:#a61717;background-color:#e3d2d2">/:</span>filename<span style="color:#a61717;background-color:#e3d2d2">/</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">/:</span>monthname<span style="color:#a61717;background-color:#e3d2d2">/:</span>day<span style="color:#a61717;background-color:#e3d2d2">/:</span>weekday<span style="color:#a61717;background-color:#e3d2d2">/:</span>weekdayname<span style="color:#a61717;background-color:#e3d2d2">/:</span>yearday<span style="color:#a61717;background-color:#e3d2d2">/:</span>section<span style="color:#a61717;background-color:#e3d2d2">/:</span>title<span style="color:#a61717;background-color:#e3d2d2">/:</span>slug<span style="color:#a61717;background-color:#e3d2d2">/:</span>filename<span style="color:#a61717;background-color:#e3d2d2">/</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="内容摘要">内容摘要</h2>
 <p>Hugo会自动提取文章的前70个字符作为摘要。（注意：该功能在中文环境下需要在<code>config.toml</code>中添加<code>hasCJKLanguage = true</code>才能发挥更好的效果。）</p>
 <p>当然你也可以在文章内使用<!-- raw HTML omitted -->&lt;!--more--&gt;<!-- raw HTML omitted -->针对文章手动进行摘要提取，在<!-- raw HTML omitted -->&lt;!--more--&gt;<!-- raw HTML omitted -->之前出现的内容都会作为摘要使用，且能够保持渲染后的结构而不是纯文字版本。</p>
 <h2 id="shortcodes">Shortcodes</h2>
 <p>Shortcodes帮助你在编写markdown时快捷的插入HTML代码，功能上类似于Hexo的<a href="https://hexo.io/zh-cn/docs/tag-plugins.html">标签插件</a>。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">{{&lt; ref <span style="color:#d14">&#34;blog/post.md&#34;</span> &gt;}} =&gt; https:<span style="color:#998;font-style:italic">//example.com/blog/post/
-</span><span style="color:#998;font-style:italic"></span>{{&lt; ref <span style="color:#d14">&#34;post.md#tldr&#34;</span> &gt;}} =&gt; https:<span style="color:#998;font-style:italic">//example.com/blog/post/#tldr:caffebad
-</span><span style="color:#998;font-style:italic"></span>{{&lt; relref <span style="color:#d14">&#34;post.md&#34;</span> &gt;}} =&gt; <span style="color:#000;font-weight:bold">/</span>blog<span style="color:#000;font-weight:bold">/</span>post<span style="color:#000;font-weight:bold">/</span>
-{{&lt; relref <span style="color:#d14">&#34;blog/post.md#tldr&#34;</span> &gt;}} =&gt; <span style="color:#000;font-weight:bold">/</span>blog<span style="color:#000;font-weight:bold">/</span>post<span style="color:#000;font-weight:bold">/</span><span style="color:#a61717;background-color:#e3d2d2">#</span>tldr:caffebad
-{{&lt; ref <span style="color:#d14">&#34;#tldr&#34;</span> &gt;}} =&gt; <span style="color:#a61717;background-color:#e3d2d2">#</span>tldr:badcaffe
-{{&lt; relref <span style="color:#d14">&#34;#tldr&#34;</span> &gt;}} =&gt; <span style="color:#a61717;background-color:#e3d2d2">#</span>tldr:badcaffe
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>{{&lt; ref <span style="color:#d14">&#34;blog/post.md&#34;</span> &gt;}} =&gt; https:<span style="color:#998;font-style:italic">//example.com/blog/post/
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>{{&lt; ref <span style="color:#d14">&#34;post.md#tldr&#34;</span> &gt;}} =&gt; https:<span style="color:#998;font-style:italic">//example.com/blog/post/#tldr:caffebad
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>{{&lt; relref <span style="color:#d14">&#34;post.md&#34;</span> &gt;}} =&gt; <span style="color:#000;font-weight:bold">/</span>blog<span style="color:#000;font-weight:bold">/</span>post<span style="color:#000;font-weight:bold">/</span>
+</span></span><span style="display:flex;"><span>{{&lt; relref <span style="color:#d14">&#34;blog/post.md#tldr&#34;</span> &gt;}} =&gt; <span style="color:#000;font-weight:bold">/</span>blog<span style="color:#000;font-weight:bold">/</span>post<span style="color:#000;font-weight:bold">/</span><span style="color:#a61717;background-color:#e3d2d2">#</span>tldr:caffebad
+</span></span><span style="display:flex;"><span>{{&lt; ref <span style="color:#d14">&#34;#tldr&#34;</span> &gt;}} =&gt; <span style="color:#a61717;background-color:#e3d2d2">#</span>tldr:badcaffe
+</span></span><span style="display:flex;"><span>{{&lt; relref <span style="color:#d14">&#34;#tldr&#34;</span> &gt;}} =&gt; <span style="color:#a61717;background-color:#e3d2d2">#</span>tldr:badcaffe
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>上述代码通过内置的<code>rel</code>与<code>relref</code>帮助你快速引用站点内的其他文章。</p>
 <p><em>注意: 如果你的 <code>content/</code> 目录下有多个同名的文件，引用该文章必须使用 <code>blog/post.md</code> 这样的相对路径而不是只提供 <code>post.md</code> 这样的文件名。</em></p>
 <p><code>hugo</code>还内置了<code>instagram</code>、<code>tweet</code>、<code>youtube</code>等Shortcodes，可以阅读<a href="https://gohugo.io/content-management/shortcodes/#use-hugo-s-built-in-shortcodes">官方文档</a>了解更多信息，你使用的主题可能也会提供Shortcodes，当然你也可以<a href="https://gohugo.io/templates/shortcode-templates/">定制你自己的Shortcodes</a>。</p>
 <h2 id="分类系统">分类系统</h2>
 <p>默认情况下即<code>tags</code>与<code>categories</code>，通常来说这已经足够我们使用了，但你也可以在<code>config.toml</code>文件中添加下面的代码来添加更多的分类。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[taxonomies]
-  tag = <span style="color:#d14">&#34;tags&#34;</span>
-  category = <span style="color:#d14">&#34;categories&#34;</span>
-  series = <span style="color:#d14">&#34;series&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[taxonomies]
+</span></span><span style="display:flex;"><span>  tag = <span style="color:#d14">&#34;tags&#34;</span>
+</span></span><span style="display:flex;"><span>  category = <span style="color:#d14">&#34;categories&#34;</span>
+</span></span><span style="display:flex;"><span>  series = <span style="color:#d14">&#34;series&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="维包子什么都知道">维包子什么都知道！</h1>
 <h2 id="custom-output-formats">Custom Output Formats</h2>
 <p><code>hugo</code>能够输出多种不同格式的内容，这里简单的举个<strong>如何同时输出markdown文件</strong>的栗子:</p>
 <p>在你的<code>config.toml</code>文件下添加：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[mediaTypes]
-  [mediaTypes.<span style="color:#d14">&#34;text/plain&#34;</span>]
-    suffix = <span style="color:#d14">&#34;md&#34;</span>
-
-[outputFormats.MarkDown]
-  mediaType = <span style="color:#d14">&#34;text/plain&#34;</span>
-  isPlainText = <span style="color:#000;font-weight:bold">true</span>
-  isHTML = <span style="color:#000;font-weight:bold">false</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[mediaTypes]
+</span></span><span style="display:flex;"><span>  [mediaTypes.<span style="color:#d14">&#34;text/plain&#34;</span>]
+</span></span><span style="display:flex;"><span>    suffix = <span style="color:#d14">&#34;md&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[outputFormats.MarkDown]
+</span></span><span style="display:flex;"><span>  mediaType = <span style="color:#d14">&#34;text/plain&#34;</span>
+</span></span><span style="display:flex;"><span>  isPlainText = <span style="color:#000;font-weight:bold">true</span>
+</span></span><span style="display:flex;"><span>  isHTML = <span style="color:#000;font-weight:bold">false</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>为 MarkDown 新建一个 single.md 模板，写入以下代码，并放置在 /layouts/_default/ 文件夹下</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">{{ .RawContent }}
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>{{ .RawContent }}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>针对所有内容，在<code>config.toml</code>文件下添加：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[outputs]
-  home = [<span style="color:#d14">&#34;HTML&#34;</span>, <span style="color:#d14">&#34;RSS&#34;</span>]
-  page = [<span style="color:#d14">&#34;HTML&#34;</span>, <span style="color:#d14">&#34;MarkDown&#34;</span>]
-  section = [<span style="color:#d14">&#34;HTML&#34;</span>, <span style="color:#d14">&#34;RSS&#34;</span>]
-  taxonomy = [<span style="color:#d14">&#34;HTML&#34;</span>, <span style="color:#d14">&#34;RSS&#34;</span>]
-  taxonomyTerm = [<span style="color:#d14">&#34;HTML&#34;</span>]
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[outputs]
+</span></span><span style="display:flex;"><span>  home = [<span style="color:#d14">&#34;HTML&#34;</span>, <span style="color:#d14">&#34;RSS&#34;</span>]
+</span></span><span style="display:flex;"><span>  page = [<span style="color:#d14">&#34;HTML&#34;</span>, <span style="color:#d14">&#34;MarkDown&#34;</span>]
+</span></span><span style="display:flex;"><span>  section = [<span style="color:#d14">&#34;HTML&#34;</span>, <span style="color:#d14">&#34;RSS&#34;</span>]
+</span></span><span style="display:flex;"><span>  taxonomy = [<span style="color:#d14">&#34;HTML&#34;</span>, <span style="color:#d14">&#34;RSS&#34;</span>]
+</span></span><span style="display:flex;"><span>  taxonomyTerm = [<span style="color:#d14">&#34;HTML&#34;</span>]
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>针对某篇文章，在该文章的Front Matter中添加：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#000;font-weight:bold">outputs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>- html<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>- markdown<span style="color:#bbb">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#000080">outputs</span>:<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">  </span>- html<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">  </span>- markdown<span style="color:#bbb">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>在模板中的合适位置添加代码链接到你的<code>.md</code>文件：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">{{ with .OutputFormats.Get <span style="color:#d14">&#34;markdown&#34;</span> <span style="color:#000;font-weight:bold">-</span>}}
-&lt;a href=<span style="color:#d14">&#34;{{ .Permalink }}&#34;</span>&gt;查看本文 Markdown 版本 <span style="color:#a61717;background-color:#e3d2d2">»</span>&lt;<span style="color:#000;font-weight:bold">/</span>a&gt;
-{{<span style="color:#000;font-weight:bold">-</span> end }}
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>{{ with .OutputFormats.Get <span style="color:#d14">&#34;markdown&#34;</span> <span style="color:#000;font-weight:bold">-</span>}}
+</span></span><span style="display:flex;"><span>&lt;a href=<span style="color:#d14">&#34;{{ .Permalink }}&#34;</span>&gt;查看本文 Markdown 版本 <span style="color:#a61717;background-color:#e3d2d2">»</span>&lt;<span style="color:#000;font-weight:bold">/</span>a&gt;
+</span></span><span style="display:flex;"><span>{{<span style="color:#000;font-weight:bold">-</span> end }}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="扩展阅读">扩展阅读</h2>
 <ul>
@@ -746,20 +753,39 @@ https://example.com/events/chicago/lollapalooza/
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/hugo'>hugo</a></li>
+                <li><a href='/tags/hugo'>hugo</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -767,13 +793,47 @@ https://example.com/events/chicago/lollapalooza/
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -841,28 +901,12 @@ https://example.com/events/chicago/lollapalooza/
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -901,7 +945,7 @@ https://example.com/events/chicago/lollapalooza/
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -981,7 +1025,7 @@ https://example.com/events/chicago/lollapalooza/
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -998,51 +1042,6 @@ https://example.com/events/chicago/lollapalooza/
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

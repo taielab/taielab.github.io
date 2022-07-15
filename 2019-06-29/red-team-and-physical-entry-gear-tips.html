@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>护网之红方物理入侵旁门左道 | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="护网之红方物理入侵旁门左道 - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2019-06-29/red-team-and-physical-entry-gear-tips.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -169,8 +172,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -189,6 +192,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -202,7 +209,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97'>红蓝对抗</a></span>
+            <span class="meta-category"><a href='/categories/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97'>红蓝对抗</a></span>
             
         </div>
         
@@ -231,42 +238,52 @@
 <table>
 <thead>
 <tr>
-<th align="left">设备</th>
-<th align="left">商品图</th>
-<th align="left">使用视频</th>
-<th align="left">购买链接</th>
+<th style="text-align:left">设备</th>
+<th style="text-align:left">商品图</th>
+<th style="text-align:left">使用视频</th>
+<th style="text-align:left">购买链接</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">Sparrows EOD 开锁套装</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/eod-4057767b3b758dfd5fa2968b22a6a6da85977d32279c7840559b20b6766ad105.jpg"><img src="https://scund00r.com/static/rtg/eod-4057767b3b758dfd5fa2968b22a6a6da85977d32279c7840559b20b6766ad105.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/channel/UCm9K6rby98W8JigLoZOh6FQ">开锁工具使用教程</a>  - <a href="https://www.youtube.com/watch?v=lJR8JfgN7B0">Review: Sparrows EOD 开锁套件介绍</a></td>
-<td align="left">- <a href="https://www.sparrowslockpicks.com/product_p/eod.htm">购买链接</a></td>
+<td style="text-align:left">Sparrows EOD 开锁套装</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/eod-4057767b3b758dfd5fa2968b22a6a6da85977d32279c7840559b20b6766ad105.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/eod-4057767b3b758dfd5fa2968b22a6a6da85977d32279c7840559b20b6766ad105.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/channel/UCm9K6rby98W8JigLoZOh6FQ">开锁工具使用教程</a>  - <a href="https://www.youtube.com/watch?v=lJR8JfgN7B0">Review: Sparrows EOD 开锁套件介绍</a></td>
+<td style="text-align:left">- <a href="https://www.sparrowslockpicks.com/product_p/eod.htm">购买链接</a></td>
 </tr>
 <tr>
-<td align="left">可转换管状锁扣</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/convertible_tubular-e2b96325824274a7b58188974c9c2909472ec9cd5ca4bd8cb8fcc389679c1b26.jpg"><img src="https://scund00r.com/static/rtg/convertible_tubular-e2b96325824274a7b58188974c9c2909472ec9cd5ca4bd8cb8fcc389679c1b26.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=ulzZ9T2oGPE">管状锁撬的初学者指南</a></td>
-<td align="left">- <a href="https://redteamtools.com/convertible-7-8-pin-tubular-lock-pick">购买链接</a></td>
+<td style="text-align:left">可转换管状锁扣</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/convertible_tubular-e2b96325824274a7b58188974c9c2909472ec9cd5ca4bd8cb8fcc389679c1b26.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/convertible_tubular-e2b96325824274a7b58188974c9c2909472ec9cd5ca4bd8cb8fcc389679c1b26.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=ulzZ9T2oGPE">管状锁撬的初学者指南</a></td>
+<td style="text-align:left">- <a href="https://redteamtools.com/convertible-7-8-pin-tubular-lock-pick">购买链接</a></td>
 </tr>
 <tr>
-<td align="left">吉格勒（<strong>Jiggler</strong>）-开晶圆锁，开弹子锁，包括更高公差的锁工具</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/jigglers-41cabae4e90de9817c8585a6792d43522ad122509702c97cca18c4adaba5e346.jpg"><img src="https://scund00r.com/static/rtg/jigglers-41cabae4e90de9817c8585a6792d43522ad122509702c97cca18c4adaba5e346.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=eISem6CEqYw">使用教程</a></td>
-<td align="left">- <a href="https://redteamtools.com/covert-jiggler-lock-picks">购买链接</a></td>
+<td style="text-align:left">吉格勒（<strong>Jiggler</strong>）-开晶圆锁，开弹子锁，包括更高公差的锁工具</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/jigglers-41cabae4e90de9817c8585a6792d43522ad122509702c97cca18c4adaba5e346.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/jigglers-41cabae4e90de9817c8585a6792d43522ad122509702c97cca18c4adaba5e346.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=eISem6CEqYw">使用教程</a></td>
+<td style="text-align:left">- <a href="https://redteamtools.com/covert-jiggler-lock-picks">购买链接</a></td>
 </tr>
 <tr>
-<td align="left">防盗锁选装件</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/ward-9a14970bdab0ea8496513ddf8acf7affa265cf78bfd41352d11684e4f8ab5a74.jpg"><img src="https://scund00r.com/static/rtg/ward-9a14970bdab0ea8496513ddf8acf7affa265cf78bfd41352d11684e4f8ab5a74.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=z9UIDzwBSeI">开防盗锁教程</a></td>
-<td align="left">- <a href="https://www.sparrowslockpicks.com/product_p/ward.htm">购买链接</a></td>
+<td style="text-align:left">防盗锁选装件</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/ward-9a14970bdab0ea8496513ddf8acf7affa265cf78bfd41352d11684e4f8ab5a74.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/ward-9a14970bdab0ea8496513ddf8acf7affa265cf78bfd41352d11684e4f8ab5a74.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=z9UIDzwBSeI">开防盗锁教程</a></td>
+<td style="text-align:left">- <a href="https://www.sparrowslockpicks.com/product_p/ward.htm">购买链接</a></td>
 </tr>
 <tr>
-<td align="left">张力扳手</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/comb-21d41021b859252f3a5c48f3f8b4685c000fcaf9f0364b3b4595149c0d15da44.jpg"><img src="https://scund00r.com/static/rtg/comb-21d41021b859252f3a5c48f3f8b4685c000fcaf9f0364b3b4595149c0d15da44.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=Tl-lW5pmDNw">使用教程</a></td>
-<td align="left">- <a href="https://www.sparrowslockpicks.com/product_p/qcmbar.htm">购买链接</a></td>
+<td style="text-align:left">张力扳手</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/comb-21d41021b859252f3a5c48f3f8b4685c000fcaf9f0364b3b4595149c0d15da44.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/comb-21d41021b859252f3a5c48f3f8b4685c000fcaf9f0364b3b4595149c0d15da44.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=Tl-lW5pmDNw">使用教程</a></td>
+<td style="text-align:left">- <a href="https://www.sparrowslockpicks.com/product_p/qcmbar.htm">购买链接</a></td>
 </tr>
 </tbody>
 </table>
@@ -274,84 +291,108 @@
 <table>
 <thead>
 <tr>
-<th align="left">Item</th>
-<th align="left">Image</th>
-<th align="left">Video</th>
-<th align="left">Purchase</th>
+<th style="text-align:left">Item</th>
+<th style="text-align:left">Image</th>
+<th style="text-align:left">Video</th>
+<th style="text-align:left">Purchase</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">门下工具</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/udt-84835714a5529526d4ef364881e7231e724173dab48c44bdd4c5ea0b90bec5f8.jpg"><img src="https://scund00r.com/static/rtg/udt-84835714a5529526d4ef364881e7231e724173dab48c44bdd4c5ea0b90bec5f8.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=QSQo4bcfLbY">使用教程</a></td>
-<td align="left">- <a href="https://www.sparrowslockpicks.com/product_p/underdoor.htm">购买链接</a></td>
+<td style="text-align:left">门下工具</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/udt-84835714a5529526d4ef364881e7231e724173dab48c44bdd4c5ea0b90bec5f8.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/udt-84835714a5529526d4ef364881e7231e724173dab48c44bdd4c5ea0b90bec5f8.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=QSQo4bcfLbY">使用教程</a></td>
+<td style="text-align:left">- <a href="https://www.sparrowslockpicks.com/product_p/underdoor.htm">购买链接</a></td>
 </tr>
 <tr>
-<td align="left">双扇门工具</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/ddt-f25689dcd93e09f23426cfb7d1b75bb37c9aafe378df7547fae53b5a614be1c2.jpg"><img src="https://scund00r.com/static/rtg/ddt-f25689dcd93e09f23426cfb7d1b75bb37c9aafe378df7547fae53b5a614be1c2.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=GLMyIvgG3zs">使用教程</a></td>
-<td align="left">- <a href="https://www.sparrowslockpicks.com/product_p/ddt.htm">购买链接</a></td>
+<td style="text-align:left">双扇门工具</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/ddt-f25689dcd93e09f23426cfb7d1b75bb37c9aafe378df7547fae53b5a614be1c2.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/ddt-f25689dcd93e09f23426cfb7d1b75bb37c9aafe378df7547fae53b5a614be1c2.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=GLMyIvgG3zs">使用教程</a></td>
+<td style="text-align:left">- <a href="https://www.sparrowslockpicks.com/product_p/ddt.htm">购买链接</a></td>
 </tr>
 <tr>
-<td align="left">闩锁工具(游动钩)</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/hook-c177908cb32a7aa1a71408c4cdec8c928d0b85e90230d1f5bf210543a801c03a.jpg"><img src="https://scund00r.com/static/rtg/hook-c177908cb32a7aa1a71408c4cdec8c928d0b85e90230d1f5bf210543a801c03a.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://youtu.be/4YYvBLAF4T8?t=486">使用教程</a></td>
-<td align="left">- <a href="https://redteamtools.com/traveler-hook-steel">购买链接</a></td>
+<td style="text-align:left">闩锁工具(游动钩)</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/hook-c177908cb32a7aa1a71408c4cdec8c928d0b85e90230d1f5bf210543a801c03a.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/hook-c177908cb32a7aa1a71408c4cdec8c928d0b85e90230d1f5bf210543a801c03a.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://youtu.be/4YYvBLAF4T8?t=486">使用教程</a></td>
+<td style="text-align:left">- <a href="https://redteamtools.com/traveler-hook-steel">购买链接</a></td>
 </tr>
 <tr>
-<td align="left">拇指转动工具-通过门堵塞并转动内部拇指转动</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/ttdt-8f8ee9384c883a23b575f3d4d1eabda643a8f7308a5c53a202f16f9d09a3e16a.png"><img src="https://scund00r.com/static/rtg/ttdt-8f8ee9384c883a23b575f3d4d1eabda643a8f7308a5c53a202f16f9d09a3e16a.png" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=UALruU5Pvqk">使用教程</a></td>
-<td align="left">- <a href="https://www.lockpicks.com/commercial-door-opening-tool.html">购买链接</a></td>
+<td style="text-align:left">拇指转动工具-通过门堵塞并转动内部拇指转动</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/ttdt-8f8ee9384c883a23b575f3d4d1eabda643a8f7308a5c53a202f16f9d09a3e16a.png">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/ttdt-8f8ee9384c883a23b575f3d4d1eabda643a8f7308a5c53a202f16f9d09a3e16a.png" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=UALruU5Pvqk">使用教程</a></td>
+<td style="text-align:left">- <a href="https://www.lockpicks.com/commercial-door-opening-tool.html">购买链接</a></td>
 </tr>
 <tr>
-<td align="left">转轮密码锁解码器-开类似行李箱那种的转轮密码</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/decoder-599e0a6dc1b0779f296e1147539a7e0c288e64f042b63aed0a2c6723c99b98fe.jpg"><img src="https://scund00r.com/static/rtg/decoder-599e0a6dc1b0779f296e1147539a7e0c288e64f042b63aed0a2c6723c99b98fe.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=8NqyjrMYZXo">使用教程</a></td>
-<td align="left">- <a href="https://www.sparrowslockpicks.com/product_p/sultradecoder.htm">购买链接</a></td>
+<td style="text-align:left">转轮密码锁解码器-开类似行李箱那种的转轮密码</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/decoder-599e0a6dc1b0779f296e1147539a7e0c288e64f042b63aed0a2c6723c99b98fe.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/decoder-599e0a6dc1b0779f296e1147539a7e0c288e64f042b63aed0a2c6723c99b98fe.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=8NqyjrMYZXo">使用教程</a></td>
+<td style="text-align:left">- <a href="https://www.sparrowslockpicks.com/product_p/sultradecoder.htm">购买链接</a></td>
 </tr>
 <tr>
-<td align="left">绕过Abus锁</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/abus-0a72126467a5e1411304e2be42d38e1e1a4f3378b56d44411216e89dbf6b2d52.jpg"><img src="https://scund00r.com/static/rtg/abus-0a72126467a5e1411304e2be42d38e1e1a4f3378b56d44411216e89dbf6b2d52.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=Waf93VTqkyQ">使用教程</a></td>
-<td align="left">- <a href="https://www.sparrowslockpicks.com/product_p/abusdriver.htm">购买链接</a></td>
+<td style="text-align:left">绕过Abus锁</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/abus-0a72126467a5e1411304e2be42d38e1e1a4f3378b56d44411216e89dbf6b2d52.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/abus-0a72126467a5e1411304e2be42d38e1e1a4f3378b56d44411216e89dbf6b2d52.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=Waf93VTqkyQ">使用教程</a></td>
+<td style="text-align:left">- <a href="https://www.sparrowslockpicks.com/product_p/abusdriver.htm">购买链接</a></td>
 </tr>
 <tr>
-<td align="left">绕过亚当斯门锁</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/adams-d900005e8cb6a678a49067711bd565832631d88b28b765e880b90ca1f6f07e92.jpg"><img src="https://scund00r.com/static/rtg/adams-d900005e8cb6a678a49067711bd565832631d88b28b765e880b90ca1f6f07e92.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=vXrlZJKpK0o">使用教程</a></td>
-<td align="left">- <a href="https://www.sparrowslockpicks.com/product_p/passrite.htm">购买链接</a></td>
+<td style="text-align:left">绕过亚当斯门锁</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/adams-d900005e8cb6a678a49067711bd565832631d88b28b765e880b90ca1f6f07e92.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/adams-d900005e8cb6a678a49067711bd565832631d88b28b765e880b90ca1f6f07e92.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=vXrlZJKpK0o">使用教程</a></td>
+<td style="text-align:left">- <a href="https://www.sparrowslockpicks.com/product_p/passrite.htm">购买链接</a></td>
 </tr>
 <tr>
-<td align="left">绕过美国锁</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/american-bf68936a2d084c346384a0f28ff39b013e701ca4cb5dfb70e987e5572cb9fe88.jpg"><img src="https://scund00r.com/static/rtg/american-bf68936a2d084c346384a0f28ff39b013e701ca4cb5dfb70e987e5572cb9fe88.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=8L9YVE7Fpos">使用教程</a></td>
-<td align="left">- <a href="https://www.sparrowslockpicks.com/product_p/samerican.htm">购买链接</a></td>
+<td style="text-align:left">绕过美国锁</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/american-bf68936a2d084c346384a0f28ff39b013e701ca4cb5dfb70e987e5572cb9fe88.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/american-bf68936a2d084c346384a0f28ff39b013e701ca4cb5dfb70e987e5572cb9fe88.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=8L9YVE7Fpos">使用教程</a></td>
+<td style="text-align:left">- <a href="https://www.sparrowslockpicks.com/product_p/samerican.htm">购买链接</a></td>
 </tr>
 <tr>
-<td align="left">门垫片开锁</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/door_shims-56e73f8bb068f8048a8114041a662a0c7c8683cf407cef2aa6b1022ab89a9c47.jpg"><img src="https://scund00r.com/static/rtg/door_shims-56e73f8bb068f8048a8114041a662a0c7c8683cf407cef2aa6b1022ab89a9c47.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=2-iS6L-xi38">使用教程</a></td>
-<td align="left">- <a href="https://www.sparrowslockpicks.com/product_p/qs.htm">购买链接</a></td>
+<td style="text-align:left">门垫片开锁</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/door_shims-56e73f8bb068f8048a8114041a662a0c7c8683cf407cef2aa6b1022ab89a9c47.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/door_shims-56e73f8bb068f8048a8114041a662a0c7c8683cf407cef2aa6b1022ab89a9c47.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=2-iS6L-xi38">使用教程</a></td>
+<td style="text-align:left">- <a href="https://www.sparrowslockpicks.com/product_p/qs.htm">购买链接</a></td>
 </tr>
 <tr>
-<td align="left">铁芯垫片</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/core_shims-8d473c83ec45456e3fc7daa8416e4431c8ba426f1ae9d2af1ff5a1384555e701.jpg"><img src="https://scund00r.com/static/rtg/core_shims-8d473c83ec45456e3fc7daa8416e4431c8ba426f1ae9d2af1ff5a1384555e701.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=UvBYRYOWVwk">使用教程</a></td>
-<td align="left">- <a href="https://www.sparrowslockpicks.com/product_p/cshims.htm">购买链接</a></td>
+<td style="text-align:left">铁芯垫片</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/core_shims-8d473c83ec45456e3fc7daa8416e4431c8ba426f1ae9d2af1ff5a1384555e701.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/core_shims-8d473c83ec45456e3fc7daa8416e4431c8ba426f1ae9d2af1ff5a1384555e701.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=UvBYRYOWVwk">使用教程</a></td>
+<td style="text-align:left">- <a href="https://www.sparrowslockpicks.com/product_p/cshims.htm">购买链接</a></td>
 </tr>
 <tr>
-<td align="left">挂锁垫片</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/padlock_shims-359b32d3d9dc5e475bff5a2d091f5fd1f6571e73ee84adaa0209d0a45ec89350.jpg"><img src="https://scund00r.com/static/rtg/padlock_shims-359b32d3d9dc5e475bff5a2d091f5fd1f6571e73ee84adaa0209d0a45ec89350.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=k4Z7yXY9Pfk">使用教程</a></td>
-<td align="left">- <a href="https://www.sparrowslockpicks.com/product_p/sp33.htm">购买链接</a></td>
+<td style="text-align:left">挂锁垫片</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/padlock_shims-359b32d3d9dc5e475bff5a2d091f5fd1f6571e73ee84adaa0209d0a45ec89350.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/padlock_shims-359b32d3d9dc5e475bff5a2d091f5fd1f6571e73ee84adaa0209d0a45ec89350.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=k4Z7yXY9Pfk">使用教程</a></td>
+<td style="text-align:left">- <a href="https://www.sparrowslockpicks.com/product_p/sp33.htm">购买链接</a></td>
 </tr>
 <tr>
-<td align="left">35毫米胶片</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/35mm_film-43b15437b4da9aa30ff3f4f797cebd437eb5f404c5013c1321025d026bcc6f12.jpg"><img src="https://scund00r.com/static/rtg/35mm_film-43b15437b4da9aa30ff3f4f797cebd437eb5f404c5013c1321025d026bcc6f12.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=Xg-cOJQCf0w">绕过ADA手柄门锁</a></td>
-<td align="left">- <a href="https://ebay.com/">购买链接</a></td>
+<td style="text-align:left">35毫米胶片</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/35mm_film-43b15437b4da9aa30ff3f4f797cebd437eb5f404c5013c1321025d026bcc6f12.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/35mm_film-43b15437b4da9aa30ff3f4f797cebd437eb5f404c5013c1321025d026bcc6f12.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=Xg-cOJQCf0w">绕过ADA手柄门锁</a></td>
+<td style="text-align:left">- <a href="https://ebay.com/">购买链接</a></td>
 </tr>
 </tbody>
 </table>
@@ -359,81 +400,81 @@
 <table>
 <thead>
 <tr>
-<th align="left">Key</th>
-<th align="left">电梯</th>
-<th align="left">描述</th>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">电梯</th>
+<th style="text-align:left">描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">FEO-K1</td>
-<td align="left">美国</td>
-<td align="left">这是消防服务最常见和通用的钥匙</td>
+<td style="text-align:left">FEO-K1</td>
+<td style="text-align:left">美国</td>
+<td style="text-align:left">这是消防服务最常见和通用的钥匙</td>
 </tr>
 <tr>
-<td align="left">EPCO1/EN1</td>
-<td align="left">美国</td>
-<td align="left">公用消防钥匙，有时用在迅达电梯上</td>
+<td style="text-align:left">EPCO1/EN1</td>
+<td style="text-align:left">美国</td>
+<td style="text-align:left">公用消防钥匙，有时用在迅达电梯上</td>
 </tr>
 <tr>
-<td align="left">Yale 3502</td>
-<td align="left">纽约</td>
-<td align="left">纽约每部电梯的消防主钥匙</td>
+<td style="text-align:left">Yale 3502</td>
+<td style="text-align:left">纽约</td>
+<td style="text-align:left">纽约每部电梯的消防主钥匙</td>
 </tr>
 <tr>
-<td align="left">Yale 2642</td>
-<td align="left">纽约</td>
-<td align="left">纽约每部电梯的旧消防总钥匙</td>
+<td style="text-align:left">Yale 2642</td>
+<td style="text-align:left">纽约</td>
+<td style="text-align:left">纽约每部电梯的旧消防总钥匙</td>
 </tr>
 <tr>
-<td align="left">BGM30</td>
-<td align="left">奥的斯电梯</td>
-<td align="left">打开奥的斯电梯的面板钥匙</td>
+<td style="text-align:left">BGM30</td>
+<td style="text-align:left">奥的斯电梯</td>
+<td style="text-align:left">打开奥的斯电梯的面板钥匙</td>
 </tr>
 <tr>
-<td align="left">UTF</td>
-<td align="left">奥的斯电梯</td>
-<td align="left">奥的斯电梯消防主钥匙</td>
+<td style="text-align:left">UTF</td>
+<td style="text-align:left">奥的斯电梯</td>
+<td style="text-align:left">奥的斯电梯消防主钥匙</td>
 </tr>
 <tr>
-<td align="left">UTA</td>
-<td align="left">奥的斯电梯</td>
-<td align="left">奥的斯电梯的独立服务、风扇、灯、机柜</td>
+<td style="text-align:left">UTA</td>
+<td style="text-align:left">奥的斯电梯</td>
+<td style="text-align:left">奥的斯电梯的独立服务、风扇、灯、机柜</td>
 </tr>
 <tr>
-<td align="left">UTH</td>
-<td align="left">奥的斯电梯</td>
-<td align="left">奥的斯电梯的楼层锁定、检查和进入</td>
+<td style="text-align:left">UTH</td>
+<td style="text-align:left">奥的斯电梯</td>
+<td style="text-align:left">奥的斯电梯的楼层锁定、检查和进入</td>
 </tr>
 <tr>
-<td align="left">501CH</td>
-<td align="left">迅达电梯</td>
-<td align="left">迅达电梯消防主钥匙</td>
+<td style="text-align:left">501CH</td>
+<td style="text-align:left">迅达电梯</td>
+<td style="text-align:left">迅达电梯消防主钥匙</td>
 </tr>
 <tr>
-<td align="left">J200</td>
-<td align="left">Monietor/Janus电梯</td>
-<td align="left">独立服务、风扇、灯、监控设备机柜</td>
+<td style="text-align:left">J200</td>
+<td style="text-align:left">Monietor/Janus电梯</td>
+<td style="text-align:left">独立服务、风扇、灯、监控设备机柜</td>
 </tr>
 <tr>
-<td align="left">J217</td>
-<td align="left">Monitor/Janus电梯</td>
-<td align="left">监控装置的消防主钥匙</td>
+<td style="text-align:left">J217</td>
+<td style="text-align:left">Monitor/Janus电梯</td>
+<td style="text-align:left">监控装置的消防主钥匙</td>
 </tr>
 <tr>
-<td align="left">EX513</td>
-<td align="left">创新电梯</td>
-<td align="left">创新电梯的独立服务、风扇、灯、机柜</td>
+<td style="text-align:left">EX513</td>
+<td style="text-align:left">创新电梯</td>
+<td style="text-align:left">创新电梯的独立服务、风扇、灯、机柜</td>
 </tr>
 <tr>
-<td align="left">EX515</td>
-<td align="left">创新电梯</td>
-<td align="left">创新电梯消防主钥匙</td>
+<td style="text-align:left">EX515</td>
+<td style="text-align:left">创新电梯</td>
+<td style="text-align:left">创新电梯消防主钥匙</td>
 </tr>
 <tr>
-<td align="left">KONE3</td>
-<td align="left">通力<em>电梯</em></td>
-<td align="left">通力电梯消防主钥匙</td>
+<td style="text-align:left">KONE3</td>
+<td style="text-align:left">通力<em>电梯</em></td>
+<td style="text-align:left">通力电梯消防主钥匙</td>
 </tr>
 </tbody>
 </table>
@@ -453,54 +494,54 @@
 <table>
 <thead>
 <tr>
-<th align="left">Key</th>
-<th align="left">描述</th>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">Linear 222343</td>
-<td align="left">每个线性对讲系统的主密钥</td>
+<td style="text-align:left">Linear 222343</td>
+<td style="text-align:left">每个线性对讲系统的主密钥</td>
 </tr>
 <tr>
-<td align="left">DoorKing 16120</td>
-<td align="left">每个门把手对讲系统的主钥匙</td>
+<td style="text-align:left">DoorKing 16120</td>
+<td style="text-align:left">每个门把手对讲系统的主钥匙</td>
 </tr>
 <tr>
-<td align="left">CH751</td>
-<td align="left">非常普通的机柜钥匙</td>
+<td style="text-align:left">CH751</td>
+<td style="text-align:left">非常普通的机柜钥匙</td>
 </tr>
 <tr>
-<td align="left">C415A</td>
-<td align="left">非常普通的机柜钥匙</td>
+<td style="text-align:left">C415A</td>
+<td style="text-align:left">非常普通的机柜钥匙</td>
 </tr>
 <tr>
-<td align="left">C413A</td>
-<td align="left">普通柜钥匙</td>
+<td style="text-align:left">C413A</td>
+<td style="text-align:left">普通柜钥匙</td>
 </tr>
 <tr>
-<td align="left">C420A</td>
-<td align="left">普通柜钥匙</td>
+<td style="text-align:left">C420A</td>
+<td style="text-align:left">普通柜钥匙</td>
 </tr>
 <tr>
-<td align="left">C642A</td>
-<td align="left">普通柜钥匙</td>
+<td style="text-align:left">C642A</td>
+<td style="text-align:left">普通柜钥匙</td>
 </tr>
 <tr>
-<td align="left">C346A</td>
-<td align="left">普通柜钥匙</td>
+<td style="text-align:left">C346A</td>
+<td style="text-align:left">普通柜钥匙</td>
 </tr>
 <tr>
-<td align="left">C390A</td>
-<td align="left">普通柜钥匙</td>
+<td style="text-align:left">C390A</td>
+<td style="text-align:left">普通柜钥匙</td>
 </tr>
 <tr>
-<td align="left">EK333</td>
-<td align="left">公用服务器机柜钥匙</td>
+<td style="text-align:left">EK333</td>
+<td style="text-align:left">公用服务器机柜钥匙</td>
 </tr>
 <tr>
-<td align="left">Ilco CC1</td>
-<td align="left">普通高尔夫球车钥匙</td>
+<td style="text-align:left">Ilco CC1</td>
+<td style="text-align:left">普通高尔夫球车钥匙</td>
 </tr>
 </tbody>
 </table>
@@ -527,30 +568,36 @@
 <table>
 <thead>
 <tr>
-<th align="left">设备</th>
-<th align="left">设备图</th>
-<th align="left">视频介绍</th>
-<th align="left">购买地址</th>
+<th style="text-align:left">设备</th>
+<th style="text-align:left">设备图</th>
+<th style="text-align:left">视频介绍</th>
+<th style="text-align:left">购买地址</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">阿尔法 AWUS1900 AC1900</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/ac1900-5adf075c7e57bfcb4f24a5d57078881785f84f78b403a052c242e777e46360b1.jpg"><img src="https://scund00r.com/static/rtg/ac1900-5adf075c7e57bfcb4f24a5d57078881785f84f78b403a052c242e777e46360b1.jpg" alt="img"></a></td>
-<td align="left">-</td>
-<td align="left">- <a href="https://www.amazon.com/dp/B01MZD7Z76/">Amazon</a></td>
+<td style="text-align:left">阿尔法 AWUS1900 AC1900</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/ac1900-5adf075c7e57bfcb4f24a5d57078881785f84f78b403a052c242e777e46360b1.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/ac1900-5adf075c7e57bfcb4f24a5d57078881785f84f78b403a052c242e777e46360b1.jpg" />   
+    </a></td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">- <a href="https://www.amazon.com/dp/B01MZD7Z76/">Amazon</a></td>
 </tr>
 <tr>
-<td align="left">TP-Link TL-WN722N</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/wn722n-72ad293c80cc01b12af340b275542a464bab1825e7156ba813218b2c8e42dcc7.jpg"><img src="https://scund00r.com/static/rtg/wn722n-72ad293c80cc01b12af340b275542a464bab1825e7156ba813218b2c8e42dcc7.jpg" alt="img"></a></td>
-<td align="left">-</td>
-<td align="left">- <a href="https://www.amazon.com/dp/B002SZEOLG/">Amazon</a></td>
+<td style="text-align:left">TP-Link TL-WN722N</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/wn722n-72ad293c80cc01b12af340b275542a464bab1825e7156ba813218b2c8e42dcc7.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/wn722n-72ad293c80cc01b12af340b275542a464bab1825e7156ba813218b2c8e42dcc7.jpg" />   
+    </a></td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">- <a href="https://www.amazon.com/dp/B002SZEOLG/">Amazon</a></td>
 </tr>
 <tr>
-<td align="left">Sena UD100</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/ud100-5b253e41d9827c06a7893e1d78adb88e699eb46b55cc7cbd578f346d825b35c2.jpg"><img src="https://scund00r.com/static/rtg/ud100-5b253e41d9827c06a7893e1d78adb88e699eb46b55cc7cbd578f346d825b35c2.jpg" alt="img"></a></td>
-<td align="left">-</td>
-<td align="left">- <a href="https://www.amazon.com/dp/B01BHD7WR2/">Amazon</a></td>
+<td style="text-align:left">Sena UD100</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/ud100-5b253e41d9827c06a7893e1d78adb88e699eb46b55cc7cbd578f346d825b35c2.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/ud100-5b253e41d9827c06a7893e1d78adb88e699eb46b55cc7cbd578f346d825b35c2.jpg" />   
+    </a></td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">- <a href="https://www.amazon.com/dp/B01BHD7WR2/">Amazon</a></td>
 </tr>
 </tbody>
 </table>
@@ -558,36 +605,44 @@
 <table>
 <thead>
 <tr>
-<th align="left">设备</th>
-<th align="left">设备图</th>
-<th align="left">视频</th>
-<th align="left">购买</th>
+<th style="text-align:left">设备</th>
+<th style="text-align:left">设备图</th>
+<th style="text-align:left">视频</th>
+<th style="text-align:left">购买</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">阿尔法 ARS-N19M</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/n19m-0cd514e3e71299b2807dbf83763be9043994597bbe1eafc67c7feabf6e71af78.jpg"><img src="https://scund00r.com/static/rtg/n19m-0cd514e3e71299b2807dbf83763be9043994597bbe1eafc67c7feabf6e71af78.jpg" alt="img"></a></td>
-<td align="left">-</td>
-<td align="left">- <a href="https://www.amazon.com/dp/B0039ORBLK/">Amazon</a></td>
+<td style="text-align:left">阿尔法 ARS-N19M</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/n19m-0cd514e3e71299b2807dbf83763be9043994597bbe1eafc67c7feabf6e71af78.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/n19m-0cd514e3e71299b2807dbf83763be9043994597bbe1eafc67c7feabf6e71af78.jpg" />   
+    </a></td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">- <a href="https://www.amazon.com/dp/B0039ORBLK/">Amazon</a></td>
 </tr>
 <tr>
-<td align="left">阿尔法 APA-M25</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/m25-9e787a1ad37b2fb0082e616cb6ec5fc044ea3dcec362209482cdb57edcb2baab.jpg"><img src="https://scund00r.com/static/rtg/m25-9e787a1ad37b2fb0082e616cb6ec5fc044ea3dcec362209482cdb57edcb2baab.jpg" alt="img"></a></td>
-<td align="left">-</td>
-<td align="left">- <a href="https://www.amazon.com/dp/B00R1PA9EO/">Amazon</a></td>
+<td style="text-align:left">阿尔法 APA-M25</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/m25-9e787a1ad37b2fb0082e616cb6ec5fc044ea3dcec362209482cdb57edcb2baab.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/m25-9e787a1ad37b2fb0082e616cb6ec5fc044ea3dcec362209482cdb57edcb2baab.jpg" />   
+    </a></td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">- <a href="https://www.amazon.com/dp/B00R1PA9EO/">Amazon</a></td>
 </tr>
 <tr>
-<td align="left">Tupavco TP512</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/tp512-53b0c1536b7cc22a627e035e10503ea39a1a6d2c046fdc1e4b965b0bf7b6e3e3.jpg"><img src="https://scund00r.com/static/rtg/tp512-53b0c1536b7cc22a627e035e10503ea39a1a6d2c046fdc1e4b965b0bf7b6e3e3.jpg" alt="img"></a></td>
-<td align="left">-</td>
-<td align="left">- <a href="https://www.amazon.com/dp/B008Z4DNFC/">Amazon</a></td>
+<td style="text-align:left">Tupavco TP512</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/tp512-53b0c1536b7cc22a627e035e10503ea39a1a6d2c046fdc1e4b965b0bf7b6e3e3.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/tp512-53b0c1536b7cc22a627e035e10503ea39a1a6d2c046fdc1e4b965b0bf7b6e3e3.jpg" />   
+    </a></td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">- <a href="https://www.amazon.com/dp/B008Z4DNFC/">Amazon</a></td>
 </tr>
 <tr>
-<td align="left">GlobalSat BU-353-S4</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/gps-393c73aea1e3035d7895c5ce5a49d3be8889fdc7b58566c926c883bcf94f9839.jpg"><img src="https://scund00r.com/static/rtg/gps-393c73aea1e3035d7895c5ce5a49d3be8889fdc7b58566c926c883bcf94f9839.jpg" alt="img"></a></td>
-<td align="left">-</td>
-<td align="left">- <a href="https://www.amazon.com/dp/B008200LHW/">Amazon</a></td>
+<td style="text-align:left">GlobalSat BU-353-S4</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/gps-393c73aea1e3035d7895c5ce5a49d3be8889fdc7b58566c926c883bcf94f9839.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/gps-393c73aea1e3035d7895c5ce5a49d3be8889fdc7b58566c926c883bcf94f9839.jpg" />   
+    </a></td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">- <a href="https://www.amazon.com/dp/B008200LHW/">Amazon</a></td>
 </tr>
 </tbody>
 </table>
@@ -596,83 +651,105 @@
 <thead>
 <tr>
 <th>设备</th>
-<th align="left">设备图</th>
-<th align="left">视频</th>
-<th align="left">购买地址</th>
+<th style="text-align:left">设备图</th>
+<th style="text-align:left">视频</th>
+<th style="text-align:left">购买地址</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Proxmark3 RDV4 w/ BT Add-on</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/proxmark3-6c5ced1a647b4936e35be3af1afb7cfda4211c393d22099a8333b3d29f200022.jpg"><img src="https://scund00r.com/static/rtg/proxmark3-6c5ced1a647b4936e35be3af1afb7cfda4211c393d22099a8333b3d29f200022.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=BBRE-bnNDKQ">解密卡</a>  - <a href="https://www.youtube.com/watch?v=W22juSqhJSA">克隆卡</a>  - <a href="https://www.youtube.com/watch?v=1rTv8lyEtv8">解密Proxmark3 RDV4.0 </a></td>
-<td align="left">- <a href="https://hackerwarehouse.com/product/proxmark3-rdv4-kit/">Hacker Warehouse</a> - <a href="https://lab401.com/products/proxmark-3-rdv4">Lab401</a>  - <a href="https://sneaktechnology.com/product/001/">Sneak Technology</a></td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/proxmark3-6c5ced1a647b4936e35be3af1afb7cfda4211c393d22099a8333b3d29f200022.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/proxmark3-6c5ced1a647b4936e35be3af1afb7cfda4211c393d22099a8333b3d29f200022.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=BBRE-bnNDKQ">解密卡</a>  - <a href="https://www.youtube.com/watch?v=W22juSqhJSA">克隆卡</a>  - <a href="https://www.youtube.com/watch?v=1rTv8lyEtv8">解密Proxmark3 RDV4.0 </a></td>
+<td style="text-align:left">- <a href="https://hackerwarehouse.com/product/proxmark3-rdv4-kit/">Hacker Warehouse</a> - <a href="https://lab401.com/products/proxmark-3-rdv4">Lab401</a>  - <a href="https://sneaktechnology.com/product/001/">Sneak Technology</a></td>
 </tr>
 <tr>
 <td>RFID Diagnostic Card</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/rfid_diag-69578310ccb057baf417ced8a9a236821bf6379bd406090be2fa5d011378fb77.jpg"><img src="https://scund00r.com/static/rtg/rfid_diag-69578310ccb057baf417ced8a9a236821bf6379bd406090be2fa5d011378fb77.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=0FU1OwPdF-8">危险品射频识别诊断工具</a></td>
-<td align="left">-<a href="https://dangerousthings.com/product/rdc/">Dangerous Things</a></td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/rfid_diag-69578310ccb057baf417ced8a9a236821bf6379bd406090be2fa5d011378fb77.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/rfid_diag-69578310ccb057baf417ced8a9a236821bf6379bd406090be2fa5d011378fb77.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=0FU1OwPdF-8">危险品射频识别诊断工具</a></td>
+<td style="text-align:left">-<a href="https://dangerousthings.com/product/rdc/">Dangerous Things</a></td>
 </tr>
 <tr>
 <td>ESP-RFID-Tool</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/esp_rfid_tool-beb488debf71ffdb0cd28411260e86d0bd5cbde5143aededb02fa7ef31e016b3.png"><img src="https://scund00r.com/static/rtg/esp_rfid_tool-beb488debf71ffdb0cd28411260e86d0bd5cbde5143aededb02fa7ef31e016b3.png" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=B86926CHImE">电子稳定程序-射频识别-工具教程</a></td>
-<td align="left">- <a href="https://blog.aprbrother.com/product/esp-rfid-tool">Official Store</a>  - <a href="https://www.aliexpress.com/item/ESP-RFID-Tool/32850151497.html">Ali Express</a>  - <a href="https://www.tindie.com/products/aprbrother/esp-rfid-tool/">Tindle</a></td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/esp_rfid_tool-beb488debf71ffdb0cd28411260e86d0bd5cbde5143aededb02fa7ef31e016b3.png">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/esp_rfid_tool-beb488debf71ffdb0cd28411260e86d0bd5cbde5143aededb02fa7ef31e016b3.png" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=B86926CHImE">电子稳定程序-射频识别-工具教程</a></td>
+<td style="text-align:left">- <a href="https://blog.aprbrother.com/product/esp-rfid-tool">Official Store</a>  - <a href="https://www.aliexpress.com/item/ESP-RFID-Tool/32850151497.html">Ali Express</a>  - <a href="https://www.tindie.com/products/aprbrother/esp-rfid-tool/">Tindle</a></td>
 </tr>
 <tr>
 <td>ESPKey Wiegand Interception Tool</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/espkey-1d4475bdbbbee358bab1a9964a7ea98028dc7b16dd304b3303543fdbf8f0b3e8.jpg"><img src="https://scund00r.com/static/rtg/espkey-1d4475bdbbbee358bab1a9964a7ea98028dc7b16dd304b3303543fdbf8f0b3e8.jpg" alt="img"></a></td>
-<td align="left">-</td>
-<td align="left">- <a href="https://redteamtools.com/espkey">Red Team Tools</a></td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/espkey-1d4475bdbbbee358bab1a9964a7ea98028dc7b16dd304b3303543fdbf8f0b3e8.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/espkey-1d4475bdbbbee358bab1a9964a7ea98028dc7b16dd304b3303543fdbf8f0b3e8.jpg" />   
+    </a></td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">- <a href="https://redteamtools.com/espkey">Red Team Tools</a></td>
 </tr>
 <tr>
 <td>HackRF</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/hackrf-380ae61b20d348a36105b995c1527de185a37d5db8dac0a7fa0280ce7727ea86.jpg"><img src="https://scund00r.com/static/rtg/hackrf-380ae61b20d348a36105b995c1527de185a37d5db8dac0a7fa0280ce7727ea86.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=yHoxOMXK_fY"> HackRF入门</a>  - <a href="https://www.youtube.com/watch?v=ycLLb4eVZpI">用HackRF攻击餐厅寻呼机</a>  - <a href="https://www.youtube.com/watch?v=4Lgdtr7ylNY">18 个SDR欺骗hackrf</a></td>
-<td align="left">- <a href="https://hackerwarehouse.com/product/hackrf-one-kit/">Hacker Warehouse</a> - <a href="https://www.adafruit.com/product/3583">Adafruit</a>  - <a href="https://shop.hak5.org/collections/software-defined-radio/products/hackrf">Hak5</a>  - <a href="https://www.amazon.com/dp/B01H3T2U7G/">Amazon</a></td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/hackrf-380ae61b20d348a36105b995c1527de185a37d5db8dac0a7fa0280ce7727ea86.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/hackrf-380ae61b20d348a36105b995c1527de185a37d5db8dac0a7fa0280ce7727ea86.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=yHoxOMXK_fY"> HackRF入门</a>  - <a href="https://www.youtube.com/watch?v=ycLLb4eVZpI">用HackRF攻击餐厅寻呼机</a>  - <a href="https://www.youtube.com/watch?v=4Lgdtr7ylNY">18 个SDR欺骗hackrf</a></td>
+<td style="text-align:left">- <a href="https://hackerwarehouse.com/product/hackrf-one-kit/">Hacker Warehouse</a> - <a href="https://www.adafruit.com/product/3583">Adafruit</a>  - <a href="https://shop.hak5.org/collections/software-defined-radio/products/hackrf">Hak5</a>  - <a href="https://www.amazon.com/dp/B01H3T2U7G/">Amazon</a></td>
 </tr>
 <tr>
 <td>Wifi Pineapple</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/pineapple-14109e3f45d964e45e36b4b19c2a3e5d8e32688553bd3406ba558e1b0e3f1919.jpg"><img src="https://scund00r.com/static/rtg/pineapple-14109e3f45d964e45e36b4b19c2a3e5d8e32688553bd3406ba558e1b0e3f1919.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=6iZcZcIxGs8">设置Pineapple和基本攻击</a></td>
-<td align="left">- <a href="https://shop.hak5.org/products/wifi-pineapple?variant=81044992">Hak5</a></td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/pineapple-14109e3f45d964e45e36b4b19c2a3e5d8e32688553bd3406ba558e1b0e3f1919.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/pineapple-14109e3f45d964e45e36b4b19c2a3e5d8e32688553bd3406ba558e1b0e3f1919.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=6iZcZcIxGs8">设置Pineapple和基本攻击</a></td>
+<td style="text-align:left">- <a href="https://shop.hak5.org/products/wifi-pineapple?variant=81044992">Hak5</a></td>
 </tr>
 <tr>
 <td>P4wnP1 A.L.O.A</td>
-<td align="left">-</td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=I_BjCdJlCo4">使用Pi Zero P4wnP1 A.L.O.A.窃取文件</a>  - <a href="https://www.youtube.com/watch?v=yAWdfA0GYdM">P4wnP1 A.L.O.A. 工作流演示</a></td>
-<td align="left">-</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=I_BjCdJlCo4">使用Pi Zero P4wnP1 A.L.O.A.窃取文件</a>  - <a href="https://www.youtube.com/watch?v=yAWdfA0GYdM">P4wnP1 A.L.O.A. 工作流演示</a></td>
+<td style="text-align:left">-</td>
 </tr>
 <tr>
 <td>Malduino</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/malduino-893dd87f6e96d76da487a887a0f04b37558b23234aa60609f5e0032a04df6699.jpg"><img src="https://scund00r.com/static/rtg/malduino-893dd87f6e96d76da487a887a0f04b37558b23234aa60609f5e0032a04df6699.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=cI3xlxGRGKU">MalDuino安装教程(精英+简装)</a></td>
-<td align="left">- <a href="https://maltronics.com/collections/malduinos/products/malduino-elite">Maltronics</a></td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/malduino-893dd87f6e96d76da487a887a0f04b37558b23234aa60609f5e0032a04df6699.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/malduino-893dd87f6e96d76da487a887a0f04b37558b23234aa60609f5e0032a04df6699.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=cI3xlxGRGKU">MalDuino安装教程(精英+简装)</a></td>
+<td style="text-align:left">- <a href="https://maltronics.com/collections/malduinos/products/malduino-elite">Maltronics</a></td>
 </tr>
 <tr>
 <td>Rubber Ducky</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/ducky-e9e3275c0c0ee923e5b5f27397f2bd39e00431bbdd5acd020249ab95790e5d58.jpg"><img src="https://scund00r.com/static/rtg/ducky-e9e3275c0c0ee923e5b5f27397f2bd39e00431bbdd5acd020249ab95790e5d58.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=dE_xoj7HrIc">USB 橡皮鸭介绍</a>  - <a href="https://www.youtube.com/watch?v=M6bhXx75RMs">如何在3秒钟内用u盘获得一个反向shell</a></td>
-<td align="left">- <a href="https://shop.hak5.org/products/usb-rubber-ducky-deluxe">Hak5</a></td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/ducky-e9e3275c0c0ee923e5b5f27397f2bd39e00431bbdd5acd020249ab95790e5d58.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/ducky-e9e3275c0c0ee923e5b5f27397f2bd39e00431bbdd5acd020249ab95790e5d58.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=dE_xoj7HrIc">USB 橡皮鸭介绍</a>  - <a href="https://www.youtube.com/watch?v=M6bhXx75RMs">如何在3秒钟内用u盘获得一个反向shell</a></td>
+<td style="text-align:left">- <a href="https://shop.hak5.org/products/usb-rubber-ducky-deluxe">Hak5</a></td>
 </tr>
 <tr>
 <td>Plunder Bug</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/plunderbug-5bfe9069f534b313749927b8581267a3bc60ccd476cf134bb64f11bc35510d4c.jpg"><img src="https://scund00r.com/static/rtg/plunderbug-5bfe9069f534b313749927b8581267a3bc60ccd476cf134bb64f11bc35510d4c.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=nPQVp_dDrjM">使用Hak5的掠夺Bug拦截安全摄像机图像</a>  - <a href="https://www.youtube.com/watch?v=Utu0RNjf_h8">介绍掠夺漏洞——由Hak5 - Hak5 2509开发的智能局域网</a></td>
-<td align="left">- <a href="https://shop.hak5.org/products/bug">Hak5</a></td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/plunderbug-5bfe9069f534b313749927b8581267a3bc60ccd476cf134bb64f11bc35510d4c.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/plunderbug-5bfe9069f534b313749927b8581267a3bc60ccd476cf134bb64f11bc35510d4c.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=nPQVp_dDrjM">使用Hak5的掠夺Bug拦截安全摄像机图像</a>  - <a href="https://www.youtube.com/watch?v=Utu0RNjf_h8">介绍掠夺漏洞——由Hak5 - Hak5 2509开发的智能局域网</a></td>
+<td style="text-align:left">- <a href="https://shop.hak5.org/products/bug">Hak5</a></td>
 </tr>
 <tr>
 <td>Cactus WHID</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/whid-e733640539444e8db6cac1032f68fe75ea491ac81633ffb8cedbe3f3a65038b0.jpg"><img src="https://scund00r.com/static/rtg/whid-e733640539444e8db6cac1032f68fe75ea491ac81633ffb8cedbe3f3a65038b0.jpg" alt="img"></a></td>
-<td align="left">-</td>
-<td align="left">- <a href="https://blog.aprbrother.com/product/cactus-whid">aprbrother</a></td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/whid-e733640539444e8db6cac1032f68fe75ea491ac81633ffb8cedbe3f3a65038b0.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/whid-e733640539444e8db6cac1032f68fe75ea491ac81633ffb8cedbe3f3a65038b0.jpg" />   
+    </a></td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">- <a href="https://blog.aprbrother.com/product/cactus-whid">aprbrother</a></td>
 </tr>
 <tr>
 <td>Raspberry Pi Zero W</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/rpi-e8e2631f3a13a84a0a46d0dfbbd2fcc7d0afb62bc949d30b932e274a80ed912e.jpg"><img src="https://scund00r.com/static/rtg/rpi-e8e2631f3a13a84a0a46d0dfbbd2fcc7d0afb62bc949d30b932e274a80ed912e.jpg" alt="img"></a></td>
-<td align="left">-</td>
-<td align="left">- <a href="https://www.raspberrypi.org/products/raspberry-pi-zero-w/">Official</a>  - <a href="https://www.adafruit.com/product/3400">Adafruit</a></td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/rpi-e8e2631f3a13a84a0a46d0dfbbd2fcc7d0afb62bc949d30b932e274a80ed912e.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/rpi-e8e2631f3a13a84a0a46d0dfbbd2fcc7d0afb62bc949d30b932e274a80ed912e.jpg" />   
+    </a></td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">- <a href="https://www.raspberrypi.org/products/raspberry-pi-zero-w/">Official</a>  - <a href="https://www.adafruit.com/product/3400">Adafruit</a></td>
 </tr>
 </tbody>
 </table>
@@ -680,24 +757,28 @@
 <table>
 <thead>
 <tr>
-<th align="left">设备</th>
-<th align="left">设备图</th>
-<th align="left">视频</th>
-<th align="left">购买地址</th>
+<th style="text-align:left">设备</th>
+<th style="text-align:left">设备图</th>
+<th style="text-align:left">视频</th>
+<th style="text-align:left">购买地址</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">美国莱泽曼工具钳</td>
-<td align="left"><a href="https://scund00r.com/static/surge-6e78bab49e452ed7cd4872bc372ca9be0be70d2f66841e5baf134679a5fb6a4c.jpg"><img src="https://scund00r.com/static/surge-6e78bab49e452ed7cd4872bc372ca9be0be70d2f66841e5baf134679a5fb6a4c.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=6n9w0bEr4CE">工具介绍</a></td>
-<td align="left">- <a href="https://www.leatherman.com/surge-3.html">Leatherman</a>  - <a href="https://www.amazon.com/dp/B019EN7MWW">Amazon</a></td>
+<td style="text-align:left">美国莱泽曼工具钳</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/surge-6e78bab49e452ed7cd4872bc372ca9be0be70d2f66841e5baf134679a5fb6a4c.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/surge-6e78bab49e452ed7cd4872bc372ca9be0be70d2f66841e5baf134679a5fb6a4c.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=6n9w0bEr4CE">工具介绍</a></td>
+<td style="text-align:left">- <a href="https://www.leatherman.com/surge-3.html">Leatherman</a>  - <a href="https://www.amazon.com/dp/B019EN7MWW">Amazon</a></td>
 </tr>
 <tr>
-<td align="left">菲尼克斯Fenix UC35强光手电</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/fenix-864b129bf7fe404c63f11424d97b279279c4c818f26e022b8d8ad4dcf120524c.jpg"><img src="https://scund00r.com/static/rtg/fenix-864b129bf7fe404c63f11424d97b279279c4c818f26e022b8d8ad4dcf120524c.jpg" alt="img"></a></td>
-<td align="left">- <a href="https://www.youtube.com/watch?v=QH9IMn6NmVY">介绍</a></td>
-<td align="left">- <a href="https://www.amazon.com/dp/B07CRQC4PV">Amazon</a></td>
+<td style="text-align:left">菲尼克斯Fenix UC35强光手电</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/fenix-864b129bf7fe404c63f11424d97b279279c4c818f26e022b8d8ad4dcf120524c.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/fenix-864b129bf7fe404c63f11424d97b279279c4c818f26e022b8d8ad4dcf120524c.jpg" />   
+    </a></td>
+<td style="text-align:left">- <a href="https://www.youtube.com/watch?v=QH9IMn6NmVY">介绍</a></td>
+<td style="text-align:left">- <a href="https://www.amazon.com/dp/B07CRQC4PV">Amazon</a></td>
 </tr>
 </tbody>
 </table>
@@ -705,42 +786,52 @@
 <table>
 <thead>
 <tr>
-<th align="left">设备</th>
-<th align="left">设备图</th>
-<th align="left">视频</th>
-<th align="left">购买地址</th>
+<th style="text-align:left">设备</th>
+<th style="text-align:left">设备图</th>
+<th style="text-align:left">视频</th>
+<th style="text-align:left">购买地址</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">磁性搜索杆</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/magnetic_search-57f1c15e94265cc1407d356a3711fb01d1e03dbf21d5aa8a948f34112f04b542.jpg"><img src="https://scund00r.com/static/rtg/magnetic_search-57f1c15e94265cc1407d356a3711fb01d1e03dbf21d5aa8a948f34112f04b542.jpg" alt="img"></a></td>
-<td align="left">-</td>
-<td align="left">- <a href="https://redteamtools.com/magneticsearchpole">Red Team Tools</a></td>
+<td style="text-align:left">磁性搜索杆</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/magnetic_search-57f1c15e94265cc1407d356a3711fb01d1e03dbf21d5aa8a948f34112f04b542.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/magnetic_search-57f1c15e94265cc1407d356a3711fb01d1e03dbf21d5aa8a948f34112f04b542.jpg" />   
+    </a></td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">- <a href="https://redteamtools.com/magneticsearchpole">Red Team Tools</a></td>
 </tr>
 <tr>
-<td align="left">压缩空气</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/dustoff-9fd89c409155b984492b72e5ed02b12b693be0bab8778779f4b55a683929fb53.jpg"><img src="https://scund00r.com/static/rtg/dustoff-9fd89c409155b984492b72e5ed02b12b693be0bab8778779f4b55a683929fb53.jpg" alt="img"></a></td>
-<td align="left">-</td>
-<td align="left">-</td>
+<td style="text-align:left">压缩空气</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/dustoff-9fd89c409155b984492b72e5ed02b12b693be0bab8778779f4b55a683929fb53.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/dustoff-9fd89c409155b984492b72e5ed02b12b693be0bab8778779f4b55a683929fb53.jpg" />   
+    </a></td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">-</td>
 </tr>
 <tr>
-<td align="left">身份证挂绳</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/lanyard-dae1c4919998789ba9b5c9feb3dafc909a2f1ebb7e376665665dfbdffd9a62c4.jpg"><img src="https://scund00r.com/static/rtg/lanyard-dae1c4919998789ba9b5c9feb3dafc909a2f1ebb7e376665665dfbdffd9a62c4.jpg" alt="img"></a></td>
-<td align="left">-</td>
-<td align="left">-</td>
+<td style="text-align:left">身份证挂绳</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/lanyard-dae1c4919998789ba9b5c9feb3dafc909a2f1ebb7e376665665dfbdffd9a62c4.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/lanyard-dae1c4919998789ba9b5c9feb3dafc909a2f1ebb7e376665665dfbdffd9a62c4.jpg" />   
+    </a></td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">-</td>
 </tr>
 <tr>
-<td align="left">通用十字键</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/cross_key-54ea3c28c76c6b570c2ef92a1d4675365ecffb4cadf9cedb01b1957f4d67510b.jpg"><img src="https://scund00r.com/static/rtg/cross_key-54ea3c28c76c6b570c2ef92a1d4675365ecffb4cadf9cedb01b1957f4d67510b.jpg" alt="img"></a></td>
-<td align="left">-</td>
-<td align="left">- <a href="https://www.ebay.com.au/itm/253184624569">eBay</a></td>
+<td style="text-align:left">通用十字键</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/cross_key-54ea3c28c76c6b570c2ef92a1d4675365ecffb4cadf9cedb01b1957f4d67510b.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/cross_key-54ea3c28c76c6b570c2ef92a1d4675365ecffb4cadf9cedb01b1957f4d67510b.jpg" />   
+    </a></td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">- <a href="https://www.ebay.com.au/itm/253184624569">eBay</a></td>
 </tr>
 <tr>
-<td align="left">OTG适配器</td>
-<td align="left"><a href="https://scund00r.com/static/rtg/otg-13e81ddbc3ae3ba6ea8e5c87bbcf454c933d790894d004860acc32f112ff4d32.jpg"><img src="https://scund00r.com/static/rtg/otg-13e81ddbc3ae3ba6ea8e5c87bbcf454c933d790894d004860acc32f112ff4d32.jpg" alt="img"></a></td>
-<td align="left">-</td>
-<td align="left">- <a href="https://www.adafruit.com/product/2910">Adafruit</a></td>
+<td style="text-align:left">OTG适配器</td>
+<td style="text-align:left"><a href="https://scund00r.com/static/rtg/otg-13e81ddbc3ae3ba6ea8e5c87bbcf454c933d790894d004860acc32f112ff4d32.jpg">
+        <img class="mx-auto" alt="img" src="https://scund00r.com/static/rtg/otg-13e81ddbc3ae3ba6ea8e5c87bbcf454c933d790894d004860acc32f112ff4d32.jpg" />   
+    </a></td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">- <a href="https://www.adafruit.com/product/2910">Adafruit</a></td>
 </tr>
 </tbody>
 </table>
@@ -773,20 +864,39 @@
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5'>物理入侵</a></li>
+                <li><a href='/tags/%E7%89%A9%E7%90%86%E5%85%A5%E4%BE%B5'>物理入侵</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -794,13 +904,47 @@
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -868,28 +1012,12 @@
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -928,7 +1056,7 @@
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -1008,7 +1136,7 @@
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -1025,51 +1153,6 @@
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

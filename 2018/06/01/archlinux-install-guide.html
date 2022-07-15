@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>Archlinux - 基础入门 | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="Archlinux - 基础入门 - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2018/06/01/archlinux-install-guide.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -197,8 +200,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -217,6 +220,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -230,7 +237,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/Linux'>Linux</a></span>
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
             
         </div>
         
@@ -251,11 +258,11 @@
             <h3 id="制作安装媒介">制作安装媒介</h3>
 <p>首先到<a href="https://www.archlinux.org/download/">这里</a>下载最新的官方 Arch Linux 安装媒介。然后，可以选择刻录或者写入到 USB 闪存盘或存储卡。</p>
 <p>利用 dd 命令可以将安装媒介写入 USB 闪存盘或存储卡，参见<a href="https://wiki.archlinux.org/index.php/USB_Installation_Media">这里</a>：</p>
-<pre><code>$ dd bs=4M if=/path/to/archlinux.iso of=/dev/sdx &amp;&amp; sync
+<pre tabindex="0"><code>$ dd bs=4M if=/path/to/archlinux.iso of=/dev/sdx &amp;&amp; sync
 </code></pre><p>完成后，用安装媒介启动电脑。</p>
 <h3 id="安装">安装</h3>
 <p>一键安装脚本</p>
-<pre><code>https://github.com/YangMame/Arch-Installer
+<pre tabindex="0"><code>https://github.com/YangMame/Arch-Installer
 进入live系统连接网络后执行：
 
 wget git.io/vb9IK -O live.sh
@@ -267,24 +274,24 @@ https://github.com/si9ma/Archlinux-Installer
 bash &lt;(curl https://raw.githubusercontent.com/si9ma/Archlinux-Installer/master/install.sh)
 </code></pre><h4 id="连接网络">连接网络</h4>
 <p>安装程序已经自动启动了 <code>dhcpcd</code>，可以自动连接动态 IP 的有线网络。利用 ping 命令检查网络是否已连接成功：</p>
-<pre><code>$ ping -c 3 www.baidu.com
+<pre tabindex="0"><code>$ ping -c 3 www.baidu.com
 </code></pre><ul>
 <li>
 <p>如果你是有线网并且路由器支持DHCP的话插上网线后先执行以下命令获取IP地址：</p>
-<pre><code># 设置有线连接
+<pre tabindex="0"><code># 设置有线连接
 systemctl start dhcpcd
 # 自动连接有线
 systemctl enable dhcpcd
 </code></pre></li>
 <li>
 <p>无线网：</p>
-<pre><code># 如果需要无线连接:
+<pre tabindex="0"><code># 如果需要无线连接:
 pacman -S iw wpa_supplicant dialog
 wifi-menu # 选择wifi输入密码连接
 </code></pre></li>
 <li>
 <p>ADSL宽带：</p>
-<pre><code>pacman -S rp-pppoe # 安装拨号软件
+<pre tabindex="0"><code>pacman -S rp-pppoe # 安装拨号软件
 pppoe-setup    # 配置宽带用户名和密码
 systemctl start adsl    # 连接
 systemctl enable adsl # 自动连接
@@ -292,9 +299,9 @@ systemctl enable adsl # 自动连接
 </ul>
 <p>这里我们不进行有线网络的教程（在启动Arch Live CD之前插入网线即可），下面我们连接无线网络：</p>
 <p>我们为了简便，创建一个shell脚本来进行连接。</p>
-<pre><code>nano wifi.sh
+<pre tabindex="0"><code>nano wifi.sh
 </code></pre><p>在nano编辑器的界面中，我们写入如下命令，并按Ctrl+O保存，Ctrl+X退出：</p>
-<pre><code>#! /bin/bash
+<pre tabindex="0"><code>#! /bin/bash
 echo ---Init---
 rfkill unblock wifi
 rfkill unblock all
@@ -306,9 +313,9 @@ echo -n password:
 read -s pass
 echo You will connect the $ssid
 echo ---state---
-echo &quot;(Connect the WLAN)&quot;
+echo &#34;(Connect the WLAN)&#34;
 wpa_supplicant -B -i wlp2s0 -c &lt;(wpa_passphrase $ssid $pass)
-echo &quot;(DHCP)&quot;
+echo &#34;(DHCP)&#34;
 dhcpcd wlp2s0
 </code></pre><p>将SSID和password替换成你的Wi-Fi名称和密码。
 输入<code>chmod a+x wifi.sh</code>并执行<code>./wifi.sh</code>来启动无线网络
@@ -319,7 +326,7 @@ dhcpcd wlp2s0
 <ul>
 <li>查看硬盘分区</li>
 </ul>
-<pre><code>df -h
+<pre tabindex="0"><code>df -h
 # 显示磁盘相关信息
 blkid
 # 查看块设备（包括交换分区）的信息
@@ -336,32 +343,32 @@ free -h
 </code></pre><ul>
 <li>查看是否以UEFI启动</li>
 </ul>
-<pre><code>ls /sys/firmware/efi/efivars
+<pre tabindex="0"><code>ls /sys/firmware/efi/efivars
 # 如果提示efivars不存在，则不是UEFI启动。
 </code></pre><p>分区应该设置多大？</p>
 <p>注意: 以下只是简单的建议，分区大小没有严格的准则。如果可能的话，为每个文件系统保留 25% 的额外空间以应对今后的变化，还可以避免文件系统碎片。
 分区的大小主要取决于个人的选择，以下内容可能会有一定帮助：</p>
-<pre><code>/boot - 100 MB     32M-100M (启动分区，最多只要100M左右)
+<pre tabindex="0"><code>/boot - 100 MB     32M-100M (启动分区，最多只要100M左右)
 </code></pre><p>实际需求大约 100 MB，如果有多个内核/启动镜像同时存在，建议分配 200 或者 300 MB。</p>
-<pre><code>/ - 15-20 GB
+<pre tabindex="0"><code>/ - 15-20 GB
 </code></pre><p>传统上包括 /usr 目录，根据安装的软件数量，会产生非常明显的增长。15-20 GB 对于大多数用户来说是一个比较合适的取值。</p>
-<pre><code>/var - 8-12 GB
+<pre tabindex="0"><code>/var - 8-12 GB
 </code></pre><p>除了其他数据以外，还包括ABS 树和 pacman 缓存。保留缓存的包提供了包降级的能力，因此非常有用。也正因为这样，/var 的大小会随着时间推移而增长。尤其是 pacman 缓存将会随着新软件的安装、系统的升级而增长。在磁盘空间不足的时候，可以安全的清理这个目录。/var 分配 8-12 GB 对于桌面系统来说是比较合适的取值，具体取值取决于安装的软件数量。</p>
-<pre><code>/home - [不定]
+<pre tabindex="0"><code>/home - [不定]
 </code></pre><p>通常用于存放用户数据，下载的文件和媒体文件。在桌面系统中，/home 通常是最大的文件系统。</p>
-<pre><code>swap - [不定]
+<pre tabindex="0"><code>swap - [不定]
 </code></pre><p>历史上 swap 分区的大小通常是物理内存的2倍。由于当前的电脑内存容量快速增长，这条规则已经不那么适用。在拥有不足 512 MB 内存的机器上，通常为 swap 分区分配2倍内存大小的空间。如果有更大的内存（大于 1024 MB），可以分配较少的空间甚至不需要swap 分区。在拥有 2 GB 以上物理内存的情况下，不使用 swap 分区可以获得更好的性能。</p>
-<pre><code>/data - [不定]
+<pre tabindex="0"><code>/data - [不定]
 </code></pre><p>可以为需要多用户共享的文件建立一个“data”分区。也可以使用 /home 分区用于这一目的。</p>
 <h5 id="uefi">UEFI</h5>
 <p>推荐使用 GPT 分区表，可以和 64 位 Windows 7 以上版本进行双系统启动。</p>
 <p>利用 <code>cgdisk</code> 创建 GPT 分区：</p>
-<pre><code>$ cgdisk /dev/sda
+<pre tabindex="0"><code>$ cgdisk /dev/sda
 </code></pre><p>分区方案：</p>
 <table>
 <thead>
 <tr>
-<th align="left"></th>
+<th style="text-align:left"></th>
 <th>类型</th>
 <th>大小</th>
 <th>类型代码</th>
@@ -369,25 +376,25 @@ free -h
 </thead>
 <tbody>
 <tr>
-<td align="left">/dev/sda1</td>
+<td style="text-align:left">/dev/sda1</td>
 <td>EFI 系统分区</td>
 <td>512M</td>
 <td>ef00</td>
 </tr>
 <tr>
-<td align="left">/dev/sda2</td>
+<td style="text-align:left">/dev/sda2</td>
 <td>Linux ext4</td>
 <td>任意</td>
 <td>8300</td>
 </tr>
 <tr>
-<td align="left">/dev/sda3</td>
+<td style="text-align:left">/dev/sda3</td>
 <td>Linux 交换分区</td>
 <td><a href="https://wiki.archlinux.org/index.php/Swap">适量</a></td>
 <td>8200</td>
 </tr>
 <tr>
-<td align="left">/dev/sda4</td>
+<td style="text-align:left">/dev/sda4</td>
 <td>/boot</td>
 <td>200-500m</td>
 <td>看情况创建</td>
@@ -400,13 +407,13 @@ free -h
 <li>EFI 系统分区已经存在，不要再创建</li>
 </ol>
 <p>格式化分区，启用交换分区：</p>
-<pre><code>$ mkfs.vfat -F32 /dev/sda1
+<pre tabindex="0"><code>$ mkfs.vfat -F32 /dev/sda1
 $ mkfs.ext4 /dev/sda2
 $ mkswap /dev/sda3
 $ swapon /dev/sda3
 $ mkfs.ext4 /dev/sda4
 </code></pre><p>挂载分区：</p>
-<pre><code>$ mount /dev/sda2 /mnt
+<pre tabindex="0"><code>$ mount /dev/sda2 /mnt
 $ mkdir -p /mnt/home /mnt/boot
 $ mount /dev/sda1 /mnt/boot
 
@@ -420,7 +427,7 @@ mount /dev/sda4 /mnt/boot
 </code></pre><h5 id="bios">BIOS</h5>
 <p>推荐使用 MBR 分区表，可以和所有 Windows 版本进行双系统启动。</p>
 <p>利用 <code>fdisk</code> 创建 MBR 分区：</p>
-<pre><code>$ fdisk /dev/sda 或者cfdisk
+<pre tabindex="0"><code>$ fdisk /dev/sda 或者cfdisk
 </code></pre><p>分区方案：</p>
 <table>
 <thead>
@@ -447,11 +454,11 @@ mount /dev/sda4 /mnt/boot
 </tbody>
 </table>
 <p>格式化分区，启用交换分区：</p>
-<pre><code>$ mkfs.ext4 /dev/sda1
+<pre tabindex="0"><code>$ mkfs.ext4 /dev/sda1
 $ mkswap /dev/sda2
 $ swapon /dev/sda2
 </code></pre><p>挂载分区：</p>
-<pre><code>$ mount /dev/sda1 /mnt
+<pre tabindex="0"><code>$ mount /dev/sda1 /mnt
 $ mkdir -p /mnt/home
 </code></pre><p>分区方案：</p>
 <table>
@@ -485,12 +492,12 @@ $ mkdir -p /mnt/home
 </tbody>
 </table>
 <p>格式化分区，启用交换分区：</p>
-<pre><code>$ mkfs.ext4 /dev/sda1
+<pre tabindex="0"><code>$ mkfs.ext4 /dev/sda1
 $ mkswap /dev/sda2
 $ swapon /dev/sda2
 $ mkfs.ext4 /dev/sda3
 </code></pre><p>挂载分区：</p>
-<pre><code>$ mount /dev/sda1 /mnt
+<pre tabindex="0"><code>$ mount /dev/sda1 /mnt
 $ cd /mnt
 $ mkdir boot
 $ mount /dev/sda3 /mnt/boot
@@ -505,56 +512,56 @@ $ mkdir -p /mnt/home
 <p>（multilib 仓库让用户可以在 64 位 ArchLinux 系统上运行和编译 32 位程序）</p>
 <p>编辑 <code>/etc/pacman.d/mirrorlist</code>，将要使用的源复制到最前面，然后刷新：</p>
 <p>生成可用中国镜像站列表：</p>
-<pre><code>sudo pacman-mirrors -i -c China -m rank
+<pre tabindex="0"><code>sudo pacman-mirrors -i -c China -m rank
 </code></pre><p>勾选 <code>http://mirrors.ustc.edu.cn/manjaro/</code> ，然后按 <code>OK</code> 键两次。</p>
 <p>最后刷新缓存：</p>
-<pre><code>sudo pacman -Syy
+<pre tabindex="0"><code>sudo pacman -Syy
 </code></pre><p><a href="https://blog.csdn.net/taiyang1987912/article/details/41253533">pacman具体用法</a></p>
 <h4 id="安装基本系统">安装基本系统</h4>
 <p>利用 <code>pacstrap</code> 脚本安装基本系统：</p>
-<pre><code>$ pacstrap /mnt base base-devel
+<pre tabindex="0"><code>$ pacstrap /mnt base base-devel
 </code></pre><h4 id="生成-fstab">生成 fstab</h4>
 <p>利用 <code>genfstab</code> 生成 fstab：</p>
-<pre><code>$ genfstab -U -p /mnt &gt;&gt; /mnt/etc/fstab
+<pre tabindex="0"><code>$ genfstab -U -p /mnt &gt;&gt; /mnt/etc/fstab
 $ cat /mnt/etc/fstab
 </code></pre><p>注意，生成 fstab 后，务必检查一下内容是否正确。如果有问题，不要再运行 <code>genfstab</code>，直接手动编辑 <code>/mnt/etc/fstab</code> 文件。</p>
 <h3 id="chroot-到新系统">Chroot 到新系统</h3>
 <p>现在，新安装的系统还需要一些配置工作，才能自力引导系统。下面要 chroot 到新系统：</p>
-<pre><code>$ arch-chroot /mnt /bin/bash
+<pre tabindex="0"><code>$ arch-chroot /mnt /bin/bash
 </code></pre><p>这里顺便说一下，如果以后我们的系统出现了问题，只要插入U盘并启动， 将我们的系统根分区挂载到了<code>/mnt</code>下（如果有<code>efi</code>分区也要挂载到<code>/mnt/boot</code>下），再通过这条命令就可以进入我们的系统进行修复操作。</p>
 <h4 id="提前安装必须软件包">提前安装必须软件包</h4>
-<pre><code>pacman -S vim dialog wpa_supplicant ntfs-3g networkmanager git wget curl
+<pre tabindex="0"><code>pacman -S vim dialog wpa_supplicant ntfs-3g networkmanager git wget curl
 </code></pre><h4 id="语言地区">语言地区</h4>
 <p>编辑 <code>/etc/locale.gen</code>，去掉以下项目的注释：</p>
-<pre><code>en_US.UTF-8 UTF-8
+<pre tabindex="0"><code>en_US.UTF-8 UTF-8
 zh_CN.UTF-8 UTF-8
 </code></pre><p>然后运行：</p>
-<pre><code>$ locale-gen
+<pre tabindex="0"><code>$ locale-gen
 </code></pre><p>最后，编辑 <code>/etc/locale.conf</code>：</p>
-<pre><code>LANG=en_US.UTF-8
+<pre tabindex="0"><code>LANG=en_US.UTF-8
 或者
 echo LANG=en_US.UTF-8 &gt; /etc/locale.conf
 echo LANG=zh_CN.UTF-8 &gt; /etc/locale.conf
 </code></pre><p>注意：不要在这里把系统全局设置成中文，因为终端无法显示中文，请单独将桌面环境设置为中文。</p>
 <h4 id="终端字体可选">终端字体（可选）</h4>
 <p>编辑 <code>/etc/vconsole.conf</code>：</p>
-<pre><code>KEYMAP=us
+<pre tabindex="0"><code>KEYMAP=us
 FONT=Lat2-Terminus16
 </code></pre><h4 id="时区">时区</h4>
 <p>依次执行如下命令设置我们的时区为上海并生成相关文件：</p>
-<pre><code>ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+<pre tabindex="0"><code>ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 hwclock --systohc --utc
 </code></pre><h4 id="时间">时间</h4>
 <p>利用 ntp 自动校时：</p>
-<pre><code>$ pacman -S ntp
+<pre tabindex="0"><code>$ pacman -S ntp
 $ ntpdate time.nist.gov
 启动网络时间同步 
 sudo timedatectl set-ntp true
 </code></pre><p>将系统时间写入硬件时钟：</p>
-<pre><code>$ hwclock --systohc --utc
+<pre tabindex="0"><code>$ hwclock --systohc --utc
 </code></pre><p>注意：Linux 的硬件时钟使用 UTC，而 Windows 则使用本地时间。如果要和 Windows 进行双系统启动，可以将 Windows 设置为使用 UTC 硬件时钟，参见<a href="https://wiki.archlinux.org/index.php/Time#UTC_in_Windows">这里</a>。同时关闭 Windows 上的自动校时功能，只用 Linux 上的 ntp。</p>
 <h4 id="主机名可选">主机名（可选）</h4>
-<pre><code>$ echo myhostname &gt; /etc/hostname
+<pre tabindex="0"><code>$ echo myhostname &gt; /etc/hostname
 
 编辑/etc/hosts文件：
 
@@ -566,13 +573,13 @@ vim /etc/hosts
 127.0.1.1	myhostname.localdomain	myhostname
 </code></pre><h4 id="连接网络-1">连接网络</h4>
 <p>可以参照上面的方法连接网络。只不过，这次需要手动启用 dhcpcd 服务：</p>
-<pre><code>$ systemctl enable dhcpcd.service
+<pre tabindex="0"><code>$ systemctl enable dhcpcd.service
 </code></pre><p>注意，GNOME 自带了 NetworkManager 来管理网络，这会与 dhcpcd 冲突，所以安装 GNOME 后要记得要切换到 NetworkManager：</p>
-<pre><code>$ systemctl disable dhcpcd.service
+<pre tabindex="0"><code>$ systemctl disable dhcpcd.service
 $ systemctl enable NetworkManager.service
 </code></pre><h4 id="设置-root-密码添加用户">设置 Root 密码、添加用户</h4>
 <p>除了设置 Root 密码外，添加一个管理员组的帐户做平时使用：</p>
-<pre><code>$ passwd
+<pre tabindex="0"><code>$ passwd
 ###useradd -m -g users -G wheel -s /bin/bash ${username}
 useradd -m -g -G wheel username （请自行替换username为你的用户名）
 passwd username （请自行替换username为你的用户名）
@@ -588,10 +595,10 @@ visudo或者sudo nano /etc/sudoers
 当然为了安全使用sudo命令还是需要输入当前用户的密码的。
 </code></pre><h4 id="安装intel-ucode非intelcpu可以跳过此步骤">安装<code>Intel-ucode</code>（非<code>Intel</code>CPU可以跳过此步骤）</h4>
 <p>直接<code>pacman</code>安装：</p>
-<pre><code>pacman -S intel-ucode
+<pre tabindex="0"><code>pacman -S intel-ucode
 </code></pre><h4 id="安装和配置-bootloader">安装和配置 Bootloader</h4>
 <h5 id="uefi-1">UEFI</h5>
-<pre><code>$ mount -t efivarfs efivarfs /sys/firmware/efi/efivars
+<pre tabindex="0"><code>$ mount -t efivarfs efivarfs /sys/firmware/efi/efivars
 $ pacman -S grub os-prober efibootmgr
 esp_mount一般为 /boot或/boot/EFI
 $ grub-install --target=x86_64-efi --efi-directory=esp_mount --bootloader-id=arch_grub --recheck
@@ -599,7 +606,7 @@ $ grub-mkconfig -o /boot/grub/grub.cfg
 </code></pre><p>如果报<code>warning failed to connect to lvmetad，falling back to device scanning.</code>错误。参照<a href="https://www.pckr.co.uk/arch-grub-mkconfig-lvmetad-failures-inside-chroot-install/">这篇文章</a>，简单的方法是编辑<code>/etc/lvm/lvm.conf</code>这个文件，找到<code>use_lvmetad = 1</code>将<code>1</code>修改为<code>0</code>，保存，重新配置grub。</p>
 <p>如果报<code>grub-probe: error: cannot find a GRUB drive for /dev/sdb1, check your device.map</code>类似错误，并且<code>sdb1</code>这个地方是你的u盘，这是u盘<code>uefi</code>分区造成的错误，对我们的正常安装没有影响，可以不用理会这条错误。</p>
 <h5 id="bios-1">BIOS</h5>
-<pre><code>$ pacman -S grub os-prober
+<pre tabindex="0"><code>$ pacman -S grub os-prober
 $ grub-install --recheck /dev/sda ##--target=i386-pc 
 $ grub-mkconfig -o /boot/grub/grub.cfg
 初始化内存盘
@@ -608,54 +615,58 @@ mkinitcpio -p linux
 <h5 id="安装后检查">安装后检查</h5>
 <p><strong>如果你是多系统，请注意上面一节中对os-prober这个包的安装。</strong></p>
 <p><strong>强烈建议使用如下命令检查是否成功生成各系统的入口，如果没有正常生成会出现开机没有系统入口的情况：</strong></p>
-<pre><code>vim /boot/grub/grub.cfg
+<pre tabindex="0"><code>vim /boot/grub/grub.cfg
 </code></pre><p>检查接近末尾的<code>menuentry</code>部分是否有<code>windows</code>或其他系统名入口。下图例子中是<code>Arch Linux</code>入口与检测到的<code>windows10</code>入口（安装在<code>/dev/sda1</code>），具体情况可能有不同：</p>
-<p><img src="https://www.viseator.com/images/arch22.jpg" alt="img"></p>
+<p>
+        <img class="mx-auto" alt="img" src="https://www.viseator.com/images/arch22.jpg" />   
+    </p>
 <p><strong>如果你没有看到Arch Linux系统入口或者该文件不存在</strong>，请先检查<code>/boot</code>目录是否正确部署<code>linux</code>内核：</p>
-<pre><code>cd /boot
+<pre tabindex="0"><code>cd /boot
 ls
 </code></pre><p>查看是否有<code>initramfs-linux-fallback.img initramfs-linux.img intel-ucode.img vmlinuz-linux</code>这几个文件，如果都没有，说明<code>linux</code>内核没有被正确部署，很有可能是<code>/boot</code>目录没有被正确挂载导致的，确认<code>/boot</code>目录无误后，可以重新部署<code>linux</code>内核：</p>
-<pre><code>pacman -S linux
+<pre tabindex="0"><code>pacman -S linux
 </code></pre><p>再重新生成配置文件，就可以找到系统入口。</p>
 <p><strong>如果你已经安装os-prober包并生成配置文件后还是没有生成其他系统的入口</strong>：</p>
 <p><strong>你目前处的U盘安装环境下有可能无法检测到其他系统的入口，请在下一步中重启登陆之后重新运行</strong>：</p>
-<pre><code>grub-mkconfig -o /boot/grub/grub.cfg
+<pre tabindex="0"><code>grub-mkconfig -o /boot/grub/grub.cfg
 </code></pre><p>如果还没有生成其他系统的入口，请参照：</p>
 <blockquote>
 <p><a href="https://wiki.archlinux.org/index.php/GRUB/Tips_and_tricks#Combining_the_use_of_UUIDs_and_basic_scripting">https://wiki.archlinux.org/index.php/GRUB/Tips_and_tricks#Combining_the_use_of_UUIDs_and_basic_scripting</a></p>
 </blockquote>
 <p>编辑配置文件手动添加引导的分区入口。</p>
 <h5 id="安装-grub-主题-可选"><strong>安装 grub 主题 (可选)</strong></h5>
-<pre><code>$ pacman -Sy deepin-grub2-themes
+<pre tabindex="0"><code>$ pacman -Sy deepin-grub2-themes
 </code></pre><p>编辑配置文件 /etc/default/grub</p>
-<pre><code>GRUB_THEME=&quot;/boot/grub/themes/deepin/theme.txt&quot;
+<pre tabindex="0"><code>GRUB_THEME=&#34;/boot/grub/themes/deepin/theme.txt&#34;
 </code></pre><p>重新生成配置文件</p>
-<pre><code>$grub-mkconfig -o /boot/grub/grub.cfg
+<pre tabindex="0"><code>$grub-mkconfig -o /boot/grub/grub.cfg
 </code></pre><h4 id="卸载分区并重启系统">卸载分区并重启系统</h4>
 <p>现在新系统已经准备好第一次引导了，先退出 chroot 环境：</p>
-<pre><code>$ exit
+<pre tabindex="0"><code>$ exit
 </code></pre><p>然后，卸载分区并重启系统：</p>
-<pre><code>$ umount -R /mnt
+<pre tabindex="0"><code>$ umount -R /mnt
 $ reboot
 </code></pre><h3 id="在新系统上安装需要的软件">在新系统上安装需要的软件</h3>
 <h4 id="显卡驱动">显卡驱动</h4>
-<p><img src="https://www.viseator.com/images/arch21.png" alt="img"></p>
+<p>
+        <img class="mx-auto" alt="img" src="https://www.viseator.com/images/arch21.png" />   
+    </p>
 <p>参照这个表格，安装相应的包，比如你是<code>intel</code>的集成显卡（绝大多数人的情况），执行：</p>
-<pre><code>sudo pacman -S xf86-video-intel libva-intel-driver
+<pre tabindex="0"><code>sudo pacman -S xf86-video-intel libva-intel-driver
 </code></pre><p>提示：<code>Nvidia</code>的独显驱动如非必要，建议只装集成显卡的驱动（省电，如果同时装也会默认使用集成显卡），不容易出现冲突问题。相反，如果集成显卡驱动有问题无法装上，可以装独显驱动，具体的版本请到下面的链接查询：</p>
 <blockquote>
 <p><a href="https://wiki.archlinux.org/index.php/Xorg#Driver_installation">https://wiki.archlinux.org/index.php/Xorg#Driver_installation</a></p>
 </blockquote>
 <p>查询显卡类型：</p>
-<pre><code>$ lspci | grep VGA
+<pre tabindex="0"><code>$ lspci | grep VGA
 </code></pre><p>查询可用的开源驱动：</p>
-<pre><code>$ pacman -Ss xf86-video | less
+<pre tabindex="0"><code>$ pacman -Ss xf86-video | less
 </code></pre><p>安装通用驱动（vesa）：</p>
-<pre><code>$ pacman -S xf86-video-vesa
+<pre tabindex="0"><code>$ pacman -S xf86-video-vesa
 </code></pre><p>支持硬件加速的驱动程序可以在安装 X 时自动提示你安装，只需要选择正确的显卡类型，不需要显式安装。</p>
 <h4 id="声卡驱动">声卡驱动</h4>
 <p>通常不需要配置就能工作，只需解除静音。需要做的只是安装 alsa-utils 软件包：</p>
-<pre><code>$ pacman -S alsa-utils
+<pre tabindex="0"><code>$ pacman -S alsa-utils
 或者
 pacman -Sy alsa-utils pulseaudio pulseaudio-alsa
 
@@ -663,12 +674,12 @@ pacman -Sy alsa-utils pulseaudio pulseaudio-alsa
 [M] 取消静音
 </code></pre><h4 id="输入设备驱动">输入设备驱动</h4>
 <p>输入设备驱动已经在安装 X 时自动安装，一般不需要显式安装。不过，笔记本或触摸屏用户需要安装 synaptics：</p>
-<pre><code>$ pacman -S xf86-input-synaptics
+<pre tabindex="0"><code>$ pacman -S xf86-input-synaptics
 </code></pre><h4 id="如果是在-vmware-中安装">如果是在 VMware 中安装</h4>
 <p>安装一些专门用于虚拟机的驱动程序：</p>
-<pre><code>$ pacman -S xf86-input-vmmouse xf86-video-vmware svga-dri
+<pre tabindex="0"><code>$ pacman -S xf86-input-vmmouse xf86-video-vmware svga-dri
 </code></pre><p>安装 VMware Tools，在 VMware 中选择“安装 VMware Tools”，然后：</p>
-<pre><code>$ pacman -S linux-headers
+<pre tabindex="0"><code>$ pacman -S linux-headers
 $ for x in {0..6}; do mkdir -pv /etc/init.d/rc$x.d; done
 $ mount /dev/cdrom /mnt
 $ cd /root
@@ -677,63 +688,62 @@ $ cd vmware-tools-distrib
 $ ./vmware-install.pl
 </code></pre><p>按提示一步步进行，如果最后报错，一般也不用担心，重启后 VMware Tools 能正确启动。</p>
 <h4 id="安装-x-窗口管理系统">安装 X 窗口管理系统</h4>
-<pre><code>$ pacman -S xorg-server xorg-xinit
+<pre tabindex="0"><code>$ pacman -S xorg-server xorg-xinit
 </code></pre><h4 id="安装桌面管理器">安装桌面管理器</h4>
 <p>安装好了桌面环境包以后，我们需要安装一个图形化的桌面管理器来帮助我们登录并且选择我们使用的桌面环境，这里我推荐使用<code>sddm</code>。</p>
 <p>安装sddm</p>
 <p>执行：</p>
-<pre><code>sudo pacman -S sddm
+<pre tabindex="0"><code>sudo pacman -S sddm
 sddm --example-config &gt; /etc/sddm.conf
 </code></pre><h5 id="设置开机启动sddm服务">设置开机启动sddm服务</h5>
 <p>这里就要介绍一下<code>Arch</code>下用于管理系统服务的命令<code>systemctl</code>了，服务的作用就是字面意思，为我们提供特定的服务，比如<code>sddm</code>就为我们提供了启动<code>xorg</code>与管理桌面环境的服务。</p>
 <p>命令的使用并不复杂：</p>
-<pre><code>sudo systemctl start   服务名 （启动一项服务）
+<pre tabindex="0"><code>sudo systemctl start   服务名 （启动一项服务）
 sudo systemctl stop    服务名 （停止一项服务）
 sudo systemctl enable  服务名 （开机启动一项服务）
 sudo systemctl disable 服务名 （取消开机启动一项服务）
 </code></pre><p>所以这里我们就执行下面命令来设置开机启动<code>sddm</code>：</p>
-<pre><code>sudo systemctl enable sddm
+<pre tabindex="0"><code>sudo systemctl enable sddm
 </code></pre><h4 id="安装桌面环境">安装桌面环境</h4>
 <h5 id="安装xfce">安装Xfce</h5>
 <p>直接安装软件包组（包含了很多软件包）即可：</p>
-<pre><code>sudo pacman -S xfce4 xfce4-goodies
+<pre tabindex="0"><code>sudo pacman -S xfce4 xfce4-goodies
 </code></pre><p><strong>安装 slim 以及主题(弃用)</strong></p>
-<pre><code>$ pacman -S slim slim-themes archlinux-themes-slim
+<pre tabindex="0"><code>$ pacman -S slim slim-themes archlinux-themes-slim
 $ systemctl enable slim.service
 </code></pre><p><strong>图形界面启动方式两种</strong></p>
 <ol>
 <li>startx 命令行启动</li>
 </ol>
 <p>配置 xfce 桌面启动环境 ~/.xinitrc</p>
-<pre><code>exec startxfce4
+<pre tabindex="0"><code>exec startxfce4
 </code></pre><p>启动 xfce 桌面</p>
-<pre><code>$ startx
+<pre tabindex="0"><code>$ startx
 </code></pre><h5 id="安装gnome">安装GNOME</h5>
-<pre><code>$ pacman -S gnome
+<pre tabindex="0"><code>$ pacman -S gnome
 </code></pre><p>要启用图形界面登录和锁屏等功能，可启用 gdm：</p>
-<pre><code>$ systemctl enable gdm.service
+<pre tabindex="0"><code>$ systemctl enable gdm.service
 </code></pre><p>安装 GNOME 的一些常用工具（更多工具和扩展请参见<a href="https://wiki.archlinux.org/index.php/GNOME">这里</a>）：</p>
-<pre><code>$ pacman -S gnome-tweak-tool gnome-packagekit gnome-settings-daemon-updates
+<pre tabindex="0"><code>$ pacman -S gnome-tweak-tool gnome-packagekit gnome-settings-daemon-updates
 </code></pre><h4 id="窗口管理器">窗口管理器</h4>
 <p>窗口管理器负责绘制窗口的边框和背景等，处理窗口的移动、最大/小化等行为。桌面环境是窗口管理器的超集，使用窗口管理器和其它一些常用软件组成一个完整的桌面工作环境。
 所以说，只安装窗口管理器，而不安装桌面环境也是可以的。（还是推荐一个桌面环境，这样好多软件，如文件管理器等，就不用自己挨个找了）
 窗口管理器可以用桌面环境默认自带的，也可以自己选择，如平铺式有i3, awesome等。</p>
 <h5 id="安装i3">安装i3</h5>
-<pre><code>sudo pacman -S i3 dmenu
+<pre tabindex="0"><code>sudo pacman -S i3 dmenu
 # 安装i3窗口管理器，dmenu为i3程充启动器
 cp /etc/i3/config ~/.i3/config
 # 创建i3配置文件，.i3没有则自己mkdir
-# 如果使用xorg-init，则添加 &quot;exec i3&quot; 到.xinitrc，通过startx则可以启动ie
+# 如果使用xorg-init，则添加 &#34;exec i3&#34; 到.xinitrc，通过startx则可以启动ie
 </code></pre><h5 id="安装awesome">安装awesome</h5>
-<pre><code>sudo pacman -S awesome
+<pre tabindex="0"><code>sudo pacman -S awesome
 mkdir -p ~/.config/awesome/
 cp /etc/xdg/awesome/rc.lua ~/.config/awesome/
 # 安装awesome，并创建配置文件rc.lua
-# 如果使用xorg-init，则添加 &quot;exec awesome&quot; 到.xinitrc，通过startx则可以启动ie
-
+# 如果使用xorg-init，则添加 &#34;exec awesome&#34; 到.xinitrc，通过startx则可以启动ie
 </code></pre><h4 id="安装字体">安装字体</h4>
 <p>安装一些常用的中英文字体：</p>
-<pre><code>桌面也搞定了, 继续最后一步安装字体吧. 以下根据自己需要选择运行:
+<pre tabindex="0"><code>桌面也搞定了, 继续最后一步安装字体吧. 以下根据自己需要选择运行:
 pacman -S adobe-source-han-sans-otc-fonts # 使用思源黑体
 pacman -S wqy-microhei wqy-zenhei ttf-dejavu # 使用文泉驿字体
 yay -S ttf-dejavu-sans-mono-powerline-git
@@ -761,10 +771,10 @@ sudo fc-cache -fv
 </code></pre><p>附：<a href="https://github.com/yehuohan/dotconfigs/tree/master/font">consolas字体</a></p>
 <h3 id="提前配置网络">提前配置网络</h3>
 <p>到现在我们已经安装好了桌面环境，但是还有一件事情需要我们提前设置一下。由于我们之前使用的一直都是<code>netctl</code>这个自带的网络服务，而桌面环境使用的是<code>NetworkManager</code>这个网络服务，所以我们需要禁用<code>netctl</code>并启用<code>NetworkManager</code>：</p>
-<pre><code>sudo systemctl disable netctl
+<pre tabindex="0"><code>sudo systemctl disable netctl
 sudo systemctl enable NetworkManager （注意大小写）
 </code></pre><p>同时你可能需要安装工具栏工具来显示网络设置图标（某些桌面环境已经装了，但是为了保险可以再装一下）：</p>
-<pre><code>sudo pacman -S network-manager-applet
+<pre tabindex="0"><code>sudo pacman -S network-manager-applet
 </code></pre><p>这样开机以后我们就可以在图形界面下配置我们的网络啦。</p>
 <h3 id="完成安装">完成安装</h3>
 <p>重新启动，即可由图形界面登录到系统了。祝贺你！说实话，你能有足够的耐心做到这里而没有叛逃到 Debian/CentOS，我很欣慰。相信你很快就会意识到这些麻烦不是没有回报的，欢迎加入 Archers 的行列！</p>
@@ -773,12 +783,12 @@ sudo systemctl enable NetworkManager （注意大小写）
 <h4 id="sata-启用-ahci-模式">SATA 启用 AHCI 模式</h4>
 <p>SATA 有两种工作模式：原生的 <a href="https://en.wikipedia.org/wiki/Advanced_Host_Controller_Interface">AHCI</a> 模式提供更好的性能（如热插拔和 <a href="https://en.wikipedia.org/wiki/Native_Command_Queuing">NCQ</a> 支持）、模拟的 IDE 模式提供更好的兼容性。一般主板出厂默认将 SATA 模式设置为 IDE 模式，但如今先进的 Linux 和 Windows 都早已原生支持 AHCI，所以我们最好打开 AHCI 模式以优化性能。</p>
 <p>Arch Linux 在安装好以后，内核镜像默认没有载入 AHCI 驱动模块。修改 <code>/etc/mkinitcpio.conf</code>，添加 <code>ahci</code> 到 <code>MODULES</code> 变量：</p>
-<pre><code>MODULES=&quot;ahci&quot;
+<pre tabindex="0"><code>MODULES=&#34;ahci&#34;
 </code></pre><p>然后重建内核镜像，重新启动后 AHCI 驱动就会加载：</p>
-<pre><code>$ mkinitcpio -p linux
+<pre tabindex="0"><code>$ mkinitcpio -p linux
 </code></pre><p>在主板 UEFI 或 BIOS 中，将 SATA 模式从 <code>IDE</code>（或 <code>PATA Emulation</code> 等等），设置为 <code>AHCI</code>（或 <code>Native</code> 等等）。需要注意的是，如果你还在用 Windows XP，它需要安装 AHCI 驱动才行。Windows Vista 及以后的版本则不需要担心这个问题（但如果你是在 Windows 安装完成后才启用 AHCI 模式，因为安装期间 Windows 会自动禁用未使用的存储驱动程序，你需要参考 <a href="https://support.microsoft.com/kb/922976">KB922976</a>（Windows Vista/7）或 <a href="https://support.microsoft.com/kb/2751461">KB2751461</a>（Windows 8）来启用 AHCI 驱动程序）。</p>
 <p>设置好以后，你可以从 <code>dmesg</code> 命令的输出里，找到 AHCI 和 NCQ 成功启用的证据：</p>
-<pre><code>$ dmesg
+<pre tabindex="0"><code>$ dmesg
 ...
 SCSI subsystem initialized
 libata version 3.00 loaded.
@@ -797,21 +807,21 @@ ata5.00: 976773168 sectors, multi 16: LBA48 NCQ (depth 31/32), AA
 ...
 </code></pre><h4 id="优化系统启动速度">优化系统启动速度</h4>
 <p>Arch Linux 的 <code>systemd-analyze</code> 是个很不错的工具，利用它你可以很直观地观察到系统启动的时间都花到哪儿去了：</p>
-<pre><code>$ systemd-analyze
+<pre tabindex="0"><code>$ systemd-analyze
 Startup finished in 6.857s (firmware) + 3.157s (loader) + 1.870s (kernel) + 8.157s (userspace) = 20.044s
 </code></pre><p>我注意到打开 AHCI 后，内核和用户空间的载入速度明显提高了，总启动时间从约 30 秒缩短到 20 秒，效果非常明显。</p>
 <p>用下面这个命令，可以了解到是什么东西启动最慢：</p>
-<pre><code>$ systemd-analyze blame
+<pre tabindex="0"><code>$ systemd-analyze blame
 </code></pre><p>此外，还可以把启动过程绘制成 SVG 图表供你审阅（用 GNOME 的图片预览或 Chrome 浏览器都可以打开），这个图表中你还可以观察到是否有启动慢的组件影响到了依赖它的组件的启动：</p>
-<pre><code>$ systemd-analyze plot &gt; plot.svg
+<pre tabindex="0"><code>$ systemd-analyze plot &gt; plot.svg
 </code></pre><h2 id="后续优化">后续优化</h2>
 <h3 id="安装yay">安装<code>yay</code></h3>
 <p>以<code>root</code>权限打开编译<code>/etc/pacman.conf</code>，将下面这三行加入到文件末尾并保存：</p>
-<pre><code>[archlinuxcn]
+<pre tabindex="0"><code>[archlinuxcn]
 SigLevel = Optional TrustAll
 Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
 </code></pre><p>同步软件信息库并安装<code>yay</code>：</p>
-<pre><code>sudo pacman -Syu （刷新源）
+<pre tabindex="0"><code>sudo pacman -Syu （刷新源）
 sudo pacman -S archlinuxcn-keyring
 sudo pacman -Sy yay
 </code></pre><h3 id="yaourt使用弃用"><code>yaourt</code>使用(弃用)</h3>
@@ -820,10 +830,10 @@ sudo pacman -Sy yay
 <p><code>ArchLinux</code>的更新机制是非常激进的滚动更新，也就是说<code>ArchLinux</code>的软件与内核会时刻与稳定版本保持一致，你所用的系统总是时刻保持最新的。</p>
 <p>这个机制给很多<code>Arch</code>教徒带来了强大的快感，可以第一时间体验到新的软件与新 的内核，但是也存在着日常滚炸这样的问题。虽然滚动更新的包可能因为没有经过完善的测试会导致系统不能工作种种问题，但是绝大部分情况下的更新都不会导致太大的问题。修复滚炸的系统和提交Bug信息也是<code>ArchLinux</code>用户的技能之一。</p>
 <p>滚动更新命令使用<code>yay</code>非常简单：</p>
-<pre><code>yay -Syu --aur
+<pre tabindex="0"><code>yay -Syu --aur
 </code></pre><p><code>--aur</code>参数是检查并更新<code>AUR</code>包中的内容。</p>
 <h3 id="常用软件安装">常用软件安装</h3>
-<pre><code>yay -S wget curl git shadowsocks-qt5 proxychains-ng shadowsocks-libev / 
+<pre tabindex="0"><code>yay -S wget curl git shadowsocks-qt5 proxychains-ng shadowsocks-libev / 
 visual-studio-code-bin neofetch netease-cloud-music dropbox /
 kio-gdrive typora wireshark-qt virtualbox dbeaver /
 medis telegram-desktop deluge aria2-fast uget /
@@ -865,7 +875,7 @@ Adapta-gtk-theme
 Papirus
 Arc
 </code></pre><p>ArchLinux推荐软件列表</p>
-<pre><code>https://wiki.archlinux.org/index.php/List_of_applications
+<pre tabindex="0"><code>https://wiki.archlinux.org/index.php/List_of_applications
 http://bbs.archlinuxcn.org/viewtopic.php?id=381
 https://github.com/alim0x/Awesome-Linux-Software-zh_CN
 </code></pre><h3 id="java-程序员眼中的-linux">Java 程序员眼中的 Linux</h3>
@@ -878,16 +888,16 @@ https://github.com/alim0x/Awesome-Linux-Software-zh_CN
 <p>安装官方源中的<code>shadowsocks-qt5</code>包，自带图形界面，通过软件菜单（桌面环境自带）启动即可。</p>
 <h4 id="命令行版本">命令行版本</h4>
 <p>安装官方源中的<code>shadowsocks-libev</code>包，编辑<code>/etc/shadowsocks/config.json</code>文件，按示例填写：</p>
-<pre><code>{
-    &quot;server&quot;:&quot;&quot;,
-    &quot;server_port&quot;:&quot;&quot;,
-    &quot;local_adress&quot;:&quot;0.0.0.0&quot;,
-    &quot;local_port&quot;:1080,
-    &quot;password&quot;:&quot;&quot;,
-    &quot;timeout&quot;:600,
-    &quot;method&quot;:&quot;aes-256-gcm&quot;,
-    &quot;plugin&quot;:&quot;obfs-local&quot;,
-    &quot;plugin_opts&quot;:&quot;obfs=tls;obfs-host=baidu.com&quot;
+<pre tabindex="0"><code>{
+    &#34;server&#34;:&#34;&#34;,
+    &#34;server_port&#34;:&#34;&#34;,
+    &#34;local_adress&#34;:&#34;0.0.0.0&#34;,
+    &#34;local_port&#34;:1080,
+    &#34;password&#34;:&#34;&#34;,
+    &#34;timeout&#34;:600,
+    &#34;method&#34;:&#34;aes-256-gcm&#34;,
+    &#34;plugin&#34;:&#34;obfs-local&#34;,
+    &#34;plugin_opts&#34;:&#34;obfs=tls;obfs-host=baidu.com&#34;
 }
 </code></pre><p><code>server</code>：服务器地址</p>
 <p><code>server_port</code>：服务器端口</p>
@@ -895,59 +905,59 @@ https://github.com/alim0x/Awesome-Linux-Software-zh_CN
 <p><code>password</code>：密码</p>
 <p><code>method</code>：加密方式</p>
 <p>然后以系统服务方式启动：</p>
-<pre><code>sudo systemctl start shadowsocks@example.service
+<pre tabindex="0"><code>sudo systemctl start shadowsocks@example.service
 </code></pre><p>如需开机启动：</p>
-<pre><code>sudo systemctl enable shadowsocks@example.service
+<pre tabindex="0"><code>sudo systemctl enable shadowsocks@example.service
 </code></pre><h3 id="命令行代理">命令行代理</h3>
 <p><strong>需先配置好本地shadowsocks代理</strong></p>
 <p>推荐使用<code>proxychains-ng</code>包进行命令行代理：</p>
 <p>安装<code>proxychains-ng</code>包后编辑<code>/etc/proxychains.conf</code>文件（需<code>root</code>权限）</p>
 <p>到文件末尾找到<code>ProxyList</code>项，按示例添加本地代理：</p>
-<pre><code>socks5 127.0.0.1 1080
+<pre tabindex="0"><code>socks5 127.0.0.1 1080
 </code></pre><p>之后需要用代理运行的命令都可以通过在命令前加上<code>proxychains</code>来使用代理运行。</p>
 <h3 id="steam-配置">Steam 配置</h3>
 <p>如果你发现你的 steam 不能正常运行，就去装 <code>steam-native</code> 这个包。然后是不是就好了？如果你玩 XCOM2 的话，你可能会发现这个游戏在 Ubuntu 上能正常运行，但是在 Arch 上卡的能吃屎。你可以考虑调整他的配置文件，位置是：</p>
-<pre><code>~/.local/share/feral-interactive/XCOM2/VFS/Local/my\ games/XCOM2/XComGame/Config/XComEngine.ini
+<pre tabindex="0"><code>~/.local/share/feral-interactive/XCOM2/VFS/Local/my\ games/XCOM2/XComGame/Config/XComEngine.ini
 </code></pre><p>把 <code>PoolSize=10</code> 改成 256，<code>OneFrameThreadLag=True</code> 改成 False。再运行一下，虽然还有点卡，是不是能玩了？</p>
 <h3 id="jetbrains-ide-配置">JetBrains IDE 配置</h3>
 <p>你可能会发现 JetBrains 的 IDE 会有一个颜色漂移的问题，据说是来自于 jre。解决方案你可以参考 <a href="https://wiki.archlinux.org/index.php/Java_Runtime_Environment_fonts">这篇 wiki</a>。当然，最简单的方法是在 IDE 设置里把文字抗锯齿设置成灰度（greyscale），这样的效果我觉得已经基本可以接受了</p>
 <h3 id="中文字体与中文输入法">中文字体与中文输入法</h3>
 <p>中文字体推荐安装官方源中<code>noto-fonts-cjk</code>，中文输入法需要安装<code>fcitx</code>包与<code>fcitx-im</code>集合包，再加上一个中文支持包，可以到<a href="https://wiki.archlinux.org/index.php/fcitx#Chinese">https://wiki.archlinux.org/index.php/fcitx#Chinese</a>中挑选一个喜欢的包装上。</p>
-<pre><code>安装fcitx和搜狗输入法：
+<pre tabindex="0"><code>安装fcitx和搜狗输入法：
 yay -S fcitx-im fcitx fcitx-configtool kcm-fcitx fcitx-gtk2 fcitx-gtk3 fcitx-qt4 fcitx-qt5 fcitx-sogoupinyin
 or
 yay -S fcitx fcitx-sogoupinyin fcitx-im kcm-fcitx fcitx-skin-material fcitx-rime
 同样的，在~/.xprofile写入
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
-export XMODIFIERS=&quot;@im=fcitx&quot;
+export XMODIFIERS=&#34;@im=fcitx&#34;
 可以解决一些软件无法调出fcitx的问题。
 </code></pre><h3 id="oh-my-zsh">oh-my-zsh</h3>
 <p><code>zsh</code>是默认<code>shell</code> <code>bash</code>的替代品之一，它的特点是插件多配置方便，兼容<code>bash</code>脚本并且支持更强大的高亮与补全。</p>
 <p>安装官方源中<code>zsh</code>包。</p>
 <p>设置<code>zsh</code>为默认<code>shell</code>：</p>
-<pre><code>sudo chsh -s /bin/zsh username
+<pre tabindex="0"><code>sudo chsh -s /bin/zsh username
 curl 方式：
-$ sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;
+$ sh -c &#34;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&#34;
 
 wget 方式
-$ sh -c &quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;
+$ sh -c &#34;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&#34;
 </code></pre><p>推荐安装<code>AUR</code>中的<code>oh-my-zsh-git</code>这个包，可以帮助配置一些实用的功能。</p>
 <p>其他主题插件配置请见<a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a>的配置介绍，分享一下我安装的插件：</p>
-<pre><code>plugins=(vim git sudo extract archlinux zsh-autosuggestions zsh-syntax-highlighting)
+<pre tabindex="0"><code>plugins=(vim git sudo extract archlinux zsh-autosuggestions zsh-syntax-highlighting)
 </code></pre><p>注意后面两个插件需要安装相应的支持包并配置才能使用。</p>
-<pre><code>https://hufangyun.com/2017/zsh-plugin/
+<pre tabindex="0"><code>https://hufangyun.com/2017/zsh-plugin/
 
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 </code></pre><h3 id="yay安装软件卡在-node-installjs">yay安装软件卡在 node install.js</h3>
-<pre><code>终极解决方案
+<pre tabindex="0"><code>终极解决方案
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 
-export NVM_DIR=&quot;$HOME/.nvm&quot;
-[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot;  # This loads nvm
-[ -s &quot;$NVM_DIR/bash_completion&quot; ] &amp;&amp; \. &quot;$NVM_DIR/bash_completion&quot;  # This loads nvm bash_completion
+export NVM_DIR=&#34;$HOME/.nvm&#34;
+[ -s &#34;$NVM_DIR/nvm.sh&#34; ] &amp;&amp; \. &#34;$NVM_DIR/nvm.sh&#34;  # This loads nvm
+[ -s &#34;$NVM_DIR/bash_completion&#34; ] &amp;&amp; \. &#34;$NVM_DIR/bash_completion&#34;  # This loads nvm bash_completion
 
 nvm install v8
 
@@ -969,17 +979,18 @@ phantomjs_cdnurl=http://npm.taobao.org/mirrors/phantomjs
 ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/
 </code></pre><h3 id="系统备份">系统备份</h3>
 <p>我目前的解决方案是 rsync，下面给出一个我从 <a href="https://wiki.archlinux.org/index.php/full_system_backup_with_rsync">Arch wiki</a> 那里魔改来的备份脚本.区别基本上就是使用了更新和删除，就是如果目标位置已经有备份，他只会更新新的文件，并删除已经被删除了的文件。另外，我还把 steam 的路径添加到了黑名单，这样可以让我节省几十个G的游戏的硬盘空间。如果要还原的话，你只需要把 rsync 的参数互换一下，就以把备份文件复制回原来的位置了。</p>
-<pre><code>#!/bin/sh
+<pre tabindex="0"><code>#!/bin/sh
 
 START=$(date +%s)
 rsync -aAXvu --delete /* /Your/Destination/Directory --exclude={/dev/*,/proc/*,/sys/*,/tmp/*,/run/*,/mnt/*,/media/*,/lost+found,/var/lib/pacman/sync/*,/home/towdium/.local/share/Steam/*}
 FINISH=$(date +%s)
-echo &quot;total time: $(( ($FINISH-$START) / 60 )) minutes, $(( ($FINISH-$START) % 60 )) seconds&quot;
-
+echo &#34;total time: $(( ($FINISH-$START) / 60 )) minutes, $(( ($FINISH-$START) % 60 )) seconds&#34;
 </code></pre><h2 id="美化">美化</h2>
 <p>此处仅为gnome美化
 这里先展示一下美化后的样子
-<a href="https://farm9.staticflickr.com/8624/28454262596_69cba63038_b_d.jpg"><img src="https://farm9.staticflickr.com/8624/28454262596_69cba63038_b_d.jpg" alt="img"></a></p>
+<a href="https://farm9.staticflickr.com/8624/28454262596_69cba63038_b_d.jpg">
+        <img class="mx-auto" alt="img" src="https://farm9.staticflickr.com/8624/28454262596_69cba63038_b_d.jpg" />   
+    </a></p>
 <h3 id="gnome-插件配置">GNOME 插件配置</h3>
 <p>要修改 GNOME 的插件，你需要安装 <code>chrome-gnome-shell</code>,然后打开预装的 <code>gnome-tweak-tool</code>，在相应的面板就可以编辑了。我对于 manjaro 挑插件的口味不是特别能认同，所以我把他们的大部份插件都拿掉了，按我的口味重新换了一波，大概列在下边：</p>
 <ul>
@@ -1024,7 +1035,9 @@ echo &quot;total time: $(( ($FINISH-$START) / 60 )) minutes, $(( ($FINISH-$START
 <p>shell拓展请进入<a href="https://extensions.gnome.org/">https://extensions.gnome.org/</a>自行按照说明安装</p>
 <h3 id="screenfetch">screenfetch</h3>
 <p>screenfetch可以在终端里输出你的系统logo和状态。
-<a href="https://farm9.staticflickr.com/8332/28454264086_eb0f9d6779_o_d.jpg"><img src="https://farm9.staticflickr.com/8332/28454264086_eb0f9d6779_o_d.jpg" alt="img"></a>
+<a href="https://farm9.staticflickr.com/8332/28454264086_eb0f9d6779_o_d.jpg">
+        <img class="mx-auto" alt="img" src="https://farm9.staticflickr.com/8332/28454264086_eb0f9d6779_o_d.jpg" />   
+    </a>
 可以用pacman安装：</p>
 <ol>
 <li><code>pacman -S screenfetch</code></li>
@@ -1038,371 +1051,373 @@ echo &quot;total time: $(( ($FINISH-$START) / 60 )) minutes, $(( ($FINISH-$START
 docky的话<code>sudo pacman -S docky</code>即可，docky不支持wayland。
 dash-to-dock是gnome拓展，请在<a href="https://extensions.gnome.org/">https://extensions.gnome.org/</a>自行按照说明安装
 我这里装了docky，这是我的docky配置
-<a href="https://farm9.staticflickr.com/8652/28454261686_b7e5e1bc98_o_d.png"><img src="https://farm9.staticflickr.com/8652/28454261686_b7e5e1bc98_o_d.png" alt="img"></a></p>
+<a href="https://farm9.staticflickr.com/8652/28454261686_b7e5e1bc98_o_d.png">
+        <img class="mx-auto" alt="img" src="https://farm9.staticflickr.com/8652/28454261686_b7e5e1bc98_o_d.png" />   
+    </a></p>
 <h1 id="纯命令行安装流程">纯命令行安装流程</h1>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 26
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 27
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 28
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 29
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 30
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 31
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 32
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 33
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 34
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 35
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 36
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 37
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 38
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 39
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 40
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 41
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 42
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 43
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 44
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 45
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 46
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 47
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 48
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 49
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 50
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 51
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 52
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 53
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 54
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 55
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 56
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 57
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 58
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 59
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 60
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 61
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 62
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 63
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 64
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 65
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 66
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 67
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 68
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 69
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 70
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 71
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 72
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 73
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 74
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 75
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 76
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 77
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 78
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 79
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 80
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 81
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 82
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 83
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 84
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 85
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 86
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 87
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 88
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 89
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 90
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 91
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 92
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 93
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 94
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 95
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 96
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 97
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 98
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 99
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">102
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">103
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">104
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">105
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">106
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">107
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">108
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">109
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">110
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">111
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">112
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">113
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">114
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">115
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">116
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">117
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">118
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">119
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">120
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">121
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">122
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">123
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">124
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">125
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">126
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">127
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">128
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">129
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">130
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">131
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">132
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">133
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">134
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">135
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">136
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">137
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">138
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">139
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">140
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">141
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">142
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">143
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">144
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">145
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">146
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">147
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">148
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">149
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">150
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">151
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">152
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">153
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">154
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">155
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">156
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">157
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">158
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">159
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">160
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">161
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">162
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">163
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">164
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">165
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">166
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">167
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">168
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">169
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">170
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">171
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">172
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">173
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">174
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">175
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">176
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">177
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">178
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">179
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 55
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 56
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 57
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 58
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 59
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 60
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 61
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 62
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 63
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 64
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 65
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 66
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 67
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 68
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 69
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 70
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 71
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 72
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 73
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 74
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 75
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 76
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 77
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 78
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 79
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 80
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 81
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 82
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 83
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 84
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 85
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 86
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 87
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 88
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 89
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 90
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 91
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 92
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 93
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 94
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 95
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 96
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 97
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 98
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 99
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">102
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">103
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">104
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">105
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">106
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">107
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">108
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">109
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">110
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">111
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">112
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">113
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">114
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">115
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">116
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">117
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">118
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">119
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">120
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">121
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">122
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">123
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">124
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">125
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">126
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">127
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">128
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">129
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">130
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">131
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">132
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">133
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">134
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">135
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">136
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">137
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">138
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">139
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">140
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">141
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">142
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">143
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">144
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">145
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">146
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">147
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">148
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">149
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">150
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">151
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">152
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">153
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">154
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">155
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">156
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">157
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">158
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">159
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">160
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">161
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">162
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">163
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">164
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">165
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">166
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">167
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">168
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">169
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">170
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">171
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">172
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">173
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">174
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">175
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">176
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">177
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">178
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">179
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">格式化分区
-fdisk /dev/sda
-mkfs.ext4 /dev/sda1 <span style="color:#000;font-weight:bold">==</span>&gt;boot
-mkfs.ext4 /dev/sda2 <span style="color:#000;font-weight:bold">==</span>&gt;/
-mkfs.ext4 /dev/sda3 <span style="color:#000;font-weight:bold">==</span>&gt;tmp
-mkfs.ext4 /dev/sda6 <span style="color:#000;font-weight:bold">==</span>&gt;home
-mkswap /dev/sda5 <span style="color:#000;font-weight:bold">==</span>&gt;swap
-挂载分区
-mount /dev/sda2 /mnt
-mkdir /mnt/boot
-mkdir /mnt/tmp
-mkdir /mnt/home
-mount /dev/sda1 /mnt/boot
-mount /dev/sda3 /mnt/tmp
-mount /dev/sda6 /mnt/home
-swapon /dev/sda5
-查看网卡名字和设置网卡名字
-ip link show
-ip link <span style="color:#0086b3">set</span> enp0s3 name eth0
-iw dev <span style="color:#998;font-style:italic">#找到interface, 一般以wlp开头</span>
-wifi-menu <span style="color:#000;font-weight:bold">[</span>interface<span style="color:#000;font-weight:bold">]</span> <span style="color:#998;font-style:italic">#链接wifi</span>
-dhcpcd <span style="color:#998;font-style:italic">#有线网络,启动动态ip服务(可使用静态ip)</span>
-ping www.bing.com
-pacstrap -i /mnt base base-devel
-pacstrap /mnt grub-bios <span style="color:#998;font-style:italic">#安装启动项管理器</span>
-genfstab -U -p /mnt &gt; /mnt/etc/fstab <span style="color:#998;font-style:italic">#生产分区信息</span>
-arch-chroot /mnt /bin/bash <span style="color:#998;font-style:italic">#进入新系统</span>
-<span style="color:#0086b3">echo</span> USERNAME &gt;&gt; /etc/hostname <span style="color:#998;font-style:italic">#设置主机名</span>
-vi /etc/timezone <span style="color:#998;font-style:italic">#设置时区</span>
-Asia/Shanghai
-ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime <span style="color:#998;font-style:italic">#设置时间</span>
-vi /etc/locale.gen <span style="color:#998;font-style:italic">#去掉前面注释</span>
-en_US.UTF-8 UTF-8
-zh_CN.UTF-8 UTF-8
-zh_TW.UTF-8 UTF-8
-<span style="color:#0086b3">echo</span> <span style="color:#008080">LANG</span><span style="color:#000;font-weight:bold">=</span>en_US.UTF-8 &gt; /etc/locale.conf
-vi /etc/vconsole.conf <span style="color:#998;font-style:italic">#键盘布局方案</span>
-<span style="color:#008080">KEYMAP</span><span style="color:#000;font-weight:bold">=</span>us
-<span style="color:#008080">FONT</span><span style="color:#000;font-weight:bold">=</span>
-<span style="color:#008080">FONT_MAP</span><span style="color:#000;font-weight:bold">=</span>
-locale-gen <span style="color:#998;font-style:italic">#生产locale讯息</span>
-hwclock --systohc --utc
-vi /etc/hosts
-<span style="color:#998;font-style:italic">#&lt;ip-address&gt;   &lt;hostname.domain.org&gt;   &lt;hostname&gt;</span>
-127.0.0.1   localhost.localdomain  localhost    USERNAME
-::1     localhost.localdomain  localhost    USERNAME
-mkinitcpio -p linux <span style="color:#998;font-style:italic">#生产内核的启动镜像</span>
-pacman -S grub
-grub-install --recheck /dev/sda <span style="color:#998;font-style:italic">#安装引导程序</span>
-grub-mkconfig -o /boot/grub/grub.cfg <span style="color:#998;font-style:italic">#生产配置文件</span>
-pacman -S iw wpa_supplicant dialog <span style="color:#998;font-style:italic">#安装iw和wifi-menu</span>
-pacman -S net-tools dnsutils inetutils iproute2 <span style="color:#998;font-style:italic">#ifconfig</span>
-systemctl <span style="color:#0086b3">enable</span> dhcpcd.service <span style="color:#998;font-style:italic">#dhcpcd服务开机自启</span>
-passwd <span style="color:#998;font-style:italic">#设置root密码</span>
-<span style="color:#0086b3">exit</span>
-umount /mnt/<span style="color:#000;font-weight:bold">{</span>boot,home<span style="color:#000;font-weight:bold">}</span>
-reboot
-useradd -m -G wheel -s /bin/bash USERNAME
-passwd USERNAME
-visudo <span style="color:#998;font-style:italic">#设置wheel组的用户能使用sudo</span>
-%wheel <span style="color:#008080">ALL</span><span style="color:#000;font-weight:bold">=(</span>ALL<span style="color:#000;font-weight:bold">)</span> ALL            <span style="color:#998;font-style:italic">#取消注释</span>
-<span style="color:#0086b3">exit</span>
-sudo pacman -S vim
-vim /etc/pacman.conf 添加archlinuxcn镜像源
-<span style="color:#000;font-weight:bold">[</span>archlinuxfr<span style="color:#000;font-weight:bold">]</span>
-<span style="color:#008080">SigLevel</span> <span style="color:#000;font-weight:bold">=</span> Optional TrustAll
-<span style="color:#008080">Server</span> <span style="color:#000;font-weight:bold">=</span> http://repo.archlinux.fr/<span style="color:#008080">$arch</span>
-<span style="color:#000;font-weight:bold">[</span>archlinuxcn<span style="color:#000;font-weight:bold">]</span>
-<span style="color:#008080">SigLevel</span> <span style="color:#000;font-weight:bold">=</span> Optional TrustedOnly
-<span style="color:#008080">Server</span> <span style="color:#000;font-weight:bold">=</span> http://repo.archlinuxcn.org/<span style="color:#008080">$arch</span>
-sudo pacman -Syy
-sudo pacman -Syu
-sudo pacman -S archlinux-keyring
-sudo pacman -S yay
-sudo pacman -S bash-completion
-sudo pacman -S ntfs-3g
-pacman -S alsa-utils
-pacman -S alsa-oss
-gpasswd -a USERNAME audio 把你的普通用户账号加入到audio用户组中
-su - USERNAME 切换到普通用户
-alsamixer 70-90的音量是较合适的范围
-aplay /usr/share/sounds/alsa/Front_Center.wav 保存alsamixer设置
-<span style="color:#0086b3">exit</span>
-/usr/sbin/alsactl store 保存声音配置
-vi /etc/rc.conf
-<span style="color:#008080">DAEMONS</span><span style="color:#000;font-weight:bold">=(</span>syslog-ng network crond alsa<span style="color:#000;font-weight:bold">)</span>
-lspci | grep -e VGA -e 3D <span style="color:#998;font-style:italic">#查看显卡类型</span>
-pacman -Ss xf86-video | less <span style="color:#998;font-style:italic">#查看所有开源驱动</span>
-<span style="color:#998;font-style:italic"># 官方仓库提供的驱动包：</span>
-<span style="color:#998;font-style:italic"># # +----------------------+--------------------+--------------+</span>
-<span style="color:#998;font-style:italic"># # |                      |        开源        |     私有     |</span>
-<span style="color:#998;font-style:italic"># # +----------------------+--------------------+--------------+</span>
-<span style="color:#998;font-style:italic"># # |         通用         |   xf86-video-vesa  |              |</span>
-<span style="color:#998;font-style:italic"># # +----------------------+--------------------+--------------+</span>
-<span style="color:#998;font-style:italic"># # |         Intel        |  xf86-video-intel  |              |</span>
-<span style="color:#998;font-style:italic"># # +--------+-------------+--------------------+--------------+</span>
-<span style="color:#998;font-style:italic"># # |        | GeForce 7+  |                    |    nvidia    |</span>
-<span style="color:#998;font-style:italic"># # | nVidia +-------------+ xf86-video-nouveau +--------------+</span>
-<span style="color:#998;font-style:italic"># # |        | GeForce 6/7 |                    | nvidia-304xx |</span>
-<span style="color:#998;font-style:italic"># # +--------+-------------+--------------------+--------------+</span>
-<span style="color:#998;font-style:italic"># # |        AMD/ATI       |   xf86-video-ati   |              |</span>
-<span style="color:#998;font-style:italic"># # +----------------------+--------------------+--------------+</span>
-pacman -S xorg X11
-pacman -S xorg-server xorg-server-utils 安装 Xorg Server
-pacman -S xf86-input-synaptics 可选，触摸板支持
-pacman -S wqy-zenhei 开源的文泉驿正黑矢量字体
-pacman -S ttf-dejavu wqy-microhei 可选，微米黑字体
-pacman -S xf86-input-keyboard 图形界面的键盘驱动
-pacman -S xf86-input-mouse 鼠标的驱动
-pacman -S xorg-xinit
-pacman -S gnome gnome-extra gnome-packagekit gnome-software
-pacman -S gdm 安装GDM作为登陆器
-sudo systemctl <span style="color:#0086b3">enable</span> gdm <span style="color:#998;font-style:italic">#显示管理器开机自启</span>
-sudo systemctl <span style="color:#0086b3">enable</span> gdm.service
-sudo systemctl <span style="color:#0086b3">enable</span> NetworkManager
-reboot
-sudo pacman -S adobe-source-han-sans-cn-fonts <span style="color:#998;font-style:italic">#安装中文字体</span>
-yay -Rsc epiphany <span style="color:#998;font-style:italic">#删除epiphany浏览器</span>
-yay -S google-chrome
-pacman -S firefox firefox-adblock-plus flashplugin
-yay -S firefox-i18n-zh-cn <span style="color:#998;font-style:italic">#中文, 可选</span>
-yay -S gedit gedit-plugins
-yay -S vim
-yay -S emacs
-sudo pacman -Rncd ibus
-gsettings <span style="color:#0086b3">set</span> org.gnome.settings-daemon.plugins.keyboard active <span style="color:#0086b3">false</span> 禁用iBus
-sudo pacman -S fcitx fcitx-configtool fcitx-im fcitx-qt5
-vim ~/.xprofile
-<span style="color:#0086b3">export</span> <span style="color:#008080">GTK_IM_MODULE</span><span style="color:#000;font-weight:bold">=</span>fcitx
-<span style="color:#0086b3">export</span> <span style="color:#008080">QT_IM_MODULE</span><span style="color:#000;font-weight:bold">=</span>fcitx
-<span style="color:#0086b3">export</span> <span style="color:#008080">XMODIFIERS</span><span style="color:#000;font-weight:bold">=</span>@im<span style="color:#000;font-weight:bold">=</span>fcitx
-gsettings <span style="color:#0086b3">set</span> org.gnome.settings-daemon.plugins.xsettings overrides <span style="color:#d14">\
-</span><span style="color:#d14"></span><span style="color:#d14">&#34;{&#39;Gtk/IMModule&#39;:&lt;&#39;fcitx&#39;&gt;}&#34;</span>
-yay -S gnome-shell-extension-kimpanel-git
-fcitx-configtool 添加输入法
-pacman -Ssq fcitx pinyin 拼音
-yay -S fcitx-sogoupinyin
-pacman -S tar xarchiver
-pacman -S rhythmbox
-pacman -S gimp inkscape
-yay -S uget aria2 <span style="color:#998;font-style:italic">#下载工具</span>
-yay -S wget
-yay -S file-roller p7zip
-yay -S unrar
-yay -S screenfetch
-sudo yay -S virtualbox
-sudo pacman -S virtualbox-guest-utils Virtualbox
-sudo pacman -S virtualbox-modules
-sudo modprobe vboxdrv <span style="color:#998;font-style:italic">#加载内核模块</span>
-pacman -S gparted 分区管理工具
-pacman -S scrot
-pacman -S skype ??
-pacman -S mplayer
-pacman -S codecs gstreamer0.10-bad gstreamer0.10-ugly
-pacman -S gstreamer0.10-ffmpeg
-pacman -S smplayer
-pacman -S vlc
-pacman -S deluge
-pacman -S liferea RSS离线阅读软件
-pacman -S thunderbird 电子邮件客户端
-pacman -S lftp
-pacman -S filezilla
-pacman -S k3b
-gpasswd -a danmo98 optical
-pacman -S archey3
-pacman -S alsi
-pacman -S evince
-pacman -S kchmviewer CHM文档查看器
-pacman -S file-roller
-pacman -S unrar unzip
-pacman -S lilyterm
-pacman -S cowsay
-pacman -S gnome-packagekit
-pacman -S ibus
-pacman -S ibus-rime ibus-libpinyin
-pacman -S ibus-qt
-qtconfig-qt4 将ibus设置为默认输入法
-dconf update 更新dconf配置
-ibus-daemon -rdx 重启ibus
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>格式化分区
+</span></span><span style="display:flex;"><span>fdisk /dev/sda
+</span></span><span style="display:flex;"><span>mkfs.ext4 /dev/sda1 <span style="color:#000;font-weight:bold">==</span>&gt;boot
+</span></span><span style="display:flex;"><span>mkfs.ext4 /dev/sda2 <span style="color:#000;font-weight:bold">==</span>&gt;/
+</span></span><span style="display:flex;"><span>mkfs.ext4 /dev/sda3 <span style="color:#000;font-weight:bold">==</span>&gt;tmp
+</span></span><span style="display:flex;"><span>mkfs.ext4 /dev/sda6 <span style="color:#000;font-weight:bold">==</span>&gt;home
+</span></span><span style="display:flex;"><span>mkswap /dev/sda5 <span style="color:#000;font-weight:bold">==</span>&gt;swap
+</span></span><span style="display:flex;"><span>挂载分区
+</span></span><span style="display:flex;"><span>mount /dev/sda2 /mnt
+</span></span><span style="display:flex;"><span>mkdir /mnt/boot
+</span></span><span style="display:flex;"><span>mkdir /mnt/tmp
+</span></span><span style="display:flex;"><span>mkdir /mnt/home
+</span></span><span style="display:flex;"><span>mount /dev/sda1 /mnt/boot
+</span></span><span style="display:flex;"><span>mount /dev/sda3 /mnt/tmp
+</span></span><span style="display:flex;"><span>mount /dev/sda6 /mnt/home
+</span></span><span style="display:flex;"><span>swapon /dev/sda5
+</span></span><span style="display:flex;"><span>查看网卡名字和设置网卡名字
+</span></span><span style="display:flex;"><span>ip link show
+</span></span><span style="display:flex;"><span>ip link <span style="color:#0086b3">set</span> enp0s3 name eth0
+</span></span><span style="display:flex;"><span>iw dev <span style="color:#998;font-style:italic">#找到interface, 一般以wlp开头</span>
+</span></span><span style="display:flex;"><span>wifi-menu <span style="color:#000;font-weight:bold">[</span>interface<span style="color:#000;font-weight:bold">]</span> <span style="color:#998;font-style:italic">#链接wifi</span>
+</span></span><span style="display:flex;"><span>dhcpcd <span style="color:#998;font-style:italic">#有线网络,启动动态ip服务(可使用静态ip)</span>
+</span></span><span style="display:flex;"><span>ping www.bing.com
+</span></span><span style="display:flex;"><span>pacstrap -i /mnt base base-devel
+</span></span><span style="display:flex;"><span>pacstrap /mnt grub-bios <span style="color:#998;font-style:italic">#安装启动项管理器</span>
+</span></span><span style="display:flex;"><span>genfstab -U -p /mnt &gt; /mnt/etc/fstab <span style="color:#998;font-style:italic">#生产分区信息</span>
+</span></span><span style="display:flex;"><span>arch-chroot /mnt /bin/bash <span style="color:#998;font-style:italic">#进入新系统</span>
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">echo</span> USERNAME &gt;&gt; /etc/hostname <span style="color:#998;font-style:italic">#设置主机名</span>
+</span></span><span style="display:flex;"><span>vi /etc/timezone <span style="color:#998;font-style:italic">#设置时区</span>
+</span></span><span style="display:flex;"><span>Asia/Shanghai
+</span></span><span style="display:flex;"><span>ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime <span style="color:#998;font-style:italic">#设置时间</span>
+</span></span><span style="display:flex;"><span>vi /etc/locale.gen <span style="color:#998;font-style:italic">#去掉前面注释</span>
+</span></span><span style="display:flex;"><span>en_US.UTF-8 UTF-8
+</span></span><span style="display:flex;"><span>zh_CN.UTF-8 UTF-8
+</span></span><span style="display:flex;"><span>zh_TW.UTF-8 UTF-8
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">echo</span> <span style="color:#008080">LANG</span><span style="color:#000;font-weight:bold">=</span>en_US.UTF-8 &gt; /etc/locale.conf
+</span></span><span style="display:flex;"><span>vi /etc/vconsole.conf <span style="color:#998;font-style:italic">#键盘布局方案</span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">KEYMAP</span><span style="color:#000;font-weight:bold">=</span>us
+</span></span><span style="display:flex;"><span><span style="color:#008080">FONT</span><span style="color:#000;font-weight:bold">=</span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">FONT_MAP</span><span style="color:#000;font-weight:bold">=</span>
+</span></span><span style="display:flex;"><span>locale-gen <span style="color:#998;font-style:italic">#生产locale讯息</span>
+</span></span><span style="display:flex;"><span>hwclock --systohc --utc
+</span></span><span style="display:flex;"><span>vi /etc/hosts
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">#&lt;ip-address&gt;   &lt;hostname.domain.org&gt;   &lt;hostname&gt;</span>
+</span></span><span style="display:flex;"><span>127.0.0.1   localhost.localdomain  localhost    USERNAME
+</span></span><span style="display:flex;"><span>::1     localhost.localdomain  localhost    USERNAME
+</span></span><span style="display:flex;"><span>mkinitcpio -p linux <span style="color:#998;font-style:italic">#生产内核的启动镜像</span>
+</span></span><span style="display:flex;"><span>pacman -S grub
+</span></span><span style="display:flex;"><span>grub-install --recheck /dev/sda <span style="color:#998;font-style:italic">#安装引导程序</span>
+</span></span><span style="display:flex;"><span>grub-mkconfig -o /boot/grub/grub.cfg <span style="color:#998;font-style:italic">#生产配置文件</span>
+</span></span><span style="display:flex;"><span>pacman -S iw wpa_supplicant dialog <span style="color:#998;font-style:italic">#安装iw和wifi-menu</span>
+</span></span><span style="display:flex;"><span>pacman -S net-tools dnsutils inetutils iproute2 <span style="color:#998;font-style:italic">#ifconfig</span>
+</span></span><span style="display:flex;"><span>systemctl <span style="color:#0086b3">enable</span> dhcpcd.service <span style="color:#998;font-style:italic">#dhcpcd服务开机自启</span>
+</span></span><span style="display:flex;"><span>passwd <span style="color:#998;font-style:italic">#设置root密码</span>
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">exit</span>
+</span></span><span style="display:flex;"><span>umount /mnt/<span style="color:#000;font-weight:bold">{</span>boot,home<span style="color:#000;font-weight:bold">}</span>
+</span></span><span style="display:flex;"><span>reboot
+</span></span><span style="display:flex;"><span>useradd -m -G wheel -s /bin/bash USERNAME
+</span></span><span style="display:flex;"><span>passwd USERNAME
+</span></span><span style="display:flex;"><span>visudo <span style="color:#998;font-style:italic">#设置wheel组的用户能使用sudo</span>
+</span></span><span style="display:flex;"><span>%wheel <span style="color:#008080">ALL</span><span style="color:#000;font-weight:bold">=(</span>ALL<span style="color:#000;font-weight:bold">)</span> ALL            <span style="color:#998;font-style:italic">#取消注释</span>
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">exit</span>
+</span></span><span style="display:flex;"><span>sudo pacman -S vim
+</span></span><span style="display:flex;"><span>vim /etc/pacman.conf 添加archlinuxcn镜像源
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span>archlinuxfr<span style="color:#000;font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">SigLevel</span> <span style="color:#000;font-weight:bold">=</span> Optional TrustAll
+</span></span><span style="display:flex;"><span><span style="color:#008080">Server</span> <span style="color:#000;font-weight:bold">=</span> http://repo.archlinux.fr/<span style="color:#008080">$arch</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span>archlinuxcn<span style="color:#000;font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">SigLevel</span> <span style="color:#000;font-weight:bold">=</span> Optional TrustedOnly
+</span></span><span style="display:flex;"><span><span style="color:#008080">Server</span> <span style="color:#000;font-weight:bold">=</span> http://repo.archlinuxcn.org/<span style="color:#008080">$arch</span>
+</span></span><span style="display:flex;"><span>sudo pacman -Syy
+</span></span><span style="display:flex;"><span>sudo pacman -Syu
+</span></span><span style="display:flex;"><span>sudo pacman -S archlinux-keyring
+</span></span><span style="display:flex;"><span>sudo pacman -S yay
+</span></span><span style="display:flex;"><span>sudo pacman -S bash-completion
+</span></span><span style="display:flex;"><span>sudo pacman -S ntfs-3g
+</span></span><span style="display:flex;"><span>pacman -S alsa-utils
+</span></span><span style="display:flex;"><span>pacman -S alsa-oss
+</span></span><span style="display:flex;"><span>gpasswd -a USERNAME audio 把你的普通用户账号加入到audio用户组中
+</span></span><span style="display:flex;"><span>su - USERNAME 切换到普通用户
+</span></span><span style="display:flex;"><span>alsamixer 70-90的音量是较合适的范围
+</span></span><span style="display:flex;"><span>aplay /usr/share/sounds/alsa/Front_Center.wav 保存alsamixer设置
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">exit</span>
+</span></span><span style="display:flex;"><span>/usr/sbin/alsactl store 保存声音配置
+</span></span><span style="display:flex;"><span>vi /etc/rc.conf
+</span></span><span style="display:flex;"><span><span style="color:#008080">DAEMONS</span><span style="color:#000;font-weight:bold">=(</span>syslog-ng network crond alsa<span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>lspci | grep -e VGA -e 3D <span style="color:#998;font-style:italic">#查看显卡类型</span>
+</span></span><span style="display:flex;"><span>pacman -Ss xf86-video | less <span style="color:#998;font-style:italic">#查看所有开源驱动</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># 官方仓库提供的驱动包：</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># # +----------------------+--------------------+--------------+</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># # |                      |        开源        |     私有     |</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># # +----------------------+--------------------+--------------+</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># # |         通用         |   xf86-video-vesa  |              |</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># # +----------------------+--------------------+--------------+</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># # |         Intel        |  xf86-video-intel  |              |</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># # +--------+-------------+--------------------+--------------+</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># # |        | GeForce 7+  |                    |    nvidia    |</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># # | nVidia +-------------+ xf86-video-nouveau +--------------+</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># # |        | GeForce 6/7 |                    | nvidia-304xx |</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># # +--------+-------------+--------------------+--------------+</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># # |        AMD/ATI       |   xf86-video-ati   |              |</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># # +----------------------+--------------------+--------------+</span>
+</span></span><span style="display:flex;"><span>pacman -S xorg X11
+</span></span><span style="display:flex;"><span>pacman -S xorg-server xorg-server-utils 安装 Xorg Server
+</span></span><span style="display:flex;"><span>pacman -S xf86-input-synaptics 可选，触摸板支持
+</span></span><span style="display:flex;"><span>pacman -S wqy-zenhei 开源的文泉驿正黑矢量字体
+</span></span><span style="display:flex;"><span>pacman -S ttf-dejavu wqy-microhei 可选，微米黑字体
+</span></span><span style="display:flex;"><span>pacman -S xf86-input-keyboard 图形界面的键盘驱动
+</span></span><span style="display:flex;"><span>pacman -S xf86-input-mouse 鼠标的驱动
+</span></span><span style="display:flex;"><span>pacman -S xorg-xinit
+</span></span><span style="display:flex;"><span>pacman -S gnome gnome-extra gnome-packagekit gnome-software
+</span></span><span style="display:flex;"><span>pacman -S gdm 安装GDM作为登陆器
+</span></span><span style="display:flex;"><span>sudo systemctl <span style="color:#0086b3">enable</span> gdm <span style="color:#998;font-style:italic">#显示管理器开机自启</span>
+</span></span><span style="display:flex;"><span>sudo systemctl <span style="color:#0086b3">enable</span> gdm.service
+</span></span><span style="display:flex;"><span>sudo systemctl <span style="color:#0086b3">enable</span> NetworkManager
+</span></span><span style="display:flex;"><span>reboot
+</span></span><span style="display:flex;"><span>sudo pacman -S adobe-source-han-sans-cn-fonts <span style="color:#998;font-style:italic">#安装中文字体</span>
+</span></span><span style="display:flex;"><span>yay -Rsc epiphany <span style="color:#998;font-style:italic">#删除epiphany浏览器</span>
+</span></span><span style="display:flex;"><span>yay -S google-chrome
+</span></span><span style="display:flex;"><span>pacman -S firefox firefox-adblock-plus flashplugin
+</span></span><span style="display:flex;"><span>yay -S firefox-i18n-zh-cn <span style="color:#998;font-style:italic">#中文, 可选</span>
+</span></span><span style="display:flex;"><span>yay -S gedit gedit-plugins
+</span></span><span style="display:flex;"><span>yay -S vim
+</span></span><span style="display:flex;"><span>yay -S emacs
+</span></span><span style="display:flex;"><span>sudo pacman -Rncd ibus
+</span></span><span style="display:flex;"><span>gsettings <span style="color:#0086b3">set</span> org.gnome.settings-daemon.plugins.keyboard active <span style="color:#0086b3">false</span> 禁用iBus
+</span></span><span style="display:flex;"><span>sudo pacman -S fcitx fcitx-configtool fcitx-im fcitx-qt5
+</span></span><span style="display:flex;"><span>vim ~/.xprofile
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">export</span> <span style="color:#008080">GTK_IM_MODULE</span><span style="color:#000;font-weight:bold">=</span>fcitx
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">export</span> <span style="color:#008080">QT_IM_MODULE</span><span style="color:#000;font-weight:bold">=</span>fcitx
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">export</span> <span style="color:#008080">XMODIFIERS</span><span style="color:#000;font-weight:bold">=</span>@im<span style="color:#000;font-weight:bold">=</span>fcitx
+</span></span><span style="display:flex;"><span>gsettings <span style="color:#0086b3">set</span> org.gnome.settings-daemon.plugins.xsettings overrides <span style="color:#d14">\
+</span></span></span><span style="display:flex;"><span><span style="color:#d14"></span><span style="color:#d14">&#34;{&#39;Gtk/IMModule&#39;:&lt;&#39;fcitx&#39;&gt;}&#34;</span>
+</span></span><span style="display:flex;"><span>yay -S gnome-shell-extension-kimpanel-git
+</span></span><span style="display:flex;"><span>fcitx-configtool 添加输入法
+</span></span><span style="display:flex;"><span>pacman -Ssq fcitx pinyin 拼音
+</span></span><span style="display:flex;"><span>yay -S fcitx-sogoupinyin
+</span></span><span style="display:flex;"><span>pacman -S tar xarchiver
+</span></span><span style="display:flex;"><span>pacman -S rhythmbox
+</span></span><span style="display:flex;"><span>pacman -S gimp inkscape
+</span></span><span style="display:flex;"><span>yay -S uget aria2 <span style="color:#998;font-style:italic">#下载工具</span>
+</span></span><span style="display:flex;"><span>yay -S wget
+</span></span><span style="display:flex;"><span>yay -S file-roller p7zip
+</span></span><span style="display:flex;"><span>yay -S unrar
+</span></span><span style="display:flex;"><span>yay -S screenfetch
+</span></span><span style="display:flex;"><span>sudo yay -S virtualbox
+</span></span><span style="display:flex;"><span>sudo pacman -S virtualbox-guest-utils Virtualbox
+</span></span><span style="display:flex;"><span>sudo pacman -S virtualbox-modules
+</span></span><span style="display:flex;"><span>sudo modprobe vboxdrv <span style="color:#998;font-style:italic">#加载内核模块</span>
+</span></span><span style="display:flex;"><span>pacman -S gparted 分区管理工具
+</span></span><span style="display:flex;"><span>pacman -S scrot
+</span></span><span style="display:flex;"><span>pacman -S skype ??
+</span></span><span style="display:flex;"><span>pacman -S mplayer
+</span></span><span style="display:flex;"><span>pacman -S codecs gstreamer0.10-bad gstreamer0.10-ugly
+</span></span><span style="display:flex;"><span>pacman -S gstreamer0.10-ffmpeg
+</span></span><span style="display:flex;"><span>pacman -S smplayer
+</span></span><span style="display:flex;"><span>pacman -S vlc
+</span></span><span style="display:flex;"><span>pacman -S deluge
+</span></span><span style="display:flex;"><span>pacman -S liferea RSS离线阅读软件
+</span></span><span style="display:flex;"><span>pacman -S thunderbird 电子邮件客户端
+</span></span><span style="display:flex;"><span>pacman -S lftp
+</span></span><span style="display:flex;"><span>pacman -S filezilla
+</span></span><span style="display:flex;"><span>pacman -S k3b
+</span></span><span style="display:flex;"><span>gpasswd -a danmo98 optical
+</span></span><span style="display:flex;"><span>pacman -S archey3
+</span></span><span style="display:flex;"><span>pacman -S alsi
+</span></span><span style="display:flex;"><span>pacman -S evince
+</span></span><span style="display:flex;"><span>pacman -S kchmviewer CHM文档查看器
+</span></span><span style="display:flex;"><span>pacman -S file-roller
+</span></span><span style="display:flex;"><span>pacman -S unrar unzip
+</span></span><span style="display:flex;"><span>pacman -S lilyterm
+</span></span><span style="display:flex;"><span>pacman -S cowsay
+</span></span><span style="display:flex;"><span>pacman -S gnome-packagekit
+</span></span><span style="display:flex;"><span>pacman -S ibus
+</span></span><span style="display:flex;"><span>pacman -S ibus-rime ibus-libpinyin
+</span></span><span style="display:flex;"><span>pacman -S ibus-qt
+</span></span><span style="display:flex;"><span>qtconfig-qt4 将ibus设置为默认输入法
+</span></span><span style="display:flex;"><span>dconf update 更新dconf配置
+</span></span><span style="display:flex;"><span>ibus-daemon -rdx 重启ibus
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参考文章">参考文章</h2>
 <blockquote>
@@ -1449,20 +1464,39 @@ ibus-daemon -rdx 重启ibus
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/archlinux'>archlinux</a></li>
+                <li><a href='/tags/archlinux'>archlinux</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -1470,13 +1504,47 @@ ibus-daemon -rdx 重启ibus
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -1544,28 +1612,12 @@ ibus-daemon -rdx 重启ibus
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -1604,7 +1656,7 @@ ibus-daemon -rdx 重启ibus
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -1684,7 +1736,7 @@ ibus-daemon -rdx 重启ibus
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -1701,51 +1753,6 @@ ibus-daemon -rdx 重启ibus
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

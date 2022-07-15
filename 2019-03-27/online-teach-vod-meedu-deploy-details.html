@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>在线教育点播Meedu部署细节 | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="在线教育点播Meedu部署细节 - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2019-03-27/online-teach-vod-meedu-deploy-details.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -157,8 +160,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -177,6 +180,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -190,7 +197,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4'>网络运维</a></span>
+            <span class="meta-category"><a href='/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4'>网络运维</a></span>
             
         </div>
         
@@ -211,9 +218,9 @@
             <h2 id="介绍">介绍</h2>
 <p>随着知识付费领域的兴起，尤其是知识付费领域的龙头“得到”的成功，知识付费领域俨然成为了新的风口。经过这几年的发展，知识付费领域的基础建设有了很大的进步，市场上面很多知识付费的平台可以在短短几分钟之内搭建一套属于自己的知识付费应用。但是，这并不是我想要的！可能是处于程序员的角度出发，我更在乎的是这套应用是我自己可以完全控制的！所以 <em>MeEdu</em> 诞生了。<em>MeEdu</em> 寄托了我对当前知识付费领域的期望。我相信未来的每位身负技能的人都可以通过 <em>MeEdu</em> 来构建自己的知识付费应用，通过 <em>MeEdu</em> 将自己的知识进行变现。适用于企业内网培训多媒体建立，培训机构线下录课点播。</p>
 <h2 id="安装">安装</h2>
-<p>**Github地址：**<a href="https://github.com/Qsnh/meedu">https://github.com/Qsnh/meedu</a></p>
-<p>**环境要求：**<code>PHP &gt;= 7.2</code>、<code>MySql &gt;= 5.6</code>、<code>Composer</code>。</p>
-<p>**PHP扩展：**<code>Zip</code>、<code>OpenSSL</code>、<code>PDO</code>、<code>Mbstring</code>、<code>Tokenizer</code>、<code>XML</code>、<code>Fileinfo</code>。</p>
+<p><strong>Github地址：</strong><a href="https://github.com/Qsnh/meedu">https://github.com/Qsnh/meedu</a></p>
+<p><strong>环境要求：</strong><code>PHP &gt;= 7.2</code>、<code>MySql &gt;= 5.6</code>、<code>Composer</code>。</p>
+<p><strong>PHP扩展：</strong><code>Zip</code>、<code>OpenSSL</code>、<code>PDO</code>、<code>Mbstring</code>、<code>Tokenizer</code>、<code>XML</code>、<code>Fileinfo</code>。</p>
 <h2 id="常见问题">常见问题</h2>
 <ul>
 <li><a href="https://www.bilibili.com/video/av36024146/">MeEdu 作者录制的简单安装视频教程</a></li>
@@ -221,70 +228,70 @@
 <li><a href="https://www.bilibili.com/video/av45755754/">MeEdu使用阿里云视频加密服务保障视频安全性(手把手教程)</a></li>
 </ul>
 <h2 id="1安装宝塔"><strong>1、安装宝塔</strong></h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic">#CentOS系统</span>
-wget -O install.sh http://download.bt.cn/install/install_6.0.sh <span style="color:#000;font-weight:bold">&amp;&amp;</span> sh install.sh
-<span style="color:#998;font-style:italic">#Ubuntu系统</span>
-wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh <span style="color:#000;font-weight:bold">&amp;&amp;</span> sudo bash install.sh
-<span style="color:#998;font-style:italic">#Debian系统</span>
-wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh <span style="color:#000;font-weight:bold">&amp;&amp;</span> bash install.sh
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#998;font-style:italic">#CentOS系统</span>
+</span></span><span style="display:flex;"><span>wget -O install.sh http://download.bt.cn/install/install_6.0.sh <span style="color:#000;font-weight:bold">&amp;&amp;</span> sh install.sh
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">#Ubuntu系统</span>
+</span></span><span style="display:flex;"><span>wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh <span style="color:#000;font-weight:bold">&amp;&amp;</span> sudo bash install.sh
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">#Debian系统</span>
+</span></span><span style="display:flex;"><span>wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh <span style="color:#000;font-weight:bold">&amp;&amp;</span> bash install.sh
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>安装完成后，进入面板，点击左侧软件管理，然后安装<code>PHP 7.2+</code>(这里先建议使用<code>PHP 7.2</code>)、<code>Nginx</code>、<code>Mysql 5.6+</code>。</p>
 <p>接下来再找到左侧软件管理-<code>PHP</code>管理-设置-安装<code>Fileinfo</code>扩展。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic">#如果Fileinfo拓展安装失败，就是内存太小，我们可以添加swap，不适用于ovz</span>
-1、脚本添加，脚本地址：https://www.moerats.com/archives/722/。
-2、面板添加，找到左侧软件管理-系统工具-安装Linux工具箱，然后进入工具箱添加。
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#998;font-style:italic">#如果Fileinfo拓展安装失败，就是内存太小，我们可以添加swap，不适用于ovz</span>
+</span></span><span style="display:flex;"><span>1、脚本添加，脚本地址：https://www.moerats.com/archives/722/。
+</span></span><span style="display:flex;"><span>2、面板添加，找到左侧软件管理-系统工具-安装Linux工具箱，然后进入工具箱添加。
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后同样的在<code>PHP</code>设置里找到禁用函数，删除<code>proc_open</code>和<code>symlink</code>，<code>exec</code>,<code>shell_exec</code>,<code>popen</code>函数，再重启<code>PHP</code>。</p>
 <h2 id="2安装zip扩展"><strong>2、安装Zip扩展</strong></h2>
-<pre><code>提示：安装PHP 7.2的可以跳过该步骤。
+<pre tabindex="0"><code>提示：安装PHP 7.2的可以跳过该步骤。
 </code></pre><p>一般安装宝塔的时候，<code>PHP</code>一些常用的扩展都会顺便给你装上，但目前<code>7.3</code>版本的貌似还没<code>zip</code>扩展，以后说不准，所以在安装之前可以使用<code>php -m</code>检查下扩展，然后再确定要不要安装。</p>
 <p>这里就选择编译安装该扩展。编译之前需要先安装<code>libzip</code>，考虑到一些版本过低的问题，这里都采用编译安装或升级。</p>
 <p>由于这里是编译最新版的<code>libzip</code>，需要<code>CMake 3.0.2+</code>，可以查看下版本，使用命令：</p>
-<pre><code>cmake --version
+<pre tabindex="0"><code>cmake --version
 </code></pre><p>一般情况下是低于这个版本的，这里我们开始升级<code>CMake</code>版本，使用命令：</p>
-<pre><code>#CMake下载地址：https://cmake.org/files
+<pre tabindex="0"><code>#CMake下载地址：https://cmake.org/files
 cd ~
 wget https://cmake.org/files/v3.13/cmake-3.13.4.tar.gz
 tar -zxvf cmake-3.13.4.tar.gz &amp;&amp; cd cmake-3.13.4
 ./configure
 make &amp;&amp; make install
 </code></pre><p>开始安装<code>libzip</code>，使用命令：</p>
-<pre><code>#libzip下载地址：https://libzip.org/download/
+<pre tabindex="0"><code>#libzip下载地址：https://libzip.org/download/
 cd ~
 wget https://libzip.org/download/libzip-1.5.1.tar.gz
 tar -zxvf libzip-1.5.1.tar.gz &amp;&amp; cd libzip-1.5.1
 mkdir build &amp;&amp; cd build &amp;&amp; cmake .. 
 make &amp;&amp; make install
 </code></pre><p>再安装<code>zip</code>，使用命令：</p>
-<pre><code>#zip下载地址：http://pecl.php.net/package/zip，这里以最新版1.15.4为准
+<pre tabindex="0"><code>#zip下载地址：http://pecl.php.net/package/zip，这里以最新版1.15.4为准
 cd ~
 wget http://pecl.php.net/get/zip-1.15.4.tgz
 tar -zxvf zip-1.15.4.tgz &amp;&amp; cd zip-1.15.4
 phpize
 ./configure --with-php-config=/www/server/php/73/bin/php-config
 make &amp;&amp; make install
-echo &quot;extension=zip.so;&quot; &gt;&gt; /www/server/php/73/etc/php.ini
+echo &#34;extension=zip.so;&#34; &gt;&gt; /www/server/php/73/etc/php.ini
 </code></pre><h2 id="3安装composer"><strong>3、安装Composer</strong></h2>
-<pre><code>一般宝塔安装完的自带composer 可以执行composer -V 看版本1.5不是最新版
+<pre tabindex="0"><code>一般宝塔安装完的自带composer 可以执行composer -V 看版本1.5不是最新版
 /usr/bin/composer self-update #更新版本
 #自动安装脚本
 curl -sS https://getcomposer.org/installer | php
@@ -292,7 +299,7 @@ mv composer.phar /usr/local/bin/composer
 </code></pre><h2 id="4安装程序"><strong>4、安装程序</strong></h2>
 <p>我们先点击左侧网站，添加域名；然后再点击左侧数据库-添加数据库。</p>
 <p>运行命令：</p>
-<pre><code>#进入网站根目录，将路径修改成自己的再运行
+<pre tabindex="0"><code>#进入网站根目录，将路径修改成自己的再运行
 cd /www/wwwroot/meedu
 #安装meedu
 composer create-project qsnh/meedu=dev-master
@@ -302,7 +309,7 @@ cp -rf meedu/. .
 #编辑环境变量
 nano .env
 </code></pre><p>修改相关信息：</p>
-<pre><code>#数据库信息
+<pre tabindex="0"><code>#数据库信息
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
@@ -318,7 +325,7 @@ APP_DEBUG=true(如果安装没问题，建议改为false)
 APP_LOG_LEVEL=debug
 APP_URL=http://localhost(这里修改你自己的域名地址)
 </code></pre><p>接着再使用命令：</p>
-<pre><code>#删除public目录下的.user.ini
+<pre tabindex="0"><code>#删除public目录下的.user.ini
 #创建上传目录软链接
 php artisan storage:link
 #设置storage目录权限为777
@@ -339,22 +346,22 @@ php artisan install backend_menu
 php artisan install:lock
 </code></pre><h2 id="5设置伪静态"><strong>5、设置伪静态</strong></h2>
 <p>点击域名设置-网站目录，运行目录选择<code>public</code>，并把防跨站的勾去掉并重启<code>PHP</code>。然后点击伪静态，输入以下代码：</p>
-<pre><code>location / {  
+<pre tabindex="0"><code>location / {  
     try_files $uri $uri/ /index.php$is_args$query_string;  
 }
 </code></pre><p>然后就可以正常访问网站了，后台地址<code>/backend/login</code>。</p>
 <h2 id="6设置定时任务"><strong>6、设置定时任务</strong></h2>
 <p>点击宝塔面板左侧计划任务，设置为每<code>1</code>分钟执行一次，执行内容为：</p>
-<pre><code>#修改为自己的域名再设置
+<pre tabindex="0"><code>#修改为自己的域名再设置
 php /www/wwwroot/meedu/artisan schedule:run &gt;&gt; /dev/null 2&gt;&amp;1
 </code></pre><h2 id="7配置队列监听器"><strong>7、配置队列监听器</strong></h2>
 <p><strong>看.env如果是sync就不需要配监听器</strong></p>
 <p>安装<code>Supervisor</code>：</p>
-<pre><code>pip install supervisor
+<pre tabindex="0"><code>pip install supervisor
 wget -N -P /etc/ --no-check-certificate  https://coding.net/u/cvc/p/supervisor/git/raw/master/supervisord.conf
 </code></pre><p>新增配置代码：</p>
-<pre><code>#以下为一整条命令，先修改为自己的域名，再一起复制到SSH运行
-echo &quot;[program:meedu]
+<pre tabindex="0"><code>#以下为一整条命令，先修改为自己的域名，再一起复制到SSH运行
+echo &#34;[program:meedu]
 process_name=%(program_name)s_%(process_num)02d
 command=php /www/wwwroot/meedu/artisan queue:work --sleep=3 --tries=3
 autostart=true
@@ -362,12 +369,12 @@ autorestart=true
 user=root
 numprocs=4
 redirect_stderr=true
-stdout_logfile=/www/wwwroot/meedu/storage/logs/supervisor.log&quot; &gt;&gt; /etc/supervisord.conf
+stdout_logfile=/www/wwwroot/meedu/storage/logs/supervisor.log&#34; &gt;&gt; /etc/supervisord.conf
 </code></pre><p>启动服务：</p>
-<pre><code>/usr/bin/supervisord -c /etc/supervisord.conf
+<pre tabindex="0"><code>/usr/bin/supervisord -c /etc/supervisord.conf
 </code></pre><p>如果配置正确，你会看到<code>supervisor</code>的输出日志，日志路径就是上面配置的<code>stdout_logfile</code>的值。</p>
 <p>再设置<code>supervisor</code>开机自启，如果你是<code>Debian 9</code>、<code>Ubuntu 17+</code>，需要先使用命令：</p>
-<pre><code>1、添加rc-local.service，以下为一整条命令，一起复制运行
+<pre tabindex="0"><code>1、添加rc-local.service，以下为一整条命令，一起复制运行
 cat &gt; /etc/systemd/system/rc-local.service &lt;&lt;EOF
 [Unit]
 Description=/etc/rc.local
@@ -392,7 +399,7 @@ cat &gt; /etc/rc.local &lt;&lt;EOF
 # rc.local
 #
 # This script is executed at the end of each multiuser runlevel.
-# Make sure that the script will &quot;exit 0&quot; on success or any other
+# Make sure that the script will &#34;exit 0&#34; on success or any other
 # value on error.
 #
 # In order to enable or disable this script just change the execution
@@ -406,16 +413,16 @@ chmod +x /etc/rc.local
 systemctl start rc-local
 systemctl enable rc-local
 </code></pre><p>再将启动命令加入<code>rc.local</code>文件，使用命令：</p>
-<pre><code>#CentOS 7系统
-echo &quot;/usr/bin/supervisord -c /etc/supervisord.conf&quot; &gt;&gt; /etc/rc.d/rc.local
+<pre tabindex="0"><code>#CentOS 7系统
+echo &#34;/usr/bin/supervisord -c /etc/supervisord.conf&#34; &gt;&gt; /etc/rc.d/rc.local
 chmod +x /etc/rc.d/rc.local
 
 #CentOS 6、Debian、Ubuntu系统
-echo &quot;/usr/bin/supervisord -c /etc/supervisord.conf&quot; &gt;&gt; /etc/rc.local
+echo &#34;/usr/bin/supervisord -c /etc/supervisord.conf&#34; &gt;&gt; /etc/rc.local
 chmod +x /etc/rc.local
 </code></pre><h2 id="8开启微信小程序">8、开启微信小程序</h2>
 <p>如果需要开启微信小程序，需要执行命令：</p>
-<pre><code>php artisan passport:install
+<pre tabindex="0"><code>php artisan passport:install
 </code></pre><p>该命令是生成<code>RSA</code>加密密钥和小程序端的<code>ID</code>和<code>Secret</code>。注意将输出的<code>id</code>和<code>secret</code>填写到小程序配置文件中。</p>
 <p>参考修改自https://www.moerats.com/archives/845/</p>
         </div>
@@ -439,20 +446,39 @@ chmod +x /etc/rc.local
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/meedu'>meedu</a></li>
+                <li><a href='/tags/meedu'>meedu</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -460,13 +486,47 @@ chmod +x /etc/rc.local
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -534,28 +594,12 @@ chmod +x /etc/rc.local
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -594,7 +638,7 @@ chmod +x /etc/rc.local
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -674,7 +718,7 @@ chmod +x /etc/rc.local
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -691,51 +735,6 @@ chmod +x /etc/rc.local
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

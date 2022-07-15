@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>使用Git Hook - 自动部署hexo到vps | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="使用Git Hook - 自动部署hexo到vps - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2017-09-20/git-hook-autodeploy-vps.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -156,8 +159,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -176,6 +179,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -189,7 +196,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA'>博客搭建</a></span>
+            <span class="meta-category"><a href='/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA'>博客搭建</a></span>
             
         </div>
         
@@ -217,51 +224,43 @@
 <ul>
 <li>
 <p>安装 git：</p>
-<pre><code>yum -y install git
-
+<pre tabindex="0"><code>yum -y install git
 </code></pre></li>
 <li>
 <p>创建一个 git 用户，用来运行 git 服务：</p>
-<pre><code>adduser git
+<pre tabindex="0"><code>adduser git
 passwd git //为git用户创建密码 ssh时的git用户登录密码
-
 </code></pre></li>
 <li>
 <p>免密码登录</p>
 <p>创建证书登录，把自己电脑的公钥，也就是 ~/.ssh/id_rsa.pub 文件里的内容添加到服务器的 /home/git/.ssh/authorized_keys 文件中，添加公钥之后可以防止每次 push都输入密码。
 然后就可以执行ssh 命令测试是否可以免密登录</p>
-<pre><code>ssh -v git@SERVER(SERVER为服务器ip)
-
+<pre tabindex="0"><code>ssh -v git@SERVER(SERVER为服务器ip)
 </code></pre></li>
 </ul>
 <h2 id="初始化服务器-git-仓库">初始化服务器 Git 仓库</h2>
 <p>我是将其放在 /var/repo/blog.git 目录下的：</p>
-<pre><code>mkdir /var/repo
+<pre tabindex="0"><code>mkdir /var/repo
 cd /var/repo
 git init --bare blog.git
-
 </code></pre><p>使用 –bare 参数，Git 就会创建一个裸仓库，裸仓库没有工作区，我们不会在裸仓库上进行操作，它只为共享而存在。</p>
 <h2 id="配置-git-hook">配置 Git Hook</h2>
 <p>我们这里要使用的是 post-receive 的 hook，这个 hook 会在整个 git 操作过程完结以后被运行。
 在 blog.git/hooks 目录下新建一个 post-receive 文件：</p>
-<pre><code>$ cd /var/repo/blog.git/hooks
+<pre tabindex="0"><code>$ cd /var/repo/blog.git/hooks
 $ vim post-receive
-
 </code></pre><p>在 post-receive 文件中写入如下内容：</p>
-<pre><code>#!/bin/sh
+<pre tabindex="0"><code>#!/bin/sh
 git --work-tree=/var/www/hexo --git-dir=/var/repo/blog.git checkout -f
-
 </code></pre><p>注意，/var/www/hexo 要换成你自己的部署目录，一般可能都是 /var/www/html。上面那句 git 命令可以在我们每次 push 完之后，把部署目录更新到博客的最新生成状态。这样便可以完成达到自动部署的目的了。
 不要忘记设置这个文件的可执行权限：</p>
-<pre><code>chmod +x post-receive
-
+<pre tabindex="0"><code>chmod +x post-receive
 </code></pre><p>hook 设置好后，执行以下任一命令查看效果：</p>
-<pre><code>post-receive，./post-receive，source post-receive
-
+<pre tabindex="0"><code>post-receive，./post-receive，source post-receive
 </code></pre><p>由于是VPS，当时也想建立数个网站，所以用kangle的环境包搭建的，用kangle创建的网站目录默认为/home/ftp/b/blog/wwwroot,文件夹权限为1003用户所有，push时提示该文件夹拒绝，一看就是权限问题,对于网站文件夹
 权限的设置可以参考<a href="https://segmentfault.com/a/1190000005723321">这篇文章</a>,由于vps操作系统和这篇文章不一致无法按照所说，继续百度
 参考了<a href="http://www.jianshu.com/p/ac59402caa66">这篇文章</a></p>
-<pre><code>网站目录权限
+<pre tabindex="0"><code>网站目录权限
 网站目录
 post-receive 脚本中设置的 GIT_WORK_TREE 变量，就是网站目录：
 $ mkdir -p /home/app/wph/web/
@@ -273,31 +272,26 @@ chmod -R g+w /home/app/wph/web/
 或者
 chown -R git:nginx /home/app/wph/web/，git 作为 owner，用户 nginx 属于 nginx 组，
 更方便理解。或者直接设置为 git:git 也可以。
-
 </code></pre><p>我直接chown -R git:1003 /home/ftp/b/blog/wwwroot,就可以解决网站目录权限问题了。</p>
 <p>改变 blog.git 目录的拥有者为 git 用户：</p>
-<pre><code>$ sudo chown -R git:git blog.git
-
+<pre tabindex="0"><code>$ sudo chown -R git:git blog.git
 </code></pre><p>禁用 git 用户的 shell 登录权限。
 出于安全考虑，我们要让 git 用户不能通过 shell 登录。可以编辑 /etc/passwd 来实现，在 /etc/passwd 中找到类似下面的一行：</p>
-<pre><code>git:x:1001:1001:,,,:/home/git:/bin/bash
-
+<pre tabindex="0"><code>git:x:1001:1001:,,,:/home/git:/bin/bash
 </code></pre><p>将其改为：</p>
-<pre><code>git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell
-
+<pre tabindex="0"><code>git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell
 </code></pre><p>这样 git 用户可以通过 ssh 正常使用 git，但是无法登录 shell。</p>
 <p>至此，服务器端的配置就完成了。</p>
 <h2 id="本地配置">本地配置</h2>
 <p>配置你的 hexo 博客可以自动 deploy 到服务器上，再也不用 ftp 上传了。</p>
 <p>修改 hexo 目录下的 _config.yml 文件，找到 [deploy] 条目，并修改为：</p>
-<pre><code>deploy:
+<pre tabindex="0"><code>deploy:
   type: git
   repo: git@23.83.**.**:/var/repo/blog.git
   branch: master
-
 </code></pre><p>上面设置后hexo clean &amp;&amp; hexo generate –deploy提示22端口连接超时，这是由于VPS修改了ssh的默认端口为27100了，所以需要以下修改
 无论客户端是在 windows 还是 linux ，配置访问的端口号，都是修改 用户的 .ssh 文件夹里的config文件</p>
-<pre><code>(假定用户为 administrator)
+<pre tabindex="0"><code>(假定用户为 administrator)
 
 windows路径:   C:\Users\Administrator\.ssh
 
@@ -314,20 +308,18 @@ HostName xxx.com
 Port 3333
 
 如是以ip访问的，则添加如下内容:（注意修改ip为你的远程仓库ip）
-Host &quot;211.111.xx.xxx&quot;
+Host &#34;211.111.xx.xxx&#34;
 Port 3333
-
 </code></pre><p>本地配置就是如此地简单。至此，我们的 hexo 自动部署已经全部配置好了。</p>
 <h1 id="使用同样命令即可自动部署到vps了">使用同样命令即可自动部署到VPS了</h1>
-<pre><code>$ hexo new &quot;new-post&quot;
+<pre tabindex="0"><code>$ hexo new &#34;new-post&#34;
 
 # bla..bla..bla..
 
 $ hexo clean &amp;&amp; hexo generate --deploy
-
 </code></pre><p>有没有很酷很方便，一条命令就可以将博客自动部署到自己的 VPS 上了，开始快乐地写博客吧。</p>
 <h2 id="多repository部署">多Repository部署</h2>
-<pre><code>配置 _config.xml 例如:
+<pre tabindex="0"><code>配置 _config.xml 例如:
 deploy:
 - type: git
   repo: git@23.83.226.33:/var/repo/blog.git
@@ -335,13 +327,12 @@ deploy:
 - type: git  
   repository: https://github.com/liuxinggangsu/liuxinggangsu.github.io.git 
   branch: master
-
 </code></pre><h2 id="后记">后记</h2>
 <p>最近浏览一些hexo博客，虽然上面的方法可以说比较自动化了，想到当时对于这个hexo静态html网站用个虚拟空间不值当的，感觉现在收费的虚拟空间好些的都是1g以上或者几百M，
 对于只是放些html文件真是太浪费了，当时也是很是纠结了一番，没看到大点的空间商有只需支持html的，当时都想用主机屋的免费空间了，但对于主机屋免费空间经常掉线，并且
 每月还得想着发帖续费，还是放弃了，今天看到可以用七牛同步云储存，感觉还是挺方面，就跟我前段时间老板让我弄个文件同步，我用了一下百度的同步云盘，我的电脑修改文件，
 老板电脑的同步盘就可以及时看到我更新的东西了，现在来看下用七牛如何自动化博客的吧，当然前提的域名备案，只有备案后才可以自定义域名的。</p>
-<pre><code>下载个七牛同步工具设置到两个Key值并选择生成静态博客的文件夹作为同步目录，让同步工具开机自启。
+<pre tabindex="0"><code>下载个七牛同步工具设置到两个Key值并选择生成静态博客的文件夹作为同步目录，让同步工具开机自启。
 果然的，每当我在电脑书写博客并生成静态页面的时候，七牛已经在后台默默的帮我同步至云存储，
 网站就在后台默默地更新了数据，实现了博客的全自动化更新。 
 
@@ -354,30 +345,25 @@ deploy:
 ## 全自动写博客
 如果感觉还得通过命令发布到vps上，虽然已经很简单了，一条命令即可，我们还可以通过使用pm2实现自动监控文件变动，自动提交
 1.在本地安装pm2(一个可在后台永久打开一个node小程序的 nodejs应用，也可以监控文件变化)
-
 </code></pre><p>npm install -g pm2</p>
-<pre><code>2.在 博客的根目录下新建 start.js，内容如下
-
-</code></pre><pre><code>var process = require('child_process');
-process.exec(' hexo g -d', function (error, stdout, stderr) {
+<pre tabindex="0"><code>2.在 博客的根目录下新建 start.js，内容如下
+</code></pre><pre tabindex="0"><code>var process = require(&#39;child_process&#39;);
+process.exec(&#39; hexo g -d&#39;, function (error, stdout, stderr) {
     if (error !== null) {
-      console.log('exec error: ' + error);
+      console.log(&#39;exec error: &#39; + error);
     }
 });
-
-</code></pre><pre><code>3.在同级目录下创建 watch.json,内容如下
-
-</code></pre><pre><code>{
-  &quot;apps&quot; : [{
-    &quot;name&quot;       : &quot;blog&quot;,
-    &quot;script&quot;     : &quot;./start.js&quot;,
-    &quot;exec_interpreter&quot;: &quot;node&quot;,
-    &quot;exec_mode&quot;  : &quot;fork_mode&quot;,
-    &quot;watch&quot;      : &quot;_posts&quot;
+</code></pre><pre tabindex="0"><code>3.在同级目录下创建 watch.json,内容如下
+</code></pre><pre tabindex="0"><code>{
+  &#34;apps&#34; : [{
+    &#34;name&#34;       : &#34;blog&#34;,
+    &#34;script&#34;     : &#34;./start.js&#34;,
+    &#34;exec_interpreter&#34;: &#34;node&#34;,
+    &#34;exec_mode&#34;  : &#34;fork_mode&#34;,
+    &#34;watch&#34;      : &#34;_posts&#34;
   }]
 }
-
-</code></pre><pre><code>3.使用pm2命令实现监控文件变动自动提交
+</code></pre><pre tabindex="0"><code>3.使用pm2命令实现监控文件变动自动提交
 
 pm2 start watch.json
 </code></pre><p>你可以把_post目录创建一个快捷方式到桌面，以后写博客直接打开文件夹进行新建文件修改文件，即可实现自动上传</p>
@@ -411,20 +397,39 @@ pm2 start watch.json
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/hexo'>hexo</a></li>
+                <li><a href='/tags/hexo'>hexo</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -432,13 +437,47 @@ pm2 start watch.json
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -506,28 +545,12 @@ pm2 start watch.json
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -566,7 +589,7 @@ pm2 start watch.json
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -646,7 +669,7 @@ pm2 start watch.json
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -663,51 +686,6 @@ pm2 start watch.json
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>Linux三剑客·字典数据清洗 | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="Linux三剑客·字典数据清洗 - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2018-10-19/linux-dictionary-data-cleaning.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -169,8 +172,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -189,6 +192,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -202,7 +209,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/Linux'>Linux</a></span>
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
             
         </div>
         
@@ -223,129 +230,129 @@
             <h2 id="编码转换">编码转换</h2>
 <p>编码不正确会导致 各种莫名奇妙的问题 乱码 甚至 编辑的时候卡住 或 报错
 所有第一步就是要将转换编码</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">enca -L zh_CN.UTF-8 baidu.txt  <span style="color:#998;font-style:italic">#查看该文本编码</span>
-iconv -c -f GB2312 -t utf-8 <span style="color:#998;font-style:italic">#转换方法1</span>
-enca -L zh_CN.UTF-8 -c  <span style="color:#998;font-style:italic">#方法2 自动转换</span> 
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>enca -L zh_CN.UTF-8 baidu.txt  <span style="color:#998;font-style:italic">#查看该文本编码</span>
+</span></span><span style="display:flex;"><span>iconv -c -f GB2312 -t utf-8 <span style="color:#998;font-style:italic">#转换方法1</span>
+</span></span><span style="display:flex;"><span>enca -L zh_CN.UTF-8 -c  <span style="color:#998;font-style:italic">#方法2 自动转换 </span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>当然也可以直接</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">iconv -c -f ASCII -t ASCII  test.txt
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>iconv -c -f ASCII -t ASCII  test.txt
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>转换成 unix 格式(转换换行符)
 <code>dos2unix</code>  当然也可以用<code>tr</code>  、<code>sed</code></p>
 <h2 id="剔除-无效字符-以及空行">剔除 无效字符 以及空行</h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sed -e <span style="color:#d14">&#39;s/[\x01-\x19]//g&#39;</span> -e <span style="color:#d14">&#39;s/\x00/ /g&#39;</span>  -e <span style="color:#d14">&#39;s/[\x1a-\x1f]//g&#39;</span> -e <span style="color:#d14">&#39;s/^[ \t]//&#39;</span> -e <span style="color:#d14">&#39;s/[ \t]$//&#39;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sed -e <span style="color:#d14">&#39;s/[\x01-\x19]//g&#39;</span> -e <span style="color:#d14">&#39;s/\x00/ /g&#39;</span>  -e <span style="color:#d14">&#39;s/[\x1a-\x1f]//g&#39;</span> -e <span style="color:#d14">&#39;s/^[ \t]//&#39;</span> -e <span style="color:#d14">&#39;s/[ \t]$//&#39;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>当然也可以使用</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">grep -a -v <span style="color:#d14">&#39;[[:cntrl:]]&#39;</span> <span style="color:#998;font-style:italic">#处理不够干净 还是喜欢用上面的方法</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>grep -a -v <span style="color:#d14">&#39;[[:cntrl:]]&#39;</span> <span style="color:#998;font-style:italic">#处理不够干净 还是喜欢用上面的方法</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这些字符 会导致 sed 、awk 、grep 等命令出错 或卡死</p>
 <h2 id="去除重复">去除重复</h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sort baidu.log | uniq <span style="color:#998;font-style:italic">#测试该方法是我所知的最快的 缺点就是只是按照开头字符排序</span>
-awk <span style="color:#d14">&#34;{print length(</span><span style="color:#008080">$1</span><span style="color:#d14">),</span><span style="color:#008080">$1</span><span style="color:#d14">}&#34;</span> file.txt | sort -n | awk <span style="color:#d14">&#34;{print </span><span style="color:#008080">$2</span><span style="color:#d14">}&#34;</span>  <span style="color:#998;font-style:italic"># 字符串按照长度排序(短-&gt;长)   很慢</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sort baidu.log | uniq <span style="color:#998;font-style:italic">#测试该方法是我所知的最快的 缺点就是只是按照开头字符排序</span>
+</span></span><span style="display:flex;"><span>awk <span style="color:#d14">&#34;{print length(</span><span style="color:#008080">$1</span><span style="color:#d14">),</span><span style="color:#008080">$1</span><span style="color:#d14">}&#34;</span> file.txt | sort -n | awk <span style="color:#d14">&#34;{print </span><span style="color:#008080">$2</span><span style="color:#d14">}&#34;</span>  <span style="color:#998;font-style:italic"># 字符串按照长度排序(短-&gt;长)   很慢</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="分割字典">分割字典</h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">split  <span style="color:#998;font-style:italic">#很快速</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>split  <span style="color:#998;font-style:italic">#很快速</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="整理字符集为键盘上的字符5-30位的密码">整理字符集为键盘上的字符5-30位的密码</h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">grep -o -P <span style="color:#d14">&#34;[:lower::digit: ]+&#34;</span> 2014_1_last | awk <span style="color:#d14">&#39;{if(length($0) &gt; 4 &amp;&amp; length($0) &lt; 31) print $0}&#39;</span> &gt;&gt; 2014_1_last_
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>grep -o -P <span style="color:#d14">&#34;[:lower::digit: ]+&#34;</span> 2014_1_last | awk <span style="color:#d14">&#39;{if(length($0) &gt; 4 &amp;&amp; length($0) &lt; 31) print $0}&#39;</span> &gt;&gt; 2014_1_last_
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="删除1-7位的纯大写1-7位的纯小写1-9位的纯数字">删除1-7位的纯大写、1-7位的纯小写、1-9位的纯数字</h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sed <span style="color:#d14">&#34;/^[[:upper:]]{1,7}</span>$<span style="color:#d14">/d;/^[[:lower:]]{1,7}</span>$<span style="color:#d14">/d;/^[[:digit:]]{1,9}</span>$<span style="color:#d14">/d;&#34;</span> 2014_1_last_ &gt;&gt;2014_1_last__
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sed <span style="color:#d14">&#34;/^[[:upper:]]{1,7}</span>$<span style="color:#d14">/d;/^[[:lower:]]{1,7}</span>$<span style="color:#d14">/d;/^[[:digit:]]{1,9}</span>$<span style="color:#d14">/d;&#34;</span> 2014_1_last_ &gt;&gt;2014_1_last__
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="hashcat_masks-排名">hashcat_masks 排名</h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sed <span style="color:#d14">&#39;s/[[:lower:]]/l/g;s/[[:upper:]]/u/g;s/[[:digit:]]/d/g;s/[[:punct:] ]/s/g&#39;</span> 2014_1_last__ | sort | uniq -c | sort -nr &gt;&gt;2014_1_last__hashcat_masks_sus
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sed <span style="color:#d14">&#39;s/[[:lower:]]/l/g;s/[[:upper:]]/u/g;s/[[:digit:]]/d/g;s/[[:punct:] ]/s/g&#39;</span> 2014_1_last__ | sort | uniq -c | sort -nr &gt;&gt;2014_1_last__hashcat_masks_sus
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="hashcat_masks-将luds前边加-">hashcat_masks 将luds前边加 ?</h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sed <span style="color:#d14">&#39;s/([luds])/?\0/g;&#39;</span> 2014_1_last__hashcat_masks_sus
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sed <span style="color:#d14">&#39;s/([luds])/?\0/g;&#39;</span> 2014_1_last__hashcat_masks_sus
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="密码长度排名">密码长度排名</h2>
 <ol>
 <li>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">awk <span style="color:#d14">&#39;{printf(&#34;%s %s %s\r\n&#34;,$1,length($2),$2)}&#39;</span> 2014_1_lasthashcat_masks_sus &gt;&gt;2014_1_lasthashcat_masks_sus_length
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>awk <span style="color:#d14">&#39;{printf(&#34;%s %s %s\r\n&#34;,$1,length($2),$2)}&#39;</span> 2014_1_lasthashcat_masks_sus &gt;&gt;2014_1_lasthashcat_masks_sus_length
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">awk <span style="color:#d14">&#39;{a[$2]+=$1;}END{for(i in a){{print i&#34; &#34;a[i];}}}&#39;</span> 2014_1_last_x_hashcat_masks_sus_length | sort -nr -k2
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>awk <span style="color:#d14">&#39;{a[$2]+=$1;}END{for(i in a){{print i&#34; &#34;a[i];}}}&#39;</span> 2014_1_last_x_hashcat_masks_sus_length | sort -nr -k2
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ol>
 <p>排名如下：</p>
-<pre><code>11 25281160
+<pre tabindex="0"><code>11 25281160
 10 15342231
 12 11047379
 14 9794974
@@ -372,16 +379,16 @@ awk <span style="color:#d14">&#34;{print length(</span><span style="color:#00808
 30 255
 5 28
 </code></pre><h2 id="长度百分比排名">长度百分比排名</h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ awk <span style="color:#d14">&#39;{a[$2]+=$1;}END{for(i in a){{print i&#34; &#34;a[i];}}}&#39;</span> 2014_1_lasthashcat_masks_sus_length | awk <span style="color:#d14">&#39;{a[NR]=$1;b[NR]=$2;s+=$2}END{for(j=1;j&lt;NR+1;j++) printf &#34;%s\t%.5f%\n&#34;,a[j],b[j]*100/s}&#39;</span> 2014_1_lastlength_sus | sort -nr -k2
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ awk <span style="color:#d14">&#39;{a[$2]+=$1;}END{for(i in a){{print i&#34; &#34;a[i];}}}&#39;</span> 2014_1_lasthashcat_masks_sus_length | awk <span style="color:#d14">&#39;{a[NR]=$1;b[NR]=$2;s+=$2}END{for(j=1;j&lt;NR+1;j++) printf &#34;%s\t%.5f%\n&#34;,a[j],b[j]*100/s}&#39;</span> 2014_1_lastlength_sus | sort -nr -k2
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>排序如下：</p>
-<pre><code>11      24.79769%
+<pre tabindex="0"><code>11      24.79769%
 10      15.04883%
 12      10.83611%
 14      9.60766%
@@ -408,16 +415,16 @@ awk <span style="color:#d14">&#34;{print length(</span><span style="color:#00808
 30      0.00025%
 5       0.00003%
 </code></pre><h2 id="同时包含四种字符的排序">同时包含四种字符的排序</h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ grep <span style="color:#d14">&#39;[u]&#39;</span> 2014_1_last_x_hashcat_masks_sus | grep <span style="color:#d14">&#39;[d]&#39;</span> | grep <span style="color:#d14">&#39;[l]&#39;</span> | grep <span style="color:#d14">&#39;[s]&#39;</span> | head -n <span style="color:#099">10</span> | nl
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ grep <span style="color:#d14">&#39;[u]&#39;</span> 2014_1_last_x_hashcat_masks_sus | grep <span style="color:#d14">&#39;[d]&#39;</span> | grep <span style="color:#d14">&#39;[l]&#39;</span> | grep <span style="color:#d14">&#39;[s]&#39;</span> | head -n <span style="color:#099">10</span> | nl
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>排序如下：</p>
-<pre><code>     1     1074 ullsdddd
+<pre tabindex="0"><code>     1     1074 ullsdddd
      2      963 ulllsdddd
      3      834 ullsdddddd
      4      807 ulldddds
@@ -428,9 +435,9 @@ awk <span style="color:#d14">&#34;{print length(</span><span style="color:#00808
      9      703 ulddddddds
     10      687 ullldddds
 </code></pre><h2 id="同时包含大小写数字的排序">同时包含大小写数字的排序</h2>
-<pre><code>$ grep '[u]' 2014_1_last__hashcat_masks_sus | grep '[d]' | grep '[l]' | grep 's' | head -n 10 | nl
+<pre tabindex="0"><code>$ grep &#39;[u]&#39; 2014_1_last__hashcat_masks_sus | grep &#39;[d]&#39; | grep &#39;[l]&#39; | grep &#39;s&#39; | head -n 10 | nl
 </code></pre><p>​    排序如下：</p>
-<pre><code>     1    14383 ulldddddd
+<pre tabindex="0"><code>     1    14383 ulldddddd
      2    13679 uldddddd
      3    11557 ulldddddddd
      4    11054 uldddddddd
@@ -441,52 +448,52 @@ awk <span style="color:#d14">&#34;{print length(</span><span style="color:#00808
      9     9967 ulddddddd
     10     9264 ulllldddd
 </code></pre><h2 id="同时包含大小写的排序">同时包含大小写的排序</h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ grep <span style="color:#d14">&#39;[u]&#39;</span> 2014_1_last__hashcat_masks_sus | grep <span style="color:#d14">&#39;[l]&#39;</span> | grep <span style="color:#d14">&#39;d&#39;</span> | grep <span style="color:#d14">&#39;s&#39;</span> | head -n <span style="color:#099">10</span> | nl
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ grep <span style="color:#d14">&#39;[u]&#39;</span> 2014_1_last__hashcat_masks_sus | grep <span style="color:#d14">&#39;[l]&#39;</span> | grep <span style="color:#d14">&#39;d&#39;</span> | grep <span style="color:#d14">&#39;s&#39;</span> | head -n <span style="color:#099">10</span> | nl
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>排序如下：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">     <span style="color:#099">1</span>    <span style="color:#099">14383</span> ulldddddd
-     <span style="color:#099">2</span>    <span style="color:#099">13679</span> uldddddd
-     <span style="color:#099">3</span>    <span style="color:#099">11557</span> ulldddddddd
-     <span style="color:#099">4</span>    <span style="color:#099">11054</span> uldddddddd
-     <span style="color:#099">5</span>    <span style="color:#099">11003</span> ulddddddddddd
-     <span style="color:#099">6</span>    <span style="color:#099">10521</span> ullldddd
-     <span style="color:#099">7</span>    <span style="color:#099">10099</span> ullddddddd
-     <span style="color:#099">8</span>    <span style="color:#099">10060</span> ullddddddddddd
-     <span style="color:#099">9</span>     <span style="color:#099">9967</span> ulddddddd
-    <span style="color:#099">10</span>     <span style="color:#099">9264</span> ulllldddd
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>     <span style="color:#099">1</span>    <span style="color:#099">14383</span> ulldddddd
+</span></span><span style="display:flex;"><span>     <span style="color:#099">2</span>    <span style="color:#099">13679</span> uldddddd
+</span></span><span style="display:flex;"><span>     <span style="color:#099">3</span>    <span style="color:#099">11557</span> ulldddddddd
+</span></span><span style="display:flex;"><span>     <span style="color:#099">4</span>    <span style="color:#099">11054</span> uldddddddd
+</span></span><span style="display:flex;"><span>     <span style="color:#099">5</span>    <span style="color:#099">11003</span> ulddddddddddd
+</span></span><span style="display:flex;"><span>     <span style="color:#099">6</span>    <span style="color:#099">10521</span> ullldddd
+</span></span><span style="display:flex;"><span>     <span style="color:#099">7</span>    <span style="color:#099">10099</span> ullddddddd
+</span></span><span style="display:flex;"><span>     <span style="color:#099">8</span>    <span style="color:#099">10060</span> ullddddddddddd
+</span></span><span style="display:flex;"><span>     <span style="color:#099">9</span>     <span style="color:#099">9967</span> ulddddddd
+</span></span><span style="display:flex;"><span>    <span style="color:#099">10</span>     <span style="color:#099">9264</span> ulllldddd
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="连续的纯字符的排序">连续的纯字符的排序</h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sed -n <span style="color:#d14">&#39;/\b([luds])\1*$/p&#39;</span> 2014_1_last__hashcat_masks_sus
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ sed -n <span style="color:#d14">&#39;/\b([luds])\1*$/p&#39;</span> 2014_1_last__hashcat_masks_sus
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>排序如下：</p>
-<pre><code>16406454 ddddddddddd
+<pre tabindex="0"><code>16406454 ddddddddddd
 5475964 dddddddddd
 2129702 dddddddddddd
 1189570 dddddddddddddd
@@ -500,7 +507,7 @@ awk <span style="color:#d14">&#34;{print length(</span><span style="color:#00808
 </code></pre><h2 id="统计开头的第一个字母的数量排序">统计开头的第一个字母的数量排序</h2>
 <p><code>$ awk '{a[substr($3,1,1)]+=$1;}END{for(i in a){{print i&quot; &quot;a[i];}}}' 2014_1_last__hashcat_masks_sus_length | sort -nr -k2</code></p>
 <h2 id="统计开头的第二个字母的数量排序">统计开头的第二个字母的数量排序</h2>
-<p>$ awk &lsquo;{a[substr($3,2,1)]+=$1;}END{for(i in a){{print i&rdquo; &ldquo;a[i];}}}&rsquo; 2014_1_last__hashcat_masks_sus_length | sort -nr -k2</p>
+<p>$ awk &lsquo;{a[substr($3,2,1)]+=$1;}END{for(i in a){{print i&quot; &ldquo;a[i];}}}&rsquo; 2014_1_last__hashcat_masks_sus_length | sort -nr -k2</p>
 <h2 id="统计开头的第三个字母的数量排序">统计开头的第三个字母的数量排序</h2>
 <p><code>$ awk '{a[substr($3,3,1)]+=$1;}END{for(i in a){{print i&quot; &quot;a[i];}}}' 2014_1_last__hashcat_masks_sus_length | sort -nr -k2</code></p>
 <h2 id="统计开头的前二个字母的数量排序">统计开头的前二个字母的数量排序</h2>
@@ -512,75 +519,75 @@ awk <span style="color:#d14">&#34;{print length(</span><span style="color:#00808
 <h2 id="统计开头的最后一个字母的数量排序">统计开头的最后一个字母的数量排序</h2>
 <p><code>$ awk '{a[substr($3,length($3),1)]+=$1;}END{for(i in a){{print i&quot; &quot;a[i];}}}' 2014_1_last__hashcat_masks_sus_length | sort -nr -k2</code></p>
 <h2 id="提取特定字符集的字典">提取特定字符集的字典</h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">grep -P <span style="color:#d14">&#34;^[[:lower:]]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ &gt;&gt;2014_1_last__lower
-grep -P <span style="color:#d14">&#34;^[[:upper:]]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ &gt;&gt;2014_1_last__upper
-grep -P <span style="color:#d14">&#34;^[[:digit:]]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ &gt;&gt;2014_1_last__digit
-grep -P <span style="color:#d14">&#34;^[[:punct:] ]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ &gt;&gt;2014_1_last__punct
-grep -P <span style="color:#d14">&#34;^[[:lower:][:upper:]]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ | grep -P -v <span style="color:#d14">&#34;^[[:lower:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:upper:]]+</span>$<span style="color:#d14">&#34;</span> &gt;&gt;2014_1_last__lowerupper
-grep -P <span style="color:#d14">&#34;^[[:upper:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ | grep -P -v <span style="color:#d14">&#34;^[[:upper:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:punct:] ]+</span>$<span style="color:#d14">&#34;</span> &gt;&gt;2014_1_last__upperpunct
-grep -P <span style="color:#d14">&#34;^[[:lower:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ | grep -P -v <span style="color:#d14">&#34;^[[:lower:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:punct:] ]+</span>$<span style="color:#d14">&#34;</span> &gt;&gt;2014_1_last__lowerpunct
-grep -P <span style="color:#d14">&#34;^[[:lower:][:digit:]]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ | grep -P -v <span style="color:#d14">&#34;^[[:lower:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:digit:]]+</span>$<span style="color:#d14">&#34;</span> &gt;&gt;2014_1_last__lowerdigit
-grep -P <span style="color:#d14">&#34;^[[:upper:][:digit:]]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ | grep -P -v <span style="color:#d14">&#34;^[[:upper:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:digit:]]+</span>$<span style="color:#d14">&#34;</span> &gt;&gt;2014_1_last__upperdigit
-grep -P <span style="color:#d14">&#34;^[[:digit:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ | grep -P -v <span style="color:#d14">&#34;^[[:digit:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:punct:] ]+</span>$<span style="color:#d14">&#34;</span> &gt;&gt;2014_1_last__digitpunct
-grep -P <span style="color:#d14">&#34;^[[:lower:][:digit:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ | grep -P -v <span style="color:#d14">&#34;^[[:lower:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:digit:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:lower:][:digit:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:lower:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:digit:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span>&gt;&gt;2014_1_last__lowerdigitpunct
-grep -P <span style="color:#d14">&#34;^[[:upper:][:digit:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ | grep -P -v <span style="color:#d14">&#34;^[[:upper:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:digit:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:upper:][:digit:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:upper:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:digit:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span>&gt;&gt;2014_1_last__upperdigitpunct
-grep -P <span style="color:#d14">&#34;^[[:lower:][:upper:][:digit:]]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ | grep -P -v <span style="color:#d14">&#34;^[[:lower:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:upper:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:digit:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:lower:][:upper:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:lower:][:digit:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:upper:][:digit:]]+</span>$<span style="color:#d14">&#34;</span> &gt;&gt;2014_1_last__lowerupperdigit
-grep -P <span style="color:#d14">&#34;^[[:lower:][:upper:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ | grep -P -v <span style="color:#d14">&#34;^[[:lower:][:upper:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:lower:]]+</span>$<span style="color:#d14">&#34;</span>  | grep -P -v <span style="color:#d14">&#34;^[[:upper:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:lower:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:upper:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:lower:][:upper:]]+</span>$<span style="color:#d14">&#34;</span> &gt;&gt;2014_1_last__lowerupperpunct
-grep -P <span style="color:#d14">&#34;^[[:lower:][:upper:][:digit:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ | grep -P -v <span style="color:#d14">&#34;^[[:alnum:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:lower:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:upper:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:digit:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:upper:][:digit:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:lower:][:digit:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:lower:][:upper:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> &gt;&gt;2014_1_last__lowerupperdigitpunct
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>grep -P <span style="color:#d14">&#34;^[[:lower:]]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ &gt;&gt;2014_1_last__lower
+</span></span><span style="display:flex;"><span>grep -P <span style="color:#d14">&#34;^[[:upper:]]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ &gt;&gt;2014_1_last__upper
+</span></span><span style="display:flex;"><span>grep -P <span style="color:#d14">&#34;^[[:digit:]]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ &gt;&gt;2014_1_last__digit
+</span></span><span style="display:flex;"><span>grep -P <span style="color:#d14">&#34;^[[:punct:] ]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ &gt;&gt;2014_1_last__punct
+</span></span><span style="display:flex;"><span>grep -P <span style="color:#d14">&#34;^[[:lower:][:upper:]]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ | grep -P -v <span style="color:#d14">&#34;^[[:lower:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:upper:]]+</span>$<span style="color:#d14">&#34;</span> &gt;&gt;2014_1_last__lowerupper
+</span></span><span style="display:flex;"><span>grep -P <span style="color:#d14">&#34;^[[:upper:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ | grep -P -v <span style="color:#d14">&#34;^[[:upper:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:punct:] ]+</span>$<span style="color:#d14">&#34;</span> &gt;&gt;2014_1_last__upperpunct
+</span></span><span style="display:flex;"><span>grep -P <span style="color:#d14">&#34;^[[:lower:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ | grep -P -v <span style="color:#d14">&#34;^[[:lower:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:punct:] ]+</span>$<span style="color:#d14">&#34;</span> &gt;&gt;2014_1_last__lowerpunct
+</span></span><span style="display:flex;"><span>grep -P <span style="color:#d14">&#34;^[[:lower:][:digit:]]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ | grep -P -v <span style="color:#d14">&#34;^[[:lower:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:digit:]]+</span>$<span style="color:#d14">&#34;</span> &gt;&gt;2014_1_last__lowerdigit
+</span></span><span style="display:flex;"><span>grep -P <span style="color:#d14">&#34;^[[:upper:][:digit:]]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ | grep -P -v <span style="color:#d14">&#34;^[[:upper:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:digit:]]+</span>$<span style="color:#d14">&#34;</span> &gt;&gt;2014_1_last__upperdigit
+</span></span><span style="display:flex;"><span>grep -P <span style="color:#d14">&#34;^[[:digit:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ | grep -P -v <span style="color:#d14">&#34;^[[:digit:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:punct:] ]+</span>$<span style="color:#d14">&#34;</span> &gt;&gt;2014_1_last__digitpunct
+</span></span><span style="display:flex;"><span>grep -P <span style="color:#d14">&#34;^[[:lower:][:digit:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ | grep -P -v <span style="color:#d14">&#34;^[[:lower:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:digit:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:lower:][:digit:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:lower:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:digit:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span>&gt;&gt;2014_1_last__lowerdigitpunct
+</span></span><span style="display:flex;"><span>grep -P <span style="color:#d14">&#34;^[[:upper:][:digit:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ | grep -P -v <span style="color:#d14">&#34;^[[:upper:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:digit:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:upper:][:digit:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:upper:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:digit:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span>&gt;&gt;2014_1_last__upperdigitpunct
+</span></span><span style="display:flex;"><span>grep -P <span style="color:#d14">&#34;^[[:lower:][:upper:][:digit:]]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ | grep -P -v <span style="color:#d14">&#34;^[[:lower:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:upper:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:digit:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:lower:][:upper:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:lower:][:digit:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:upper:][:digit:]]+</span>$<span style="color:#d14">&#34;</span> &gt;&gt;2014_1_last__lowerupperdigit
+</span></span><span style="display:flex;"><span>grep -P <span style="color:#d14">&#34;^[[:lower:][:upper:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ | grep -P -v <span style="color:#d14">&#34;^[[:lower:][:upper:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:lower:]]+</span>$<span style="color:#d14">&#34;</span>  | grep -P -v <span style="color:#d14">&#34;^[[:upper:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:lower:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:upper:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:lower:][:upper:]]+</span>$<span style="color:#d14">&#34;</span> &gt;&gt;2014_1_last__lowerupperpunct
+</span></span><span style="display:flex;"><span>grep -P <span style="color:#d14">&#34;^[[:lower:][:upper:][:digit:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> 2014_1_last__ | grep -P -v <span style="color:#d14">&#34;^[[:alnum:]]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:lower:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:upper:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:digit:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:upper:][:digit:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:lower:][:digit:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> | grep -P -v <span style="color:#d14">&#34;^[[:lower:][:upper:][:punct:] ]+</span>$<span style="color:#d14">&#34;</span> &gt;&gt;2014_1_last__lowerupperdigitpunct
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="用户名和密码组合">用户名和密码组合</h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ cat user.txt
-root
-manager
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ cat user.txt
+</span></span><span style="display:flex;"><span>root
+</span></span><span style="display:flex;"><span>manager
+</span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</div><div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ cat pass.txt
-<span style="color:#099">123</span>
-<span style="color:#099">456</span>
-asd
-password
-admin
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ cat pass.txt
+</span></span><span style="display:flex;"><span><span style="color:#099">123</span>
+</span></span><span style="display:flex;"><span><span style="color:#099">456</span>
+</span></span><span style="display:flex;"><span>asd
+</span></span><span style="display:flex;"><span>password
+</span></span><span style="display:flex;"><span>admin
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>$ awk 'NR==FNR{a[FNR]=$1;num=FNR}NR&gt;FNR{for(i=1;i&lt;=num;i++){print a[i] &quot;:&quot; $1}}' user.txt pass.txt</code></p>
-<pre><code>root:123
+<pre tabindex="0"><code>root:123
 manager:123
 root:456
 manager:456
@@ -612,20 +619,39 @@ manager:admin
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90'>数据分析</a></li>
+                <li><a href='/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90'>数据分析</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -633,13 +659,47 @@ manager:admin
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -707,28 +767,12 @@ manager:admin
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -767,7 +811,7 @@ manager:admin
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -847,7 +891,7 @@ manager:admin
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -864,51 +908,6 @@ manager:admin
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

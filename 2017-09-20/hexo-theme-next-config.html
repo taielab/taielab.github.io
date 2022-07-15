@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>Hexo-next主题全面配置教程 | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="Hexo-next主题全面配置教程 - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2017-09-20/hexo-theme-next-config.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -205,8 +208,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -225,6 +228,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -238,7 +245,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA'>博客搭建</a></span>
+            <span class="meta-category"><a href='/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA'>博客搭建</a></span>
             
         </div>
         
@@ -260,51 +267,51 @@
 <h2 id="下载主题">下载主题</h2>
 <p>如果你熟悉 Git， 建议你使用 克隆最新版本 的方式，之后的更新可以通过 <code>git pull</code> 来快速更新， 而不用再次下载压缩包替换。</p>
 <p>在终端窗口下，定位到 Hexo 站点目录下。使用 Git checkout 代码：</p>
-<pre><code>cd your-hexo-site
+<pre tabindex="0"><code>cd your-hexo-site
 git clone https://github.com/iissnan/hexo-theme-next themes/next
 </code></pre><h2 id="启用主题">启用主题</h2>
 <p>与所有 Hexo 主题启用的模式一样。 当 克隆/下载 完成后，打开 站点配置文件(<code>_config.yml</code>)， 找到 theme 字段，并将其值更改为 next。</p>
-<pre><code>theme: next
+<pre tabindex="0"><code>theme: next
 </code></pre><p>到此，NexT 主题安装完成。下一步我们将验证主题是否正确启用。在切换主题之后、验证之前， 我们最好使用 <code>hexo clean</code> 来清除 Hexo 的缓存。</p>
 <h2 id="验证主题">验证主题</h2>
 <p>首先启动 Hexo 本地站点，并开启调试模式（即加上 –debug），整个命令是 <code>hexo s --debug</code>。 在服务启动的过程，注意观察命令行输出是否有任何异常信息，如果你碰到问题，这些信息将帮助他人更好的定位错误。 当命令行输出中提示出：</p>
-<pre><code>INFO  Hexo is running at http://0.0.0.0:4000/. Press Ctrl+C to stop.
+<pre tabindex="0"><code>INFO  Hexo is running at http://0.0.0.0:4000/. Press Ctrl+C to stop.
 </code></pre><p>此时即可使用浏览器访问 <code>http://localhost:4000</code>，检查站点是否正确运行。</p>
 <h2 id="主题设定">主题设定</h2>
 <h3 id="选择-scheme">选择 Scheme</h3>
 <p>Scheme 是 NexT 提供的一种特性，借助于 Scheme，NexT 为你提供多种不同的外观。同时，几乎所有的配置都可以 在 Scheme 之间共用。目前 NexT 支持三种 Scheme，他们是：</p>
 <p><strong>Muse - 默认 Scheme，这是 NexT 最初的版本，黑白主调，大量留白Mist - Muse 的紧凑版本，整洁有序的单栏外观Pisces - 双栏 Scheme，小家碧玉似的清新</strong></p>
 <p>Scheme 的切换通过更改 主题配置文件(<strong>_config.yml</strong>)，搜索 scheme 关键字。 你会看到有三行 scheme 的配置，将你需用启用的 scheme 前面注释 # 去除即可。</p>
-<pre><code>#scheme: Muse
+<pre tabindex="0"><code>#scheme: Muse
 #scheme: Mist
 scheme: Pisces
 scheme: Gemini (新增)
 </code></pre><h3 id="设置语言">设置语言</h3>
 <p>编辑 <strong>站点配置文件</strong>， 将 language 设置成你所需要的语言。建议明确设置你所需要的语言，例如选用简体中文，配置如下：</p>
-<pre><code>language: zh-Hans
+<pre tabindex="0"><code>language: zh-Hans
 </code></pre><h3 id="设置菜单">设置菜单</h3>
 <p>在终端窗口下，定位到 Hexo 站点目录下。使用 <code>hexo new page</code> 新建一个页面，命名为 tags 或 categories：</p>
-<pre><code>cd your-hexo-site
+<pre tabindex="0"><code>cd your-hexo-site
 hexo new page tags
 </code></pre><p>打开 <code>your-hexo-site\source\tags\index.md</code> 修改内容成这样：</p>
-<pre><code>---
+<pre tabindex="0"><code>---
 title: 标签
 date: 2014-12-22 12:39:04
-type: &quot;tags&quot;
+type: &#34;tags&#34;
 comments: false
 ---
-</code></pre><pre><code>cd your-hexo-site
+</code></pre><pre tabindex="0"><code>cd your-hexo-site
 hexo new page categories
 </code></pre><p>打开 <code>your-hexo-site\source\categories\index.md</code> 修改内容成这样：</p>
-<pre><code>---
+<pre tabindex="0"><code>---
 title: 分类
 date: 2014-12-22 12:39:04
-type: &quot;categories&quot;
+type: &#34;categories&#34;
 comments: false
 ---
 </code></pre><p>注意：如果有集成评论服务，页面也会带有评论。 若需要关闭的话，请添加字段 comments 并将值设置为 false。</p>
 <p>打开next主题的配置文件_config.yml，找到menu，这样配置：</p>
-<pre><code>menu:
+<pre tabindex="0"><code>menu:
   home: /
   categories: /categories
   #about: /about
@@ -314,17 +321,17 @@ comments: false
   #commonweal: /404.html
 </code></pre><h3 id="添加友情链接">添加友情链接</h3>
 <p>编辑 <strong>主题配置文件</strong> 添加：</p>
-<pre><code># 友情链接
+<pre tabindex="0"><code># 友情链接
 links_title: 友情链接
 links:
   MacTalk: http://macshuo.com/
   Title: http://example.com/
 </code></pre><h3 id="站点建立时间">站点建立时间</h3>
 <p>这个时间将在站点的底部显示，例如 © 2013 - 2015。 编辑 <strong>主题配置文件</strong>，搜索字段 since。</p>
-<pre><code>since: 2015
+<pre tabindex="0"><code>since: 2015
 </code></pre><h3 id="背景动画设置">背景动画设置</h3>
 <p>编辑 <strong>主题配置文件</strong>， 搜索 canvas_nest 或 three_waves，根据您的需求设置值为 true 或者 false 即可：</p>
-<pre><code># canvas_nest
+<pre tabindex="0"><code># canvas_nest
 canvas_nest: true //开启动画
 canvas_nest: false //关闭动画
 # three_waves
@@ -333,18 +340,18 @@ three_waves: false //关闭动画
 </code></pre><p>注意： <code>three_waves</code> 在版本 <strong>5.1.1</strong> 中引入。只能同时开启一种背景动画效果。</p>
 <h3 id="文章加密访问">文章加密访问</h3>
 <p>打开<code>themes-&gt;next-&gt;layout-&gt;_partials-&gt;head.swig</code>文件,插入这样一段代码：</p>
-<pre><code>&lt;script&gt;
+<pre tabindex="0"><code>&lt;script&gt;
     (function(){
-        if('{{ page.password }}'){
-            if (prompt('请输入文章密码') !== '{{ page.password }}'){
-                alert('密码错误！');
+        if(&#39;{{ page.password }}&#39;){
+            if (prompt(&#39;请输入文章密码&#39;) !== &#39;{{ page.password }}&#39;){
+                alert(&#39;密码错误！&#39;);
                 history.back();
             }
         }
     })();
 &lt;/script&gt;
 </code></pre><p>然后在文章上写成类似这样：</p>
-<pre><code>---
+<pre tabindex="0"><code>---
 title: Hello World
 date: 2016/7/13 20:46:25
 categories:
@@ -360,12 +367,12 @@ password: 123456
 <p>1、 在 hexo 根目录的 <code>package.json</code> 中添加<code>&quot;hexo-blog-encrypt&quot;: &quot;2.0.2&quot;</code> 依赖。（最新的版本号可在github项目页面查看）</p>
 <p>2、 使用终端进入到 hexo 根目录，然后执行 <code>npm install</code> 命令。该插件会自动安装。</p>
 <p>3、 在 hexo 根目录的 <code>_config.yml</code> 中启用该插件:</p>
-<pre><code># Security
+<pre tabindex="0"><code># Security
 ##
 encrypt:
     enable: true
 </code></pre><p>4、 然后在你的文章的头部添加上对应的字段，如 password, abstract, message：</p>
-<pre><code>---
+<pre tabindex="0"><code>---
 title: hello world
 date: 2016-03-30 21:18:02
 tags:
@@ -381,34 +388,34 @@ message: 这个是博客查看时，密码输入框上面的描述性文字</p>
 </blockquote>
 <h3 id="实现点击出现桃心效果">实现点击出现桃心效果</h3>
 <p>在网址输入如下：</p>
-<pre><code>http://7u2ss1.com1.z0.glb.clouddn.com/love.js
+<pre tabindex="0"><code>http://7u2ss1.com1.z0.glb.clouddn.com/love.js
 </code></pre><p>然后将里面的代码copy一下，新建<code>love.js</code>文件并且将代码复制进去，然后保存。将<code>love.js</code>文件放到路径<code>/themes/next/source/js/src</code>里面，然后打开<code>\themes\next\layout\_layout.swig</code>文件,在末尾（在前面引用会出现找不到的bug）添加以下代码：</p>
-<pre><code>&lt;!-- 页面点击小红心 --&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;/js/src/love.js&quot;&gt;&lt;/script&gt;
+<pre tabindex="0"><code>&lt;!-- 页面点击小红心 --&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;/js/src/love.js&#34;&gt;&lt;/script&gt;
 </code></pre><h3 id="添加字数统计最新主题已加入此功能">添加字数统计（最新主题已加入此功能）</h3>
 <p>切换到根目录下，然后运行如下代码：</p>
-<pre><code>npm install hexo-wordcount --save
+<pre tabindex="0"><code>npm install hexo-wordcount --save
 </code></pre><p>打开<strong>主题配置文件</strong>，搜索<code>post_wordcount</code>，修改成这样：</p>
-<pre><code>post_wordcount:
+<pre tabindex="0"><code>post_wordcount:
   item_text: true
   wordcount: true
   min2read: true
 </code></pre><h3 id="添加站点地图">添加站点地图</h3>
 <p>打开hexo目录下的dos命令行，分别安装百度和google插件</p>
-<pre><code>npm install hexo-generator-sitemap --save
+<pre tabindex="0"><code>npm install hexo-generator-sitemap --save
 npm install hexo-generator-baidu-sitemap --save
 </code></pre><p>在博客目录的<code>_config.yml</code>中添加如下代码：</p>
-<pre><code># 自动生成sitemap
+<pre tabindex="0"><code># 自动生成sitemap
 sitemap:
 path: sitemap.xml
 baidusitemap:
 path: baidusitemap.xml
 </code></pre><h3 id="添加顶部加载条">添加顶部加载条</h3>
 <p>打开<code>/themes/next/layout/_partials/head.swig</code>文件，添加如下代码：</p>
-<pre><code>&lt;script src=&quot;//cdn.bootcss.com/pace/1.0.2/pace.min.js&quot;&gt;&lt;/script&gt;
-&lt;link href=&quot;//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css&quot; rel=&quot;stylesheet&quot;&gt;
+<pre tabindex="0"><code>&lt;script src=&#34;//cdn.bootcss.com/pace/1.0.2/pace.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css&#34; rel=&#34;stylesheet&#34;&gt;
 </code></pre><p>但是，默认的是粉色的，要改变颜色可以在<code>/themes/next/layout/_partials/head.swig</code>文件中添加如下代码（接在刚才link的后面）</p>
-<pre><code>&lt;style&gt;
+<pre tabindex="0"><code>&lt;style&gt;
     .pace .pace-progress {
         background: #1E92FB; /*进度条颜色*/
         height: 3px;
@@ -423,15 +430,17 @@ path: baidusitemap.xml
 &lt;/style&gt;
 </code></pre><h3 id="使用plantuml来画uml">使用PlantUML来画UML</h3>
 <p>在终端进入博客根目录，输入如下命令：</p>
-<pre><code>npm install hexo-tag-plantuml --save
+<pre tabindex="0"><code>npm install hexo-tag-plantuml --save
 </code></pre><p>然后在写文章时，以这样的语法书写：</p>
-<pre><code>{% plantuml %}
+<pre tabindex="0"><code>{% plantuml %}
     Bob-&gt;Alice : hello
 {% endplantuml %}
 </code></pre><p>最终显示的样式：</p>
-<p><img src="http://www.plantuml.com/plantuml/svg/SyfFqhLppCbCJbMmKiX8pSd91m00" alt="img"></p>
+<p>
+        <img class="mx-auto" alt="img" src="http://www.plantuml.com/plantuml/svg/SyfFqhLppCbCJbMmKiX8pSd91m00" />   
+    </p>
 <p>示例：</p>
-<pre><code>{% plantuml %}
+<pre tabindex="0"><code>{% plantuml %}
 start
 :配置Java环境;
 :下载pantuml.jar;
@@ -440,22 +449,24 @@ start
 stop
 {% endplantuml %}
 </code></pre><p>效果如下：</p>
-<p><img src="http://www.plantuml.com/plantuml/svg/Aov9B2hXidhPsljyxpglnBB4vtthdovgjkQoUhAZ-yNUlGM9UIMbkJbwMOb5GB7dUwOzRPlvhB__nVuDpwQrFzcz3IZuh7FvYuKzrbp59Va50000" alt="img"></p>
+<p>
+        <img class="mx-auto" alt="img" src="http://www.plantuml.com/plantuml/svg/Aov9B2hXidhPsljyxpglnBB4vtthdovgjkQoUhAZ-yNUlGM9UIMbkJbwMOb5GB7dUwOzRPlvhB__nVuDpwQrFzcz3IZuh7FvYuKzrbp59Va50000" />   
+    </p>
 <p>plantuml官网以及语法参考：<a href="http://plantuml.com/">http://plantuml.com/</a></p>
 <h3 id="添加rssversion-512-配置文件已经包括">添加RSS（version: 5.1.2 配置文件已经包括）</h3>
 <p>在站点根目录下，输入：</p>
-<pre><code>npm install --save hexo-generator-feed
+<pre tabindex="0"><code>npm install --save hexo-generator-feed
 </code></pre><p>打开<strong>站点配置文件</strong>，在里面的末尾添加：(请注意在冒号后面要加一个空格，不然会发生错误！)</p>
-<pre><code># Extensions
+<pre tabindex="0"><code># Extensions
 ## Plugins: http://hexo.io/plugins/
 plugins: hexo-generate-feed
 </code></pre><p>然后打开<strong>主题配置文件</strong>,在里面配置为如下样子：(就是在rss:的后面加上/atom.xml,注意在冒号后面要加一个空格)</p>
-<pre><code># Set rss to false to disable feed link.
-# Leave rss as empty to use site's feed link.
+<pre tabindex="0"><code># Set rss to false to disable feed link.
+# Leave rss as empty to use site&#39;s feed link.
 # Set rss to specific value if you have burned your feed already.
 rss: /atom.xml
 </code></pre><p>配置完之后运行：</p>
-<pre><code>hexo g
+<pre tabindex="0"><code>hexo g
 </code></pre><p>重新生成一次，你会在 ./public 文件夹中看到 atom.xml 文件。然后启动服务器查看是否有效，之后再部署到 Github 中。</p>
 <h3 id="设置头像">设置头像</h3>
 <p>编辑 <strong>主题配置文件</strong>， 修改字段 <code>avatar</code>， 值设置成头像的链接地址。其中，头像的链接地址可以是：</p>
@@ -467,7 +478,7 @@ rss: /atom.xml
 配置为：<code>avatar: /images/avatar.png</code></p>
 <h3 id="修改文章内链接文本样式">修改文章内链接文本样式</h3>
 <p>修改文件 <code>themes\next\source\css\_common\components\post\post.styl</code> ，在末尾添加如下css样式：</p>
-<pre><code>// 文章内链接文本样式
+<pre tabindex="0"><code>// 文章内链接文本样式
 .post-body p a{
   color: #0593d3;
   border-bottom: none;
@@ -483,26 +494,26 @@ rss: /atom.xml
 <p>修改模板<code>/themes/next/layout/_macro/post.swig</code>，搜索 <code>rel=&quot;tag&quot;&gt;#</code>，将 <code>#</code> 换成 <code>&lt;i class=&quot;fa fa-tag&quot;&gt;&lt;/i&gt;</code></p>
 <h3 id="在每篇文章末尾统一添加本文结束标记">在每篇文章末尾统一添加“本文结束”标记</h3>
 <p>在路径 <code>\themes\next\layout\_macro</code> 中新建 <code>passage-end-tag.swig</code> 文件,并添加以下内容：</p>
-<pre><code>&lt;div&gt;
+<pre tabindex="0"><code>&lt;div&gt;
     {% if not is_index %}
-        &lt;div style=&quot;text-align:center;color: #ccc;font-size:14px;&quot;&gt;
-		-------------本文结束&lt;i class=&quot;fa fa-paw&quot;&gt;&lt;/i&gt;感谢您的阅读-------------
+        &lt;div style=&#34;text-align:center;color: #ccc;font-size:14px;&#34;&gt;
+		-------------本文结束&lt;i class=&#34;fa fa-paw&#34;&gt;&lt;/i&gt;感谢您的阅读-------------
 		&lt;/div&gt;
     {% endif %}
 &lt;/div&gt;
 </code></pre><p>接着打开<code>\themes\next\layout\_macro\post.swig</code>文件，在<code>post-body</code> 之后， <code>post-footer</code>之前添加如下代码（post-footer之前两个DIV）：</p>
-<pre><code>&lt;div&gt;
+<pre tabindex="0"><code>&lt;div&gt;
   {% if not is_index %}
-    {% include 'passage-end-tag.swig' %}
+    {% include &#39;passage-end-tag.swig&#39; %}
   {% endif %}
 &lt;/div&gt;
 </code></pre><p>然后打开主题配置文件（_config.yml),在末尾添加：</p>
-<pre><code># 文章末尾添加“本文结束”标记
+<pre tabindex="0"><code># 文章末尾添加“本文结束”标记
 passage_end_tag:
   enabled: true
 </code></pre><h3 id="修改作者头像并旋转">修改作者头像并旋转</h3>
 <p>打开<code>\themes\next\source\css\_common\components\sidebar\sidebar-author.styl</code>，在里面添加如下代码：</p>
-<pre><code>.site-author-image {
+<pre tabindex="0"><code>.site-author-image {
   display: block;
   margin: 0 auto;
   padding: $site-author-image-padding;
@@ -564,7 +575,7 @@ img:hover {
 }
 </code></pre><h3 id="修改代码块自定义样式">修改代码块自定义样式</h3>
 <p>打开<code>\themes\next\source\css\_custom\custom.styl</code>,向里面加入：(颜色可以自己定义)</p>
-<pre><code>// Custom styles.
+<pre tabindex="0"><code>// Custom styles.
 code {
     color: #ff7600;
     background: #fbf7f8;
@@ -581,7 +592,7 @@ code {
 }
 </code></pre><h3 id="主页文章添加阴影效果">主页文章添加阴影效果</h3>
 <p>打开<code>\themes\next\source\css\_custom\custom.styl</code>,向里面加入：</p>
-<pre><code>// 主页文章添加阴影效果
+<pre tabindex="0"><code>// 主页文章添加阴影效果
  .post {
    margin-top: 60px;
    margin-bottom: 60px;
@@ -591,24 +602,24 @@ code {
   }
 </code></pre><h3 id="在网站底部加上访问量">在网站底部加上访问量</h3>
 <p>打开主题配置文件，搜索<code>busuanzi_count</code>，修改成这样：</p>
-<pre><code>busuanzi_count:
+<pre tabindex="0"><code>busuanzi_count:
   # count values only if the other configs are false
   enable: true
   # custom uv span for the whole site
   site_uv: true
-  site_uv_header: &lt;i class=&quot;fa fa-user&quot;&gt;&lt;/i&gt;
+  site_uv_header: &lt;i class=&#34;fa fa-user&#34;&gt;&lt;/i&gt;
   site_uv_footer:
   # custom pv span for the whole site
   site_pv: true
-  site_pv_header: &lt;i class=&quot;fa fa-eye&quot;&gt;&lt;/i&gt;
+  site_pv_header: &lt;i class=&#34;fa fa-eye&#34;&gt;&lt;/i&gt;
   site_pv_footer:
   # custom pv span for one page only
   page_pv: true
-  page_pv_header: &lt;i class=&quot;fa fa-file-o&quot;&gt;&lt;/i&gt;
+  page_pv_header: &lt;i class=&#34;fa fa-file-o&#34;&gt;&lt;/i&gt;
   page_pv_footer:
 </code></pre><h3 id="设置网站的图标favicon">设置网站的图标Favicon</h3>
 <p>找一张ico图标,或者去别的网站下载或者制作，并将图标名称改为<code>favicon.ico</code>，然后把图标放在<code>/themes/next/source/images</code>里，并且修改主题配置文件：</p>
-<pre><code># Put your favicon.ico into `hexo-site/source/` directory.
+<pre tabindex="0"><code># Put your favicon.ico into `hexo-site/source/` directory.
 favicon: images/favicon.ico
 </code></pre><h3 id="文章底部增加版权信息">文章底部增加版权信息</h3>
 <p>新版的 <code>Next</code> 主题应该已经支持文章版权的相关设置，在对应的目录下可以看到带有 <code>copyright</code> 相关的代码。</p>
@@ -618,32 +629,32 @@ favicon: images/favicon.ico
 作者对于 <code>next</code>主题的优化可以参考 <a href="https://github.com/wuxubj/wuxubj.github.io"><code>Github链接</code></a></p>
 </blockquote>
 <p>在目录 <code>next/layout/_macro/下</code>添加 <code>my-copyright.swig</code>：</p>
-<pre><code>{% if page.copyright %}
-&lt;div class=&quot;my_post_copyright&quot;&gt;
-  &lt;script src=&quot;//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js&quot;&gt;&lt;/script&gt;
+<pre tabindex="0"><code>{% if page.copyright %}
+&lt;div class=&#34;my_post_copyright&#34;&gt;
+  &lt;script src=&#34;//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js&#34;&gt;&lt;/script&gt;
   
   &lt;!-- JS库 sweetalert 可修改路径 --&gt;
-  &lt;script type=&quot;text/javascript&quot; src=&quot;http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js&quot;&gt;&lt;/script&gt;
-  &lt;script src=&quot;http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js&quot;&gt;&lt;/script&gt;
-  &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css&quot;&gt;
+  &lt;script type=&#34;text/javascript&#34; src=&#34;http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js&#34;&gt;&lt;/script&gt;
+  &lt;script src=&#34;http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js&#34;&gt;&lt;/script&gt;
+  &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css&#34;&gt;
 
-  &lt;p&gt;&lt;span&gt;本文标题:&lt;/span&gt;&lt;a href=&quot;{{ url_for(page.path) }}&quot;&gt;{{ page.title }}&lt;/a&gt;&lt;/p&gt;
-  &lt;p&gt;&lt;span&gt;文章作者:&lt;/span&gt;&lt;a href=&quot;/&quot; title=&quot;访问 {{ theme.author }} 的个人博客&quot;&gt;{{ theme.author }}&lt;/a&gt;&lt;/p&gt;
-  &lt;p&gt;&lt;span&gt;发布时间:&lt;/span&gt;{{ page.date.format(&quot;YYYY年MM月DD日 - HH:MM&quot;) }}&lt;/p&gt;
-  &lt;p&gt;&lt;span&gt;最后更新:&lt;/span&gt;{{ page.updated.format(&quot;YYYY年MM月DD日 - HH:MM&quot;) }}&lt;/p&gt;
-  &lt;p&gt;&lt;span&gt;原始链接:&lt;/span&gt;&lt;a href=&quot;{{ url_for(page.path) }}&quot; title=&quot;{{ page.title }}&quot;&gt;{{ page.permalink }}&lt;/a&gt;
-    &lt;span class=&quot;copy-path&quot;  title=&quot;点击复制文章链接&quot;&gt;&lt;i class=&quot;fa fa-clipboard&quot; data-clipboard-text=&quot;{{ page.permalink }}&quot;  aria-label=&quot;复制成功！&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;p&gt;&lt;span&gt;本文标题:&lt;/span&gt;&lt;a href=&#34;{{ url_for(page.path) }}&#34;&gt;{{ page.title }}&lt;/a&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;span&gt;文章作者:&lt;/span&gt;&lt;a href=&#34;/&#34; title=&#34;访问 {{ theme.author }} 的个人博客&#34;&gt;{{ theme.author }}&lt;/a&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;span&gt;发布时间:&lt;/span&gt;{{ page.date.format(&#34;YYYY年MM月DD日 - HH:MM&#34;) }}&lt;/p&gt;
+  &lt;p&gt;&lt;span&gt;最后更新:&lt;/span&gt;{{ page.updated.format(&#34;YYYY年MM月DD日 - HH:MM&#34;) }}&lt;/p&gt;
+  &lt;p&gt;&lt;span&gt;原始链接:&lt;/span&gt;&lt;a href=&#34;{{ url_for(page.path) }}&#34; title=&#34;{{ page.title }}&#34;&gt;{{ page.permalink }}&lt;/a&gt;
+    &lt;span class=&#34;copy-path&#34;  title=&#34;点击复制文章链接&#34;&gt;&lt;i class=&#34;fa fa-clipboard&#34; data-clipboard-text=&#34;{{ page.permalink }}&#34;  aria-label=&#34;复制成功！&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   &lt;/p&gt;
-  &lt;p&gt;&lt;span&gt;许可协议:&lt;/span&gt;&lt;i class=&quot;fa fa-creative-commons&quot;&gt;&lt;/i&gt; &lt;a rel=&quot;license&quot; href=&quot;https://creativecommons.org/licenses/by-nc-nd/4.0/&quot; target=&quot;_blank&quot; title=&quot;Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)&quot;&gt;署名-非商业性使用-禁止演绎 4.0 国际&lt;/a&gt; 转载请保留原文链接及作者。&lt;/p&gt;  
+  &lt;p&gt;&lt;span&gt;许可协议:&lt;/span&gt;&lt;i class=&#34;fa fa-creative-commons&#34;&gt;&lt;/i&gt; &lt;a rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/&#34; target=&#34;_blank&#34; title=&#34;Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)&#34;&gt;署名-非商业性使用-禁止演绎 4.0 国际&lt;/a&gt; 转载请保留原文链接及作者。&lt;/p&gt;  
 &lt;/div&gt;
 
 &lt;script&gt; 
-    var clipboard = new Clipboard('.fa-clipboard');
-	clipboard.on('success', $(function(){
-	  $(&quot;.fa-clipboard&quot;).click(function(){
+    var clipboard = new Clipboard(&#39;.fa-clipboard&#39;);
+	clipboard.on(&#39;success&#39;, $(function(){
+	  $(&#34;.fa-clipboard&#34;).click(function(){
 		swal({   
-		  title: &quot;&quot;,   
-		  text: '复制成功',   
+		  title: &#34;&#34;,   
+		  text: &#39;复制成功&#39;,   
 		  html: false,
 		  timer: 500,   
 		  showConfirmButton: false
@@ -653,7 +664,7 @@ favicon: images/favicon.ico
 &lt;/script&gt;
 {% endif %}
 </code></pre><p>在目录<code>next/source/css/_common/components/post/</code>下添加<code>my-post-copyright.styl</code>：</p>
-<pre><code>.my_post_copyright {
+<pre tabindex="0"><code>.my_post_copyright {
   width: 85%;
   max-width: 45em;
   margin: 2.8em auto 0;
@@ -708,22 +719,22 @@ favicon: images/favicon.ico
   cursor: pointer;
 }
 </code></pre><p>修改<code>next/layout/_macro/post.swig</code>，在代码</p>
-<pre><code>&lt;div&gt;
+<pre tabindex="0"><code>&lt;div&gt;
       {% if not is_index %}
-        {% include 'wechat-subscriber.swig' %}
+        {% include &#39;wechat-subscriber.swig&#39; %}
       {% endif %}
 &lt;/div&gt;
 </code></pre><p>之前添加增加如下代码：</p>
-<pre><code>&lt;div&gt;
+<pre tabindex="0"><code>&lt;div&gt;
       {% if not is_index %}
-        {% include 'my-copyright.swig' %}
+        {% include &#39;my-copyright.swig&#39; %}
       {% endif %}
 &lt;/div&gt;
 </code></pre><p>修改<code>next/source/css/_common/components/post/post.styl</code>文件，在最后一行增加代码：</p>
-<pre><code>@import &quot;my-post-copyright&quot;
+<pre tabindex="0"><code>@import &#34;my-post-copyright&#34;
 </code></pre><p>保存重新生成即可。</p>
 <p>这样当发布一篇博文是，要在该博文下面增加版权信息的显示，需要在 Markdown 中增加<code>copyright: true</code>的设置，类似</p>
-<pre><code>---
+<pre tabindex="0"><code>---
 title: Mac终端翻墙
 tags: Linux&amp;Unix
 categories: Linux&amp;Unix
@@ -735,10 +746,10 @@ copyright: true
 ---
 </code></pre><h3 id="修改字体大小">修改字体大小</h3>
 <p>打开<code>\themes\next\source\css\ _variables\base.styl</code>文件，将<code>$font-size-base</code>改成<code>16px</code>，如下所示：</p>
-<pre><code>$font-size-base =16px
+<pre tabindex="0"><code>$font-size-base =16px
 </code></pre><h3 id="修改打赏字体不闪动">修改打赏字体不闪动</h3>
 <p>修改文件<code>next/source/css/_common/components/post/post-reward.styl</code>，然后注释其中的函数<code>wechat:hover</code>和<code>alipay:hover</code>，如下：</p>
-<pre><code>/* 注释文字闪动函数
+<pre tabindex="0"><code>/* 注释文字闪动函数
  #wechat:hover p{
     animation: roll 0.1s infinite linear;
     -webkit-animation: roll 0.1s infinite linear;
@@ -752,10 +763,10 @@ copyright: true
 */
 </code></pre><h3 id="修改标签云字体颜色">修改标签云字体颜色</h3>
 <p>打开<code>/node_modules/hexo/lib/plugins/helper/tagcloud.js</code>文件，修改如下代码：</p>
-<pre><code>if (color) {
+<pre tabindex="0"><code>if (color) {
   var midColor = startColor.mix(endColor, ratio);
-  // style += ' color: ' + midColor.toString();
-  style += ' color: #363636';
+  // style += &#39; color: &#39; + midColor.toString();
+  style += &#39; color: #363636&#39;;
 }
 </code></pre><h3 id="加入网易云音乐播放器">加入网易云音乐播放器</h3>
 <ol>
@@ -768,17 +779,17 @@ copyright: true
 <li>打开本地网页Hexo文件夹内的sidebar.swig文件，具体目录为：Hexo\themes\Next\layout_macro\sidebar.swig（注：本路径中Next为自己的网页主题文件夹名，不同主题名称不同，路径都类似。）</li>
 <li>在打开的sidebar.swig文件合适位置上粘贴上面复制的代码。</li>
 </ol>
-<pre><code>        {# Blogroll #}
+<pre tabindex="0"><code>        {# Blogroll #}
         {% if theme.links %}
-          &lt;div class=&quot;links-of-blogroll motion-element {{ &quot;links-of-blogroll-&quot; + theme.links_layout | default('inline') }}&quot;&gt;
-            &lt;div class=&quot;links-of-blogroll-title&quot;&gt;
-              &lt;i class=&quot;fa  fa-fw fa-{{ theme.links_icon | default('globe') | lower }}&quot;&gt;&lt;/i&gt;
+          &lt;div class=&#34;links-of-blogroll motion-element {{ &#34;links-of-blogroll-&#34; + theme.links_layout | default(&#39;inline&#39;) }}&#34;&gt;
+            &lt;div class=&#34;links-of-blogroll-title&#34;&gt;
+              &lt;i class=&#34;fa  fa-fw fa-{{ theme.links_icon | default(&#39;globe&#39;) | lower }}&#34;&gt;&lt;/i&gt;
               {{ theme.links_title }}
             &lt;/div&gt;
-            &lt;ul class=&quot;links-of-blogroll-list&quot;&gt;
+            &lt;ul class=&#34;links-of-blogroll-list&#34;&gt;
               {% for name, link in theme.links %}
-                &lt;li class=&quot;links-of-blogroll-item&quot;&gt;
-                  &lt;a href=&quot;{{ link }}&quot; title=&quot;{{ name }}&quot; target=&quot;_blank&quot;&gt;{{ name }}&lt;/a&gt;
+                &lt;li class=&#34;links-of-blogroll-item&#34;&gt;
+                  &lt;a href=&#34;{{ link }}&#34; title=&#34;{{ name }}&#34; target=&#34;_blank&#34;&gt;{{ name }}&lt;/a&gt;
                 &lt;/li&gt;
               {% endfor %}
             &lt;/ul&gt;
@@ -787,50 +798,58 @@ copyright: true
         .......在这插入代码
 </code></pre><h3 id="把谷歌字体库替换为国内的库">把谷歌字体库替换为国内的库</h3>
 <p>由于谷歌字体库偶尔加载非常慢，可以将其替换，这里采用360CDN服务。以Next主题为例，可以找到your-hexo-site\themes\next\layout_partials\head\external-fonts.swig中有这段语句：</p>
-<pre><code>{% set font_families += '&amp;subset=latin,latin-ext' %}
-{% set font_host = font.host | default('//fonts.googleapis.com') %} //改这里的地址
-&lt;link href=&quot;{{ font_host }}/css?family={{ font_families }}&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
+<pre tabindex="0"><code>{% set font_families += &#39;&amp;subset=latin,latin-ext&#39; %}
+{% set font_host = font.host | default(&#39;//fonts.googleapis.com&#39;) %} //改这里的地址
+&lt;link href=&#34;{{ font_host }}/css?family={{ font_families }}&#34; rel=&#34;stylesheet&#34; type=&#34;text/css&#34;&gt;
 </code></pre><ol>
 <li>ajax.googleapis.com =&gt; ajax.lug.ustc.edu.cn</li>
 <li>fonts.googleapis.com =&gt; fonts.lug.ustc.edu.cn</li>
 <li>themes.googleusercontent.com =&gt; google-themes.lug.ustc.edu.cn</li>
 </ol>
 <p>最新版的主题在配置文件中已经集成了自定义字体库源设置</p>
-<pre><code>  # Uri of fonts host. E.g. //fonts.googleapis.com (Default)
+<pre tabindex="0"><code>  # Uri of fonts host. E.g. //fonts.googleapis.com (Default)
   host: //fonts.lug.ustc.edu.cn
 </code></pre><p>根据语言来判断</p>
-<pre><code>{% if theme.use_font_lato %}
-  {% if config.language === 'zh-Hans' %}
-    &lt;link href='//fonts.lug.ustc.edu.cn/css?family=Lato:300,400,700,400italic&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'&gt;
+<pre tabindex="0"><code>{% if theme.use_font_lato %}
+  {% if config.language === &#39;zh-Hans&#39; %}
+    &lt;link href=&#39;//fonts.lug.ustc.edu.cn/css?family=Lato:300,400,700,400italic&amp;subset=latin,latin-ext&#39; rel=&#39;stylesheet&#39; type=&#39;text/css&#39;&gt;
   {% else %}
-    &lt;link href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'&gt;
+    &lt;link href=&#39;//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&amp;subset=latin,latin-ext&#39; rel=&#39;stylesheet&#39; type=&#39;text/css&#39;&gt;
   {% endif %}
 {% endif %}
 </code></pre><h3 id="在右上角或者左上角实现fork-me-on-github"><strong>在右上角或者左上角实现fork me on github</strong></h3>
 <p>具体实现方法</p>
 <p>点击<a href="https%3A//github.com/blog/273-github-ribbons">这里**</a>挑选自己喜欢的样式，并复制代码。 例如，我是复制如下代码：</p>
 <p>然后粘贴刚才复制的代码到themes/next/layout/_layout.swig文件中(放在<code>&lt;div class=&quot;headband&quot;&gt;&lt;/div&gt;</code>的下面)，并把href改为你的github地址</p>
-<p><img src="https://pic1.zhimg.com/v2-e5120a5f831e7d1207e945cf911c173c_b.png" alt="img"></p>
+<p>
+        <img class="mx-auto" alt="img" src="https://pic1.zhimg.com/v2-e5120a5f831e7d1207e945cf911c173c_b.png" />   
+    </p>
 <h3 id="添加热度">添加热度</h3>
-<p>实现效果图：<img src="https://pic1.zhimg.com/v2-91d41bd3ef533d356a201ce176bb5b54_b.png" alt="img"></p>
+<p>实现效果图：
+        <img class="mx-auto" alt="img" src="https://pic1.zhimg.com/v2-91d41bd3ef533d356a201ce176bb5b54_b.png" />   
+    </p>
 <p>具体实现方法</p>
 <p>next主题集成leanCloud，打开/themes/next/layout/_macro/post.swig,在画红线的区域添加℃：</p>
-<p><img src="https://pic3.zhimg.com/v2-80705a42caa436908578985ebe3b8fc6_b.png" alt="img"></p>
+<p>
+        <img class="mx-auto" alt="img" src="https://pic3.zhimg.com/v2-80705a42caa436908578985ebe3b8fc6_b.png" />   
+    </p>
 <p>然后打开，/themes/next/languages/zh-Hans.yml,将画红框的改为热度就可以了</p>
-<p><img src="https://pic1.zhimg.com/v2-6eb8e53f2a009b76cf73acabfd263560_b.png" alt="img"></p>
+<p>
+        <img class="mx-auto" alt="img" src="https://pic1.zhimg.com/v2-6eb8e53f2a009b76cf73acabfd263560_b.png" />   
+    </p>
 <h3 id="自定义鼠标样式"><strong>自定义鼠标样式</strong></h3>
 <p>打开themes/next/source/css/_custom/custom.styl,在里面写下如下代码</p>
-<pre><code>// 鼠标样式
+<pre tabindex="0"><code>// 鼠标样式
   * {
-      cursor: url(&quot;http://om8u46rmb.bkt.clouddn.com/sword2.ico&quot;),auto!important
+      cursor: url(&#34;http://om8u46rmb.bkt.clouddn.com/sword2.ico&#34;),auto!important
   }
   :active {
-      cursor: url(&quot;http://om8u46rmb.bkt.clouddn.com/sword1.ico&quot;),auto!important
+      cursor: url(&#34;http://om8u46rmb.bkt.clouddn.com/sword1.ico&#34;),auto!important
   }
 </code></pre><h3 id="博文置顶"><strong>博文置顶</strong></h3>
 <p>修改 hero-generator-index 插件，把文件：node_modules/hexo-generator-index/lib/generator.js 内的代码替换为：</p>
-<pre><code>'use strict';
-var pagination = require('hexo-pagination');
+<pre tabindex="0"><code>&#39;use strict&#39;;
+var pagination = require(&#39;hexo-pagination&#39;);
 module.exports = function(locals){
   var config = this.config;
   var posts = locals.posts;
@@ -847,19 +866,18 @@ module.exports = function(locals){
         }
         else return b.date - a.date; // 都没定义按照文章日期降序排
     });
-  var paginationDir = config.pagination_dir || 'page';
-  return pagination('', posts, {
+  var paginationDir = config.pagination_dir || &#39;page&#39;;
+  return pagination(&#39;&#39;, posts, {
     perPage: config.index_generator.per_page,
-    layout: ['index', 'archive'],
-    format: paginationDir + '/%d/',
+    layout: [&#39;index&#39;, &#39;archive&#39;],
+    format: paginationDir + &#39;/%d/&#39;,
     data: {
       __index: true
     }
   });
 };
-
 </code></pre><p>在文章中添加 top 值，数值越大文章越靠前，如</p>
-<pre><code>---
+<pre tabindex="0"><code>---
 title: 解决Charles乱码问题
 date: 2017-05-22 22:45:48
 tags: 技巧
@@ -873,13 +891,13 @@ sticky:数值越大越高（next最新主题自带）
 <h4 id="主要涉及2方面特效代码样式调整">主要涉及2方面：<strong>特效代码，样式调整</strong>。</h4>
 <h4 id="创建特效文件">创建特效文件</h4>
 <p>在<strong>主题目录</strong>中，创建<code>layout\_macro\high.swig</code>，添加如下代码：</p>
-<pre><code>  &lt;a title=&quot;收藏到书签，偶尔High一下^_^&quot; rel=&quot;alternate&quot; class=&quot;mw-harlem_shake_slow wobble shake&quot; href='javascript:(function() {
+<pre tabindex="0"><code>  &lt;a title=&#34;收藏到书签，偶尔High一下^_^&#34; rel=&#34;alternate&#34; class=&#34;mw-harlem_shake_slow wobble shake&#34; href=&#39;javascript:(function() {
     function c() {
-        var e = document.createElement(&quot;link&quot;);
-        e.setAttribute(&quot;type&quot;, &quot;text/css&quot;);
-        e.setAttribute(&quot;rel&quot;, &quot;stylesheet&quot;);
-        e.setAttribute(&quot;href&quot;, f);
-        e.setAttribute(&quot;class&quot;, l);
+        var e = document.createElement(&#34;link&#34;);
+        e.setAttribute(&#34;type&#34;, &#34;text/css&#34;);
+        e.setAttribute(&#34;rel&#34;, &#34;stylesheet&#34;);
+        e.setAttribute(&#34;href&#34;, f);
+        e.setAttribute(&#34;class&#34;, l);
         document.body.appendChild(e)
     }
  
@@ -891,8 +909,8 @@ sticky:数值越大越高（next最新主题自带）
     }
  
     function p() {
-        var e = document.createElement(&quot;div&quot;);
-        e.setAttribute(&quot;class&quot;, a);
+        var e = document.createElement(&#34;div&#34;);
+        e.setAttribute(&#34;class&#34;, a);
         document.body.appendChild(e);
         setTimeout(function() {
             document.body.removeChild(e)
@@ -944,11 +962,11 @@ sticky:数值越大越高（next最新主题自带）
     }
  
     function S() {
-        var e = document.createElement(&quot;audio&quot;);
-        e.setAttribute(&quot;class&quot;, l);
+        var e = document.createElement(&#34;audio&#34;);
+        e.setAttribute(&#34;class&#34;, l);
         e.src = i;
         e.loop = false;
-        e.addEventListener(&quot;canplay&quot;, function() {
+        e.addEventListener(&#34;canplay&#34;, function() {
             setTimeout(function() {
                 x(k)
             }, 500);
@@ -960,28 +978,28 @@ sticky:数值越大越高（next最新主题自带）
                 }
             }, 15500)
         }, true);
-        e.addEventListener(&quot;ended&quot;, function() {
+        e.addEventListener(&#34;ended&#34;, function() {
             N();
             h()
         }, true);
-        e.innerHTML = &quot; &lt;p&gt;If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.&lt;/p&gt; &lt;p&gt;&quot;;
+        e.innerHTML = &#34; &lt;p&gt;If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.&lt;/p&gt; &lt;p&gt;&#34;;
         document.body.appendChild(e);
         e.play()
     }
  
     function x(e) {
-        e.className += &quot; &quot; + s + &quot; &quot; + o
+        e.className += &#34; &#34; + s + &#34; &#34; + o
     }
  
     function T(e) {
-        e.className += &quot; &quot; + s + &quot; &quot; + u[Math.floor(Math.random() * u.length)]
+        e.className += &#34; &#34; + s + &#34; &#34; + u[Math.floor(Math.random() * u.length)]
     }
  
     function N() {
         var e = document.getElementsByClassName(s);
-        var t = new RegExp(&quot;\\b&quot; + s + &quot;\\b&quot;);
+        var t = new RegExp(&#34;\\b&#34; + s + &#34;\\b&#34;);
         for (var n = 0; n &lt; e.length; ) {
-            e[n].className = e[n].className.replace(t, &quot;&quot;)
+            e[n].className = e[n].className.replace(t, &#34;&#34;)
         }
     }
  
@@ -989,16 +1007,16 @@ sticky:数值越大越高（next最新主题自带）
     var t = 30;
     var n = 350;
     var r = 350;
-    var i = &quot;//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3&quot;;
-    var s = &quot;mw-harlem_shake_me&quot;;
-    var o = &quot;im_first&quot;;
-    var u = [&quot;im_drunk&quot;, &quot;im_baked&quot;, &quot;im_trippin&quot;, &quot;im_blown&quot;];
-    var a = &quot;mw-strobe_light&quot;;
-    var f = &quot;//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css&quot;;
-    var l = &quot;mw_added_css&quot;;
+    var i = &#34;//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3&#34;;
+    var s = &#34;mw-harlem_shake_me&#34;;
+    var o = &#34;im_first&#34;;
+    var u = [&#34;im_drunk&#34;, &#34;im_baked&#34;, &#34;im_trippin&#34;, &#34;im_blown&#34;];
+    var a = &#34;mw-strobe_light&#34;;
+    var f = &#34;//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css&#34;;
+    var l = &#34;mw_added_css&#34;;
     var b = g();
     var w = y();
-    var C = document.getElementsByTagName(&quot;*&quot;);
+    var C = document.getElementsByTagName(&#34;*&#34;);
     var k = null;
     for (var L = 0; L &lt; C.length; L++) {
         var A = C[L];
@@ -1010,7 +1028,7 @@ sticky:数值越大越高（next最新主题自带）
         }
     }
     if (A === null) {
-        console.warn(&quot;Could not find a node of the right size. Please try a different page.&quot;);
+        console.warn(&#34;Could not find a node of the right size. Please try a different page.&#34;);
         return
     }
     c();
@@ -1022,33 +1040,34 @@ sticky:数值越大越高（next最新主题自带）
             O.push(A)
         }
     }
-})()'&gt;&lt;i class=&quot;fa fa-music&quot;&gt;&lt;/i&gt; High&lt;/a&gt;
+})()&#39;&gt;&lt;i class=&#34;fa fa-music&#34;&gt;&lt;/i&gt; High&lt;/a&gt;
 </code></pre><h4 id="引用特效代码">引用特效代码</h4>
 <p>在侧边栏，引用特效代码。在<strong>主题目录</strong>，修改<code>layout\_macro\sidebar.swig</code>：</p>
-<pre><code>{% include 'high.swig' %}
-</code></pre><p><a href="http://www.iamlj.com/2016/08/add-special-effect-harlem-shake-for-hexo/20160802003240.png"><img src="http://www.iamlj.com/2016/08/add-special-effect-harlem-shake-for-hexo/20160802003240.png" alt="img"></a></p>
+<pre tabindex="0"><code>{% include &#39;high.swig&#39; %}
+</code></pre><p><a href="http://www.iamlj.com/2016/08/add-special-effect-harlem-shake-for-hexo/20160802003240.png">
+        <img class="mx-auto" alt="img" src="http://www.iamlj.com/2016/08/add-special-effect-harlem-shake-for-hexo/20160802003240.png" />   
+    </a></p>
 <h4 id="样式修改">样式修改</h4>
 <p>（这里，我使用的是其它<code>Pisces</code>主题，其它主题请自行按照此法调试）
 将”High”和”RSS”并排展示，在<strong>主题目录</strong>中，修改<code>source\css\_schemes\Pisces\_sidebar.styl</code></p>
-<pre><code>display: inline-block;
-</code></pre><p><a href="http://www.iamlj.com/2016/08/add-special-effect-harlem-shake-for-hexo/20160802003448.png"><img src="http://www.iamlj.com/2016/08/add-special-effect-harlem-shake-for-hexo/20160802003448.png" alt="img"></a></p>
+<pre tabindex="0"><code>display: inline-block;
+</code></pre><p><a href="http://www.iamlj.com/2016/08/add-special-effect-harlem-shake-for-hexo/20160802003448.png">
+        <img class="mx-auto" alt="img" src="http://www.iamlj.com/2016/08/add-special-effect-harlem-shake-for-hexo/20160802003448.png" />   
+    </a></p>
 <h4 id="最后">最后</h4>
 <p>关于优化，建议将<code>layout\_macro\high.swig</code>中的<code>harlem-shake.mp3</code>和<code>harlem-shake.css</code>放到cdn上，然后引用cdn地址，加快访问速度。</p>
 <h3 id="为博客加上萌萌的宠物"><strong>为博客加上萌萌的宠物</strong></h3>
 <p><strong>实现效果图</strong></p>
 <p><strong>具体实现方法</strong>
 在终端切换到你的博客的路径里，然后输入如下代码：</p>
-<pre><code>npm install -save hexo-helper-live2d
-
+<pre tabindex="0"><code>npm install -save hexo-helper-live2d
 </code></pre><p>然后打开Hexo/blog/themes/next/layout
 的_layout.swig,将下面代码放到<code>&lt;/body&gt;</code>之前：</p>
-<pre><code>{{ live2d() }}
-
+<pre tabindex="0"><code>{{ live2d() }}
 </code></pre><p>然后在在 hexo 的 _config.yml中添加参数：</p>
-<pre><code>live2d:
+<pre tabindex="0"><code>live2d:
   model: wanko
   bottom: -30
-
 </code></pre><p>然后hexo clean ，hexo g ，hexo d 就可以看到了。</p>
 <p><strong>下面是一些model，可以换不同的宠物</strong></p>
 <ul>
@@ -1097,16 +1116,16 @@ sticky:数值越大越高（next最新主题自带）
 <p><strong>用这个有缺点，如果是在手机上看的话，感</strong></p>
 <h3 id="hexo-进阶优化">hexo 进阶优化</h3>
 <h3 id="优化-htmlcssjs-image插件形式">优化 HTML,CSS,JS, Image(插件形式)</h3>
-<pre><code>npm install hexo-all-minifier --save
+<pre tabindex="0"><code>npm install hexo-all-minifier --save
 </code></pre><p>然后在 <code>hexo</code> 博客根目录下的 <code>config.yml</code> 文件中加入如下代码</p>
-<pre><code>html_minifier:
+<pre tabindex="0"><code>html_minifier:
   enable: true
   exclude: 
  
 css_minifier:
   enable: true
   exclude: 
-    - '*.min.css'
+    - &#39;*.min.css&#39;
  
 js_minifier:
   enable: true
@@ -1114,7 +1133,7 @@ js_minifier:
   output:
   compress:
   exclude: 
-    - '*.min.js'
+    - &#39;*.min.js&#39;
  
 image_minifier:
   enable: true
@@ -1128,37 +1147,37 @@ image_minifier:
 <ul>
 <li>安装:</li>
 </ul>
-<pre><code>npm uninstall -g gulp
+<pre tabindex="0"><code>npm uninstall -g gulp
 npm i -g gulp-cli
 npm i --save-dev autoprefixer del gulpjs/gulp-cli#4.0 gulp-load-plugins gulp-postcss gulp-posthtml gulp-uglify gulp-xml postcss-clean posthtml-minifier posthtml-postcss
 </code></pre><p>由于已经安装过gulp 3.9所以的按以下操作</p>
-<pre><code># 如果安装过全局的 gulp 的话先卸载之
+<pre tabindex="0"><code># 如果安装过全局的 gulp 的话先卸载之
 $ npm uninstall gulp -g
 
 # 安装全局的 gulp 4.0
-$ npm install &quot;gulpjs/gulp#4.0&quot; -g
+$ npm install &#34;gulpjs/gulp#4.0&#34; -g
 
 # 到项目目录里删掉本地的 gulp
 $ npm rm gulp --save-dev
 
 # 安装本地的 gulp 4.0
-$ npm install &quot;gulpjs/gulp#4.0&quot; --save-dev
+$ npm install &#34;gulpjs/gulp#4.0&#34; --save-dev
 </code></pre><p>配置(gulpfile.js):</p>
-<pre><code>const gulp = require('gulp'),
-    postcss = require('posthtml-postcss'),
-    htmlmin = require('posthtml-minifier'),
-    autoprefixer = require('autoprefixer'),
-    cleancss = require('postcss-clean'),
-    $ = require('gulp-load-plugins')(),
-    del = require('del');
+<pre tabindex="0"><code>const gulp = require(&#39;gulp&#39;),
+    postcss = require(&#39;posthtml-postcss&#39;),
+    htmlmin = require(&#39;posthtml-minifier&#39;),
+    autoprefixer = require(&#39;autoprefixer&#39;),
+    cleancss = require(&#39;postcss-clean&#39;),
+    $ = require(&#39;gulp-load-plugins&#39;)(),
+    del = require(&#39;del&#39;);
 const app = {
-        build: 'build'
+        build: &#39;build&#39;
     },
-    base = 'public/**/*.';
-['css', 'js'].forEach(function (value) {
+    base = &#39;public/**/*.&#39;;
+[&#39;css&#39;, &#39;js&#39;].forEach(function (value) {
     app[value] = [`${base + value}`, `!${base}min.${value}`];
 });
-['html', 'xml'].forEach(function (value) {
+[&#39;html&#39;, &#39;xml&#39;].forEach(function (value) {
     app[value] = `${base + value}`;
 });
 function clean() {
@@ -1204,92 +1223,92 @@ function xml() {
                 cdata: true
             },
             callback: function (result) {
-                return result.replace(/\s{2,}/g, ' ');
+                return result.replace(/\s{2,}/g, &#39; &#39;);
             }
         }))
         .pipe(gulp.dest(app.build));
 }
 gulp.task(clean);
-gulp.task('default', gulp.series(
+gulp.task(&#39;default&#39;, gulp.series(
     clean,    //这个是清楚public目录后生成第9行设置的新的文件夹名，我删除了这个，同时把第9行的生成目录名设置为了public
     gulp.parallel(css, js, html, xml)
 ));
 </code></pre><p>PS: gulp-xml 是为了处理压缩 search.xml 和 sitemap.xml 等 .xml 文件而使用 node-xml2js 编写的 gulp 插件, 欢迎使用.</p>
 <p>主要是压缩html,css,js等等静态资源，可以适当减少请求的数据量，主要用到<code>gulp</code>和一些相关的插件来实现，直接列出我的dependencies.</p>
-<pre><code>&quot;dependencies&quot;: {
-  &quot;gulp&quot;: &quot;^3.9.1&quot;,
-  &quot;gulp-htmlclean&quot;: &quot;^2.7.6&quot;,
-  &quot;gulp-htmlmin&quot;: &quot;^3.0.0&quot;,
-  &quot;gulp-imagemin&quot;: &quot;^3.1.1&quot;,
-  &quot;gulp-minify-css&quot;: &quot;^1.2.4&quot;,
-  &quot;gulp-uglify&quot;: &quot;^2.0.0&quot;,
-  &quot;hexo&quot;: &quot;^3.2.0&quot;,
-  &quot;hexo-deployer-git&quot;: &quot;^0.1.0&quot;,
-  &quot;hexo-generator-archive&quot;: &quot;^0.1.4&quot;,
-  &quot;hexo-generator-category&quot;: &quot;^0.1.3&quot;,
-  &quot;hexo-generator-index&quot;: &quot;^0.2.0&quot;,
-  &quot;hexo-generator-tag&quot;: &quot;^0.2.0&quot;,
-  &quot;hexo-generator-sitemap&quot;: &quot;^1.1.2&quot;,
-  &quot;hexo-generator-baidu-sitemap&quot;: &quot;^0.1.2&quot;,
-  &quot;hexo-renderer-ejs&quot;: &quot;^0.2.0&quot;,
-  &quot;hexo-renderer-marked&quot;: &quot;^0.2.10&quot;,
-  &quot;hexo-renderer-stylus&quot;: &quot;^0.3.1&quot;,
-  &quot;hexo-server&quot;: &quot;^0.2.0&quot;
+<pre tabindex="0"><code>&#34;dependencies&#34;: {
+  &#34;gulp&#34;: &#34;^3.9.1&#34;,
+  &#34;gulp-htmlclean&#34;: &#34;^2.7.6&#34;,
+  &#34;gulp-htmlmin&#34;: &#34;^3.0.0&#34;,
+  &#34;gulp-imagemin&#34;: &#34;^3.1.1&#34;,
+  &#34;gulp-minify-css&#34;: &#34;^1.2.4&#34;,
+  &#34;gulp-uglify&#34;: &#34;^2.0.0&#34;,
+  &#34;hexo&#34;: &#34;^3.2.0&#34;,
+  &#34;hexo-deployer-git&#34;: &#34;^0.1.0&#34;,
+  &#34;hexo-generator-archive&#34;: &#34;^0.1.4&#34;,
+  &#34;hexo-generator-category&#34;: &#34;^0.1.3&#34;,
+  &#34;hexo-generator-index&#34;: &#34;^0.2.0&#34;,
+  &#34;hexo-generator-tag&#34;: &#34;^0.2.0&#34;,
+  &#34;hexo-generator-sitemap&#34;: &#34;^1.1.2&#34;,
+  &#34;hexo-generator-baidu-sitemap&#34;: &#34;^0.1.2&#34;,
+  &#34;hexo-renderer-ejs&#34;: &#34;^0.2.0&#34;,
+  &#34;hexo-renderer-marked&#34;: &#34;^0.2.10&#34;,
+  &#34;hexo-renderer-stylus&#34;: &#34;^0.3.1&#34;,
+  &#34;hexo-server&#34;: &#34;^0.2.0&#34;
 }
 </code></pre><p>其中<code>gulp</code>相关的就是用来压缩静态资源用的，接着还要安装<code>gulp</code>工具：</p>
-<pre><code>$ npm install gulp -g --save-dev
+<pre tabindex="0"><code>$ npm install gulp -g --save-dev
 $ npm install gulp gulp-uglify gulp-minify-css gulp-htmlmin gulp-htmlclean gulp-imagemin gulp-concat --save-dev
 </code></pre><p>然后添加<code>gulpfile.js</code>到根目录。</p>
 <p>第一种</p>
-<pre><code>var gulp = require('gulp'),
-    uglify = require('gulp-uglify'),
-    cssmin = require('gulp-minify-css'),
-    imagemin = require('gulp-imagemin'),
-    htmlmin = require('gulp-htmlmin'),
-	htmlclean = require('gulp-htmlclean');
-	concat = require('gulp-concat');
+<pre tabindex="0"><code>var gulp = require(&#39;gulp&#39;),
+    uglify = require(&#39;gulp-uglify&#39;),
+    cssmin = require(&#39;gulp-minify-css&#39;),
+    imagemin = require(&#39;gulp-imagemin&#39;),
+    htmlmin = require(&#39;gulp-htmlmin&#39;),
+	htmlclean = require(&#39;gulp-htmlclean&#39;);
+	concat = require(&#39;gulp-concat&#39;);
 //JS压缩
-gulp.task('uglify', function() {
-    return gulp.src(['./public/js/**/.js','!./public/js/**/*min.js'])//只是排除min.js文件还是不严谨，一般不会有问题，根据自己博客的修改我的修改为return gulp.src(['./public/**/*.js','!./public/zuoxi/**/*.js',,'!./public/radio/**/*.js'])
+gulp.task(&#39;uglify&#39;, function() {
+    return gulp.src([&#39;./public/js/**/.js&#39;,&#39;!./public/js/**/*min.js&#39;])//只是排除min.js文件还是不严谨，一般不会有问题，根据自己博客的修改我的修改为return gulp.src([&#39;./public/**/*.js&#39;,&#39;!./public/zuoxi/**/*.js&#39;,,&#39;!./public/radio/**/*.js&#39;])
         .pipe(uglify())
-        .pipe(gulp.dest('./public/js'));//对应修改为./public即可
+        .pipe(gulp.dest(&#39;./public/js&#39;));//对应修改为./public即可
 });
 //public-fancybox-js压缩
-gulp.task('fancybox:js', function() {
-    return gulp.src('./public/vendors/fancybox/source/jquery.fancybox.js')
+gulp.task(&#39;fancybox:js&#39;, function() {
+    return gulp.src(&#39;./public/vendors/fancybox/source/jquery.fancybox.js&#39;)
         .pipe(uglify())
-        .pipe(gulp.dest('./public/vendors/fancybox/source/'));
+        .pipe(gulp.dest(&#39;./public/vendors/fancybox/source/&#39;));
 });
 // 合并 JS
-gulp.task('jsall', function () {
-    return gulp.src('./public/**/*.js')
+gulp.task(&#39;jsall&#39;, function () {
+    return gulp.src(&#39;./public/**/*.js&#39;)
     // 压缩后重命名
-        .pipe(concat('app.js'))
-        .pipe(gulp.dest('./public'));
+        .pipe(concat(&#39;app.js&#39;))
+        .pipe(gulp.dest(&#39;./public&#39;));
 });
 //public-fancybox-css压缩
-gulp.task('fancybox:css', function() {
-    return gulp.src('./public/vendors/fancybox/source/jquery.fancybox.css')
+gulp.task(&#39;fancybox:css&#39;, function() {
+    return gulp.src(&#39;./public/vendors/fancybox/source/jquery.fancybox.css&#39;)
         .pipe(cssmin())
-        .pipe(gulp.dest('./public/vendors/fancybox/source/'));
+        .pipe(gulp.dest(&#39;./public/vendors/fancybox/source/&#39;));
 });
 //CSS压缩
-gulp.task('cssmin', function() {
-    return gulp.src(['./public/css/main.css','!./public/css/*min.css'])   
+gulp.task(&#39;cssmin&#39;, function() {
+    return gulp.src([&#39;./public/css/main.css&#39;,&#39;!./public/css/*min.css&#39;])   
         .pipe(cssmin())
-        .pipe(gulp.dest('./public/css/'));
+        .pipe(gulp.dest(&#39;./public/css/&#39;));
 });
 //图片压缩
-gulp.task('images', function() {
-    gulp.src('./public/uploads/*.*')
+gulp.task(&#39;images&#39;, function() {
+    gulp.src(&#39;./public/uploads/*.*&#39;)
         .pipe(imagemin({
             progressive: false
         }))
-        .pipe(gulp.dest('./public/uploads/'));
+        .pipe(gulp.dest(&#39;./public/uploads/&#39;));
 });
 // 压缩 public 目录 html文件 public/**/*.hmtl 表示public下所有文件夹中html，包括当前目录
-    gulp.task('minify-html', function() {
-      return gulp.src('./public/**/*.html')
+    gulp.task(&#39;minify-html&#39;, function() {
+      return gulp.src(&#39;./public/**/*.html&#39;)
         .pipe(htmlclean())
         .pipe(htmlmin({
              removeComments: true,
@@ -1297,25 +1316,25 @@ gulp.task('images', function() {
              minifyCSS: true,
              minifyURLs: true,
         }))
-        .pipe(gulp.dest('./public'))
+        .pipe(gulp.dest(&#39;./public&#39;))
     });
-gulp.task('build', ['uglify', 'jsall', 'cssmin', 'images', 'fancybox:js', 'fancybox:css','minify-html']);
+gulp.task(&#39;build&#39;, [&#39;uglify&#39;, &#39;jsall&#39;, &#39;cssmin&#39;, &#39;images&#39;, &#39;fancybox:js&#39;, &#39;fancybox:css&#39;,&#39;minify-html&#39;]);
 </code></pre><p>第二种</p>
-<pre><code>var gulp = require('gulp');
-var minifycss = require('gulp-minify-css');
-var uglify = require('gulp-uglify');
-var htmlmin = require('gulp-htmlmin');
-var htmlclean = require('gulp-htmlclean');
-var imagemin = require('gulp-imagemin');
+<pre tabindex="0"><code>var gulp = require(&#39;gulp&#39;);
+var minifycss = require(&#39;gulp-minify-css&#39;);
+var uglify = require(&#39;gulp-uglify&#39;);
+var htmlmin = require(&#39;gulp-htmlmin&#39;);
+var htmlclean = require(&#39;gulp-htmlclean&#39;);
+var imagemin = require(&#39;gulp-imagemin&#39;);
 // 压缩css文件
-gulp.task('minify-css', function() {
-  return gulp.src('./public/**/*.css')
+gulp.task(&#39;minify-css&#39;, function() {
+  return gulp.src(&#39;./public/**/*.css&#39;)
   .pipe(minifycss())
-  .pipe(gulp.dest('./public'));
+  .pipe(gulp.dest(&#39;./public&#39;));
 });
 // 压缩html文件
-gulp.task('minify-html', function() {
-  return gulp.src('./public/**/*.html')
+gulp.task(&#39;minify-html&#39;, function() {
+  return gulp.src(&#39;./public/**/*.html&#39;)
   .pipe(htmlclean())
   .pipe(htmlmin({
     removeComments: true,
@@ -1323,43 +1342,41 @@ gulp.task('minify-html', function() {
     minifyCSS: true,
     minifyURLs: true,
   }))
-  .pipe(gulp.dest('./public'))
+  .pipe(gulp.dest(&#39;./public&#39;))
 });
 // 压缩js文件
-gulp.task('minify-js', function() {
- return gulp.src(['./public/js/**/.js','!./public/js/**/*min.js'])//只是排除min.js文件还是不严谨，一般不会有问题，根据自己博客的修改我的修改为return gulp.src(['./public/**/*.js','!./public/zuoxi/**/*.js',,'!./public/radio/**/*.js'])
+gulp.task(&#39;minify-js&#39;, function() {
+ return gulp.src([&#39;./public/js/**/.js&#39;,&#39;!./public/js/**/*min.js&#39;])//只是排除min.js文件还是不严谨，一般不会有问题，根据自己博客的修改我的修改为return gulp.src([&#39;./public/**/*.js&#39;,&#39;!./public/zuoxi/**/*.js&#39;,,&#39;!./public/radio/**/*.js&#39;])
         .pipe(uglify())
-        .pipe(gulp.dest('./public/js'));//对应修改为./public即可
+        .pipe(gulp.dest(&#39;./public/js&#39;));//对应修改为./public即可
 });
 // 压缩 public/demo 目录内图片
-gulp.task('minify-images', function() {
-    gulp.src('./public/demo/**/*.*')
+gulp.task(&#39;minify-images&#39;, function() {
+    gulp.src(&#39;./public/demo/**/*.*&#39;)
         .pipe(imagemin({
            optimizationLevel: 5, //类型：Number  默认：3  取值范围：0-7（优化等级）
            progressive: true, //类型：Boolean 默认：false 无损压缩jpg图片
            interlaced: false, //类型：Boolean 默认：false 隔行扫描gif进行渲染
            multipass: false, //类型：Boolean 默认：false 多次优化svg直到完全优化
         }))
-        .pipe(gulp.dest('./public/uploads'));
+        .pipe(gulp.dest(&#39;./public/uploads&#39;));
 });
 // 默认任务
-gulp.task('default', [
-  'minify-html','minify-css','minify-js','minify-images'
+gulp.task(&#39;default&#39;, [
+  &#39;minify-html&#39;,&#39;minify-css&#39;,&#39;minify-js&#39;,&#39;minify-images&#39;
 ]);
 </code></pre><h4 id="执行优化命令">执行优化命令</h4>
 <p>清空hexo public文件夹</p>
-<pre><code>hexo clean
+<pre tabindex="0"><code>hexo clean
 hexo g
 gulp build
 hexo d
-
 </code></pre><p>连续执行4个命令太麻烦， 可以直接在根目录下的package.json文件中生成写入scripts:</p>
-<pre><code>&quot;scripts&quot;: {
-  &quot;build&quot;: &quot;hexo clean &amp;&amp; hexo g &amp;&amp; gulp build &amp;&amp; hexo deploy&quot;
+<pre tabindex="0"><code>&#34;scripts&#34;: {
+  &#34;build&#34;: &#34;hexo clean &amp;&amp; hexo g &amp;&amp; gulp build &amp;&amp; hexo deploy&#34;
   }
-
 </code></pre><p>然后直接执行如下命令就可以了</p>
-<pre><code>npm run build
+<pre tabindex="0"><code>npm run build
 </code></pre><h4 id="第二种配置-何为gulp">（第二种配置） 何为Gulp</h4>
 <p>如果你只是想快速实现效果，可以直接跳到第三步，“使用Gulp”。</p>
 <p><a href="https://markpop.github.io/2014/09/17/Gulp%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">https://markpop.github.io/2014/09/17/Gulp%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</a>
@@ -1371,7 +1388,7 @@ Gulp的插件可以来这里搜，貌似更新很快，一些插件上面博文�
 <p>使用Gulp</p>
 <p>针对hexo代码的优化采用了过渡的方法，先讲public里的文件压缩后放在dst文件夹中，再将dst文件复制到public中。这里借鉴了<a href="http://www.5941740.cn/2016/02/19/gulp-minify-blog/">博文</a>感谢但丁的分享。</p>
 <p>如果你已经有了npm，按照下面的命令操作，应该就可以完成了。</p>
-<pre><code>1. npm install --global gulp-cli    //按照全局gulp
+<pre tabindex="0"><code>1. npm install --global gulp-cli    //按照全局gulp
 2. npm install gulp --save-dev        //cd进入项目根目录，安装gulp
 3. npm install gulp-shell gulp-clean gulp-minify-html gulp-minify-css gulp-uglify gulp-notify --save-dev              //安装插件
 4. 编写gulpfile.js文件，见下图
@@ -1379,70 +1396,70 @@ Gulp的插件可以来这里搜，貌似更新很快，一些插件上面博文�
 6. 执行命令gulp mv，将压缩后的代码复制到public
 </code></pre><p>这里解释下为什么不通过watch监听代码的变化，自动执行。但丁指出了这个问题——“需要说明的是,由于mv任务会将优化后的文件移回public目录,如果运行了watch任务,可能会造成循环任务.我没有开启后台监听任务,我是在外包shell脚本中运行gulp任务并提交代码。” 如果你有更好的方案，希望能告诉我(^_^)。</p>
 <p>gulpfile.js的代码都在这里啦！</p>
-<pre><code>// npm install gulp-shell gulp-clean gulp-minify-html gulp-minify-css gulp-uglify gulp-notify --save-dev   
+<pre tabindex="0"><code>// npm install gulp-shell gulp-clean gulp-minify-html gulp-minify-css gulp-uglify gulp-notify --save-dev   
 
-var gulp = require('gulp'),
-    clean = require('gulp-clean'),
-    minifyCss = require('gulp-minify-css'),
-    minifyHtml = require('gulp-minify-html'),
-    uglify = require('gulp-uglify'),
-    notify = require('gulp-notify'),
-    shell = require('gulp-shell');
+var gulp = require(&#39;gulp&#39;),
+    clean = require(&#39;gulp-clean&#39;),
+    minifyCss = require(&#39;gulp-minify-css&#39;),
+    minifyHtml = require(&#39;gulp-minify-html&#39;),
+    uglify = require(&#39;gulp-uglify&#39;),
+    notify = require(&#39;gulp-notify&#39;),
+    shell = require(&#39;gulp-shell&#39;);
 
 //清空dest文件夹
-gulp.task(&quot;clean&quot;,function() {
-    return gulp.src(&quot;./dst/*&quot;)
+gulp.task(&#34;clean&#34;,function() {
+    return gulp.src(&#34;./dst/*&#34;)
     .pipe(clean());
 });
 
 // 压缩css文件，已压缩文件不用再压缩
-gulp.task(&quot;css&quot;,function() {
-    return gulp.src([&quot;public/**/*.css&quot;,&quot;!public/**/*.min.css&quot;])
-    .pipe(minifyCss({compatibility: &quot;ie8&quot;}))
-    .pipe(gulp.dest(&quot;./dst/&quot;));   
+gulp.task(&#34;css&#34;,function() {
+    return gulp.src([&#34;public/**/*.css&#34;,&#34;!public/**/*.min.css&#34;])
+    .pipe(minifyCss({compatibility: &#34;ie8&#34;}))
+    .pipe(gulp.dest(&#34;./dst/&#34;));   
 });
 
 // 压缩js文件
-gulp.task(&quot;js&quot;,function() {
-    return gulp.src([&quot;public/**/*.js&quot;,&quot;!public/**/*.min.js&quot;])
+gulp.task(&#34;js&#34;,function() {
+    return gulp.src([&#34;public/**/*.js&#34;,&#34;!public/**/*.min.js&#34;])
     .pipe(uglify())
-    .pipe(gulp.dest(&quot;./dst/&quot;));
+    .pipe(gulp.dest(&#34;./dst/&#34;));
 });
 
 // 压缩html文件
-gulp.task(&quot;html&quot;,function() {
-    return gulp.src(&quot;public/**/*.html&quot;)
+gulp.task(&#34;html&#34;,function() {
+    return gulp.src(&#34;public/**/*.html&#34;)
     .pipe(minifyHtml())
-    .pipe(gulp.dest(&quot;./dst/&quot;));
+    .pipe(gulp.dest(&#34;./dst/&#34;));
 });
 
 // 设置默认任务，command line下输入gulp执行
 // clean任务执行完成了才会去运行其他的任务，在gulp.start()里的任务执行的顺序是不确定的，所以将要在它们之前执行的任务写在数组里面
-gulp.task(&quot;default&quot;,['clean'],function() {
-    gulp.start('css', 'js', 'html');
+gulp.task(&#34;default&#34;,[&#39;clean&#39;],function() {
+    gulp.start(&#39;css&#39;, &#39;js&#39;, &#39;html&#39;);
 });
 
 // det文件复制到public
-gulp.task(&quot;mv&quot;,function() {
-    return gulp.src(&quot;./dst/*&quot;)
+gulp.task(&#34;mv&#34;,function() {
+    return gulp.src(&#34;./dst/*&#34;)
     .pipe(shell([
-        &quot;cp -r ./dst/* ./public/&quot;
+        &#34;cp -r ./dst/* ./public/&#34;
     ]));
 });
 </code></pre><h3 id="生成sitemap文件">生成sitemap文件</h3>
 <p>生成sitemap文件然后提交给搜索引擎，对于SEO很有帮助，hexo有相关的sitemap插件。</p>
-<pre><code>&quot;hexo-generator-sitemap&quot;: &quot;^1.1.2&quot;,
-&quot;hexo-generator-baidu-sitemap&quot;: &quot;^0.1.2&quot;,
+<pre tabindex="0"><code>&#34;hexo-generator-sitemap&#34;: &#34;^1.1.2&#34;,
+&#34;hexo-generator-baidu-sitemap&#34;: &#34;^0.1.2&#34;,
 </code></pre><p>安装这俩插件后，以后每次<code>hexo g</code>都会生成sitemap.xml和baidusitemap.xml文件并自动帮你放到public目录。很省心~</p>
 <h3 id="修改permalink使文章链接唯一化">修改permalink使文章链接唯一化</h3>
 <p>hexo默认的permalink配置是：</p>
-<pre><code>permalink: :year/:month/:day/:title/
+<pre tabindex="0"><code>permalink: :year/:month/:day/:title/
 </code></pre><p>这样生成的访问链接都是类似<code>http://yoursite.com/2016/05/06/your_title/</code>这样的，有点动态网站的风格，不过这样可能对于搜索引擎不是太友好，我们可以把permalink修改成.html结尾的：</p>
-<pre><code>permalink: :year/:month/:day/:title.html
+<pre tabindex="0"><code>permalink: :year/:month/:day/:title.html
 permalink: posts/:abbrlink/  # “posts/” 可自行更换
 </code></pre><p>还有一点需要注意的是，title最好是英文的，这样permalink也是不带中文的，但是markdown文件中的title你还是可以按自己的文章标题写成中文的。</p>
 <p>在<code>站点配置文件</code>中添加如下代码：</p>
-<pre><code># abbrlink config
+<pre tabindex="0"><code># abbrlink config
 abbrlink:
   alg: crc32  # 算法：crc16(default) and crc32 
   rep: hex    # 进制：dec(default) and hex
@@ -1457,21 +1474,19 @@ abbrlink:
 <p>这些都是看个人爱好了，hexo还是很方便自己自定义的。</p>
 <h4 id="站点头像改成圆形">站点头像改成圆形</h4>
 <p>在<code>themes/next/source/css/_common/components/sidebar/sidebar-author.styl</code>中<code>.site-author-image</code>定义中增加：</p>
-<pre><code>border-radius: 50%;
+<pre tabindex="0"><code>border-radius: 50%;
 -webkit-border-radius: 50%;
 -moz-border-radius: 50%;
-
 </code></pre><h4 id="去掉站点链接前面的小圆点">去掉站点链接前面的小圆点</h4>
 <p>个人不太喜欢站点链接前面的小圆点，去掉<code>themes/next/source/css/_common/components/sidebar/sidebar-author-links.styl</code>中<code>a::before</code>的定义即可。</p>
 <h4 id="小技巧">小技巧</h4>
 <p>有其他想修改的小地方，都可以打开浏览器的开发者工具，找到对应地方的css定义，然后在sublime或者atom中<code>Search In Directory</code>找到对应css的源码，修改即可。</p>
 <h4 id="解决github-pages屏蔽百度爬虫的问题">解决github pages屏蔽百度爬虫的问题</h4>
 <p>嗯，是的，github pages屏蔽了百度爬虫(屏蔽了百度爬虫的UA<code>Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)</code>)。这样你的hexo博客很难被百度收录，从百度站长工具抓取诊断中就可以发现爬取都是403 forbidden。</p>
-<pre><code>HTTP/1.0 403 Forbidden
+<pre tabindex="0"><code>HTTP/1.0 403 Forbidden
 Cache-Control: no-cache
 Connection: close
 Content-Type: text/html
-
 </code></pre><p>本来也无所谓，但是从技术的角度来看，解决这种问题肯定很有快感~~
 目前主要有两种解决方案：<code>CDN回源</code>和<code>为百度spider指定特殊线路</code>。两种方案我都试过，最终选择了后者。</p>
 <h4 id="cdn回源">CDN回源</h4>
@@ -1479,14 +1494,16 @@ Content-Type: text/html
 回源的意思是用户请求hexo之后CDN会抓取hexo内容，这样其他用户就不用访问github pages了而是直接从CDN就近的节点拉取数据，访问速度更快。但是这里有个问题，比如百度爬虫所在的区域CDN节点还没有缓存hexo数据，这样百度爬虫会穿透CDN直接请求到github pages，然后后果就是github pages返回403 forbidden。所以CDN回源的方式仅适用于博客访客量比较大的情况（这样访问会在百度爬虫之前让CDN缓存hexo数据，当然也只是比较大的概率）。
 不过如果无视百度爬虫，给hexo加上CDN回源也是很不错的，至少能提高访问速度。推荐使用<a href="https://www.upyun.com/index.html">又拍云</a>。大概的配置步骤：</p>
 <p><strong>配置服务</strong></p>
-<p><a href="https://odxth7737.qnssl.com/upyun_cdn_1.png"><img src="https://odxth7737.qnssl.com/upyun_cdn_1.png" alt="配置upyun服务"></a></p>
+<p><a href="https://odxth7737.qnssl.com/upyun_cdn_1.png">
+        <img class="mx-auto" alt="配置upyun服务" src="https://odxth7737.qnssl.com/upyun_cdn_1.png" />   
+    </a></p>
 <p><strong>添加CNAME解析</strong></p>
-<pre><code>CNAME @ kikoroc.b0.aicdn.com
+<pre tabindex="0"><code>CNAME @ kikoroc.b0.aicdn.com
 </code></pre><p>同时去掉到github pages ip的A类解析。</p>
 <p>为百度spider指定特殊线路</p>
 <p>除了github pages能托管hexo之外，还有其他的选择，比如gitcafe pages(已经和coding.net合并)。传送门：<a href="https://coding.net/help/doc/pages/index.html">gitcafe pages配置</a>，配置还是挺简单的。而且gitcafe没有屏蔽百度爬虫。但是gitcafe pages的服务器目前还不够github给力（偶尔出现一些无法打开的情况），所以有了新的思路：</p>
 <p><strong>hexo deploy同时部署到github和coding.net</strong></p>
-<pre><code># Deployment
+<pre tabindex="0"><code># Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
@@ -1494,39 +1511,40 @@ deploy:
   #branch: master
   repo: git@git.coding.net:/kikoroc/kikoroc
   branch: coding-pages
-
 </code></pre><p>后面有时间可以写个脚本直接同时部署github和gitcafe。</p>
 <p><strong>正常用户访问github pages，百度爬虫访问gitcafe</strong></p>
 <p>现在的DNS解析服务一般都可以指定特定的线路，比如指定百度爬虫的线路解析到gitcafe。
-<a href="https://odxth7737.qnssl.com/dnspod1.png"><img src="https://odxth7737.qnssl.com/dnspod1.png" alt="dnspod设置"></a>
+<a href="https://odxth7737.qnssl.com/dnspod1.png">
+        <img class="mx-auto" alt="dnspod设置" src="https://odxth7737.qnssl.com/dnspod1.png" />   
+    </a>
 gitcafe pages绑定域名到kikoroc.com。</p>
 <h4 id="添加-instantclick">添加 InstantClick</h4>
 <p>加上 <code>InstantClick.js</code> 后, 通过预加载可以达到网页秒开的效果 (并没有实际提速), 具体介绍可以看这里 <a href="http://zhiqiang.org/blog/it/install-instantclick.html">博客启用InstantClick</a>. 使用 <code>instantclick.js</code> 也很简单, 进入 <a href="http://instantclick.io/download">InstantClick</a> 下载 <code>instantclick.min.js</code>至使用主题目录下 <code>source/js</code> 文件夹里, 然后在 <code>\layout\_partial</code> 里的 <code>after-footer.ejs</code>, 加上如下代码即可.</p>
-<pre><code>&lt;script src=&quot;/js/instantclick.min.js&quot; data-no-instant&gt;&lt;/script&gt;
+<pre tabindex="0"><code>&lt;script src=&#34;/js/instantclick.min.js&#34; data-no-instant&gt;&lt;/script&gt;
 &lt;script data-no-instant&gt;InstantClick.init();&lt;/script&gt;
 </code></pre><p>使用 <code>InstantClick</code> 可能导致 <code>Google Analyitcs</code>, 百度统计, <code>Mathjax</code> 和 <code>Adsense</code> 等不兼容, 官方提供了 <code>GA</code> 的<a href="http://instantclick.io/scripts">解决办法</a></p>
-<pre><code>&lt;script src=&quot;instantclick.min.js&quot; data-no-instant&gt;&lt;/script&gt;
+<pre tabindex="0"><code>&lt;script src=&#34;instantclick.min.js&#34; data-no-instant&gt;&lt;/script&gt;
 &lt;script data-no-instant&gt;
-/* Google Analytics code here, without ga('send', 'pageview') */
+/* Google Analytics code here, without ga(&#39;send&#39;, &#39;pageview&#39;) */
  
-InstantClick.on('change', function() {
-  ga('send', 'pageview', location.pathname + location.search);
+InstantClick.on(&#39;change&#39;, function() {
+  ga(&#39;send&#39;, &#39;pageview&#39;, location.pathname + location.search);
 });
  
 InstantClick.init();
 &lt;/script&gt;
 </code></pre><p>怎样使 <code>InstantClick</code> 兼容 <code>MathJax</code>, 百度统计, <code>让InstantClick兼容MathJax、百度统计</code> 等? 文章<a href="http://zhiqiang.org/blog/it/instantclick-support-mathjax-baidu-stat.html">让InstantClick兼容MathJax、百度统计等</a>给出了如下解决办法. 即在 <code>InstantClick.init();</code> 之前加入</p>
-<pre><code>&lt;script data-no-instant&gt;
-InstantClick.on('change', function(isInitialLoad) {
+<pre tabindex="0"><code>&lt;script data-no-instant&gt;
+InstantClick.on(&#39;change&#39;, function(isInitialLoad) {
   if (isInitialLoad === false) {
-    if (typeof MathJax !== 'undefined') // support MathJax
-      MathJax.Hub.Queue([&quot;Typeset&quot;,MathJax.Hub]);
-    if (typeof prettyPrint !== 'undefined') // support google code prettify
+    if (typeof MathJax !== &#39;undefined&#39;) // support MathJax
+      MathJax.Hub.Queue([&#34;Typeset&#34;,MathJax.Hub]);
+    if (typeof prettyPrint !== &#39;undefined&#39;) // support google code prettify
       prettyPrint();
-    if (typeof _hmt !== 'undefined')  // support 百度统计
-      _hmt.push(['_trackPageview', location.pathname + location.search]);
-    if (typeof ga !== 'undefined')  // support google analytics
-        ga('send', 'pageview', location.pathname + location.search);
+    if (typeof _hmt !== &#39;undefined&#39;)  // support 百度统计
+      _hmt.push([&#39;_trackPageview&#39;, location.pathname + location.search]);
+    if (typeof ga !== &#39;undefined&#39;)  // support google analytics
+        ga(&#39;send&#39;, &#39;pageview&#39;, location.pathname + location.search);
   }
 });
 InstantClick.init();
@@ -1534,61 +1552,60 @@ InstantClick.init();
 </code></pre><p>这段代码的含义是每次页面重载时，通过直接的函数调用来实现 <code>MathJax</code>, 百度统计, <code>Google Code Prettify</code>, <code>Google Analytics</code>的重新运行。</p>
 <p>简单教程</p>
 <p>加速一些常用 <code>CSS</code> 和 <code>JQUERY</code>, 以我的 <code>head.ejs</code> 部分为例</p>
-<pre><code> &lt;% if (theme.favicon){ %&gt;
-    &lt;link rel=&quot;icon&quot; href=&quot;&lt;%- theme.favicon %&gt;&quot;&gt;
+<pre tabindex="0"><code> &lt;% if (theme.favicon){ %&gt;
+    &lt;link rel=&#34;icon&#34; href=&#34;&lt;%- theme.favicon %&gt;&#34;&gt;
   &lt;% } %&gt;
-  &lt;%- css('css/font-awesome.min') %&gt;
-  &lt;%- css('css/bootstrap.min') %&gt;
-  &lt;%- css('css/style') %&gt;
-  &lt;!--[if lt IE 9]&gt;&lt;script src=&quot;//html5shiv.googlecode.com/svn/trunk/html5.js&quot;&gt;&lt;/script&gt;&lt;![endif]--&gt;
+  &lt;%- css(&#39;css/font-awesome.min&#39;) %&gt;
+  &lt;%- css(&#39;css/bootstrap.min&#39;) %&gt;
+  &lt;%- css(&#39;css/style&#39;) %&gt;
+  &lt;!--[if lt IE 9]&gt;&lt;script src=&#34;//html5shiv.googlecode.com/svn/trunk/html5.js&#34;&gt;&lt;/script&gt;&lt;![endif]--&gt;
 &lt;/head&gt;
 </code></pre><p>这里的 <code>favicon</code> 和 <code>CSS</code> 文件都可以使用七牛静态文件加速.</p>
 <p>因为本站使用了 <code>font-awesome</code>, 因此使用七牛的公共库 <a href="http://staticfile.org/">staticfile.org</a>, 即</p>
-<pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;//cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css&quot; type=&quot;text/css&quot;&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;//cdn.staticfile.org/twitter-bootstrap/3.1.0/css/bootstrap.min.css&quot; type=&quot;text/css&quot;&gt;
-
+<pre tabindex="0"><code>&lt;link rel=&#34;stylesheet&#34; href=&#34;//cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css&#34; type=&#34;text/css&#34;&gt;
+&lt;link rel=&#34;stylesheet&#34; href=&#34;//cdn.staticfile.org/twitter-bootstrap/3.1.0/css/bootstrap.min.css&#34; type=&#34;text/css&#34;&gt;
 </code></pre><p>这里请注意对应的版本号, 不一定兼容.</p>
 <p>对于其他一些文件, 需要上传至自己的七牛空间, 即 <code>style.css</code> 和 <code>html5.js</code> 以及 <code>favicon</code>. 最后我的头部变成了</p>
-<pre><code> &lt;% if (theme.favicon){ %&gt;
-    &lt;link rel=&quot;icon&quot; href=&quot;//pdfcdn.qiniudn.com/favicon.ico&quot;&gt;
+<pre tabindex="0"><code> &lt;% if (theme.favicon){ %&gt;
+    &lt;link rel=&#34;icon&#34; href=&#34;//pdfcdn.qiniudn.com/favicon.ico&#34;&gt;
   &lt;% } %&gt;
-  &lt;link rel=&quot;stylesheet&quot; href=&quot;//cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css&quot; type=&quot;text/css&quot;&gt;
-  &lt;link rel=&quot;stylesheet&quot; href=&quot;//cdn.staticfile.org/twitter-bootstrap/3.1.0/css/bootstrap.min.css&quot; type=&quot;text/css&quot;&gt;
-  &lt;link rel=&quot;stylesheet&quot; href=&quot;//pdfcdn.qiniudn.com/css/style.css&quot; type=&quot;text/css&quot;&gt;
-  &lt;!--[if lt IE 9]&gt;&lt;script src=&quot;//pdfcdn.qiniudn.com/js/html5.js&quot;&gt;&lt;/script&gt;&lt;![endif]--&gt;
+  &lt;link rel=&#34;stylesheet&#34; href=&#34;//cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css&#34; type=&#34;text/css&#34;&gt;
+  &lt;link rel=&#34;stylesheet&#34; href=&#34;//cdn.staticfile.org/twitter-bootstrap/3.1.0/css/bootstrap.min.css&#34; type=&#34;text/css&#34;&gt;
+  &lt;link rel=&#34;stylesheet&#34; href=&#34;//pdfcdn.qiniudn.com/css/style.css&#34; type=&#34;text/css&#34;&gt;
+  &lt;!--[if lt IE 9]&gt;&lt;script src=&#34;//pdfcdn.qiniudn.com/js/html5.js&#34;&gt;&lt;/script&gt;&lt;![endif]--&gt;
 &lt;/head&gt;
 </code></pre><p>然后是 <code>after-footer.ejs</code> 部分, 原来是</p>
-<pre><code>&lt;script src=&quot;//libs.baidu.com/jquery/2.0.3/jquery.min.js&quot;&gt;&lt;/script&gt;
+<pre tabindex="0"><code>&lt;script src=&#34;//libs.baidu.com/jquery/2.0.3/jquery.min.js&#34;&gt;&lt;/script&gt;
 &lt;% if (theme.fancybox){ %&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;&lt;%- config.root %&gt;fancybox/jquery.fancybox.css&quot; media=&quot;screen&quot; type=&quot;text/css&quot;&gt;
-&lt;script src=&quot;&lt;%- config.root %&gt;fancybox/jquery.fancybox.pack.js&quot;&gt;&lt;/script&gt;
+&lt;link rel=&#34;stylesheet&#34; href=&#34;&lt;%- config.root %&gt;fancybox/jquery.fancybox.css&#34; media=&#34;screen&#34; type=&#34;text/css&#34;&gt;
+&lt;script src=&#34;&lt;%- config.root %&gt;fancybox/jquery.fancybox.pack.js&#34;&gt;&lt;/script&gt;
 &lt;% } %&gt;
-&lt;%- js('js/jquery.fitvids') %&gt;
-&lt;%- js('js/bootstrap.min') %&gt;
-&lt;%- js('js/script') %&gt;
+&lt;%- js(&#39;js/jquery.fitvids&#39;) %&gt;
+&lt;%- js(&#39;js/bootstrap.min&#39;) %&gt;
+&lt;%- js(&#39;js/script&#39;) %&gt;
 </code></pre><p>变成了</p>
-<pre><code>&lt;script src=&quot;//libs.baidu.com/jquery/2.0.3/jquery.min.js&quot;&gt;&lt;/script&gt;
+<pre tabindex="0"><code>&lt;script src=&#34;//libs.baidu.com/jquery/2.0.3/jquery.min.js&#34;&gt;&lt;/script&gt;
 &lt;% if (theme.fancybox){ %&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;//pdfcdn.qiniudn.com/fancybox/jquery.fancybox.css&quot; media=&quot;screen&quot; type=&quot;text/css&quot;&gt;
-&lt;script src=&quot;//pdfcdn.qiniudn.com/fancybox/jquery.fancybox.pack.js&quot;&gt;&lt;/script&gt;
+&lt;link rel=&#34;stylesheet&#34; href=&#34;//pdfcdn.qiniudn.com/fancybox/jquery.fancybox.css&#34; media=&#34;screen&#34; type=&#34;text/css&#34;&gt;
+&lt;script src=&#34;//pdfcdn.qiniudn.com/fancybox/jquery.fancybox.pack.js&#34;&gt;&lt;/script&gt;
 &lt;% } %&gt;
-&lt;script src=&quot;//pdfcdn.qiniudn.com/js/jquery.fitvids.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;//cdn.staticfile.org/twitter-bootstrap/3.3.0/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;//pdfcdn.qiniudn.com/js/script.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&#34;//pdfcdn.qiniudn.com/js/jquery.fitvids.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;//cdn.staticfile.org/twitter-bootstrap/3.3.0/js/bootstrap.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;//pdfcdn.qiniudn.com/js/script.js&#34;&gt;&lt;/script&gt;
 </code></pre><h3 id="gitment-评论插件">Gitment 评论插件</h3>
 <p>　　众所周知，<code>next</code>主题中已经包含了很多内容评论系统，但是各种原因。。配置起来总是不顺利，于是想到把<code>Gitment</code>评论插件配置进去。<code>Gitment</code>是利用<code>GitHub</code>的<code>Issue</code>系统封装的类似评论系统，配置起来很方便，而且评论时候只需要用<code>GitHub</code>账号登录即可。项目地址是<a href="https://github.com/imsun/gitment">Gitment</a>。</p>
 <h4 id="第一种配置">第一种配置</h4>
 <p>第一步</p>
 <p>　　创建<code>_gitment.swig</code>文件，路径为<code>next/layout/_third-party/comments/_gitment.swig</code> ，内容如下：</p>
-<pre><code>{% if theme.gitment.enable %}
-  &lt;link rel=&quot;stylesheet&quot; href=&quot;https://imsun.github.io/gitment/style/default.css&quot;&gt;
-  &lt;script src=&quot;https://imsun.github.io/gitment/dist/gitment.browser.js&quot;&gt;&lt;/script&gt;
+<pre tabindex="0"><code>{% if theme.gitment.enable %}
+  &lt;link rel=&#34;stylesheet&#34; href=&#34;https://imsun.github.io/gitment/style/default.css&#34;&gt;
+  &lt;script src=&#34;https://imsun.github.io/gitment/dist/gitment.browser.js&#34;&gt;&lt;/script&gt;
   &lt;script&gt;
     const myTheme = {
       render(state, instance) {
-        const container = document.createElement('div');
-        container.lang = &quot;en-US&quot;;
-        container.className = 'gitment-container gitment-root-container';
+        const container = document.createElement(&#39;div&#39;);
+        container.lang = &#34;en-US&#34;;
+        container.className = &#39;gitment-container gitment-root-container&#39;;
         container.appendChild(instance.renderHeader(state, instance));
         container.appendChild(instance.renderEditor(state, instance));
         container.appendChild(instance.renderComments(state, instance));
@@ -1598,19 +1615,19 @@ InstantClick.init();
     }
 
     function showGitment(){
-      $(&quot;#gitment_title&quot;).attr(&quot;style&quot;,&quot;display:none&quot;);
-      $(&quot;#container&quot;).attr(&quot;style&quot;,&quot;&quot;);
+      $(&#34;#gitment_title&#34;).attr(&#34;style&#34;,&#34;display:none&#34;);
+      $(&#34;#container&#34;).attr(&#34;style&#34;,&#34;&#34;);
       var gitment = new Gitment({
         id: window.location.pathname,
         theme: myTheme,
-        owner: '{{ theme.gitment.owner }}',
-        repo: '{{ theme.gitment.repo }}',
+        owner: &#39;{{ theme.gitment.owner }}&#39;,
+        repo: &#39;{{ theme.gitment.repo }}&#39;,
         oauth: {
-          client_id: '{{ theme.gitment.client_id }}',
-          client_secret: '{{ theme.gitment.client_secret }}'
+          client_id: &#39;{{ theme.gitment.client_id }}&#39;,
+          client_secret: &#39;{{ theme.gitment.client_secret }}&#39;
         }
       });
-      gitment.render('container');
+      gitment.render(&#39;container&#39;);
     }
 
     {% if !theme.gitment.click_show %}
@@ -1620,88 +1637,88 @@ InstantClick.init();
 {% endif %}
 </code></pre><p>第二步</p>
 <p>　　修改<code>next/layout/_third-party/comments/index.swig</code> 文件，添加<code>_gitment.swig</code>到末尾。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">{% include &#39;_gitment.swig&#39; %}
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span>{<span style="color:#000;font-weight:bold">%</span> <span style="color:#000;font-weight:bold">include</span> <span style="color:#d14">&#39;_gitment.swig&#39;</span> <span style="color:#000;font-weight:bold">%</span>}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>第三步</p>
 <p>　　修改<code>next/_partials/comments.swig</code>文件，添加<code>Gitment</code>到评论区布局中。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">  <span style="color:#000;font-weight:bold">&lt;</span>div <span style="color:#000;font-weight:bold">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;comments&#34;</span> id<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;comments&#34;</span><span style="color:#000;font-weight:bold">&gt;</span>
-    {<span style="color:#000;font-weight:bold">%</span> <span style="color:#000;font-weight:bold">if</span> theme.gitment.enable <span style="color:#000;font-weight:bold">%</span>}
-      {<span style="color:#000;font-weight:bold">%</span> <span style="color:#000;font-weight:bold">if</span> theme.gitment.click_show <span style="color:#000;font-weight:bold">%</span>}
-          <span style="color:#000;font-weight:bold">&lt;</span>div onclick<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;showGitment();&#34;</span> id<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;gitment_title&#34;</span> <span style="color:#000;font-weight:bold">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;gitment_title&#34;</span><span style="color:#000;font-weight:bold">&gt;</span>显示 Gitment 评论<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#a61717;background-color:#e3d2d2">/div&gt;</span>
-      {<span style="color:#000;font-weight:bold">%</span> endif <span style="color:#000;font-weight:bold">%</span>}
-      <span style="color:#000;font-weight:bold">&lt;</span>div id<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;container&#34;</span> <span style="color:#000;font-weight:bold">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;gitment_container&#34;</span> style<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;display:none;&#34;</span><span style="color:#000;font-weight:bold">&gt;&lt;</span><span style="color:#a61717;background-color:#e3d2d2">/div&gt;</span>
-    {<span style="color:#000;font-weight:bold">%</span> endif <span style="color:#000;font-weight:bold">%</span>}
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">&lt;</span>div <span style="color:#000;font-weight:bold">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;comments&#34;</span> id<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;comments&#34;</span><span style="color:#000;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>    {<span style="color:#000;font-weight:bold">%</span> <span style="color:#000;font-weight:bold">if</span> theme.gitment.enable <span style="color:#000;font-weight:bold">%</span>}
+</span></span><span style="display:flex;"><span>      {<span style="color:#000;font-weight:bold">%</span> <span style="color:#000;font-weight:bold">if</span> theme.gitment.click_show <span style="color:#000;font-weight:bold">%</span>}
+</span></span><span style="display:flex;"><span>          <span style="color:#000;font-weight:bold">&lt;</span>div onclick<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;showGitment();&#34;</span> id<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;gitment_title&#34;</span> <span style="color:#000;font-weight:bold">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;gitment_title&#34;</span><span style="color:#000;font-weight:bold">&gt;</span>显示 Gitment 评论<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#a61717;background-color:#e3d2d2">/div&gt;</span>
+</span></span><span style="display:flex;"><span>      {<span style="color:#000;font-weight:bold">%</span> endif <span style="color:#000;font-weight:bold">%</span>}
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">&lt;</span>div id<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;container&#34;</span> <span style="color:#000;font-weight:bold">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;gitment_container&#34;</span> style<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;display:none;&#34;</span><span style="color:#000;font-weight:bold">&gt;&lt;</span><span style="color:#a61717;background-color:#e3d2d2">/div&gt;</span>
+</span></span><span style="display:flex;"><span>    {<span style="color:#000;font-weight:bold">%</span> endif <span style="color:#000;font-weight:bold">%</span>}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>修改themes/next/source/css_custom/custom.styl，添加gitment自定义按钮样式:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#000;font-weight:bold">//</span> <span style="color:#000080">Custom</span> <span style="color:#000080">styles</span><span style="color:#000;font-weight:bold">.</span>
-.<span style="color:#458;font-weight:bold">gitment_title</span> {
-    <span style="color:#000;font-weight:bold">display</span>: <span style="color:#000;font-weight:bold">inline</span><span style="color:#000;font-weight:bold">-</span><span style="color:#000;font-weight:bold">block</span>;
-    <span style="color:#000;font-weight:bold">padding</span>: <span style="color:#099">0</span> <span style="color:#099">15</span><span style="color:#458;font-weight:bold">px</span>;
-    <span style="color:#000;font-weight:bold">color</span>: <span style="color:#099">#0a9caf</span>;
-    <span style="color:#000;font-weight:bold">border</span>: <span style="color:#099">1</span><span style="color:#458;font-weight:bold">px</span> <span style="color:#000;font-weight:bold">solid</span> <span style="color:#099">#0a9caf</span>;
-    <span style="color:#000;font-weight:bold">border-radius</span>: <span style="color:#099">4</span><span style="color:#458;font-weight:bold">px</span>;
-    <span style="color:#000;font-weight:bold">cursor</span>: <span style="color:#000;font-weight:bold">pointer</span>;
-    <span style="color:#000;font-weight:bold">font-size</span>: <span style="color:#099">14</span><span style="color:#458;font-weight:bold">px</span>;
-    <span style="color:#a61717;background-color:#e3d2d2">//</span> <span style="color:#000;font-weight:bold">float</span>: <span style="color:#000;font-weight:bold">left</span>;
-}
-
-.<span style="color:#458;font-weight:bold">gitment_title</span>:<span style="color:#3c5d5d;font-weight:bold">hover</span><span style="color:#000;font-weight:bold">,</span> .<span style="color:#458;font-weight:bold">disqus_title</span>:<span style="color:#3c5d5d;font-weight:bold">hover</span>{
-    <span style="color:#000;font-weight:bold">color</span>: <span style="color:#099">#fff</span>;
-    <span style="color:#000;font-weight:bold">background</span>: <span style="color:#099">#0a9caf</span>;
-}
-
-.<span style="color:#458;font-weight:bold">gitment_container</span> {
-    <span style="color:#000;font-weight:bold">margin-bottom</span>: <span style="color:#099">10</span><span style="color:#458;font-weight:bold">px</span>;
-    <span style="color:#000;font-weight:bold">background-color</span>: <span style="color:#099">#f9f9f9</span>;
-    <span style="color:#000;font-weight:bold">padding</span>: <span style="color:#099">10</span><span style="color:#458;font-weight:bold">px</span>;
-    <span style="color:#000;font-weight:bold">border-radius</span>: <span style="color:#099">4</span><span style="color:#458;font-weight:bold">px</span>;
-}
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">//</span> <span style="color:#000080">Custom</span> <span style="color:#000080">styles</span><span style="color:#000;font-weight:bold">.</span>
+</span></span><span style="display:flex;"><span>.<span style="color:#458;font-weight:bold">gitment_title</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">display</span>: <span style="color:#000;font-weight:bold">inline-block</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">padding</span>: <span style="color:#099">0</span> <span style="color:#099">15</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">color</span>: <span style="color:#099">#0a9caf</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">border</span>: <span style="color:#099">1</span><span style="color:#458;font-weight:bold">px</span> <span style="color:#000;font-weight:bold">solid</span> <span style="color:#099">#0a9caf</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">border-radius</span>: <span style="color:#099">4</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">cursor</span>: <span style="color:#000;font-weight:bold">pointer</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">font-size</span>: <span style="color:#099">14</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a61717;background-color:#e3d2d2">//</span> <span style="color:#000;font-weight:bold">float</span>: <span style="color:#000;font-weight:bold">left</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>.<span style="color:#458;font-weight:bold">gitment_title</span>:<span style="color:#3c5d5d;font-weight:bold">hover</span><span style="color:#000;font-weight:bold">,</span> .<span style="color:#458;font-weight:bold">disqus_title</span>:<span style="color:#3c5d5d;font-weight:bold">hover</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">color</span>: <span style="color:#099">#fff</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">background</span>: <span style="color:#099">#0a9caf</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>.<span style="color:#458;font-weight:bold">gitment_container</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">margin-bottom</span>: <span style="color:#099">10</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">background-color</span>: <span style="color:#099">#f9f9f9</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">padding</span>: <span style="color:#099">10</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">border-radius</span>: <span style="color:#099">4</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>第四步</p>
 <p>　　也就是最后一步，在<code>next/_config.yml</code>文件中添加<code>Gitment</code>的相关参数。<code>client_id</code>和<code>client_secret</code>需要在<a href="https://github.com/settings/developers">Github Developer Apps</a>中注册后得到。</p>
@@ -1709,23 +1726,27 @@ InstantClick.init();
 <p><strong>GitHub授权接入</strong></p>
 <p>Gitment是使用的GitHub Issues作为评论系统，在接入Gitment前，需要获得GitHub的授权，获得相应的客户端id和客户端私钥，以备站点使用。具体步骤如下图所示：
 <a href="https://github.com/settings/applications/new">OAuth application注册接入</a></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/949086-46d097a1a00edb81.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/666" alt="img"></p>
+<p>
+        <img class="mx-auto" alt="img" src="http://upload-images.jianshu.io/upload_images/949086-46d097a1a00edb81.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/666" />   
+    </p>
 <p>GitHub授权接入.png</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/949086-71ade90346c0adc9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/666" alt="img"></p>
-<pre><code># gitment
+<p>
+        <img class="mx-auto" alt="img" src="http://upload-images.jianshu.io/upload_images/949086-71ade90346c0adc9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/666" />   
+    </p>
+<pre tabindex="0"><code># gitment
 gitment:
   enable: true
   click_show: true
-  owner: 'github用户id或者用户名'
-  repo: '评论的github仓库名'
-  client_id: ''
-  client_secret: ''
+  owner: &#39;github用户id或者用户名&#39;
+  repo: &#39;评论的github仓库名&#39;
+  client_id: &#39;&#39;
+  client_secret: &#39;&#39;
 </code></pre><p>到此为止，<code>Gitment</code>插件集成成功了，发布之后就能看到评论区。如果评论区显示<code>Not Found</code>错误的话，原因是未登录，只需要点击<code>Login with GitHub</code>即可用<code>Github</code>账号登录。登录成功之后会显示<code>Initialize Comments</code>按钮，点击该按钮初始化后方可使用评论系统了。</p>
 <h4 id="第二种配置">第二种配置</h4>
 <p>在github的<code>settings/OAuth application</code>下注册一个新的 OAuth Application。其他内容可以随意填写，但要确保填入正确的 callback URL（一般是评论页面对应的域名，如 <a href="https://imsun.net%29./">https://imsun.net）。</a></p>
 <p>你会得到一个 client ID 和一个 client secret，这个将被用于之后的用户登录。</p>
 <p>在主题下themes/next/_config.yml文件中添加：</p>
-<pre><code># Gitment
+<pre tabindex="0"><code># Gitment
  # Introduction: https://imsun.net/posts/gitment-introduction/
 gitment:
   enable: true
@@ -1738,25 +1759,25 @@ gitment:
 <p>其中lazy的含义，是否懒加载相应评论框，如果为true，文章底部评论是收起状态，提示显示 Gitment 评论按钮，单击展开评论框。</p>
 <p>懒加载按钮显示的文字设置：</p>
 <p>在主题下languages/en.yml文件中添加：</p>
-<pre><code>gitmentbutton: Show comments from Gitment
+<pre tabindex="0"><code>gitmentbutton: Show comments from Gitment
 </code></pre><p>在主题下languages/zh-Hans.yml文件中添加：</p>
 <p><code>gitmentbutton: 显示 Gitment 评论</code></p>
 <p>在主题下languages/zh-hk.yml文件中添加：</p>
-<pre><code>gitmentbutton: 顯示 Gitment 評論
+<pre tabindex="0"><code>gitmentbutton: 顯示 Gitment 評論
 </code></pre><p>在主题下languages/zh-tw.yml文件中添加：</p>
-<pre><code>gitmentbutton: 顯示 Gitment 評論
+<pre tabindex="0"><code>gitmentbutton: 顯示 Gitment 評論
 </code></pre><p>懒加载按钮div及事件配置：
 在主题下<code>layout/_partials/comments.swig</code>文件中添加：</p>
-<pre><code class="language-php+html" data-lang="php+html">&lt;div id=&quot;lv-container&quot; data-id=&quot;city&quot; data-uid=&quot;{{ theme.livere_uid }}&quot;&gt;&lt;/div&gt;
+<pre tabindex="0"><code class="language-php+html" data-lang="php+html">&lt;div id=&#34;lv-container&#34; data-id=&#34;city&#34; data-uid=&#34;{{ theme.livere_uid }}&#34;&gt;&lt;/div&gt;
     {% elseif theme.changyan.appid and theme.changyan.appkey %}
-      &lt;div id=&quot;SOHUCS&quot;&gt;&lt;/div&gt;
+      &lt;div id=&#34;SOHUCS&#34;&gt;&lt;/div&gt;
       
    {% elseif theme.gitment.enable %}
      {% if theme.gitment.lazy %}
-       &lt;div onclick=&quot;ShowGitment()&quot; id=&quot;gitment-display-button&quot;&gt;{{ __('gitmentbutton') }}&lt;/div&gt;
-       &lt;div id=&quot;gitment-container&quot; style=&quot;display:none&quot;&gt;&lt;/div&gt;
+       &lt;div onclick=&#34;ShowGitment()&#34; id=&#34;gitment-display-button&#34;&gt;{{ __(&#39;gitmentbutton&#39;) }}&lt;/div&gt;
+       &lt;div id=&#34;gitment-container&#34; style=&#34;display:none&#34;&gt;&lt;/div&gt;
      {% else %}
-       &lt;div id=&quot;gitment-container&quot;&gt;&lt;/div&gt;
+       &lt;div id=&#34;gitment-container&#34;&gt;&lt;/div&gt;
      {% endif %}
      
     {% endif %}
@@ -1765,131 +1786,131 @@ gitment:
 </code></pre><p>注意：上面代码，找到上下两段代码，要添加的只是中间那段。</p>
 <p>对应页面生成JS代码配置：
 在主题下<code>layout/_third-party/comments/</code>目录下中添加文件<code>gitment.swig</code>：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">{% if theme.gitment.enable %}
-   {% set owner = theme.gitment.githubID %}
-   {% set repo = theme.gitment.repo %}
-   {% set cid = theme.gitment.ClientID %}
-   {% set cs = theme.gitment.ClientSecret %}
-   &lt;<span style="color:#000080">link</span> <span style="color:#008080">rel</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;stylesheet&#34;</span> <span style="color:#008080">href</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;https://imsun.github.io/gitment/style/default.css&#34;</span>&gt;
-   &lt;<span style="color:#000080">script</span> <span style="color:#008080">src</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;https://imsun.github.io/gitment/dist/gitment.browser.js&#34;</span>&gt;&lt;/<span style="color:#000080">script</span>&gt;
-   {% if not theme.gitment.lazy %}
-       &lt;<span style="color:#000080">script</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text/javascript&#34;</span>&gt;
-             <span style="color:#000;font-weight:bold">var</span> gitment <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Gitment({
-                id<span style="color:#000;font-weight:bold">:</span> <span style="color:#0086b3">document</span>.location.href, 
-                 owner<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{owner}}&#39;</span>,
-                 repo<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{repo}}&#39;</span>,
-                 oauth<span style="color:#000;font-weight:bold">:</span> {
-                     client_id<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{cid}}&#39;</span>,
-                     client_secret<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{cs}}&#39;</span>,
-                 }});
-             gitment.render(<span style="color:#d14">&#39;gitment-container&#39;</span>);
-         &lt;/<span style="color:#000080">script</span>&gt;
-     {% else %}
-         &lt;<span style="color:#000080">script</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text/javascript&#34;</span>&gt;
-             <span style="color:#000;font-weight:bold">function</span> ShowGitment(){
-                 <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#34;gitment-display-button&#34;</span>).style.display <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;none&#34;</span>;
-                 <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#34;gitment-container&#34;</span>).style.display <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;block&#34;</span>;
-                 <span style="color:#000;font-weight:bold">var</span> gitment <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Gitment({
-                     id<span style="color:#000;font-weight:bold">:</span> <span style="color:#0086b3">document</span>.location.href, 
-                     owner<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{owner}}&#39;</span>,
-                     repo<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{repo}}&#39;</span>,
-                     oauth<span style="color:#000;font-weight:bold">:</span> {
-                         client_id<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{cid}}&#39;</span>,
-                         client_secret<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{cs}}&#39;</span>,
-                     }});
-                 gitment.render(<span style="color:#d14">&#39;gitment-container&#39;</span>);
-             }
-         &lt;/<span style="color:#000080">script</span>&gt;
-     {% endif %}
- {% endif %}
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span>{<span style="color:#000;font-weight:bold">%</span> <span style="color:#000;font-weight:bold">if</span> theme<span style="color:#000;font-weight:bold">.</span>gitment<span style="color:#000;font-weight:bold">.</span>enable <span style="color:#000;font-weight:bold">%</span>}
+</span></span><span style="display:flex;"><span>   {<span style="color:#000;font-weight:bold">%</span> set owner <span style="color:#000;font-weight:bold">=</span> theme<span style="color:#000;font-weight:bold">.</span>gitment<span style="color:#000;font-weight:bold">.</span>githubID <span style="color:#000;font-weight:bold">%</span>}
+</span></span><span style="display:flex;"><span>   {<span style="color:#000;font-weight:bold">%</span> set repo <span style="color:#000;font-weight:bold">=</span> theme<span style="color:#000;font-weight:bold">.</span>gitment<span style="color:#000;font-weight:bold">.</span>repo <span style="color:#000;font-weight:bold">%</span>}
+</span></span><span style="display:flex;"><span>   {<span style="color:#000;font-weight:bold">%</span> set cid <span style="color:#000;font-weight:bold">=</span> theme<span style="color:#000;font-weight:bold">.</span>gitment<span style="color:#000;font-weight:bold">.</span>ClientID <span style="color:#000;font-weight:bold">%</span>}
+</span></span><span style="display:flex;"><span>   {<span style="color:#000;font-weight:bold">%</span> set cs <span style="color:#000;font-weight:bold">=</span> theme<span style="color:#000;font-weight:bold">.</span>gitment<span style="color:#000;font-weight:bold">.</span>ClientSecret <span style="color:#000;font-weight:bold">%</span>}
+</span></span><span style="display:flex;"><span>   <span style="color:#000;font-weight:bold">&lt;</span>link rel<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;stylesheet&#34;</span> href<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;https://imsun.github.io/gitment/style/default.css&#34;</span><span style="color:#000;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000;font-weight:bold">&lt;</span>script src<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;https://imsun.github.io/gitment/dist/gitment.browser.js&#34;</span><span style="color:#000;font-weight:bold">&gt;&lt;/</span>script<span style="color:#000;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>   {<span style="color:#000;font-weight:bold">%</span> <span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">not</span> theme<span style="color:#000;font-weight:bold">.</span>gitment<span style="color:#000;font-weight:bold">.</span>lazy <span style="color:#000;font-weight:bold">%</span>}
+</span></span><span style="display:flex;"><span>       <span style="color:#000;font-weight:bold">&lt;</span>script type<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text/javascript&#34;</span><span style="color:#000;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>             <span style="color:#000;font-weight:bold">var</span> gitment <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Gitment({
+</span></span><span style="display:flex;"><span>                id<span style="color:#000;font-weight:bold">:</span> document<span style="color:#000;font-weight:bold">.</span>location<span style="color:#000;font-weight:bold">.</span>href, 
+</span></span><span style="display:flex;"><span>                 owner<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{owner}}&#39;</span>,
+</span></span><span style="display:flex;"><span>                 repo<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{repo}}&#39;</span>,
+</span></span><span style="display:flex;"><span>                 oauth<span style="color:#000;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>                     client_id<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{cid}}&#39;</span>,
+</span></span><span style="display:flex;"><span>                     client_secret<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{cs}}&#39;</span>,
+</span></span><span style="display:flex;"><span>                 }});
+</span></span><span style="display:flex;"><span>             gitment<span style="color:#000;font-weight:bold">.</span>render(<span style="color:#d14">&#39;gitment-container&#39;</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#000;font-weight:bold">&lt;/</span>script<span style="color:#000;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>     {<span style="color:#000;font-weight:bold">%</span> <span style="color:#000;font-weight:bold">else</span> <span style="color:#000;font-weight:bold">%</span>}
+</span></span><span style="display:flex;"><span>         <span style="color:#000;font-weight:bold">&lt;</span>script type<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text/javascript&#34;</span><span style="color:#000;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>             <span style="color:#000;font-weight:bold">function</span> <span style="color:#900;font-weight:bold">ShowGitment</span>(){
+</span></span><span style="display:flex;"><span>                 document<span style="color:#000;font-weight:bold">.</span>getElementById(<span style="color:#d14">&#34;gitment-display-button&#34;</span>)<span style="color:#000;font-weight:bold">.</span>style<span style="color:#000;font-weight:bold">.</span>display <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;none&#34;</span>;
+</span></span><span style="display:flex;"><span>                 document<span style="color:#000;font-weight:bold">.</span>getElementById(<span style="color:#d14">&#34;gitment-container&#34;</span>)<span style="color:#000;font-weight:bold">.</span>style<span style="color:#000;font-weight:bold">.</span>display <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;block&#34;</span>;
+</span></span><span style="display:flex;"><span>                 <span style="color:#000;font-weight:bold">var</span> gitment <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Gitment({
+</span></span><span style="display:flex;"><span>                     id<span style="color:#000;font-weight:bold">:</span> document<span style="color:#000;font-weight:bold">.</span>location<span style="color:#000;font-weight:bold">.</span>href, 
+</span></span><span style="display:flex;"><span>                     owner<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{owner}}&#39;</span>,
+</span></span><span style="display:flex;"><span>                     repo<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{repo}}&#39;</span>,
+</span></span><span style="display:flex;"><span>                     oauth<span style="color:#000;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>                         client_id<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{cid}}&#39;</span>,
+</span></span><span style="display:flex;"><span>                         client_secret<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;{{cs}}&#39;</span>,
+</span></span><span style="display:flex;"><span>                     }});
+</span></span><span style="display:flex;"><span>                 gitment<span style="color:#000;font-weight:bold">.</span>render(<span style="color:#d14">&#39;gitment-container&#39;</span>);
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>         <span style="color:#000;font-weight:bold">&lt;/</span>script<span style="color:#000;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>     {<span style="color:#000;font-weight:bold">%</span> <span style="color:#000;font-weight:bold">endif</span> <span style="color:#000;font-weight:bold">%</span>}
+</span></span><span style="display:flex;"><span> {<span style="color:#000;font-weight:bold">%</span> <span style="color:#000;font-weight:bold">endif</span> <span style="color:#000;font-weight:bold">%</span>}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>添加<code>gitment.swig</code>文件后，在主题下<code>layout/_third-party/comments/index.swig</code>文件中引入<code>gitment.swig</code>文件：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">{% include &#39;gitment.swig&#39; %}
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span>{<span style="color:#000;font-weight:bold">%</span> <span style="color:#000;font-weight:bold">include</span> <span style="color:#d14">&#39;gitment.swig&#39;</span> <span style="color:#000;font-weight:bold">%</span>}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>设置CSS样式：
 在主题下source/css/_common/components/third-party/目录下添加gitment.styl文件，设置button的样式：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">#<span style="color:#555">gitment-display-button</span>{
-     <span style="color:#000;font-weight:bold">display</span>: <span style="color:#000;font-weight:bold">inline</span><span style="color:#000;font-weight:bold">-</span><span style="color:#000;font-weight:bold">block</span>;
-     <span style="color:#000;font-weight:bold">padding</span>: <span style="color:#099">0</span> <span style="color:#099">15</span><span style="color:#458;font-weight:bold">px</span>;
-     <span style="color:#000;font-weight:bold">color</span>: <span style="color:#099">#0a9caf</span>;
-     <span style="color:#000;font-weight:bold">cursor</span>: <span style="color:#000;font-weight:bold">pointer</span>;
-     <span style="color:#000;font-weight:bold">font-size</span>: <span style="color:#099">14</span><span style="color:#458;font-weight:bold">px</span>;
-     <span style="color:#000;font-weight:bold">border</span>: <span style="color:#099">1</span><span style="color:#458;font-weight:bold">px</span> <span style="color:#000;font-weight:bold">solid</span> <span style="color:#099">#0a9caf</span>;
-     <span style="color:#000;font-weight:bold">border-radius</span>: <span style="color:#099">4</span><span style="color:#458;font-weight:bold">px</span>;
- }
- #<span style="color:#555">gitment-display-button</span>:<span style="color:#3c5d5d;font-weight:bold">hover</span>{
-     <span style="color:#000;font-weight:bold">color</span>: <span style="color:#099">#fff</span>;
-     <span style="color:#000;font-weight:bold">background</span>: <span style="color:#099">#0a9caf</span>;
- }
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>#<span style="color:#555">gitment-display-button</span>{
+</span></span><span style="display:flex;"><span>     <span style="color:#000;font-weight:bold">display</span>: <span style="color:#000;font-weight:bold">inline-block</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#000;font-weight:bold">padding</span>: <span style="color:#099">0</span> <span style="color:#099">15</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#000;font-weight:bold">color</span>: <span style="color:#099">#0a9caf</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#000;font-weight:bold">cursor</span>: <span style="color:#000;font-weight:bold">pointer</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#000;font-weight:bold">font-size</span>: <span style="color:#099">14</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#000;font-weight:bold">border</span>: <span style="color:#099">1</span><span style="color:#458;font-weight:bold">px</span> <span style="color:#000;font-weight:bold">solid</span> <span style="color:#099">#0a9caf</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#000;font-weight:bold">border-radius</span>: <span style="color:#099">4</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> #<span style="color:#555">gitment-display-button</span>:<span style="color:#3c5d5d;font-weight:bold">hover</span>{
+</span></span><span style="display:flex;"><span>     <span style="color:#000;font-weight:bold">color</span>: <span style="color:#099">#fff</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#000;font-weight:bold">background</span>: <span style="color:#099">#0a9caf</span>;
+</span></span><span style="display:flex;"><span> }
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>之后，在主题下 <code>source/css/_common/components/third-party/third-party.styl</code>文件中引入相应的CSS样式即可</p>
-<pre><code class="language-php+html" data-lang="php+html">@import &quot;gitment&quot;;
+<pre tabindex="0"><code class="language-php+html" data-lang="php+html">@import &#34;gitment&#34;;
 </code></pre><p>初始化评论：
 页面发布后，你需要访问页面并使用你的 GitHub 账号登录（请确保你的账号是第二步所填 repo 的 owner），点击初始化按钮。</p>
 <p>之后其他用户即可在该页面发表评论。也就是每发布一篇文章，用你的GitHub 账号登录，并且初始化评论系统，然后别人才可以评论这篇文章。</p>
@@ -1909,7 +1930,7 @@ gitment:
 * 由于hexo自动会对html文件进行渲染，所以在<code>站点配置文件</code>中找到<code>skip_render:</code>
 * 在后面添加文件名字，如有多个用<code>[a.html,b.html]</code>，eg:<code>skip_render:[baidu_verify_tdOGHi8IQG.html, baidu_verify_vcJkI72f1e.html]</code>
 * 重新渲染文件</p>
-<pre><code>hexo clean
+<pre tabindex="0"><code>hexo clean
 hexo d -g
 </code></pre><ul>
 <li>然后可以点击百度站长的验证按钮了</li>
@@ -1921,14 +1942,18 @@ hexo d -g
 <li>完成验证</li>
 </ol>
 <p>就像这样↓
-<img src="http://ojoba1c98.bkt.clouddn.com/img/build-hexo/DNSjiexi.png" alt="img"></p>
-<p><img src="http://ojoba1c98.bkt.clouddn.com/img/build-hexo/baiduyanzheng.png" alt="img"></p>
+
+        <img class="mx-auto" alt="img" src="http://ojoba1c98.bkt.clouddn.com/img/build-hexo/DNSjiexi.png" />   
+    </p>
+<p>
+        <img class="mx-auto" alt="img" src="http://ojoba1c98.bkt.clouddn.com/img/build-hexo/baiduyanzheng.png" />   
+    </p>
 <h3 id="添加并提交sitemap">添加并提交sitemap</h3>
 <p>安装hexo的<code>sitemap</code>网站地图生成插件:</p>
-<pre><code>npm install hexo-generator-sitemap --save
+<pre tabindex="0"><code>npm install hexo-generator-sitemap --save
 npm install hexo-generator-baidu-sitemap --save
 </code></pre><p>在<code>站点配置文件</code>中添加如下代码。</p>
-<pre><code># hexo sitemap
+<pre tabindex="0"><code># hexo sitemap
 sitemap:
   path: sitemap.xml
 
@@ -1936,26 +1961,32 @@ baidusitemap:
   path: baidusitemap.xml
 </code></pre><p>配置成功后，会生成<code>sitemap.xml</code>和<code>baidusitemap.xml</code>，前者适合提交给<strong>谷歌搜素引擎</strong>，后者适合提交<strong>百度搜索引擎</strong>。
 百度sitemap提交如下↓
-<img src="http://ojoba1c98.bkt.clouddn.com/img/build-hexo/sitemap.png" alt="img"></p>
+
+        <img class="mx-auto" alt="img" src="http://ojoba1c98.bkt.clouddn.com/img/build-hexo/sitemap.png" />   
+    </p>
 <p>验证成功之后就可以开始推送了，这里说一下，Google的收录真的快的不要不要的，第二天就能搜得到，百度就不想说了，不知道要等到猴年马月
-<img src="http://ojoba1c98.bkt.clouddn.com/img/build-hexo/GoogleSearch.png" alt="img"></p>
+
+        <img class="mx-auto" alt="img" src="http://ojoba1c98.bkt.clouddn.com/img/build-hexo/GoogleSearch.png" />   
+    </p>
 <h3 id="主动推送">主动推送</h3>
 <p>安装主动推送插件：</p>
-<pre><code>﻿npm install hexo-baidu-url-submit --save
+<pre tabindex="0"><code>﻿npm install hexo-baidu-url-submit --save
 </code></pre><p>在根目录下，把以下内容配置到<code>站点配置文件</code>中:</p>
-<pre><code>baidu_url_submit:
+<pre tabindex="0"><code>baidu_url_submit:
   count: 3 ## 比如3，代表提交最新的三个链接
   host: www.henvyluk.com ## 在百度站长平台中注册的域名
   token: your_token ## 请注意这是您的秘钥，请不要发布在公众仓库里!
   path: baidu_urls.txt ## 文本文档的地址，新链接会保存在此文本文档里
 </code></pre><p>至于上面提到的<code>your_token</code>可在百度站长如下位置找到↓
-<img src="http://ojoba1c98.bkt.clouddn.com/img/build-hexo/baidutoken.png" alt="img">
+
+        <img class="mx-auto" alt="img" src="http://ojoba1c98.bkt.clouddn.com/img/build-hexo/baidutoken.png" />   
+    
 其次，记得查看<code>站点配置文件</code>中url的值， 必须包含是百度站长平台注册的域名（一般有www）， 比如:</p>
-<pre><code>url: xxx
+<pre tabindex="0"><code>url: xxx
 root: /
 permalink: :year/:month/:day/:title/
 </code></pre><p>接下来添加一个新的<code>deploy</code>的类型：</p>
-<pre><code># Deployment
+<pre tabindex="0"><code># Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
 - type: baidu_url_submitter
@@ -1970,7 +2001,7 @@ deploy:
 <p>把next<code>主题配置文件</code>中的<code>baidu_push</code>设置为<code>true</code>，就可以了。</p>
 <h3 id="添加蜘蛛协议">添加蜘蛛协议</h3>
 <p>在<code>/source/</code>目录下新建一个<code>robots.txt</code>文件，添加下面的一段代码：</p>
-<pre><code>#hexo robots.txt
+<pre tabindex="0"><code>#hexo robots.txt
 User-agent: *
 
 Allow: /
@@ -1987,12 +2018,14 @@ Sitemap: http://blog.tangxiaozhu.com/search.xml
 Sitemap: http://blog.tangxiaozhu.com/sitemap.xml
 Sitemap: http://blog.tangxiaozhu.com/baidusitemap.xml
 </code></pre><p>然后到百度站长更新一下，就像这样↓
-<img src="http://ojoba1c98.bkt.clouddn.com/img/build-hexo/robots.png" alt="img"></p>
+
+        <img class="mx-auto" alt="img" src="http://ojoba1c98.bkt.clouddn.com/img/build-hexo/robots.png" />   
+    </p>
 <h2 id="多pc同步源码篇">多PC同步源码篇</h2>
 <p>1.准备工作：公司电脑和家里电脑配置<a href="http://lib.csdn.net/base/git">Git</a> ssh密钥连接</p>
 <p>2.上传blog到<a href="http://lib.csdn.net/base/git">git</a>：此项建议先在blog进度最新的PC上进行，否则会有版本冲突，解决也比较麻烦。在PC上建立git ssh密钥连接和建立新库respo在此略过：
 * 编辑<code>.gitignore</code>文件：<code>.gitignore</code>文件作用是声明不被git记录的文件，blog根目录下的<code>.gitignore</code>是hexo初始化是创建的，可以直接编辑，建议<code>.gitignore</code>文件包括以下内容：</p>
-<pre><code>.DS_Store      
+<pre tabindex="0"><code>.DS_Store      
 Thumbs.db      
 db.json      
 *.log      
@@ -2001,27 +2034,27 @@ public/
 .deploy*/
 </code></pre><p><code>public</code>内的文件可以根据<code>source</code>文件夹内容自动生成的，不需要备份。其他日志、压缩、<a href="http://lib.csdn.net/base/mysql">数据库</a>等文件也都是调试等使用，也不需要备份。</p>
 <p>初始化仓库：</p>
-<pre><code>git init    
+<pre tabindex="0"><code>git init    
 git remote add origin &lt;server&gt;
 </code></pre><p><code>server</code>是仓库的在线目录地址，可以从git上直接复制过来，<code>origin</code>是本地分支，<code>remote add</code>会将本地仓库映射到托管服务器的仓库上。</p>
 <p>添加本地文件到仓库并同步到git上：</p>
-<pre><code>git add . #添加blog目录下所有文件，注意有个'.'(.gitignore里面声明的文件不在此内)    
-git commit -m &quot;hexo source first add&quot; #添加更新说明    
+<pre tabindex="0"><code>git add . #添加blog目录下所有文件，注意有个&#39;.&#39;(.gitignore里面声明的文件不在此内)    
+git commit -m &#34;hexo source first add&#34; #添加更新说明    
 git push -u origin master  #推送更新到git上
 </code></pre><p>至此，git库上备份已完成。</p>
 <p>3.将git的内容同步到另一台电脑：假设之前将公司电脑中的blog源码内容备份到了git上，现在家里电脑准备同步源码内容。<strong>注意</strong>，在同步前也要事先建好hexo的环境，不然同步后本地服务器运行时会出现无法运行错误。在建好的环境的主目录运行以下命令：</p>
-<pre><code>git init  #将目录添加到版本控制系统中    
+<pre tabindex="0"><code>git init  #将目录添加到版本控制系统中    
 git remote add origin &lt;server&gt;  #同上    
 git fetch --all  #将git上所有文件拉取到本地    
 git reset --hard origin/master  #强制将本地内容指向刚刚同步git云端内容
 </code></pre><p><code>reset</code>对所拉取的文件不做任何处理，此处不用<code>pull</code>是因为本地尚有许多文件，使用<code>pull</code>会有一些<strong>版本冲突</strong>，解决起来也麻烦，而本地的文件都是初始化生成的文件，较拉取的库里面的文件而言基本无用，所以直接丢弃。</p>
 <p>4.家里电脑生成完文章并部署到服务器上后，此时需要将新的blog源码文件更新到git托管库上，不然公司电脑上无法获取最新的文章。在本地文件中运行以下命令：</p>
-<pre><code>git add . #将所有更新的本地文件添加到版本控制系统中
+<pre tabindex="0"><code>git add . #将所有更新的本地文件添加到版本控制系统中
 </code></pre><p>此时可以使用<code>git status</code>查看本地文件的状态。然后对更改添加说明更推送到git托管库上：</p>
-<pre><code>git commit -m '更新信息说明'  
+<pre tabindex="0"><code>git commit -m &#39;更新信息说明&#39;  
 git push
 </code></pre><p>至此，家里电脑更新的备份完成。在公司电脑上使用时，只需先运行:</p>
-<pre><code>git pull
+<pre tabindex="0"><code>git pull
 </code></pre><p>获取的源码即为最新文件</p>
 <h2 id="七牛云插件">七牛云插件</h2>
 <p>这是一个<a href="https://github.com/tommy351/hexo">hexo</a>插件，
@@ -2029,9 +2062,9 @@ git push
 <p><strong>你可以不用手动上传文件到七牛，插件会自动帮你将本地目录的文件同步到七牛。</strong></p>
 <p>安装</p>
 <p>在你的hexo主目录下运行以下命令进行安装：</p>
-<pre><code>npm install hexo-qiniu-sync --save
+<pre tabindex="0"><code>npm install hexo-qiniu-sync --save
 </code></pre><p>添加插件配置信息到 <code>_config.yml</code> 文件中:</p>
-<pre><code>#七牛云存储设置
+<pre tabindex="0"><code>#七牛云存储设置
 ##offline       是否离线. 离线状态将使用本地地址渲染
 ##sync          是否同步
 ##bucket        空间名称.
@@ -2066,7 +2099,7 @@ qiniu:
   css:
     folder: css
 </code></pre><p>注意，不要在plugins下面添加hexo-qiniu-sync的配置项，否则会导致错误，详见 <a href="https://github.com/gyk001/hexo-qiniu-sync/issues/41#issuecomment-279229378">https://github.com/gyk001/hexo-qiniu-sync/issues/41#issuecomment-279229378</a></p>
-<pre><code>plugins:
+<pre tabindex="0"><code>plugins:
   - hexo-qiniu-sync
 </code></pre><p><strong>这里对配置中的几个需要注意的参数进行说明：</strong></p>
 <ul>
@@ -2123,9 +2156,9 @@ qiniu:
 例如 <code>?imageView2/2/w/500</code> 即生成宽度最多500px的缩略图。</p>
 </blockquote>
 <p>使用标签</p>
-<pre><code>{% qnimg imageFile attr1:value1 attr2:value2 'attr3:value31 value32 value3n' [extend:?imageView2/2/w/600 | normal:yes] %}
-{% qnjs jsFile attr1:value1 attr2:value2 'attr3:value31 value32 value3n' %}
-{% qncss cssFile attr1:value1 attr2:value2 'attr3:value31 value32 value3n' %}
+<pre tabindex="0"><code>{% qnimg imageFile attr1:value1 attr2:value2 &#39;attr3:value31 value32 value3n&#39; [extend:?imageView2/2/w/600 | normal:yes] %}
+{% qnjs jsFile attr1:value1 attr2:value2 &#39;attr3:value31 value32 value3n&#39; %}
+{% qncss cssFile attr1:value1 attr2:value2 &#39;attr3:value31 value32 value3n&#39; %}
 </code></pre><ul>
 <li><code>jnimg</code> 标签的图片处理：</li>
 </ul>
@@ -2139,9 +2172,9 @@ qiniu:
 这三个图片处理接口，多个接口内容之间用 <code>|</code> 间隔。</p>
 </blockquote>
 <p>Demo</p>
-<pre><code>{% qnimg test/demo.png title:图片标题 alt:图片说明 'class:class1 class2' extend:?imageView2/2/w/600 %}
+<pre tabindex="0"><code>{% qnimg test/demo.png title:图片标题 alt:图片说明 &#39;class:class1 class2&#39; extend:?imageView2/2/w/600 %}
 </code></pre><p>将会被渲染成：</p>
-<pre><code>&lt;img title=&quot;图片标题&quot; alt=&quot;图片说明&quot; class=&quot;class1 class2&quot; src=&quot;http://gyk001.u.qiniudn.com/images/test/demo.png?imageView2/2/w/600&quot;&gt;
+<pre tabindex="0"><code>&lt;img title=&#34;图片标题&#34; alt=&#34;图片说明&#34; class=&#34;class1 class2&#34; src=&#34;http://gyk001.u.qiniudn.com/images/test/demo.png?imageView2/2/w/600&#34;&gt;
 </code></pre><p>命令行</p>
 <p><strong>作为一个带命令行功能的插件，漏掉了命令行的使用说明不是好习惯。</strong>
 本插件命令行为 <code>hexo qiniu</code> ，所支持的子命令有：</p>
@@ -2183,15 +2216,15 @@ qiniu:
 </blockquote>
 <p>备注：使用生成(<code>generate</code>)或部署(<code>deploy</code>)命令时，会提示需要上传的文件数量：</p>
 <blockquote>
-<pre><code>[info] Need upload file num: 0
+<pre tabindex="0"><code>[info] Need upload file num: 0
 </code></pre></blockquote>
-<pre><code>## 小技巧
+<pre tabindex="0"><code>## 小技巧
 
 * 文章模板
 &gt;如果你经常在文章内插入图片，你可以修改文章模板，将空白的图片插入标签粘贴进去。  
 这样新建立的文章就有空白标签可以让你直接填写图片路径就好了，会很省事。  
 文章模板文件：`./scaffolds/post.md`  
-图片标签`{% qnimg test/demo.png title:图片标题 alt:图片说明 'class:class1 class2' %}`
+图片标签`{% qnimg test/demo.png title:图片标题 alt:图片说明 &#39;class:class1 class2&#39; %}`
 
 * 图片处理样式
 &gt;在前边的内容里，已经介绍了图片处理参数，下面来介绍一个更省事的技巧。  
@@ -2252,20 +2285,39 @@ qiniu:
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/hexo'>hexo</a></li>
+                <li><a href='/tags/hexo'>hexo</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -2273,13 +2325,47 @@ qiniu:
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -2347,28 +2433,12 @@ qiniu:
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -2407,7 +2477,7 @@ qiniu:
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -2487,7 +2557,7 @@ qiniu:
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -2504,51 +2574,6 @@ qiniu:
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

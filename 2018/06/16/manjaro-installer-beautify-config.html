@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>Manjaro配置美化指南 | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="Manjaro配置美化指南 - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2018/06/16/manjaro-installer-beautify-config.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -149,8 +152,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -169,6 +172,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -182,7 +189,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/Linux'>Linux</a></span>
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
             
         </div>
         
@@ -203,93 +210,93 @@
             <blockquote>
 <p>本篇文章可以结合本博客的<a href="">Archlinux安装指南</a>的后续优化的后面文章来整体的配置美化。</p>
 </blockquote>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">安装：唯一要说的是启动时选择第二项boot（non-free<span style="color:#000;font-weight:bold">)</span>,Manjaro自带的驱动精灵会帮你安装好所需驱动，笔记本双显卡则会帮你安装bumblebee，十分省事。
-
-1.安装好后第一步是排列源<span style="color:#000;font-weight:bold">(</span>在终端输入）：
-sudo  pacman-mirrors -g
-
-然后同步：
-sudo pacman-optimize <span style="color:#000;font-weight:bold">&amp;&amp;</span> sync
-
-升级系统：
-sudo pacman -Syyu
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>安装：唯一要说的是启动时选择第二项boot（non-free<span style="color:#000;font-weight:bold">)</span>,Manjaro自带的驱动精灵会帮你安装好所需驱动，笔记本双显卡则会帮你安装bumblebee，十分省事。
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>1.安装好后第一步是排列源<span style="color:#000;font-weight:bold">(</span>在终端输入）：
+</span></span><span style="display:flex;"><span>sudo  pacman-mirrors -g
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>然后同步：
+</span></span><span style="display:flex;"><span>sudo pacman-optimize <span style="color:#000;font-weight:bold">&amp;&amp;</span> sync
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>升级系统：
+</span></span><span style="display:flex;"><span>sudo pacman -Syyu
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>有可能产生的问题：
 （1）运行<code>sudo pacman -Syyu</code>提示无法锁定database的错误：
 运行这个命令：<code>sudo rm /var/lib/pacman/db.lck</code>
 （2）运行<code>sudo pacman -Syyu</code>提示Keys错误，GPG啥的，依次运行以下命令：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo rm -r /etc/pacman.d/gnupg（移除旧的keys）
-
-sudo pacman -Sy gnupg archlinux-keyring manjaro-keyring（重新安装最新keys）
-
-sudo pacman-key --init（初始化pacman的keys）
-
-sudo pacman-key --populate archlinux manjaro（加载签名的keys）
-
-sudo pacman-key –refresh-keys（刷新升级已签名keys）
-
-sudo pacman -Sc（清空并下载新数据）
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo rm -r /etc/pacman.d/gnupg（移除旧的keys）
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sudo pacman -Sy gnupg archlinux-keyring manjaro-keyring（重新安装最新keys）
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sudo pacman-key --init（初始化pacman的keys）
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sudo pacman-key --populate archlinux manjaro（加载签名的keys）
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sudo pacman-key –refresh-keys（刷新升级已签名keys）
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sudo pacman -Sc（清空并下载新数据）
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>最后运行：                          <br>
 <code>sudo pacman -Syu</code></p>
 <p>2.完成以上步骤后，可添加archlinuxCN源，方便我们安装Chrome等软件：
 ​                                          <code>sudo nano /etc/pacman.conf</code>
 在打开的文件最后黏贴上以下几行根据自己喜欢来选二选一：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#000;font-weight:bold">[</span>archlinuxcn<span style="color:#000;font-weight:bold">]</span>
-<span style="color:#008080">SigLevel</span> <span style="color:#000;font-weight:bold">=</span> Optional TrustedOnly
-<span style="color:#008080">Server</span> <span style="color:#000;font-weight:bold">=</span> https://mirrors.ustc.edu.cn/archlinuxcn/<span style="color:#008080">$arch</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span>archlinuxcn<span style="color:#000;font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">SigLevel</span> <span style="color:#000;font-weight:bold">=</span> Optional TrustedOnly
+</span></span><span style="display:flex;"><span><span style="color:#008080">Server</span> <span style="color:#000;font-weight:bold">=</span> https://mirrors.ustc.edu.cn/archlinuxcn/<span style="color:#008080">$arch</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>或者</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#000;font-weight:bold">[</span>archlinuxcn<span style="color:#000;font-weight:bold">]</span> 
-<span style="color:#008080">SigLevel</span> <span style="color:#000;font-weight:bold">=</span> Optional TrustedOnly
-<span style="color:#008080">Server</span> <span style="color:#000;font-weight:bold">=</span> https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/<span style="color:#008080">$arch</span>  
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span>archlinuxcn<span style="color:#000;font-weight:bold">]</span> 
+</span></span><span style="display:flex;"><span><span style="color:#008080">SigLevel</span> <span style="color:#000;font-weight:bold">=</span> Optional TrustedOnly
+</span></span><span style="display:flex;"><span><span style="color:#008080">Server</span> <span style="color:#000;font-weight:bold">=</span> https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/<span style="color:#008080">$arch</span>  
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>按ctrl+X键保存，y确认，回车。
 之后同步一下：<code>sudo pacman -Syyu</code>
@@ -297,47 +304,55 @@ sudo pacman -Sc（清空并下载新数据）
 <p>3.关于笔记本双显卡驱动：
 如果安装的时候没有选择boot（non-free)，那么我们装好系统以后也可以安装bumblebee，图形化安装方法是点击设置里的Manjaro Setting 
 Mannager如图：</p>
-<p><img src="http://ox2oc1gdw.bkt.clouddn.com/blog/180616/62F8hlfJic.png?imageslim" alt="mark"></p>
+<p>
+        <img class="mx-auto" alt="mark" src="http://ox2oc1gdw.bkt.clouddn.com/blog/180616/62F8hlfJic.png?imageslim" />   
+    </p>
 <p>点击后输入root密码打开：</p>
 <p>抱怨中文化不全的同学点进去Language，点击右上角install安装中文语言包。</p>
-<p>​    <img src="http://ox2oc1gdw.bkt.clouddn.com/blog/180616/476A7HKIg2.png?imageslim" alt="mark"></p>
+<p>​    
+        <img class="mx-auto" alt="mark" src="http://ox2oc1gdw.bkt.clouddn.com/blog/180616/476A7HKIg2.png?imageslim" />   
+    </p>
 <p>在这里安装显卡等各种驱动我们点击下面的Hardware Detection：</p>
-<p><img src="http://ox2oc1gdw.bkt.clouddn.com/blog/180616/bEfEAjmgCE.png?imageslim" alt="mark"></p>
+<p>
+        <img class="mx-auto" alt="mark" src="http://ox2oc1gdw.bkt.clouddn.com/blog/180616/bEfEAjmgCE.png?imageslim" />   
+    </p>
 <p>在此我们只需点击右边按钮—Auto Install Proprietary Driver，系统会自动为你安装适合的驱动。装好后可以输入inxi -G查看驱动安装情况，我的是：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Graphics:  Card-1: Intel Haswell-ULT Integrated Graphics Controller
-
-           Card-2: NVIDIA GK107M <span style="color:#000;font-weight:bold">[</span>GeForce GT 750M<span style="color:#000;font-weight:bold">]</span>
-
-           Display Server: X.Org 1.17.4 driver: intel
-
-           Resolution: 1366x768@60.01hz
-
-           GLX Renderer: Mesa DRI Intel Haswell Mobile
-
-           GLX Version: 3.0 Mesa 11.2.2
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Graphics:  Card-1: Intel Haswell-ULT Integrated Graphics Controller
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>           Card-2: NVIDIA GK107M <span style="color:#000;font-weight:bold">[</span>GeForce GT 750M<span style="color:#000;font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>           Display Server: X.Org 1.17.4 driver: intel
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>           Resolution: 1366x768@60.01hz
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>           GLX Renderer: Mesa DRI Intel Haswell Mobile
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>           GLX Version: 3.0 Mesa 11.2.2
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>说明驱动已经装好了，我的独显是GT750m。再输入lspci，可以看到一条：
 08:00.0 3D controller: NVIDIA Corporation GK107M [GeForce GT 750M] (rev ff)
 这表示独显处于关闭状态，现在运行的是intel核显，这正是我们安装bumblebee目的。
 3.设置好源和驱动以后我们还要折腾两个东西，首先是字体显示效果：
 如果你使用的是xfce版，那么先在设置—外观里调整到像这样：</p>
-<p><img src="http://ox2oc1gdw.bkt.clouddn.com/blog/180616/438cmbHgcA.png?imageslim" alt="mark"></p>
+<p>
+        <img class="mx-auto" alt="mark" src="http://ox2oc1gdw.bkt.clouddn.com/blog/180616/438cmbHgcA.png?imageslim" />   
+    </p>
 <p>简单说就是开启抗锯齿，显示调整为略微，次像素RGB。我用的谷歌思源黑体，想用这个字体可以输入
 <code>sudo pacman -S noto-fonts-cjk</code>
 进行安装，再在字体里选用。</p>
@@ -345,63 +360,63 @@ Mannager如图：</p>
 (1）新建文件：/etc/fonts/local.conf
 <code>sudo nano /etc/fonts/local.conf</code>
 把以下代码黏贴到文件里：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&lt;match <span style="color:#008080">target</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;font&#34;</span>&gt;
-  &lt;edit <span style="color:#008080">name</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;autohint&#34;</span> <span style="color:#008080">mode</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;assign&#34;</span>&gt;
-    &lt;bool&gt;true&lt;/bool&gt;
-  &lt;/edit&gt;
-  &lt;edit <span style="color:#008080">name</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;hinting&#34;</span> <span style="color:#008080">mode</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;assign&#34;</span>&gt;
-    &lt;bool&gt;true&lt;/bool&gt;
-  &lt;/edit&gt;
-  &lt;edit <span style="color:#008080">mode</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;assign&#34;</span> <span style="color:#008080">name</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;hintstyle&#34;</span>&gt;
-    &lt;const&gt;hintslight&lt;/const&gt;
-  &lt;/edit&gt;
-  &lt;edit <span style="color:#008080">mode</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;assign&#34;</span> <span style="color:#008080">name</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;lcdfilter&#34;</span>&gt;
-   &lt;const&gt;lcddefault&lt;/const&gt;
- &lt;/edit&gt;
-&lt;/match&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;match <span style="color:#008080">target</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;font&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;edit <span style="color:#008080">name</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;autohint&#34;</span> <span style="color:#008080">mode</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;assign&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;bool&gt;true&lt;/bool&gt;
+</span></span><span style="display:flex;"><span>  &lt;/edit&gt;
+</span></span><span style="display:flex;"><span>  &lt;edit <span style="color:#008080">name</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;hinting&#34;</span> <span style="color:#008080">mode</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;assign&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;bool&gt;true&lt;/bool&gt;
+</span></span><span style="display:flex;"><span>  &lt;/edit&gt;
+</span></span><span style="display:flex;"><span>  &lt;edit <span style="color:#008080">mode</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;assign&#34;</span> <span style="color:#008080">name</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;hintstyle&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;const&gt;hintslight&lt;/const&gt;
+</span></span><span style="display:flex;"><span>  &lt;/edit&gt;
+</span></span><span style="display:flex;"><span>  &lt;edit <span style="color:#008080">mode</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;assign&#34;</span> <span style="color:#008080">name</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;lcdfilter&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>   &lt;const&gt;lcddefault&lt;/const&gt;
+</span></span><span style="display:flex;"><span> &lt;/edit&gt;
+</span></span><span style="display:flex;"><span>&lt;/match&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后Ctrl+X保存并退出。</p>
 <p>（2）打开/新建~/.Xresources文件：
 <code>nano ~/.Xresources</code>
 删除文件里原有内容（如果有的话），把以下代码黏贴进去：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Xft.dpi: <span style="color:#099">96</span>
-Xft.antialias: <span style="color:#0086b3">true</span>
-Xft.hinting: <span style="color:#0086b3">true</span>
-Xft.rgba: rgb
-Xft.autohint: <span style="color:#0086b3">false</span>
-Xft.hintstyle: hintslight
-Xft.lcdfilter: lcddefault
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Xft.dpi: <span style="color:#099">96</span>
+</span></span><span style="display:flex;"><span>Xft.antialias: <span style="color:#0086b3">true</span>
+</span></span><span style="display:flex;"><span>Xft.hinting: <span style="color:#0086b3">true</span>
+</span></span><span style="display:flex;"><span>Xft.rgba: rgb
+</span></span><span style="display:flex;"><span>Xft.autohint: <span style="color:#0086b3">false</span>
+</span></span><span style="display:flex;"><span>Xft.hintstyle: hintslight
+</span></span><span style="display:flex;"><span>Xft.lcdfilter: lcddefault
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后Ctrl+X保存文件并退出。</p>
 <p>（3）在终端运行以下命令：
@@ -412,85 +427,85 @@ Xft.lcdfilter: lcddefault
 （1）安装Compton，在终端输入以下命令：
 <code>sudo pacman -S compton</code>
 （2）配置Compton，<code>sudo nano ~/.config/compton.conf</code>,把以下代码黏贴进去：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008080">backend</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;glx&#34;</span>;
-paint-on-overlay <span style="color:#000;font-weight:bold">=</span> true;
-glx-no-stencil <span style="color:#000;font-weight:bold">=</span> true;
-<span style="color:#008080">vsync</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;opengl-swc&#34;</span>;
-
-<span style="color:#998;font-style:italic"># Shadow</span>
-<span style="color:#008080">shadow</span> <span style="color:#000;font-weight:bold">=</span> true; <span style="color:#998;font-style:italic"># Enabled client-side shadows on windows.</span>
-no-dock-shadow <span style="color:#000;font-weight:bold">=</span> true; <span style="color:#998;font-style:italic"># Avoid drawing shadows on dock/panel windows.</span>
-no-dnd-shadow <span style="color:#000;font-weight:bold">=</span> true; <span style="color:#998;font-style:italic"># Don&#39;t draw shadows on DND windows.</span>
-clear-shadow <span style="color:#000;font-weight:bold">=</span> true; <span style="color:#998;font-style:italic"># Zero the part of the shadow&#39;s mask behind the window (experimental).</span>
-shadow-radius <span style="color:#000;font-weight:bold">=</span> 7; <span style="color:#998;font-style:italic"># The blur radius for shadows. (default 12)</span>
-shadow-offset-x <span style="color:#000;font-weight:bold">=</span> -7; <span style="color:#998;font-style:italic"># The left offset for shadows. (default -15)</span>
-shadow-offset-y <span style="color:#000;font-weight:bold">=</span> -7; <span style="color:#998;font-style:italic"># The top offset for shadows. (default -15)</span>
-shadow-exclude <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">[</span>
- <span style="color:#d14">&#34;n:e:Notification&#34;</span>,
- <span style="color:#d14">&#34;n:e:Docky&#34;</span>,
- <span style="color:#d14">&#34;g:e:Synapse&#34;</span>,
- <span style="color:#d14">&#34;g:e:Conky&#34;</span>,
- <span style="color:#d14">&#34;n:w:*Firefox*&#34;</span>,
- <span style="color:#d14">&#34;n:w:*Chrome*&#34;</span>,
- <span style="color:#d14">&#34;n:w:*Chromium*&#34;</span>,
- <span style="color:#d14">&#34;n:w:*dockbarx*&#34;</span>,
- <span style="color:#d14">&#34;class_g ?= &#39;Cairo-dock&#39;&#34;</span>,
- <span style="color:#d14">&#34;class_g ?= &#39;Xfce4-notifyd&#39;&#34;</span>,
- <span style="color:#d14">&#34;class_g ?= &#39;Xfce4-power-manager&#39;&#34;</span>,
- <span style="color:#d14">&#34;class_g ?= &#39;Notify-osd&#39;&#34;</span>,
- <span style="color:#d14">&#34;_GTK_FRAME_EXTENTS@:c&#34;</span>
-<span style="color:#000;font-weight:bold">]</span>;
-
-<span style="color:#998;font-style:italic"># Opacity</span>
-detect-client-opacity <span style="color:#000;font-weight:bold">=</span> true;
-
-<span style="color:#998;font-style:italic"># Window type settings</span>
-wintypes:
-<span style="color:#000;font-weight:bold">{</span>
- <span style="color:#008080">tooltip</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#008080">shadow</span> <span style="color:#000;font-weight:bold">=</span> false; <span style="color:#000;font-weight:bold">}</span>;
-<span style="color:#000;font-weight:bold">}</span>;
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#008080">backend</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;glx&#34;</span>;
+</span></span><span style="display:flex;"><span>paint-on-overlay <span style="color:#000;font-weight:bold">=</span> true;
+</span></span><span style="display:flex;"><span>glx-no-stencil <span style="color:#000;font-weight:bold">=</span> true;
+</span></span><span style="display:flex;"><span><span style="color:#008080">vsync</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;opengl-swc&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># Shadow</span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">shadow</span> <span style="color:#000;font-weight:bold">=</span> true; <span style="color:#998;font-style:italic"># Enabled client-side shadows on windows.</span>
+</span></span><span style="display:flex;"><span>no-dock-shadow <span style="color:#000;font-weight:bold">=</span> true; <span style="color:#998;font-style:italic"># Avoid drawing shadows on dock/panel windows.</span>
+</span></span><span style="display:flex;"><span>no-dnd-shadow <span style="color:#000;font-weight:bold">=</span> true; <span style="color:#998;font-style:italic"># Don&#39;t draw shadows on DND windows.</span>
+</span></span><span style="display:flex;"><span>clear-shadow <span style="color:#000;font-weight:bold">=</span> true; <span style="color:#998;font-style:italic"># Zero the part of the shadow&#39;s mask behind the window (experimental).</span>
+</span></span><span style="display:flex;"><span>shadow-radius <span style="color:#000;font-weight:bold">=</span> 7; <span style="color:#998;font-style:italic"># The blur radius for shadows. (default 12)</span>
+</span></span><span style="display:flex;"><span>shadow-offset-x <span style="color:#000;font-weight:bold">=</span> -7; <span style="color:#998;font-style:italic"># The left offset for shadows. (default -15)</span>
+</span></span><span style="display:flex;"><span>shadow-offset-y <span style="color:#000;font-weight:bold">=</span> -7; <span style="color:#998;font-style:italic"># The top offset for shadows. (default -15)</span>
+</span></span><span style="display:flex;"><span>shadow-exclude <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">[</span>
+</span></span><span style="display:flex;"><span> <span style="color:#d14">&#34;n:e:Notification&#34;</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#d14">&#34;n:e:Docky&#34;</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#d14">&#34;g:e:Synapse&#34;</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#d14">&#34;g:e:Conky&#34;</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#d14">&#34;n:w:*Firefox*&#34;</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#d14">&#34;n:w:*Chrome*&#34;</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#d14">&#34;n:w:*Chromium*&#34;</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#d14">&#34;n:w:*dockbarx*&#34;</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#d14">&#34;class_g ?= &#39;Cairo-dock&#39;&#34;</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#d14">&#34;class_g ?= &#39;Xfce4-notifyd&#39;&#34;</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#d14">&#34;class_g ?= &#39;Xfce4-power-manager&#39;&#34;</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#d14">&#34;class_g ?= &#39;Notify-osd&#39;&#34;</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#d14">&#34;_GTK_FRAME_EXTENTS@:c&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">]</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># Opacity</span>
+</span></span><span style="display:flex;"><span>detect-client-opacity <span style="color:#000;font-weight:bold">=</span> true;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># Window type settings</span>
+</span></span><span style="display:flex;"><span>wintypes:
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span> <span style="color:#008080">tooltip</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#008080">shadow</span> <span style="color:#000;font-weight:bold">=</span> false; <span style="color:#000;font-weight:bold">}</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">}</span>;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后CTRL+X保存并退出。</p>
 <p>（3）关闭xfwm4窗口混合器并打开Compton，终端输入：</p>
@@ -498,33 +513,33 @@ wintypes:
 <p>新建~/.config/autostart/compton.desktop，终端输入：
 <code>sudo nano ~/.config/autostart/compton.desktop</code>
 把以下内容复制黏贴进去：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#000;font-weight:bold">[</span>Desktop Entry<span style="color:#000;font-weight:bold">]</span>
-<span style="color:#008080">Encoding</span><span style="color:#000;font-weight:bold">=</span>UTF-8
-<span style="color:#008080">Version</span><span style="color:#000;font-weight:bold">=</span>0.9.4
-<span style="color:#008080">Type</span><span style="color:#000;font-weight:bold">=</span>Application
-<span style="color:#008080">Name</span><span style="color:#000;font-weight:bold">=</span>Compton
-<span style="color:#008080">Comment</span><span style="color:#000;font-weight:bold">=</span>X11 compositor
-<span style="color:#008080">Exec</span><span style="color:#000;font-weight:bold">=</span>compton -b
-<span style="color:#008080">OnlyShowIn</span><span style="color:#000;font-weight:bold">=</span>XFCE;
-<span style="color:#008080">StartupNotify</span><span style="color:#000;font-weight:bold">=</span><span style="color:#0086b3">false</span>
-<span style="color:#008080">Terminal</span><span style="color:#000;font-weight:bold">=</span><span style="color:#0086b3">false</span>
-<span style="color:#008080">Hidden</span><span style="color:#000;font-weight:bold">=</span><span style="color:#0086b3">false</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span>Desktop Entry<span style="color:#000;font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">Encoding</span><span style="color:#000;font-weight:bold">=</span>UTF-8
+</span></span><span style="display:flex;"><span><span style="color:#008080">Version</span><span style="color:#000;font-weight:bold">=</span>0.9.4
+</span></span><span style="display:flex;"><span><span style="color:#008080">Type</span><span style="color:#000;font-weight:bold">=</span>Application
+</span></span><span style="display:flex;"><span><span style="color:#008080">Name</span><span style="color:#000;font-weight:bold">=</span>Compton
+</span></span><span style="display:flex;"><span><span style="color:#008080">Comment</span><span style="color:#000;font-weight:bold">=</span>X11 compositor
+</span></span><span style="display:flex;"><span><span style="color:#008080">Exec</span><span style="color:#000;font-weight:bold">=</span>compton -b
+</span></span><span style="display:flex;"><span><span style="color:#008080">OnlyShowIn</span><span style="color:#000;font-weight:bold">=</span>XFCE;
+</span></span><span style="display:flex;"><span><span style="color:#008080">StartupNotify</span><span style="color:#000;font-weight:bold">=</span><span style="color:#0086b3">false</span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">Terminal</span><span style="color:#000;font-weight:bold">=</span><span style="color:#0086b3">false</span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">Hidden</span><span style="color:#000;font-weight:bold">=</span><span style="color:#0086b3">false</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后CTRL+X保存并退出，注销系统重新登陆后屏幕撕裂应该就消失了。</p>
 <p>5.在Manjaro中安装卸载软件：
@@ -544,42 +559,42 @@ wintypes:
 第一个就是我们需要的软件，输入1并回车即可。接下来可能会询问你是否编辑PKGBUILD file，选no，其余一般yes，根据情况自行判断。</p>
 <p>6.搜狗输入法无法切换问题（xfce下发现此问题，KDE下无此问题）。
 如上述我们装好搜狗输入法后打算配置输入法，首先发现无法打开图形界面配置，原因是没安装相关 依赖，xfce桌面安装fcitx-configtool,kde桌面安装kcm-fcitx。安装好后，如果还是无法切出搜狗输入法，那么就在~/.xprofile 文件中添加如下内容：</p>
-<pre><code>export GTK_IM_MODULE=fcitx
+<pre tabindex="0"><code>export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
-export XMODIFIERS=&quot;@im=fcitx&quot;
+export XMODIFIERS=&#34;@im=fcitx&#34;
 </code></pre><p>保存并退出后，注销重新登陆系统就能切换了。</p>
 <h2 id="安装mac-arc主题">安装Mac-arc主题</h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yay -S osx-arc-plus
-
-yay -S osx-arc-white
-
-yay -S osx-arc-darker
-
-yay -S osx-arc-shadow
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>yay -S osx-arc-plus
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>yay -S osx-arc-white
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>yay -S osx-arc-darker
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>yay -S osx-arc-shadow
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="安装la-capitaine-icon-theme">安装la-capitaine-icon-theme</h2>
 <p>这个图标包设计的相当的不错，如果不喜欢的话，还有另外一个图标包可以推荐，那就是numix这个，安装方法如下：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/keeferrourke/la-capitaine-icon-theme.git
-sudo cp -r la-capitaine-icon-theme /usr/share/icons
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://github.com/keeferrourke/la-capitaine-icon-theme.git
+</span></span><span style="display:flex;"><span>sudo cp -r la-capitaine-icon-theme /usr/share/icons
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="keepass乱码解决">keepass乱码解决</h2>
 <p>Keepass在工具－－选项 －－select list fonts选择一个你本机有的字体就行了，中文就不乱码了</p>
@@ -619,20 +634,39 @@ sudo cp -r la-capitaine-icon-theme /usr/share/icons
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/manjaro'>manjaro</a></li>
+                <li><a href='/tags/manjaro'>manjaro</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -640,13 +674,47 @@ sudo cp -r la-capitaine-icon-theme /usr/share/icons
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -714,28 +782,12 @@ sudo cp -r la-capitaine-icon-theme /usr/share/icons
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -774,7 +826,7 @@ sudo cp -r la-capitaine-icon-theme /usr/share/icons
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -854,7 +906,7 @@ sudo cp -r la-capitaine-icon-theme /usr/share/icons
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -871,51 +923,6 @@ sudo cp -r la-capitaine-icon-theme /usr/share/icons
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

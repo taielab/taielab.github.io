@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>OSINT101 技术自动化和可视化 | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="OSINT101 技术自动化和可视化 - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2019-05-09/osint-101-auto-visual.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -143,8 +146,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -163,6 +166,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -176,7 +183,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E5%BC%80%E6%BA%90%E6%83%85%E6%8A%A5%E6%94%B6%E9%9B%86'>开源情报收集</a></span>
+            <span class="meta-category"><a href='/categories/%E5%BC%80%E6%BA%90%E6%83%85%E6%8A%A5%E6%94%B6%E9%9B%86'>开源情报收集</a></span>
             
         </div>
         
@@ -206,14 +213,18 @@
 <p>Full Contact 营销数据库和 API 是一个很好的起点。它可以基于名称和域名提供有关组织的基本信息。Full Contact 跟踪“关键人物”（例如高管）、社交媒体档案、大致员工人数等等。这些细节很好，因为在收集数据之前我们必须知道一些公司的背景资料。这也可以从公司的 LinkedIn 资料等来源中找到。</p>
 <p><strong>域名</strong></p>
 <p>收集背景信息后，下一步就是域名和子域名。可以使用<strong>反向 WHOIS 查找</strong>发现其他域名。 <a href="http://whoxy.com/">WhoXY </a>为此提供可靠的服务，并提供反向 WHOIS API 接口，该接口接受公司名称和关键字以对 WHOIS 记录执行搜索。这些搜索可以返回数百个其他域名。</p>
-<p><img src="https://i0.wp.com/www.iyouport.org/wp-content/uploads/2019/05/0.jpeg?resize=1100%2C469&amp;ssl=1" alt="img"></p>
+<p>
+        <img class="mx-auto" alt="img" src="https://i0.wp.com/www.iyouport.org/wp-content/uploads/2019/05/0.jpeg?resize=1100%2C469&amp;ssl=1" />   
+    </p>
 <p>此时，最好先停下来并看看这些新域名。一些组织将购买其近似域名，以避免有人仿冒。这些域名保持“闲置”或仅将访问者重定向到主域名和公司网站。在其中选择一些看起来很有趣的域名，然后继续进行下一步的子域名搜寻。</p>
 <p><strong>请注意</strong>，如果域名是很常见的个人姓名，例如 Henry Dorsett，反向 WHOIS 查询可能会返回数百甚至数千个不相关的结果。出于这个原因，不要急于提前并盲目地把每个反向的 WHOIS 结果都加入选择。</p>
 <p>此外，WhoXY 搜索仅返回完全匹配的内容。如果查询查找与“暴雪娱乐公司 (Blizzard Entertainment Inc)”相关的域名，则结果将不包括“暴雪娱乐公司 (Blizzard Entertainment, Inc)”或“暴雪娱乐公司 (Blizzard Entertainment Inc.)”附带的任何域名(后面有句点)。好消息是很多公司都会注册其主域名的近似域名，因此 WHOIS 记录中提取的名称一般都没什么问题。</p>
 <p><strong>子域名</strong></p>
 <p>有许多工具可用于执行子域名发现和暴力破解，例如 Aquatone 和 Sublist3r。<strong>暴力破解可以揭示可能永远不会被发现的子域名，但是您必须对付通配符 DNS，并且在这些早期阶段没有必要</strong>。 <a href="https://dnsdumpster.com/">DNS Dumpster</a> 和 <a href="https://www.netcraft.com/">Netcraft</a> 可能会为目标域名提供大量已分类编目的子域名。此外，从 <a href="https://crt.sh/">crt.sh</a> 或 <a href="https://censys.io/">censys.io</a> 中提取的 TLS 证书通常会显示这些服务尚未发现或记录的其他新子域名。具体而言，可以从证书的备用名称中提取子域名。</p>
 <p>例如，在 Censys 上搜索 “<a href="http://blizzard.com/">blizzard.com</a>” 的证书会返回一个包含以下名称的证书：</p>
-<p><img src="https://i2.wp.com/www.iyouport.org/wp-content/uploads/2019/05/0-5.png?resize=1100%2C395&amp;ssl=1" alt="img"></p>
+<p>
+        <img class="mx-auto" alt="img" src="https://i2.wp.com/www.iyouport.org/wp-content/uploads/2019/05/0-5.png?resize=1100%2C395&amp;ssl=1" />   
+    </p>
 <p><a href="https://censys.io/">Censys.io</a> 将解析证书中的名称，并在 Web UI 和 API 中提供以易于摘要的列表提供它们。</p>
 <p>证书往往产生最多的子域名，并且搜索它们的速度很快。但是，在 <a href="https://censys.io/">censys.io</a> 上搜索“<a href="http://blizzard.com/">blizzard.com</a>”这样的域名会产生一些不相关的结果，例如 <a href="http://iran-blizzard.com/">iran-blizzard.com</a>，即包含查询字符串的任何域名。像这样的域名可能与目标公司有关，但很可能这些结果中的许多都是无关的，只会污染数据集。</p>
 <p>Censys 上不能搜索“.blizzard.com”或者使用正则表达式，但可以搜索特定字段。搜索 parsed.names: blizzard. com 会将结果限制为仅为“<a href="http://blizzard.com/">blizzard.com</a>”子域名发布的证书。</p>
@@ -243,11 +254,15 @@
 <p>本文致力于对云服务提供商，存储和服务器的审核，并更详细地探讨上述一些主题：</p>
 <p>最后，<a href="https://www.arin.net/resources/rdap.html">RDAP</a> 和 <a href="https://shodan.io/">Shodan</a> 可以填补在所有这些IP地址和域名收集的信息中的一些空白。</p>
 <p>RDAP 可以为每个 IP 地址提供一些有用的信息，例如所有者和网络块。知道一个属于亚马逊的 IP 地址本身并不是那么有趣，但知道目标 IP 地址的 65％ 为亚马逊所有就说明他们很好地利用了亚马逊网络服务。<strong>它也可能表明该组织拥有哪些资产以及哪些资产是租赁/外部托管的</strong>。这也是一些逻辑上的跳跃和推断可以发挥作用的地方。</p>
-<p><img src="https://i0.wp.com/www.iyouport.org/wp-content/uploads/2019/05/0-2.jpeg?resize=1100%2C397&amp;ssl=1" alt="img"></p>
+<p>
+        <img class="mx-auto" alt="img" src="https://i0.wp.com/www.iyouport.org/wp-content/uploads/2019/05/0-2.jpeg?resize=1100%2C397&amp;ssl=1" />   
+    </p>
 <p>最后，同样重要的是，Shodan 可能会提供更多有关IP地址和域名的详细信息。 Shodan 可以提供主机名，操作系统，开放端口等信息，所有这些都不需要任何基础设施。 Shodan 还可以使用已发现的网络块和域名的关键字搜索显示其他主机和域名（例如 hostname:foo.bar 和 ip:1.1.1.0/24）。</p>
 <p><strong>经过所有这些步骤你会获得大量信息，任何人都难以以理智的方式进行整理。此时最好将此数据放在一边，直到报告阶段</strong>。</p>
 <p><strong>阶段 2：发现联系人</strong></p>
-<p><img src="https://i1.wp.com/www.iyouport.org/wp-content/uploads/2019/05/0-3.jpeg?resize=1100%2C486&amp;ssl=1" alt="img"></p>
+<p>
+        <img class="mx-auto" alt="img" src="https://i1.wp.com/www.iyouport.org/wp-content/uploads/2019/05/0-3.jpeg?resize=1100%2C486&amp;ssl=1" />   
+    </p>
 <p>这一阶段涉及目标组织的人员。现在你可能已经知道了一些其他域名，搜索引擎（例如 Google，Yahoo，Bing）可用于搜寻与组织用于其业务的每个域名相关联的电子邮件地址。Email Hunter 的 API，顾名思义，也可用于查找域名的电子邮件地址。销售人员可以为潜在客户查找联系人和销售线索，但任何人都可以使用它并收集电子邮件地址。有时 Hunter 还提供姓名，职位和电话号码。</p>
 <p><strong>不只是电子邮件</strong></p>
 <p>电子邮件地址为网络钓鱼和密码扫描提供了机会，但可以更进一步。通过 Troy Hunt 的 HaveIBeenPwned 等服务检查电子邮件地址，或安全漏洞和被丢弃的私人密码数据库，员工可以与他们过去使用的服务对应上。</p>
@@ -278,7 +293,9 @@
 <p><strong>注意</strong>：Web 请求适用于 spaces，但可能会遗漏一些 S3 buckets。最好使用 Amazon 的 awscli 或 boto/boto3 Python 库（使用 awscli）来检查 Bucket。这些工具使用亚马逊帐户进行身份验证，某些 Bucket 可能会拒绝从浏览器进行匿名访问，同时允许“经过身份验证的用户”查看其中的某些内容。</p>
 <p>由于目标是针对特定组织，因此词汇表应与公司相关。至少要包括公司的名称，他们使用的任何缩略语或缩写，他们可能拥有的替代名称，子公司以及他们的纳斯达克上市（如果有）。</p>
 <p>如果公司使用与其业务相关的其他术语，则可以而且应该扩展该词表。例如，暴雪娱乐以用数字命名团队而闻名（例如第1组，第2组，第3组）。每个号码与其中一个游戏相关联。他们还喜欢使用他们的魔兽和星际争霸故事里名字。如果目标是暴雪，那么将 team1，team2，arthas，townportal 和其他暴雪相关术语添加到列表中是有意义的。</p>
-<p><img src="https://i1.wp.com/www.iyouport.org/wp-content/uploads/2019/05/0-4.jpeg?resize=1100%2C619&amp;ssl=1" alt="img">Nuclear Launch Detected: Improve wordlists for better targeting and a higher chance of finding something interesting. 检测到核发射：改进单词列表以获得更好的目标并更有可能找到有趣的东西。</p>
+<p>
+        <img class="mx-auto" alt="img" src="https://i1.wp.com/www.iyouport.org/wp-content/uploads/2019/05/0-4.jpeg?resize=1100%2C619&amp;ssl=1" />   
+    Nuclear Launch Detected: Improve wordlists for better targeting and a higher chance of finding something interesting. 检测到核发射：改进单词列表以获得更好的目标并更有可能找到有趣的东西。</p>
 <p>Bucket 名称必须是全局唯一的，因此最好使用关键字的不同变体。一个简单的选择是使用各种前缀和后缀，或“缀”。一些常见的缀是 qa，doc，legacy，uat 和 bak。可以将这些添加到关键字的开头和结尾，以检查 Bucket 名称的常见变体。例如，“tychus”和一些缀相结合，创建了几个新的关键词，如 “qa-tychus” 和“ tychuslegacy”。</p>
 <p>值得注意的是，除了连字符之外，Bucket 名称还可以包含句点，因此即使“<a href="http://blizzard.com/">blizzard.com</a>”也是有效的 Bucket 名称。实际上，托管在 S3 Bucket 中的资源或网页的 Bucket 名称将解析为 <a href="http://hearthstone.blizzard.com.s3.amazonaws.com/">hearthstone.blizzard.com.s3.amazonaws.com</a>。</p>
 <p>此外，一些公司可能会添加垃圾 Bucket 名称以使其更难发现，例如 tychus-79a9ba8b089e4c022c32b964cacf6b13f2aa6d9a（tychus 的 shasum）。它们不是不可发现的，但肯定更困难，如果对目标进行更密集的搜寻，则需要在之后考虑。</p>
@@ -286,15 +303,21 @@
 <p>一旦单词列表和缀列表准备就绪，将它们揉合在一起并开始搜索。</p>
 <p><strong>阶段 4：报告和自动化流程</strong></p>
 <p>对于每个项目而言，所有这一切都非常繁琐。如果这是你的日常工作，你肯定不想重复这些繁琐的过程。人们已经解决了所有这一切的自动化问题。一些值得注意的工具是 Recon-ng 和 Discover Scripts。我在一个名为 <a href="https://github.com/chrismaddalena/ODIN">ODIN 的工具</a>中实现了上面所有内容的<strong>自动化</strong>：</p>
-<p><img src="https://i2.wp.com/www.iyouport.org/wp-content/uploads/2019/05/0-6.png?resize=900%2C582&amp;ssl=1" alt="img"></p>
+<p>
+        <img class="mx-auto" alt="img" src="https://i2.wp.com/www.iyouport.org/wp-content/uploads/2019/05/0-6.png?resize=900%2C582&amp;ssl=1" />   
+    </p>
 <p><strong>重新造轮子？</strong></p>
 <p>当前的工具无法满足我的需求。我也没有/不想运行多个模块来获取所有数据或依赖于安装外部工具。 ODIN 的目标是，现在仍然是，创建一个可以用 Python 3 在 Windows，MacOS 和 Linux 上运行的工具。不仅如此，我还希望该工具能够自动进行基本分析。ODIN 实现了这一点，并使分析师能够把更多的精力放在数据上，同时减少他们的工作量。</p>
 <p><strong>ODIN 的报告和组织</strong></p>
 <p>ODIN 将它收集的所有数据存储在 SQLite3 数据库中，该数据库将保存以供以后分析。你也可以根据该数据构建多页 HTML 报告，以使浏览信息就像在 Web 浏览器中打开报告一样简单。这对于非正式的评审和参考很有用，但使用这些数据可视化可以打开你的眼界。</p>
 <p><strong>进入 Neo4j</strong></p>
-<p><img src="https://i1.wp.com/www.iyouport.org/wp-content/uploads/2019/05/0-7.png?resize=800%2C533&amp;ssl=1" alt="img">A basic schema developed for drawing relationships between all of the various entities and assets discovered during this OSINT gathering process. 为在 OSINT 收集过程中发现的所有各种实体和资产之间的关系而开发的基本模式。</p>
+<p>
+        <img class="mx-auto" alt="img" src="https://i1.wp.com/www.iyouport.org/wp-content/uploads/2019/05/0-7.png?resize=800%2C533&amp;ssl=1" />   
+    A basic schema developed for drawing relationships between all of the various entities and assets discovered during this OSINT gathering process. 为在 OSINT 收集过程中发现的所有各种实体和资产之间的关系而开发的基本模式。</p>
 <p>我为收集上述数据时可能遇到的外部资产开发了一个简单的 <strong>Neo4j 图数据库模式</strong>。一旦 ODIN 将 SQLite3 数据库转换为图形数据库，就可以创建外部边界的映射。这是一个非常基本的例子：</p>
-<p><img src="https://i1.wp.com/www.iyouport.org/wp-content/uploads/2019/05/0-8.png?resize=844%2C543&amp;ssl=1" alt="img">A graph of a small network branching off of one root domain</p>
+<p>
+        <img class="mx-auto" alt="img" src="https://i1.wp.com/www.iyouport.org/wp-content/uploads/2019/05/0-8.png?resize=844%2C543&amp;ssl=1" />   
+    A graph of a small network branching off of one root domain</p>
 <p>大多数节点类型都在此图中表示。对于此示例，ODIN 在小型实验室环境中运行，因此 IP 地址是内部地址，并且没有任何 Shodan 数据（即开放端口）。</p>
 <p>您有一个组织（蓝色）绑定到域名（紫色）和该域名的子域名（绿色）。证书（红色）及其与域名和子域名的关系显示哪些节点共享证书。您还可以查看子域名解析的 IP 地址（黄色）。</p>
 <p>大型组织的完整、未经过滤的图表可能非常密集，包括多对一关系，多个IP地址和多个域名。</p>
@@ -335,20 +358,39 @@
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/OSINT'>OSINT</a></li>
+                <li><a href='/tags/OSINT'>OSINT</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -356,13 +398,47 @@
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -430,28 +506,12 @@
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -490,7 +550,7 @@
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -570,7 +630,7 @@
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -587,51 +647,6 @@
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

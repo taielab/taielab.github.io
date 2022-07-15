@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>数字安全培训·基础篇（十）关于加密，我应该知道什么？ | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="数字安全培训·基础篇（十）关于加密，我应该知道什么？ - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2019-03-05/what-should-i-know-about-encryption.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -158,8 +161,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -178,6 +181,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -191,7 +198,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8'>数字安全</a></span>
+            <span class="meta-category"><a href='/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8'>数字安全</a></span>
             
         </div>
         
@@ -216,7 +223,9 @@
 <h2 id="加密静态数据">加密静态数据</h2>
 <p>静止数据是存储在某处的数据:例如移动设备、笔记本电脑、服务器或外部硬盘驱动器上。当数据处于静止状态时，它不会从一个地方移动到另一个地方。</p>
 <p>保护静止数据的一种加密形式是全磁盘加密(有时也称为设备加密)。启用全磁盘加密对存储在设备上的所有信息进行加密，并使用密码或另一种身份验证方法保护信息。在移动设备或笔记本电脑上，这通常看起来就像典型的设备锁定屏幕，需要密码、密码或指纹。然而，锁定你的设备(例如:(需要密码才能解锁设备)并不总是意味着启用了全磁盘加密。</p>
-<p><img src="https://i.bmp.ovh/imgs/2019/03/88eab73743faac95.png" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.bmp.ovh/imgs/2019/03/88eab73743faac95.png" />   
+    </p>
 <p>智能手机和笔记本电脑都有密码保护的“锁定”屏幕。</p>
 <blockquote>
 <p>请务必检查操作系统如何启用和管理全盘加密。 虽然某些操作系统默认启用了全盘加密，但某些操作系统却没有。 这意味着有人可以通过断开设备锁来访问移动设备上的数据，但不必破坏加密密钥，因为设备本身未加密。 即使使用全盘加密，某些系统仍会在RAM上存储未加密的明文。 RAM是临时存储，这意味着在设备断电后不久，内存通常无法读取，但是复杂的攻击者可能会尝试冷启动攻击并有可能会检索RAM内容。</p>
@@ -225,7 +234,9 @@
 <p>还有其他方法可以在静止状态下加密数据。一种称为文件加密的选项只加密计算机或其他存储设备上特定的单个文件。另一种选择是驱动器加密(也称为磁盘加密):对设备上特定存储区域上的所有数据进行加密。</p>
 <p>您可以组合使用这些不同类型的加密。例如，假设您希望保护医疗文档上的敏感信息。您可以使用文件加密来分别加密存储在您的设备上的单个医疗文件。然后，您可以使用驱动器加密来加密存储此医疗信息的设备部分。最后，如果您在设备上启用了全磁盘加密，那么驱动器上的所有医疗信息以及其他文件(包括计算机操作系统的文件)都将被加密。</p>
 <h2 id="加密传输中的数据">加密传输中的数据</h2>
-<p><img src="https://i.bmp.ovh/imgs/2019/03/d1dd851f23e7865e.png" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.bmp.ovh/imgs/2019/03/d1dd851f23e7865e.png" />   
+    </p>
 <p>此图显示传输中的未加密数据，这通常是Internet服务提供商的默认设置。在左边，一部智能手机向另一部最右边的智能手机发送一条绿色的未加密信息。在这一过程中，一个手机信号塔将信息传递给公司的服务器，然后再传递给另一个手机信号塔，每个塔都能看到未加密的Hello信息。所有传递未加密消息的计算机和网络都能看到该消息。最后，另一台智能手机接收未加密的Hello消息</p>
 <p>传输中的数据是指在网络中从一个地方移动到另一个地方的信息。例如，当你在一个消息传递应用程序上发送一条消息时，该消息从你的设备移动到应用程序公司的服务器，再移动到收件人的设备。另一个例子是网页浏览:当你访问一个网站时，网页上的数据从网站服务器传到你的浏览器。</p>
 <blockquote>
@@ -234,7 +245,9 @@
 <p>重要的是要验证您和收件人之间的对话是否加密，并了解它们是通过传输层加密还是端到端加密加密的。</p>
 <p>有两种方法可以加密传输中的数据：传输层加密和端到端加密。 服务提供商支持的加密类型可能是决定哪些服务适合您的重要因素。 以下示例说明了传输层加密和端到端加密之间的差异。</p>
 <h2 id="传输层加密">传输层加密</h2>
-<p><img src="https://i.bmp.ovh/imgs/2019/03/fabd6ba8033dfcfd.png" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.bmp.ovh/imgs/2019/03/fabd6ba8033dfcfd.png" />   
+    </p>
 <p>图中显示了传输层加密。在左边，智能手机会发送一条绿色的未加密信息:你好。这条信息被加密，然后传送到一个手机信号塔。在中间，公司的服务器能够解密信息，重新加密，并将其发送到下一个手机信号塔。最后，另一台智能手机接收到加密的消息，解密后读取Hello。</p>
 <p>传输层加密，也称为传输层安全性(transport layer security, TLS)，保护消息从您的设备到应用程序服务器以及从应用程序服务器到您的收件人设备的传输过程。在中间，您的消息服务提供商或您正在浏览的网站，或您正在使用的应用程序可以看到您的消息的未加密副本。由于您的消息可以被公司服务器看到(通常存储在)，因此如果公司的服务器受到攻击，它们可能很容易受到执法请求或泄漏的影响。</p>
 <h3 id="传输层加密示例-https">传输层加密示例: HTTPS</h3>
@@ -249,46 +262,54 @@
 </blockquote>
 <p>虚拟专用网络（VPN）是传输层加密的另一个示例。 如果没有VPN，您的流量将通过Internet服务提供商（ISP）的连接传输。 使用VPN，您的流量仍然通过ISP的连接传输，但它将在您和您的VPN提供商之间进行加密。 如果有人在您的本地网络上监视并试图查看您正在访问的网站，他们将能够看到您已连接到VPN，但无法查看您最终访问的网站。ISP可以检测您的VPN提供商是谁。</p>
 <h2 id="端到端加密">端到端加密</h2>
-<p><img src="https://i.bmp.ovh/imgs/2019/03/3c267ccbe2a91595.png" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.bmp.ovh/imgs/2019/03/3c267ccbe2a91595.png" />   
+    </p>
 <p>该图显示端到端加密。在左边，智能手机会发送一条绿色的未加密信息:你好。这条信息被加密，然后传送到手机发射塔和公司服务器。最后，另一台智能手机接收到加密的消息，解密后读取Hello。与传输层加密不同，ISP服务器无法解密消息;只有端点(发送和接收加密消息的原始设备)具有解密消息的密钥。</p>
 <p>端到端加密保护从发送方到接收方的传输中的消息。它确保信息由原始发送方(第一端)转换为秘密消息，仅由最终接收方(第一端)解码。没有人，包括你正在使用的应用程序，可以监听和窃听你的活动。</p>
 <p>访问设备上应用程序中的端到端加密消息实际上意味着应用程序公司本身无法读取这些消息。这是良好加密的核心特征：即使是设计和部署它的人也不能自己破解它。</p>
 <p>在监控自卫方面，我们在“<a href="https://blog.inofd.com/2019-03-02/how-to-communicating-others.html">与他人沟通</a>”指南中提供了使用端到端加密工具的指南。</p>
 <h2 id="传输层加密或端到端加密">传输层加密或端到端加密</h2>
-<p><img src="https://i.bmp.ovh/imgs/2019/03/936c9706d37ba667.png" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.bmp.ovh/imgs/2019/03/936c9706d37ba667.png" />   
+    </p>
 <p>在决定是否需要传输层加密或端到端加密时，需要问的重要问题是:您信任所使用的应用程序或服务吗?你信任它的技术基础设施吗?它保护公民不受执法要求侵害的政策如何？</p>
 <p>如果对这些问题中的任何一个回答“否”，那么您需要端到端加密。 如果您对它们回答“是”，那么仅支持传输层加密的服务可能就足够了 - 但通常最好使用支持端到端加密的服务。</p>
 <p>我们创建了下面的动画来演示端到端加密和传输层加密是如何对传输中的数据进行加密的。左边是端到端加密聊天工具(一个使用非记录(OTR)即时消息加密协议的聊天框)。右边是一个传输层加密聊天框(通过使用HTTPS的谷歌Hangouts网站加密)。</p>
-<p><img src="https://ssd.eff.org/files/2018/11/26/8._otr-client.gif" alt="ptp"></p>
+<p>
+        <img class="mx-auto" alt="ptp" src="https://ssd.eff.org/files/2018/11/26/8._otr-client.gif" />   
+    </p>
 <p>在GIF中，主要用户在谷歌Hangouts聊天框中键入一条消息：</p>
 <p><code>“嗨！这不是端到端加密的。谷歌可以看到我们的对话。”</code></p>
 <p>此用户还打开了一个Off-the-Record（OTR）聊天框，并启用“私人对话”设置。 在OTR聊天框中，描述性文字说：</p>
 <p><code>“尝试与[gmail帐户]开始私密对话。 已开始与[gmail帐户]进行私密对话。 但是，他们的身份尚未得到证实。“</code></p>
 <p>同时，在Google Hangouts聊天框中，正在交换乱码密文，表明用户现在使用的是非记录( OTR )端到端加密协议。 通过OTR聊天框传递的每条消息也会显示在Google环聊聊天框中，但是，它不是可读的，而是显示为乱码。 另一个用户在OTR客户端中键入消息：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">“对任何人来说，这看起来都是胡言乱语。”
-
-主要用户写道：
-
-“是的，这看起来像胡说八道。”
-
-另一个用户发送一个笑脸表情符号。
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>“对任何人来说，这看起来都是胡言乱语。”
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>主要用户写道：
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>“是的，这看起来像胡说八道。”
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>另一个用户发送一个笑脸表情符号。
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="传输中的加密不能做什么">传输中的加密不能做什么</h2>
 <p>加密不是万能的。即使您正在发送加密消息，与您通信的人也会解密该消息。如果您的端点(用于通信的设备)受到危害，您的加密通信可能会受到危害。此外，与你交流的人可以截图或保存你交流的记录(日志)。</p>
 <p>如果您自动将加密对话的备份存储到“云”（其他计算机），请注意检查备份是否也已加密。 这可确保您的会话不仅在传输过程中加密，而且还在静止时加密。</p>
-<p><img src="https://i.bmp.ovh/imgs/2019/03/e9b74393a08c872e.png" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.bmp.ovh/imgs/2019/03/e9b74393a08c872e.png" />   
+    </p>
 <p>如果您加密传输中的数据，它将保护通信内容，但不会加密元数据。例如，您可以使用加密将您和您的朋友之间的消息打乱成乱码，但它不会隐藏。</p>
 <ul>
 <li>你和你的朋友正在沟通</li>
@@ -343,20 +364,39 @@
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87'>数字安全基础篇</a></li>
+                <li><a href='/tags/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87'>数字安全基础篇</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -364,13 +404,47 @@
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -438,28 +512,12 @@
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -498,7 +556,7 @@
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -578,7 +636,7 @@
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -595,51 +653,6 @@
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

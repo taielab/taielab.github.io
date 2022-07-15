@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>Ubuntu19.04迁移到SSD | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="Ubuntu19.04迁移到SSD - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2019-04-21/ubuntu-migrate-to-ssd.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -189,8 +192,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -209,6 +212,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -222,7 +229,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/Linux'>Linux</a></span>
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
             
         </div>
         
@@ -308,57 +315,57 @@ UEFI firmwares are in fact technically required to be able to boot UEFI-style fr
 <h2 id="ssd-分区">SSD 分区</h2>
 <h3 id="硬盘状态">硬盘状态</h3>
 <p>使用外接硬盘盒，将 SSD 连接到 PC 机上，先查看硬盘状态：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo fdisk -l
-Disk /dev/sda: 465.8 GiB, <span style="color:#099">500107862016</span> bytes, <span style="color:#099">976773168</span> sectors
-Units: sectors of <span style="color:#099">1</span> * <span style="color:#008080">512</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">512</span> bytes
-Sector size <span style="color:#000;font-weight:bold">(</span>logical/physical<span style="color:#000;font-weight:bold">)</span>: <span style="color:#099">512</span> bytes / <span style="color:#099">4096</span> bytes
-I/O size <span style="color:#000;font-weight:bold">(</span>minimum/optimal<span style="color:#000;font-weight:bold">)</span>: <span style="color:#099">4096</span> bytes / <span style="color:#099">4096</span> bytes
-Disklabel type: dos
-Disk identifier: 0xb2708ce0
-
-Device     Boot     Start       End   Sectors   Size Id Type
-/dev/sda1  *         <span style="color:#099">2048</span>    <span style="color:#099">411647</span>    <span style="color:#099">409600</span>   200M  <span style="color:#099">7</span> HPFS/NTFS/exFAT
-/dev/sda2          <span style="color:#099">411648</span> <span style="color:#099">210126847</span> <span style="color:#099">209715200</span>   100G  <span style="color:#099">7</span> HPFS/NTFS/exFAT
-/dev/sda3       <span style="color:#099">210128894</span> <span style="color:#099">913704959</span> <span style="color:#099">703576066</span> 335.5G  f W95 Ext<span style="color:#a61717;background-color:#e3d2d2">&#39;</span>d <span style="color:#000;font-weight:bold">(</span>LBA<span style="color:#000;font-weight:bold">)</span>
-/dev/sda5       <span style="color:#099">210128896</span> <span style="color:#099">703989759</span> <span style="color:#099">493860864</span> 235.5G <span style="color:#099">83</span> Linux
-/dev/sda6       <span style="color:#099">703991808</span> <span style="color:#099">704966655</span>    <span style="color:#099">974848</span>   476M <span style="color:#099">83</span> Linux
-/dev/sda7       <span style="color:#099">704968704</span> <span style="color:#099">764067839</span>  <span style="color:#099">59099136</span>  28.2G <span style="color:#099">83</span> Linux
-/dev/sda8       <span style="color:#099">764069888</span> <span style="color:#099">771973119</span>   <span style="color:#099">7903232</span>   3.8G <span style="color:#099">82</span> Linux swap / Solaris
-
-Partition <span style="color:#099">3</span> does not start on physical sector boundary.
-
-Disk /dev/sdb: 489.1 GiB, <span style="color:#099">525112713216</span> bytes, <span style="color:#099">1025610768</span> sectors
-Units: sectors of <span style="color:#099">1</span> * <span style="color:#008080">512</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">512</span> bytes
-Sector size <span style="color:#000;font-weight:bold">(</span>logical/physical<span style="color:#000;font-weight:bold">)</span>: <span style="color:#099">512</span> bytes / <span style="color:#099">512</span> bytes
-I/O size <span style="color:#000;font-weight:bold">(</span>minimum/optimal<span style="color:#000;font-weight:bold">)</span>: <span style="color:#099">512</span> bytes / <span style="color:#099">33553920</span> bytes
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sudo fdisk -l
+</span></span><span style="display:flex;"><span>Disk /dev/sda: 465.8 GiB, <span style="color:#099">500107862016</span> bytes, <span style="color:#099">976773168</span> sectors
+</span></span><span style="display:flex;"><span>Units: sectors of <span style="color:#099">1</span> * <span style="color:#008080">512</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">512</span> bytes
+</span></span><span style="display:flex;"><span>Sector size <span style="color:#000;font-weight:bold">(</span>logical/physical<span style="color:#000;font-weight:bold">)</span>: <span style="color:#099">512</span> bytes / <span style="color:#099">4096</span> bytes
+</span></span><span style="display:flex;"><span>I/O size <span style="color:#000;font-weight:bold">(</span>minimum/optimal<span style="color:#000;font-weight:bold">)</span>: <span style="color:#099">4096</span> bytes / <span style="color:#099">4096</span> bytes
+</span></span><span style="display:flex;"><span>Disklabel type: dos
+</span></span><span style="display:flex;"><span>Disk identifier: 0xb2708ce0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Device     Boot     Start       End   Sectors   Size Id Type
+</span></span><span style="display:flex;"><span>/dev/sda1  *         <span style="color:#099">2048</span>    <span style="color:#099">411647</span>    <span style="color:#099">409600</span>   200M  <span style="color:#099">7</span> HPFS/NTFS/exFAT
+</span></span><span style="display:flex;"><span>/dev/sda2          <span style="color:#099">411648</span> <span style="color:#099">210126847</span> <span style="color:#099">209715200</span>   100G  <span style="color:#099">7</span> HPFS/NTFS/exFAT
+</span></span><span style="display:flex;"><span>/dev/sda3       <span style="color:#099">210128894</span> <span style="color:#099">913704959</span> <span style="color:#099">703576066</span> 335.5G  f W95 Ext<span style="color:#a61717;background-color:#e3d2d2">&#39;</span>d <span style="color:#000;font-weight:bold">(</span>LBA<span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>/dev/sda5       <span style="color:#099">210128896</span> <span style="color:#099">703989759</span> <span style="color:#099">493860864</span> 235.5G <span style="color:#099">83</span> Linux
+</span></span><span style="display:flex;"><span>/dev/sda6       <span style="color:#099">703991808</span> <span style="color:#099">704966655</span>    <span style="color:#099">974848</span>   476M <span style="color:#099">83</span> Linux
+</span></span><span style="display:flex;"><span>/dev/sda7       <span style="color:#099">704968704</span> <span style="color:#099">764067839</span>  <span style="color:#099">59099136</span>  28.2G <span style="color:#099">83</span> Linux
+</span></span><span style="display:flex;"><span>/dev/sda8       <span style="color:#099">764069888</span> <span style="color:#099">771973119</span>   <span style="color:#099">7903232</span>   3.8G <span style="color:#099">82</span> Linux swap / Solaris
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Partition <span style="color:#099">3</span> does not start on physical sector boundary.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Disk /dev/sdb: 489.1 GiB, <span style="color:#099">525112713216</span> bytes, <span style="color:#099">1025610768</span> sectors
+</span></span><span style="display:flex;"><span>Units: sectors of <span style="color:#099">1</span> * <span style="color:#008080">512</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">512</span> bytes
+</span></span><span style="display:flex;"><span>Sector size <span style="color:#000;font-weight:bold">(</span>logical/physical<span style="color:#000;font-weight:bold">)</span>: <span style="color:#099">512</span> bytes / <span style="color:#099">512</span> bytes
+</span></span><span style="display:flex;"><span>I/O size <span style="color:#000;font-weight:bold">(</span>minimum/optimal<span style="color:#000;font-weight:bold">)</span>: <span style="color:#099">512</span> bytes / <span style="color:#099">33553920</span> bytes
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其中<code>/dev/sda</code>为 PC 上的硬盘，装有 Ubuntu16.10 + Win7；<code>/dev/sdb</code>为 SSD，当前 SSD 为空盘。</p>
 <h3 id="分区策略">分区策略</h3>
@@ -367,7 +374,9 @@ I/O size <span style="color:#000;font-weight:bold">(</span>minimum/optimal<span 
 <li>考虑 SSD 的拓展性，<strong>分区表选择 GPL</strong>，选用的<strong>引导方式为 BIOS + GPT</strong>。</li>
 <li>此时安装 GRUB 引导对分区划分有要求，具体参考接下文的*《GRUB 引导》*章节。</li>
 <li>先上分区结果：
-<a href="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/partition-result.png"><img src="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/partition-result.png" alt="img"></a>
+<a href="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/partition-result.png">
+        <img class="mx-auto" alt="img" src="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/partition-result.png" />   
+    </a>
 <em>（注：前文出现的/dev/sdb1，/dev/sdf1和后面可能出现的/dev/sd#1都为同一个分区，因为多次插拔了 SSD ，所以标识一直按字母序递增）</em>
 <ul>
 <li>不建立<code>/swap</code>分区了，因为 <a href="http://blog.surgut.co.uk/2016/12/swapfiles-by-default-in-ubuntu.html">Ubuntu17.04也要移除 swap 分区</a>。</li>
@@ -388,38 +397,44 @@ SSD 是一个空磁盘，此时并没有分区表，所以要先建立分区表�
 <li>打开 Gparted，点击 <code>Device</code> –&gt; <code>Created Partition Table</code>。</li>
 <li>选择<code>partition tabel type</code>为<code>gpt</code>，然后点击<code>Apply</code>。</li>
 </ol>
-<p><a href="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/create-gpt.png"><img src="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/create-gpt.png" alt="img"></a></p>
+<p><a href="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/create-gpt.png">
+        <img class="mx-auto" alt="img" src="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/create-gpt.png" />   
+    </a></p>
 </li>
 <li>
 <p>建立 GRUB 所需分区</p>
 <ol>
 <li>分区大小为1M，分区类型为<code>unformatted</code>。
-<a href="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/bios-grub-partition.png"><img src="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/bios-grub-partition.png" alt="img"></a></li>
+<a href="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/bios-grub-partition.png">
+        <img class="mx-auto" alt="img" src="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/bios-grub-partition.png" />   
+    </a></li>
 <li>在新建的分区上点击右键，选择<code>managerFlags</code>，然后选中<code>bios_grub</code>选项。
-<a href="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/set-bios-grub-flag.png"><img src="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/set-bios-grub-flag.png" alt="img"></a></li>
+<a href="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/set-bios-grub-flag.png">
+        <img class="mx-auto" alt="img" src="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/set-bios-grub-flag.png" />   
+    </a></li>
 </ol>
 </li>
 <li>
 <p>建立 Linux 系统分区
-根据上文<em>&laquo;分区策略&raquo;</em>章节，依次建立其他分区，分区的文件格式选择<code>ext4</code>。
+根据上文*&laquo;分区策略&raquo;*章节，依次建立其他分区，分区的文件格式选择<code>ext4</code>。
 分区结果：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo fdisk -l /dev/sdh
-Device         Start       End   Sectors  Size Type
-/dev/sdh1       <span style="color:#099">2048</span>      <span style="color:#099">4095</span>      <span style="color:#099">2048</span>    1M BIOS boot
-/dev/sdh2       <span style="color:#099">4096</span>   <span style="color:#099">2101247</span>   <span style="color:#099">2097152</span>    1G Linux filesystem
-/dev/sdh3    <span style="color:#099">2101248</span> <span style="color:#099">106958847</span> <span style="color:#099">104857600</span>   50G Linux filesystem
-/dev/sdh4  <span style="color:#099">106958848</span> <span style="color:#099">736104447</span> <span style="color:#099">629145600</span>  300G Linux filesystem
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sudo fdisk -l /dev/sdh
+</span></span><span style="display:flex;"><span>Device         Start       End   Sectors  Size Type
+</span></span><span style="display:flex;"><span>/dev/sdh1       <span style="color:#099">2048</span>      <span style="color:#099">4095</span>      <span style="color:#099">2048</span>    1M BIOS boot
+</span></span><span style="display:flex;"><span>/dev/sdh2       <span style="color:#099">4096</span>   <span style="color:#099">2101247</span>   <span style="color:#099">2097152</span>    1G Linux filesystem
+</span></span><span style="display:flex;"><span>/dev/sdh3    <span style="color:#099">2101248</span> <span style="color:#099">106958847</span> <span style="color:#099">104857600</span>   50G Linux filesystem
+</span></span><span style="display:flex;"><span>/dev/sdh4  <span style="color:#099">106958848</span> <span style="color:#099">736104447</span> <span style="color:#099">629145600</span>  300G Linux filesystem
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ul>
@@ -431,12 +446,16 @@ Device         Start       End   Sectors  Size Type
 <p>provides a user the choice to boot one of multiple operating systems installed on a computer or select a specific kernel configuration available on a particular operating system’s partitions. – <a href="https://en.wikipedia.org/wiki/GNU_GRUB">GRUB</a></p>
 </blockquote>
 <p>示例：
-<a href="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/grub-loader.jpg"><img src="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/grub-loader.jpg" alt="img"></a>
+<a href="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/grub-loader.jpg">
+        <img class="mx-auto" alt="img" src="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/grub-loader.jpg" />   
+    </a>
 如图：第一个选项和最后一个选项是选择不同的操作系统；第一个选项和第二个选项是选择不同的内核配置。</p>
 <h3 id="grub-位置">GRUB 位置</h3>
 <p>其启动代码（boot.img）直接安装在 MBR 中，然后执行 GRUB 内核镜像（core.img），最后从<code>/boot/grub</code>中读取配置和其他功能代码。
 BIOS 引导方式中，MBR 分区表和 GPT 分区表的 <a href="https://en.wikipedia.org/wiki/BIOS_boot_partition">GRUB 引导文件所放分区不同</a>：
-<a href="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/GNU_GRUB_components.svg"><img src="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/GNU_GRUB_components.svg" alt="img"></a></p>
+<a href="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/GNU_GRUB_components.svg">
+        <img class="mx-auto" alt="img" src="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/GNU_GRUB_components.svg" />   
+    </a></p>
 <p>如图，GRUB 的执行顺序为 <code>boot.img</code> –&gt; <code>core.img</code> –&gt; <code>/boot/grub/</code>。</p>
 <ul>
 <li>
@@ -455,106 +474,106 @@ BIOS 引导方式中，MBR 分区表和 GPT 分区表的 <a href="https://en.wik
 <li>
 <p>挂载 <code>/boot</code>
 挂载 SSD 的<code>/boot</code>为 PC Ubuntu 的<code>/mnt</code>，因为我们需要将 GRUB 配置文件放入 SSD 的<code>/boot/grub</code>中。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo mount /dev/sdb2 /mnt
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sudo mount /dev/sdb2 /mnt
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
 <p>安装 GRUB
 执行以下命令：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo grub-install --target<span style="color:#000;font-weight:bold">=</span>i386-pc --root-directory<span style="color:#000;font-weight:bold">=</span>/mnt --recheck --debug /dev/sdb
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sudo grub-install --target<span style="color:#000;font-weight:bold">=</span>i386-pc --root-directory<span style="color:#000;font-weight:bold">=</span>/mnt --recheck --debug /dev/sdb
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ul>
 <p>如果看到以下输出，应该就是成功了：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">...
-Installation finished. No error reported.
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Installation finished. No error reported.
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>此时<code>/mnt</code>目录下，应该有一个<code>./boot/grub</code>的文件夹：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/mnt/boot/grub ⌚ 20:54:33
-$ ls
-fonts  grubenv  i386-pc  locale
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/mnt/boot/grub ⌚ 20:54:33
+</span></span><span style="display:flex;"><span>$ ls
+</span></span><span style="display:flex;"><span>fonts  grubenv  i386-pc  locale
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>
 <p>修复</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/grub
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/grub
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>位置</p>
 <p>查看下 PC Ubuntu 的</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/boot
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/boot
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>,</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/grub
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/grub
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>是直接放置在</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/boot
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/boot
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>下的:</p>
-<pre><code>/boot/grub ⌚ 13:30:33
+<pre tabindex="0"><code>/boot/grub ⌚ 13:30:33
 $ ls
 fonts  gfxblacklist.txt  grub.cfg  grubenv  i386-pc  locale  unicode.pf2
 </code></pre></li>
 </ul>
 <p>而<code>grub-install /dev/sdb</code>安装的 GRUB 是<code>/mnt/boot/grub</code>，其中<code>/mnt</code>是 SSD <code>/dev/sdb2</code>分区，从 SSD 启动 Ubuntu 的话，<code>/dev/sdb2</code>会挂载为<code>/boot</code>，此时 GRUB 的位置是<code>/boot/boot/grub</code>。而当<code>grub-install /dev/dsa</code>安装 GRUB 到 PC Ubuntu 启动磁盘时，生成的<code>/grub</code>是在<code>/boot/grub</code>。<code>grub-install</code>的处理逻辑应该是先判断<code>/boot</code>路径是否存在，没有就新建。
 所以，<strong>要将/mnt/boot/grub移动到/mnt/grub</strong>：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo mv /mnt/boot/grub /mnt/grub
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sudo mv /mnt/boot/grub /mnt/grub
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="grub-引导修复类型">GRUB 引导修复类型</h3>
 <p>启动电脑后，当 GRUB 无法按照<code>boot.img</code> –&gt; <code>core.img</code> –&gt; <code>/boot/grub/</code>顺序执行时，会看到命令行界面，等待用户输入命令。此时可以通过输入 GRUB 内置的命令来修复 GRUB 引导。</p>
@@ -573,66 +592,66 @@ GRUB Normal 模式是 GRUB 无法找到 GRUB 菜单<code>grub.cfg</code>，无�
 <ul>
 <li>
 <p>挂载和移出操作</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">// 挂载
-$ sudo mount /dev/sdb2 /mnt
-// 移出
-$ sudo umount /mnt
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>// 挂载
+</span></span><span style="display:flex;"><span>$ sudo mount /dev/sdb2 /mnt
+</span></span><span style="display:flex;"><span>// 移出
+</span></span><span style="display:flex;"><span>$ sudo umount /mnt
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
 <p>复制操作
 使用<code>cp</code>指令要加<code>-r</code>，<code>-f</code>，<code>-a</code>参数，<code>-r</code>表示递归复制，<code>-f</code>表示强制覆盖，<code>-a</code>表示保留原文件的属性（mode，ownership，tiemstamps等）</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo cp -rf -a <span style="color:#0086b3">source</span> destination
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sudo cp -rf -a <span style="color:#0086b3">source</span> destination
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ul>
 <h3 id="复制boot分区">复制<code>/boot</code>分区</h3>
 <p>SSD Ubuntu 的<code>/boot</code>从 PC Ubuntu 上看为<code>/dev/sdb2</code>，将<code>/dev/sdb2</code>挂载为 PC Ubuntu 的<code>/mnt</code>。安装 GRUB 之后，<code>/mnt</code>已经有<code>/grub</code>这个文件夹和默认的<code>lost+found</code>文件夹。
 使用<code>cp</code>将 PC 的<code>/boot</code>中其他文件复制到<code>/mnt</code>。结果类似：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/mnt/ ⌚ 13:56:06
-$ ls | sort
-abi-4.8.0-36-generic
-config-4.8.0-36-generic
-grub
-initrd.img-4.8.0-36-generic
-lost+found
-memtest86+.bin
-memtest86+.elf
-memtest86+_multiboot.bin
-System.map-4.8.0-36-generic
-vmlinuz-4.8.0-36-generic
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/mnt/ ⌚ 13:56:06
+</span></span><span style="display:flex;"><span>$ ls | sort
+</span></span><span style="display:flex;"><span>abi-4.8.0-36-generic
+</span></span><span style="display:flex;"><span>config-4.8.0-36-generic
+</span></span><span style="display:flex;"><span>grub
+</span></span><span style="display:flex;"><span>initrd.img-4.8.0-36-generic
+</span></span><span style="display:flex;"><span>lost+found
+</span></span><span style="display:flex;"><span>memtest86+.bin
+</span></span><span style="display:flex;"><span>memtest86+.elf
+</span></span><span style="display:flex;"><span>memtest86+_multiboot.bin
+</span></span><span style="display:flex;"><span>System.map-4.8.0-36-generic
+</span></span><span style="display:flex;"><span>vmlinuz-4.8.0-36-generic
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="复制分区">复制<code>/</code>分区</h3>
 <p>SSD Ubuntu 的<code>/</code>分区（根目录）比较特殊：一些子目录挂载了其他分区，并存在“伪目录”，<a href="https://slashmedia.wordpress.com/2007/12/23/linux-directory-structure/">不同子目录有特定的用途</a>。</p>
@@ -668,24 +687,24 @@ vmlinuz-4.8.0-36-generic
 <li><code>/sys</code> 硬件设备的驱动程序信息</li>
 </ul>
 <p>这几个目录是 Linux 内核启动后由内核来挂载并存放信息的，不能从运行中的 PC Ubuntu 复制过去，但是需要建立空目录，不然内核启动后会报类似错误：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mount: mount point /dev does not exist
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mount: mount point /dev does not exist
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ul>
 <p>创建命令：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo mkdir dev proc sys
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sudo mkdir dev proc sys
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>操作策略
@@ -696,15 +715,15 @@ vmlinuz-4.8.0-36-generic
 </ul>
 <h3 id="复制home分区">复制<code>/home</code>分区</h3>
 <p>挂载 SSD Ubuntu<code>/home</code>到 PC Ubuntu <code>/mnt</code>，然后<strong>全盘复制</strong>：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo mount /dev/sdb4 /mnt
-$ sudo cp -rf -a /home/* /mnt
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sudo mount /dev/sdb4 /mnt
+</span></span><span style="display:flex;"><span>$ sudo cp -rf -a /home/* /mnt
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="挂载home和boot分区">挂载<code>/home</code>和<code>/boot</code>分区</h3>
 <p>SSD Ubuntu 的<code>/home</code>和<code>/boot</code>需要挂载到<code>/</code>，挂载方法为：修改<code>/ect/fstab</code>。</p>
@@ -714,150 +733,156 @@ $ sudo cp -rf -a /home/* /mnt
 </li>
 <li>
 <p>使用<code>blkid</code>查看 SSD 各分区的 UUID</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo blkid
-...
-/dev/sdb3 <span style="color:#008080">UUID</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;a5eb2b0c-2104-4afe-aa78-93396d3e0986&#34;</span> <span style="color:#008080">TYPE</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;ext4&#34;</span> <span style="color:#008080">PARTUUID</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;b2708ce0-07&#34;</span>
-...
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sudo blkid
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>/dev/sdb3 <span style="color:#008080">UUID</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;a5eb2b0c-2104-4afe-aa78-93396d3e0986&#34;</span> <span style="color:#008080">TYPE</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;ext4&#34;</span> <span style="color:#008080">PARTUUID</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;b2708ce0-07&#34;</span>
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
 <p>修改 SSD Ubuntu 的<code>fstab</code>文件</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo vim /mnt/etc/fatab
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sudo vim /mnt/etc/fatab
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ul>
 <p><code>fstab</code>文件大概是这样子的：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic"># /etc/fstab: static file system information.</span>
-#
-<span style="color:#998;font-style:italic"># Use &#39;blkid&#39; to print the universally unique identifier for a</span>
-<span style="color:#998;font-style:italic"># device; this may be used with UUID= as a more robust way to name devices</span>
-<span style="color:#998;font-style:italic"># that works even if disks are added and removed. See fstab(5).</span>
-#
-<span style="color:#998;font-style:italic"># &lt;file system&gt; &lt;mount point&gt;   &lt;type&gt;  &lt;options&gt;       &lt;dump&gt;  &lt;pass&gt;</span>
-<span style="color:#998;font-style:italic"># / was on /dev/sda3 during installation</span>
-<span style="color:#008080">UUID</span><span style="color:#000;font-weight:bold">=</span>a5eb2b0c-2104-4afe-aa78-93396d3e0986 /               ext4    <span style="color:#008080">errors</span><span style="color:#000;font-weight:bold">=</span>remount-ro <span style="color:#099">0</span>       <span style="color:#099">1</span>
-#
-<span style="color:#998;font-style:italic"># /boot was on /dev/sda2 during installation</span>
-<span style="color:#008080">UUID</span><span style="color:#000;font-weight:bold">=</span>8cba10c6-dff2-4300-a630-ab0e7a4782af /boot           ext4    defaults        <span style="color:#099">0</span>       <span style="color:#099">2</span>
-#
-<span style="color:#998;font-style:italic"># /home was on /dev/sda4 during installation</span>
-<span style="color:#008080">UUID</span><span style="color:#000;font-weight:bold">=</span>298ba5ad-d306-4b4a-aaa8-54312590dec6 /home           ext4    defaults        <span style="color:#099">0</span>       <span style="color:#099">2</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#998;font-style:italic"># /etc/fstab: static file system information.</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># Use &#39;blkid&#39; to print the universally unique identifier for a</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># device; this may be used with UUID= as a more robust way to name devices</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># that works even if disks are added and removed. See fstab(5).</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># &lt;file system&gt; &lt;mount point&gt;   &lt;type&gt;  &lt;options&gt;       &lt;dump&gt;  &lt;pass&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># / was on /dev/sda3 during installation</span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">UUID</span><span style="color:#000;font-weight:bold">=</span>a5eb2b0c-2104-4afe-aa78-93396d3e0986 /               ext4    <span style="color:#008080">errors</span><span style="color:#000;font-weight:bold">=</span>remount-ro <span style="color:#099">0</span>       <span style="color:#099">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># /boot was on /dev/sda2 during installation</span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">UUID</span><span style="color:#000;font-weight:bold">=</span>8cba10c6-dff2-4300-a630-ab0e7a4782af /boot           ext4    defaults        <span style="color:#099">0</span>       <span style="color:#099">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># /home was on /dev/sda4 during installation</span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">UUID</span><span style="color:#000;font-weight:bold">=</span>298ba5ad-d306-4b4a-aaa8-54312590dec6 /home           ext4    defaults        <span style="color:#099">0</span>       <span style="color:#099">2</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="grub-引导修复">GRUB 引导修复</h2>
 <p>将 SSD 通过 USB 插入到笔记本，开机，选择从 USB 启动。此时应该会是看到类似下图的画面。
-<a href="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/GRUB-Prompt-crop.png"><img src="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/GRUB-Prompt-crop.png" alt="img"></a></p>
+<a href="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/GRUB-Prompt-crop.png">
+        <img class="mx-auto" alt="img" src="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/GRUB-Prompt-crop.png" />   
+    </a></p>
 <p>说明已经进入到 GRUB 引导程序中，但是没有 GRUB 启动选项，无法继续引导了。距离成功仅剩一步：修复 GRUB 引导。</p>
 <h3 id="指定内核启动">指定内核启动</h3>
 <ul>
 <li>
 <p>指定<code>/boot</code>分区和<code>/grub</code>位置*（好像不需要这步，GRUB Rescue 才需要）*</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">// grub&gt; <span style="color:#008080">root</span><span style="color:#000;font-weight:bold">=</span>hd0,gpt2
-// grub&gt; <span style="color:#008080">prefix</span><span style="color:#000;font-weight:bold">=(</span>hd0,gpt2<span style="color:#000;font-weight:bold">)</span>/grub
-grub&gt; <span style="color:#0086b3">set</span> <span style="color:#008080">root</span><span style="color:#000;font-weight:bold">=</span>hd0,gpt2
-grub&gt; <span style="color:#0086b3">set</span> <span style="color:#008080">prefix</span><span style="color:#000;font-weight:bold">=(</span>hd0,gpt2<span style="color:#000;font-weight:bold">)</span>/grub
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>// grub&gt; <span style="color:#008080">root</span><span style="color:#000;font-weight:bold">=</span>hd0,gpt2
+</span></span><span style="display:flex;"><span>// grub&gt; <span style="color:#008080">prefix</span><span style="color:#000;font-weight:bold">=(</span>hd0,gpt2<span style="color:#000;font-weight:bold">)</span>/grub
+</span></span><span style="display:flex;"><span>grub&gt; <span style="color:#0086b3">set</span> <span style="color:#008080">root</span><span style="color:#000;font-weight:bold">=</span>hd0,gpt2
+</span></span><span style="display:flex;"><span>grub&gt; <span style="color:#0086b3">set</span> <span style="color:#008080">prefix</span><span style="color:#000;font-weight:bold">=(</span>hd0,gpt2<span style="color:#000;font-weight:bold">)</span>/grub
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
 <p>设置启动的 Linux 内核</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">grub&gt; linux /vmlinuz-4.8.0-36-generic ro <span style="color:#008080">root</span><span style="color:#000;font-weight:bold">=</span>/dev/sda2
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grub&gt; linux /vmlinuz-4.8.0-36-generic ro <span style="color:#008080">root</span><span style="color:#000;font-weight:bold">=</span>/dev/sda2
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
 <p>设置虚拟内存</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">grub&gt; initrd /initrd.img-4.8.0-36-generic
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grub&gt; initrd /initrd.img-4.8.0-36-generic
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
 <p>启动 SSD Ubuntu</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">grub&gt; boot
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grub&gt; boot
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ul>
 <p>到这一步应该可以启动 SSD 的 Ubuntu，但是下次重新开机，又需要手动指定内核才能启动，通过在 SSD Ubuntu 中重建 GRUB 引导可以解决该问题。</p>
 <h3 id="重建-grub-引导">重建 GRUB 引导</h3>
 <p>从 SSD 开启 Ubuntu 成功后，执行以下命令：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo update-grub
-$ sudo grub-install /dev/dsa
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sudo update-grub
+</span></span><span style="display:flex;"><span>$ sudo grub-install /dev/dsa
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>以上命令更新了 GRUB 可引导的系统/内核列表：<code>/boot/grub/grub.cf</code>，并重新安装了 GRUB。可以参考：<a href="https://help.ubuntu.com/community/Grub2/Installing">Grub2/Installing</a>。</p>
 <p>笔记本下次开机，就能看到类似画面：
-<a href="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/grub-loader.jpg"><img src="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/grub-loader.jpg" alt="img"></a></p>
+<a href="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/grub-loader.jpg">
+        <img class="mx-auto" alt="img" src="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/grub-loader.jpg" />   
+    </a></p>
 <h3 id="完成">完成</h3>
 <p>将 SSD 放入笔记本内置硬盘位，将旧的 HDD 放到光驱位置，开机，完成！（撒花）！</p>
 <h2 id="结语">结语</h2>
 <p>总共花了三天时间搞定这个事情，整理出文章花了N天，查看了很多资料，对计算机开机引导，硬盘分区和 GRUB 算是比较了解了。
 现在笔记本有了 SSD + HDD，下一步可能会实践双硬盘的数据备份。
 最后放上 HDD 凌乱的分区图，纪念这几年装机折腾的日子。<strong>折腾中总有收获。</strong>
-<a href="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/old-disk-partition.png"><img src="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/old-disk-partition.png" alt="img"></a></p>
+<a href="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/old-disk-partition.png">
+        <img class="mx-auto" alt="img" src="https://cntchen.github.io/img/Ubuntu16.10_%E8%BF%81%E7%A7%BB%E5%88%B0_SSD/old-disk-partition.png" />   
+    </a></p>
 <h2 id="refenrences">Refenrences</h2>
 <ul>
 <li>
@@ -923,20 +948,39 @@ $ sudo grub-install /dev/dsa
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/ubuntu'>ubuntu</a></li>
+                <li><a href='/tags/ubuntu'>ubuntu</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -944,13 +988,47 @@ $ sudo grub-install /dev/dsa
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -1018,28 +1096,12 @@ $ sudo grub-install /dev/dsa
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -1078,7 +1140,7 @@ $ sudo grub-install /dev/dsa
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -1158,7 +1220,7 @@ $ sudo grub-install /dev/dsa
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -1175,51 +1237,6 @@ $ sudo grub-install /dev/dsa
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

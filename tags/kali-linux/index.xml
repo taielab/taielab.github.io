@@ -6,11 +6,7 @@
     <description>Recent content in kali-linux on 码中春秋&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 16 Apr 2019 19:39:40 +0800</lastBuildDate>
-    
-	<atom:link href="https://blog.taielab.com/tags/kali-linux/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 16 Apr 2019 19:39:40 +0800</lastBuildDate><atom:link href="https://blog.taielab.com/tags/kali-linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>双显卡电脑安装Kali进系统黑屏和安装双显卡解决方案</title>
       <link>https://blog.taielab.com/2019-04-16/kali-linux-double-display-solutions.html</link>
@@ -32,8 +28,8 @@
       
       <guid>https://blog.taielab.com/2017-09-20/kali-linux-learning.html</guid>
       <description>&lt;h2 id=&#34;修改更新源&#34;&gt;修改更新源&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;leafpad /etc/apt/sources.list
-&lt;/code&gt;&lt;/pre&gt;&lt;pre&gt;&lt;code&gt;apt-get update &amp;amp;&amp;amp; apt-get upgrade &amp;amp;&amp;amp; apt-get dist-upgrade 
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;leafpad /etc/apt/sources.list
+&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;apt-get update &amp;amp;&amp;amp; apt-get upgrade &amp;amp;&amp;amp; apt-get dist-upgrade 
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;kali-rolling版本：（中科大的就够用了，个人按需吧）&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     

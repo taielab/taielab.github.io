@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>Debian 9 - 基础入门 | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="Debian 9 - 基础入门 - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2017/09/20/debian-9-learning.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -172,8 +175,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -192,6 +195,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -205,7 +212,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/Linux'>Linux</a></span>
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
             
         </div>
         
@@ -227,20 +234,20 @@
 <p>下载非自由版DVD镜像，自由版的镜像没有网卡驱动 新手碰到会相死，由本人摸索出来，这里以64位系统为例
 <a href="http://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/9.0.0+nonfree/amd64/bt-dvd/">镜像下载</a> 
 全程离线安装不要联网，语言设置英文 装完系统后连上wifi在设置中文</p>
-<pre><code>使用su安装sudo
+<pre tabindex="0"><code>使用su安装sudo
 $su
 apt-get install sudo
 给账户设置管理员权限
 vim /etc/sudoers
 添加一行,其中”username”替换为登陆账户的名称,输入时不加引号
-&quot;username&quot; ALL=(ALL) ALL
+&#34;username&#34; ALL=(ALL) ALL
 root    ALL=(ALL:ALL) ALL
 #第二种方法
 apt-get install sudo
-echo &quot;[用户名] ALL=(ALL:ALL) ALL&quot; &gt;&gt; /etc/sudoers
+echo &#34;[用户名] ALL=(ALL:ALL) ALL&#34; &gt;&gt; /etc/sudoers
 </code></pre><h3 id="更新源">更新源</h3>
 <p>更新源配置生成器https://mirrors.ustc.edu.cn/repogen/ 有多个发行版的更新源</p>
-<pre><code>#htpps的源
+<pre tabindex="0"><code>#htpps的源
 deb https://mirrors.ustc.edu.cn/debian/ stretch main contrib non-free
 deb-src https://mirrors.ustc.edu.cn/debian/ stretch main contrib non-free
 
@@ -258,7 +265,7 @@ deb-src http://mirrors.ustc.edu.cn/debian/ stretch-updates main contrib non-free
 
 deb http://mirrors.ustc.edu.cn/debian-security/ stretch/updates main contrib non-free
 deb-src http://mirrors.ustc.edu.cn/debian-security/ stretch/updates main contrib non-free
-</code></pre><pre><code>使用 HTTPS 可以有效避免国内运营商的缓存劫持，但需要事先安装 apt-transport-
+</code></pre><pre tabindex="0"><code>使用 HTTPS 可以有效避免国内运营商的缓存劫持，但需要事先安装 apt-transport-
 https
 #用aptitude安装软件比apt-get 安装更好
 apt-get install aptitude
@@ -286,7 +293,7 @@ $ sudo dpkg-reconfigure locales
 <p>由于系统 Locale 是 en_US.UTF-8，在 Emacs 中，fcitx 无法输入中文。但是若将 LANG 设为中文，然后再启动 Emacs，就可以输入中文了，即：</p>
 <p>$ LANG=zh_CN.UTF-8 emacs</p>
 <p>为了方便，我在 /usr/local/bin 目录建立一份 Bash 脚本 em，内容如下：</p>
-<pre><code>$ cat &lt;&lt; EOF | sudo tee /usr/local/bin/em
+<pre tabindex="0"><code>$ cat &lt;&lt; EOF | sudo tee /usr/local/bin/em
 #!/bin/bash
 LANG=zh_CN.UTF-8
 /usr/bin/emacs $@ 2&gt;/dev/null &amp;
@@ -310,8 +317,8 @@ $ sudo chmod +x /usr/local/bin/em
 <h3 id="中文字体解决字体模糊">中文字体(解决字体模糊)</h3>
 <p>简单而粗暴的办法是从 Windows 系统中扒出微软雅黑字体 msyh.ttf，然后在 /usr/share/fonts 中建立 non-free 目录，并将 msyh.ttf 放在这个目录中。</p>
 <p>接下来，修改 /etc/fonts/conf.d/65-nonlatin.conf，将其内容替换为：</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
-&lt;!DOCTYPE fontconfig SYSTEM &quot;fonts.dtd&quot;&gt;
+<pre tabindex="0"><code>&lt;?xml version=&#34;1.0&#34;?&gt;
+&lt;!DOCTYPE fontconfig SYSTEM &#34;fonts.dtd&#34;&gt;
 &lt;fontconfig&gt;
     &lt;alias&gt;
         &lt;family&gt;serif&lt;/family&gt;
@@ -340,14 +347,14 @@ $ sudo chmod +x /usr/local/bin/em
 <p>这个文件在你的家目录下面。比如我的家目录为 /home/ranwuer/，那么这个文件就在 /home/ranwuer/.fonts.conf。</p>
 <p>当创建好这个文件之后，它会自动指向 /home/ranwuer/.config/fontconfig/fonts.conf。</p>
 <p>可以把我的字体配置文件覆盖你的字体配置文件：</p>
-<pre><code>git clone https://github.com/ranwu/debianFonts.git
+<pre tabindex="0"><code>git clone https://github.com/ranwu/debianFonts.git
 cd debianFonts/.config/fontconfig
 cp fonts.conf ~/
 mv fonts.conf .fonts.conf 
 </code></pre><p>第二，安装字体</p>
 <p>安装字体很简单:</p>
 <p>下载我的字体文件：<a href="http://pan.baidu.com/s/1hroOKks">fonts.tar.gz</a> fonts.tar.gz</p>
-<pre><code>mkdir /opt/fonts/core
+<pre tabindex="0"><code>mkdir /opt/fonts/core
 tar zxvf fonts.tar.gz
 cp fonts/* /opt/fonts/core/
 
@@ -355,13 +362,13 @@ cp fonts/* /opt/fonts/core/
 ungzip fonts.tar.gz
 tar xf fonts.tar
 cp fonts/* /opt/fonts/core/
-</code></pre><pre><code>注意/opt/fonts/core/目录下的文件需要改为755权限
-</code></pre><pre><code>chmod -R 755 /opt/fonts/core/
+</code></pre><pre tabindex="0"><code>注意/opt/fonts/core/目录下的文件需要改为755权限
+</code></pre><pre tabindex="0"><code>chmod -R 755 /opt/fonts/core/
 </code></pre><p>一会儿就能看到效果</p>
 <p>如果不能正常看到google的Noto字体，请把/usr/shar/fonts/trutype下的Windows系字体删除，比如，宋体，黑体等等。</p>
 <p>如果不能正常显示字体，请进入操作系统的字体设置界面，比如我的Debian是：应用程序菜单 &ndash;&gt; 设置 &ndash;&gt; 外观 选择 字体 选项卡。把里面的字体多试几个，可能就正常了。</p>
 <h3 id="sublime-text-3安装">sublime text 3安装</h3>
-<pre><code> Install the GPG key:
+<pre tabindex="0"><code> Install the GPG key:
 
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
 
@@ -369,19 +376,19 @@ Select the channel to use:
 
 Stable
 
-    echo &quot;deb https://download.sublimetext.com/ apt/stable/&quot; | sudo tee /etc/apt/sources.list.d/sublime-text.list
+    echo &#34;deb https://download.sublimetext.com/ apt/stable/&#34; | sudo tee /etc/apt/sources.list.d/sublime-text.list
 
 Devsu root
 apt-get install sudo 
 
-    echo &quot;deb https://download.sublimetext.com/ apt/dev/&quot; | sudo tee /etc/apt/sources.list.d/sublime-text.list
+    echo &#34;deb https://download.sublimetext.com/ apt/dev/&#34; | sudo tee /etc/apt/sources.list.d/sublime-text.list
 
 Update apt sources and install Sublime Text
 
 sudo apt-get update
 sudo apt-get install sublime-text
 </code></pre><p>然后创建一个软链接，这样就可以在命令行中直接启动Sublime：</p>
-<pre><code>sudo ln -s /opt/sublime_text_3/sublime_text /usr/bin/sublime
+<pre tabindex="0"><code>sudo ln -s /opt/sublime_text_3/sublime_text /usr/bin/sublime
 </code></pre><p>第二种方法下载安装包 解压并安装
 sudo mv ~/下载/sublime_text_3_build_3126_x64.tar.bz2 /opt/
 cd /opt/
@@ -395,17 +402,17 @@ tar vxjf sublime_text_3_build_3083_x64.tar.bz2
 <p>然后定位到 ~/SublimeText-i18n-zh/src/fix/imfix</p>
 <p>再按照sublime_imfix.c<a href="https://github.com/Firef0x/SublimeText-i18n-zh/blob/master/src/fix/imfix/sublime_imfix.c">sublime_imfix.c</a> 中的注释来操作：</p>
 <p>编译</p>
-<pre><code>gcc -shared -o libsublime-imfix.so sublime_imfix.c `pkg-config --libs --cflags gtk+-2.0` -fPIC
+<pre tabindex="0"><code>gcc -shared -o libsublime-imfix.so sublime_imfix.c `pkg-config --libs --cflags gtk+-2.0` -fPIC
 </code></pre><p>正常情况下会得到一个库文件libsublime-imfix.so，如果编译需要的依赖不足的话请看看提示，然后将那些依赖升级。比较常见的问题是，提示 No package &lsquo;gtk+-2.0&rsquo; found 没有，那么安装一下就行了：sudo apt-get install libgtk2.0-dev</p>
 <p>使用</p>
 <p>将 libsublime-imfix.so 拷贝到 /opt/sublime_text_3/ 目录;</p>
 <p>然后在终端下敲入</p>
-<pre><code>LD_PRELOAD=/opt/sublime_text_3/libsublime-imfix.so sublime 
+<pre tabindex="0"><code>LD_PRELOAD=/opt/sublime_text_3/libsublime-imfix.so sublime 
 </code></pre><p>来启动ST3</p>
 <p>发现软件可以输入中文了！</p>
 <p>第四，写脚本调用ST3</p>
 <p>编写一个shell脚本，命名为：subl，名字可以随便取。输入以下内容：</p>
-<pre><code>#!/bin/bash
+<pre tabindex="0"><code>#!/bin/bash
 LD_PRELOAD=/opt/sublime_text_3/libsublime-imfix.so sublime
 </code></pre><p>然后放到 /usr/bin/ 中就可以在任意目录中输入命令了:</p>
 <p>注]意:</p>
@@ -420,7 +427,7 @@ sudo mv ~/subl /usr/bin/</p>
 安装Shadowsocks的图形化界面//类似Win下的纸飞机
 直接在 /etc/apt/sources.list 里添加源
 在/etc/apt/sources.list 最后加上</p>
-<pre><code>$ sudo apt-get install software-properties-common
+<pre tabindex="0"><code>$ sudo apt-get install software-properties-common
 $ sudo apt-add-repository ppa:linux-deepin-team/linux-deepin
 </code></pre><p>apt-key adv &ndash;keyserver hkp://keys.gnupg.net &ndash;recv-keys 7D8D0BF6
 sudo apt-key adv &ndash;keyserver keyserver.ubuntu.com &ndash;recv-keys 6AF0E1940624A220 #此处6AF0E1940624A220需要是错误提示的key
@@ -465,12 +472,12 @@ vi /etc/proxychains.conf
 <li>测试代理服务是否正常</li>
 </ol>
 <p>执行</p>
-<p>proxyresolv <a href="http://www.target.com">www.target.com</a></p>
+<p>proxyresolv <a href="https://www.target.com">www.target.com</a></p>
 <p>此时执行会出现命令未找到
 终端输入</p>
 <p>cp /usr/lib/proxychains3/proxyresolv /usr/bin/</p>
 <p>然后再次执行</p>
-<p>proxyresolv <a href="http://www.google.com">www.google.com</a></p>
+<p>proxyresolv <a href="https://www.google.com">www.google.com</a></p>
 <p>//这时候ss的命令界面应该是正在运行的，就是在执行过sslocal -c /etc/shadowsocks.json之后</p>
 <p>返回ok，说明配置正确，可以愉快的跨栏了。</p>
 <p>5.使用ProxyChains 启动firefox</p>
@@ -544,13 +551,13 @@ The End.</p>
 <h3 id="firefox-flash安装">firefox flash安装</h3>
 <p>Mozilla Firefox</p>
 <p>Debian 自带</p>
-<pre><code>Firefox-ESR(IceWeasel)
+<pre tabindex="0"><code>Firefox-ESR(IceWeasel)
 </code></pre><p>， 但没有</p>
-<pre><code>flash player
+<pre tabindex="0"><code>flash player
 </code></pre><p>；下载</p>
-<pre><code>flash_player_npapi_linux.x86_64.tar.gz
+<pre tabindex="0"><code>flash_player_npapi_linux.x86_64.tar.gz
 </code></pre><p>， 进行如下操作后重启浏览器：</p>
-<pre><code>$ tar -zxvf flash_player_npapi_linux.x86_64.tar.gz
+<pre tabindex="0"><code>$ tar -zxvf flash_player_npapi_linux.x86_64.tar.gz
 $ sudo cp libflashplayer.so /usr/lib/mozilla/plugins
 $ sudo cp -r usr/* /usr
 </code></pre><p>ubuntu16 开机启动plank</p>
@@ -558,10 +565,10 @@ $ sudo cp -r usr/* /usr
 sudo ln -s /usr/share/applications/plank.desktop /etc/xdg/autostart/</p>
 <h3 id="virtualbox给debian安装增强功能">VirtualBox给Debian安装增强功能</h3>
 <p>1.安装编译工具以及Linux内核头文件</p>
-<pre><code>$sudo apt-get install build-essential linux-headers-$(uname -r)
+<pre tabindex="0"><code>$sudo apt-get install build-essential linux-headers-$(uname -r)
 </code></pre><p>2.点击VirtualBox安装增强功能</p>
 <p>3.执行安装脚本</p>
-<pre><code>$sudo sh /media/cdrom0/VBoxLinuxAdditions.run
+<pre tabindex="0"><code>$sudo sh /media/cdrom0/VBoxLinuxAdditions.run
 </code></pre><p>4.重启系统即可.</p>
 <h3 id="iptables基本配置debian">iptables基本配置(Debian)</h3>
 <p>看了下secure日志和access的日志，一大半都是暴力破解和扫描，虽然哥的密码极其复杂，不过总被这么消耗服务器资源也不是事，索性还是把ssh端口和ftp改了然后写个iptables稍微保护一下好了。还有个东西叫Fail2Ban，可以自动检测暴力破解，密码错误超过一定次数就把对端ban掉，不过我实在是不想再开一个服务了，改端口应该问题不大&hellip;</p>
@@ -596,7 +603,7 @@ iptables -A INPUT -p all -m state &ndash;state INVALID,NEW -j DROP</p>
 <p>保存之后就行了，Debian不需要单独把iptbles做成服务，具体如何让iptables开机自动加载，请看文章《<a href="http://www.slyar.com/blog/debian-iptables-auto-start-reboot.html">Debian下iptables防火墙开机自动加载实现</a>》</p>
 <p>我是把上面那段和下面这段都写到sh里了，start{}和stop{}。需要修改规则的时候直接清空了重建比较好，因为规则有顺序问题。</p>
 <p>#清空配置</p>
-<pre><code>iptables -F
+<pre tabindex="0"><code>iptables -F
 iptables -X
 iptables -Z
 iptables -P INPUT ACCEPT
@@ -623,20 +630,39 @@ iptables -P OUTPUT ACCEPT
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/Debian'>Debian</a></li>
+                <li><a href='/tags/Debian'>Debian</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -644,13 +670,47 @@ iptables -P OUTPUT ACCEPT
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -718,28 +778,12 @@ iptables -P OUTPUT ACCEPT
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -778,7 +822,7 @@ iptables -P OUTPUT ACCEPT
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -858,7 +902,7 @@ iptables -P OUTPUT ACCEPT
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -875,51 +919,6 @@ iptables -P OUTPUT ACCEPT
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

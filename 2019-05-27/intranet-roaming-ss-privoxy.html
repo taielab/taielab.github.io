@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>内网漫游系列之正向全局代理ss&#43;Privoxy | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="内网漫游系列之正向全局代理ss&#43;Privoxy - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2019-05-27/intranet-roaming-ss-privoxy.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -143,8 +146,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -163,6 +166,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -176,7 +183,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F'>内网渗透</a></span>
+            <span class="meta-category"><a href='/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F'>内网渗透</a></span>
             
         </div>
         
@@ -194,27 +201,29 @@
         </div>
         
         <div class="post-content">
-            <p><img src="https://i.loli.net/2019/05/27/5ceba69b6a2ee49700.png" alt="正向代理-1024x491.png"></p>
+            <p>
+        <img class="mx-auto" alt="正向代理-1024x491.png" src="https://i.loli.net/2019/05/27/5ceba69b6a2ee49700.png" />   
+    </p>
 <h1 id="安装-ss-客户端">安装 ss 客户端</h1>
 <p>shadowsocks安装时是不分客户端还是服务器端的, 只不过安装后有两个脚本一个是sslocal代表以客户端模式工作，一个是ssserver代表以服务器端模式工作。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yum install -y python-pip
-pip install https://github.com/shadowsocks/shadowsocks/archive/master.zip -U
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>yum install -y python-pip
+</span></span><span style="display:flex;"><span>pip install https://github.com/shadowsocks/shadowsocks/archive/master.zip -U
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="启动-ss-客户端">启动 ss 客户端</h1>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nohup sslocal -s your_server_ip -p your_server_port -l <span style="color:#099">1080</span> -k your_server_passwd -t <span style="color:#099">600</span> -m rc4-md5 &gt; /dev/null 2&gt;&amp;<span style="color:#099">1</span> &amp;
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nohup sslocal -s your_server_ip -p your_server_port -l <span style="color:#099">1080</span> -k your_server_passwd -t <span style="color:#099">600</span> -m rc4-md5 &gt; /dev/null 2&gt;&amp;<span style="color:#099">1</span> &amp;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>注意:</strong></p>
 <ul>
@@ -223,42 +232,42 @@ pip install https://github.com/shadowsocks/shadowsocks/archive/master.zip -U
 <li>前面的nohub 和最后的 &amp; 表示后台执行且关闭 session 后仍然在后台执行，否则将会阻塞shell端口.
 为了更方便, 建议新建一个.json的文件, 将上述信息放里面,如新建/etc/shadowsocks.json文件, 内容为：</li>
 </ul>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#000;font-weight:bold">{</span>
-    <span style="color:#d14">&#34;server&#34;</span>:<span style="color:#d14">&#34;your_server_ip&#34;</span>,      <span style="color:#998;font-style:italic">#ss服务器IP</span>
-    <span style="color:#d14">&#34;server_port&#34;</span>:your_server_port, <span style="color:#998;font-style:italic">#端口</span>
-    <span style="color:#d14">&#34;local_address&#34;</span>: <span style="color:#d14">&#34;127.0.0.1&#34;</span>,   <span style="color:#998;font-style:italic">#本地ip</span>
-    <span style="color:#d14">&#34;local_port&#34;</span>:1080,              <span style="color:#998;font-style:italic">#本地端口</span>
-    <span style="color:#d14">&#34;password&#34;</span>:<span style="color:#d14">&#34;your_server_passwd&#34;</span>,#连接ss密码
-    <span style="color:#d14">&#34;timeout&#34;</span>:300,                  <span style="color:#998;font-style:italic">#等待超时</span>
-    <span style="color:#d14">&#34;method&#34;</span>:<span style="color:#d14">&#34;rc4-md5&#34;</span>,             <span style="color:#998;font-style:italic">#加密方式</span>
-    <span style="color:#d14">&#34;fast_open&#34;</span>: false,             <span style="color:#998;font-style:italic"># true 或 false。如果你的服务器 Linux 内核在3.7+，可以开启 fast_open 以降低延迟。开启方法： echo 3 &gt; /proc/sys/net/ipv4/tcp_fastopen 开启之后，将 fast_open 的配置设置为 true 即可</span>
-    <span style="color:#d14">&#34;workers&#34;</span>: <span style="color:#099">1</span>                    <span style="color:#998;font-style:italic"># 工作线程数</span>
-<span style="color:#000;font-weight:bold">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;server&#34;</span>:<span style="color:#d14">&#34;your_server_ip&#34;</span>,      <span style="color:#998;font-style:italic">#ss服务器IP</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;server_port&#34;</span>:your_server_port, <span style="color:#998;font-style:italic">#端口</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;local_address&#34;</span>: <span style="color:#d14">&#34;127.0.0.1&#34;</span>,   <span style="color:#998;font-style:italic">#本地ip</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;local_port&#34;</span>:1080,              <span style="color:#998;font-style:italic">#本地端口</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;password&#34;</span>:<span style="color:#d14">&#34;your_server_passwd&#34;</span>,#连接ss密码
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;timeout&#34;</span>:300,                  <span style="color:#998;font-style:italic">#等待超时</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;method&#34;</span>:<span style="color:#d14">&#34;rc4-md5&#34;</span>,             <span style="color:#998;font-style:italic">#加密方式</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;fast_open&#34;</span>: false,             <span style="color:#998;font-style:italic"># true 或 false。如果你的服务器 Linux 内核在3.7+，可以开启 fast_open 以降低延迟。开启方法： echo 3 &gt; /proc/sys/net/ipv4/tcp_fastopen 开启之后，将 fast_open 的配置设置为 true 即可</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;workers&#34;</span>: <span style="color:#099">1</span>                    <span style="color:#998;font-style:italic"># 工作线程数</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后运行一下命令启动shadowsocks</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nohup sslocal -c /etc/shadowsocks.json /dev/null 2&gt;&amp;<span style="color:#099">1</span> &amp;
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nohup sslocal -c /etc/shadowsocks.json /dev/null 2&gt;&amp;<span style="color:#099">1</span> &amp;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>如果想增加开启自动启动，执行：echo “ nohup sslocal -c /etc/shadowsocks.json /dev/null 2&gt;&amp;1 &amp;” /etc/rc.local</li>
@@ -266,21 +275,21 @@ pip install https://github.com/shadowsocks/shadowsocks/archive/master.zip -U
 </ul>
 <h1 id="安装privoxy">安装Privoxy</h1>
 <p>上述安好了<code>shadowsocks</code>，但它是 <code>socks5</code> 代理，我门在 <code>shell</code> 里执行的命令，发起的网络请求现在还不支持 <code>socks5</code> 代理，只支持 <code>http/https</code> 代理。为了我门需要安装 <code>privoxy</code> 代理，它能把电脑上所有http请求转发给 <code>shadowsocks</code></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yum install privoxy -y
-<span style="color:#998;font-style:italic"># 把本地 HTTP 流量转发到本地 1080 SOCKS5 代理</span>
-forward-socks5t / 127.0.0.1:1080 .
-<span style="color:#998;font-style:italic"># 可选，默认监听本地连接</span>
-listen-address 127.0.0.1:8118
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>yum install privoxy -y
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># 把本地 HTTP 流量转发到本地 1080 SOCKS5 代理</span>
+</span></span><span style="display:flex;"><span>forward-socks5t / 127.0.0.1:1080 .
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># 可选，默认监听本地连接</span>
+</span></span><span style="display:flex;"><span>listen-address 127.0.0.1:8118
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>查看 <code>vim /usr/local/etc/privoxy/config</code> 文件，
@@ -288,61 +297,63 @@ listen-address 127.0.0.1:8118
 然后搜索 <code>forward-socks5t</code>, 将 <code>#forward-socks5t / 127.0.0.1:1080 .</code> 此句前面的注释去掉, 意思是转发流量到本地的1080端口, 而1080端口正是 ss 监听的端口</li>
 </ul>
 <h1 id="启动privoxy">启动privoxy</h1>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">systemctl restart privoxy 
-systemctl <span style="color:#0086b3">enable</span> privoxy
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemctl restart privoxy 
+</span></span><span style="display:flex;"><span>systemctl <span style="color:#0086b3">enable</span> privoxy
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="转发配置">转发配置</h1>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vim /etc/profile
-<span style="color:#008080">PROXY_HOST</span><span style="color:#000;font-weight:bold">=</span>127.0.0.1
-<span style="color:#0086b3">export</span> <span style="color:#008080">all_proxy</span><span style="color:#000;font-weight:bold">=</span>http://<span style="color:#008080">$PROXY_HOST</span>:8118
-<span style="color:#0086b3">export</span> <span style="color:#008080">ftp_proxy</span><span style="color:#000;font-weight:bold">=</span>http://<span style="color:#008080">$PROXY_HOST</span>:8118
-<span style="color:#0086b3">export</span> <span style="color:#008080">http_proxy</span><span style="color:#000;font-weight:bold">=</span>http://<span style="color:#008080">$PROXY_HOST</span>:8118
-<span style="color:#0086b3">export</span> <span style="color:#008080">https_proxy</span><span style="color:#000;font-weight:bold">=</span>http://<span style="color:#008080">$PROXY_HOST</span>:8118
-<span style="color:#0086b3">export</span> <span style="color:#008080">no_proxy</span><span style="color:#000;font-weight:bold">=</span>localhost,本机网络地址/22
-&gt; <span style="color:#0086b3">source</span> /etc/profile
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vim /etc/profile
+</span></span><span style="display:flex;"><span><span style="color:#008080">PROXY_HOST</span><span style="color:#000;font-weight:bold">=</span>127.0.0.1
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">export</span> <span style="color:#008080">all_proxy</span><span style="color:#000;font-weight:bold">=</span>http://<span style="color:#008080">$PROXY_HOST</span>:8118
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">export</span> <span style="color:#008080">ftp_proxy</span><span style="color:#000;font-weight:bold">=</span>http://<span style="color:#008080">$PROXY_HOST</span>:8118
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">export</span> <span style="color:#008080">http_proxy</span><span style="color:#000;font-weight:bold">=</span>http://<span style="color:#008080">$PROXY_HOST</span>:8118
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">export</span> <span style="color:#008080">https_proxy</span><span style="color:#000;font-weight:bold">=</span>http://<span style="color:#008080">$PROXY_HOST</span>:8118
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">export</span> <span style="color:#008080">no_proxy</span><span style="color:#000;font-weight:bold">=</span>localhost,本机网络地址/22
+</span></span><span style="display:flex;"><span>&gt; <span style="color:#0086b3">source</span> /etc/profile
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="测试验证">测试验证</h1>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl www.google.com
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl www.google.com
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="问题解决">问题解决</h1>
 <p>如果不能访问, 请重启机器, 依次打开shadowsocks和privoxy再测试复制</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nohup sslocal -c /etc/shadowsocks.json /dev/null 2&gt;&amp;<span style="color:#099">1</span> &amp;
-privoxy --user privoxy /usr/local/etc/privoxy/config
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nohup sslocal -c /etc/shadowsocks.json /dev/null 2&gt;&amp;<span style="color:#099">1</span> &amp;
+</span></span><span style="display:flex;"><span>privoxy --user privoxy /usr/local/etc/privoxy/config
+</span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="https://i.loli.net/2019/05/27/5ceba6d0dd7fd96779.png" alt="1.png"></p>
+</div><p>
+        <img class="mx-auto" alt="1.png" src="https://i.loli.net/2019/05/27/5ceba6d0dd7fd96779.png" />   
+    </p>
 <h1 id="性能优化">性能优化</h1>
 <p>服务器：Linux 3.5及以上。</p>
 <p>☆提高最大连接数：</p>
@@ -357,89 +368,89 @@ privoxy --user privoxy /usr/local/etc/privoxy/config
 <p>2.尽可能增大队列和缓冲区</p>
 <p>3.为高延迟和高流量选择合适的TCP拥塞算法</p>
 <p>编辑/etc/sysctl.conf文件：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">fs.file-max <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">51200</span>
-
-net.core.rmem_max <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">67108864</span>
-
-net.core.wmem_max <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">67108864</span>
-
-net.core.netdev_max_backlog <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">250000</span>
-
-net.core.somaxconn <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">4096</span>
-
-net.ipv4.tcp_syncookies <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>
-
-net.ipv4.tcp_tw_reuse <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>
-
-net.ipv4.tcp_tw_recycle <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>
-
-net.ipv4.tcp_fin_timeout <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">30</span>
-
-net.ipv4.tcp_keepalive_time <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1200</span>
-
-net.ipv4.ip_local_port_range <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">10000</span> <span style="color:#099">65000</span>
-
-net.ipv4.tcp_max_syn_backlog <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">8192</span>
-
-net.ipv4.tcp_max_tw_buckets <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">5000</span>
-
-net.ipv4.tcp_fastopen <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">3</span>
-
-net.ipv4.tcp_mem <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">25600</span> <span style="color:#099">51200</span> <span style="color:#099">102400</span>
-
-net.ipv4.tcp_rmem <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">4096</span> <span style="color:#099">87380</span> <span style="color:#099">67108864</span>
-
-net.ipv4.tcp_wmem <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">4096</span> <span style="color:#099">65536</span> <span style="color:#099">67108864</span>
-
-net.ipv4.tcp_mtu_probing <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>
-
-net.ipv4.tcp_congestion_control <span style="color:#000;font-weight:bold">=</span> hybla
-
-运行sysctl -p生效。
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>fs.file-max <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">51200</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>net.core.rmem_max <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">67108864</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>net.core.wmem_max <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">67108864</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>net.core.netdev_max_backlog <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">250000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>net.core.somaxconn <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">4096</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>net.ipv4.tcp_syncookies <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>net.ipv4.tcp_tw_reuse <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>net.ipv4.tcp_tw_recycle <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>net.ipv4.tcp_fin_timeout <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">30</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>net.ipv4.tcp_keepalive_time <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1200</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>net.ipv4.ip_local_port_range <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">10000</span> <span style="color:#099">65000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>net.ipv4.tcp_max_syn_backlog <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">8192</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>net.ipv4.tcp_max_tw_buckets <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">5000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>net.ipv4.tcp_fastopen <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>net.ipv4.tcp_mem <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">25600</span> <span style="color:#099">51200</span> <span style="color:#099">102400</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>net.ipv4.tcp_rmem <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">4096</span> <span style="color:#099">87380</span> <span style="color:#099">67108864</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>net.ipv4.tcp_wmem <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">4096</span> <span style="color:#099">65536</span> <span style="color:#099">67108864</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>net.ipv4.tcp_mtu_probing <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>net.ipv4.tcp_congestion_control <span style="color:#000;font-weight:bold">=</span> hybla
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>运行sysctl -p生效。
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="参考文献">参考文献</h1>
 <blockquote>
@@ -466,20 +477,39 @@ net.ipv4.tcp_congestion_control <span style="color:#000;font-weight:bold">=</spa
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/%E5%86%85%E7%BD%91%E6%BC%AB%E6%B8%B8'>内网漫游</a></li>
+                <li><a href='/tags/%E5%86%85%E7%BD%91%E6%BC%AB%E6%B8%B8'>内网漫游</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -487,13 +517,47 @@ net.ipv4.tcp_congestion_control <span style="color:#000;font-weight:bold">=</spa
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -561,28 +625,12 @@ net.ipv4.tcp_congestion_control <span style="color:#000;font-weight:bold">=</spa
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -621,7 +669,7 @@ net.ipv4.tcp_congestion_control <span style="color:#000;font-weight:bold">=</spa
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -701,7 +749,7 @@ net.ipv4.tcp_congestion_control <span style="color:#000;font-weight:bold">=</spa
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -718,51 +766,6 @@ net.ipv4.tcp_congestion_control <span style="color:#000;font-weight:bold">=</spa
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

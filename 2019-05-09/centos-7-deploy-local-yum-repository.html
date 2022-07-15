@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>Centos7搭建本地yum仓库 | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="Centos7搭建本地yum仓库 - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2019-05-09/centos-7-deploy-local-yum-repository.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -154,8 +157,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -174,6 +177,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -187,7 +194,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/Linux'>Linux</a></span>
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
             
         </div>
         
@@ -234,195 +241,195 @@
 <ol>
 <li>系统准备好后通过wget，从fedora网站下载epel源，比如我要下载centos7的epel源。下载过程可能会较慢，可以选择空闲时间慢慢下。</li>
 </ol>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic">#wget -np -H --cut-dirs=0 -r -c -L http://dl.fedoraproject.org/pub/epel/7/x86_64  -P /var/www/html/</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#998;font-style:italic">#wget -np -H --cut-dirs=0 -r -c -L http://dl.fedoraproject.org/pub/epel/7/x86_64  -P /var/www/html/</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>2.重启apache服务，然后通过浏览器测试，是否能打开浏览,http://1.1.1.1/pub/epel/7/x86_64在客户机 /etc/yum.repos.d/下建立epel.repo文件,内容如下：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#000;font-weight:bold">[</span>epel<span style="color:#000;font-weight:bold">]</span>
-<span style="color:#008080">name</span><span style="color:#000;font-weight:bold">=</span>epel
-<span style="color:#008080">baseurl</span><span style="color:#000;font-weight:bold">=</span>http://1.1.1.1/pub/epel/7/x86_64
-<span style="color:#008080">enabled</span><span style="color:#000;font-weight:bold">=</span><span style="color:#099">1</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span>epel<span style="color:#000;font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">name</span><span style="color:#000;font-weight:bold">=</span>epel
+</span></span><span style="display:flex;"><span><span style="color:#008080">baseurl</span><span style="color:#000;font-weight:bold">=</span>http://1.1.1.1/pub/epel/7/x86_64
+</span></span><span style="display:flex;"><span><span style="color:#008080">enabled</span><span style="color:#000;font-weight:bold">=</span><span style="color:#099">1</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="3">
 <li>在客户机上验证：</li>
 </ol>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic">#yum repolist</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#998;font-style:italic">#yum repolist</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="后记">后记：</h3>
 <p>其他的yum源可以通过同样的方法进行添加。</p>
 <p><strong>Bash脚本同步CentOS 6/7镜像</strong></p>
 <p>下面的脚本将同步CentOS 6/CentOS 7镜像，用你想要的替换目录变量，将脚本保存到文件中，make：</p>
-<pre><code>#!/bin/bash
+<pre tabindex="0"><code>#!/bin/bash
 
 if [ -f /var/lock/subsys/rsync_updates ]; then
 
-echo &quot;Updates via rsync already running.&quot;
+echo &#34;Updates via rsync already running.&#34;
 
 exit 0
 
 fi
 
-base_dir=&quot;/var/mirrors/centos/&quot;
+base_dir=&#34;/var/mirrors/centos/&#34;
 
-centos_7_mirror_dir=&quot;/var/mirrors/centos/7/&quot;
+centos_7_mirror_dir=&#34;/var/mirrors/centos/7/&#34;
 
-centos_6_mirror_dir=&quot;/var/mirrors/centos/6/&quot;
+centos_6_mirror_dir=&#34;/var/mirrors/centos/6/&#34;
 
 touch /var/lock/subsys/rsync_updates
 
-if [[ -d &quot;$centos_7_mirror_dir&quot;  &amp;&amp; -d &quot;$centos_6_mirror_dir&quot; ]] ; then
+if [[ -d &#34;$centos_7_mirror_dir&#34;  &amp;&amp; -d &#34;$centos_6_mirror_dir&#34; ]] ; then
 
-    rsync  -avSHP --delete rsync://mirror.liquidtelecom.com/centos/7/  &quot;$centos_7_mirror_dir&quot; &amp;&amp; \
+    rsync  -avSHP --delete rsync://mirror.liquidtelecom.com/centos/7/  &#34;$centos_7_mirror_dir&#34; &amp;&amp; \
 
-    rsync  -avSHP --delete rsync://mirror.liquidtelecom.com/centos/6/  &quot;$centos_6_mirror_dir&quot; &amp;&amp; \
+    rsync  -avSHP --delete rsync://mirror.liquidtelecom.com/centos/6/  &#34;$centos_6_mirror_dir&#34; &amp;&amp; \
 
     # sync keys
 
-    rsync  -avSHP --delete rsync://mirror.liquidtelecom.com/centos/RPM-GPG-KEY-CentOS-7  &quot;$base_dir&quot; &amp;&amp; \
+    rsync  -avSHP --delete rsync://mirror.liquidtelecom.com/centos/RPM-GPG-KEY-CentOS-7  &#34;$base_dir&#34; &amp;&amp; \
 
-    rsync  -avSHP --delete rsync://mirror.liquidtelecom.com/centos/RPM-GPG-KEY-CentOS-6  &quot;$base_dir&quot; &amp;&amp; \
+    rsync  -avSHP --delete rsync://mirror.liquidtelecom.com/centos/RPM-GPG-KEY-CentOS-6  &#34;$base_dir&#34; &amp;&amp; \
 
     rm -rf /var/lock/subsys/rsync_updates
 
 else
 
-echo &quot;Directories doesn't exist&quot;
+echo &#34;Directories doesn&#39;t exist&#34;
 
 fi
 </code></pre><p><strong>用于同步Epel镜像的Bash脚本</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#999;font-weight:bold;font-style:italic">#!/bin/bash
-</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
-<span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">[</span> -f /var/lock/subsys/rsync_updates <span style="color:#000;font-weight:bold">]</span>; <span style="color:#000;font-weight:bold">then</span>
-
-<span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;Updates via rsync already running.&#34;</span>
-
-<span style="color:#0086b3">exit</span> <span style="color:#099">0</span>
-
-<span style="color:#000;font-weight:bold">fi</span>
-
-<span style="color:#008080">epel6_mirror_dir</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;/var/mirrors/epel/6/x86_64&#34;</span>
-
-<span style="color:#008080">epel7_mirror_dir</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;/var/mirrors/epel/7/x86_64&#34;</span>
-
-<span style="color:#008080">base_dir</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;/var/mirrors/epel/&#34;</span>
-
-touch /var/lock/subsys/rsync_updates
-
-<span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">[[</span> -d <span style="color:#d14">&#34;</span><span style="color:#008080">$epel6_mirror_dir</span><span style="color:#d14">&#34;</span>  <span style="color:#000;font-weight:bold">&amp;&amp;</span> -d <span style="color:#d14">&#34;</span><span style="color:#008080">$epel7_mirror_dir</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">]]</span> ; <span style="color:#000;font-weight:bold">then</span>
-
-    rsync  -avSHP --delete rsync://mirror.wbs.co.za/fedora-epel/6/x86_64/ <span style="color:#d14">&#34;</span><span style="color:#008080">$epel6_mirror_dir</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">&amp;&amp;</span> <span style="color:#d14">\
-</span><span style="color:#d14"></span>
-    rsync  -avSHP --delete rsync://mirror.wbs.co.za/fedora-epel/7/x86_64/ <span style="color:#d14">&#34;</span><span style="color:#008080">$epel7_mirror_dir</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">&amp;&amp;</span> <span style="color:#d14">\
-</span><span style="color:#d14"></span>
-    rsync  -avSHP --delete rsync://mirror.wbs.co.za/fedora-epel/RPM-GPG-KEY-EPEL-7 <span style="color:#d14">&#34;</span><span style="color:#008080">$base_dir</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">&amp;&amp;</span> <span style="color:#d14">\
-</span><span style="color:#d14"></span>
-    rsync  -avSHP --delete rsync://mirror.wbs.co.za/fedora-epel/RPM-GPG-KEY-EPEL-6 <span style="color:#d14">&#34;</span><span style="color:#008080">$base_dir</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">&amp;&amp;</span> <span style="color:#d14">\
-</span><span style="color:#d14"></span>
-    rm -rf /var/lock/subsys/rsync_updates
-
-<span style="color:#000;font-weight:bold">else</span>
-
-<span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;Directories doesn&#39;t exist&#34;</span>
-
-<span style="color:#000;font-weight:bold">fi</span>
-
-<span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">[[</span> <span style="color:#008080">$?</span> -eq <span style="color:#d14">&#39;0&#39;</span> <span style="color:#000;font-weight:bold">]]</span>; <span style="color:#000;font-weight:bold">then</span>
-
-<span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;&#34;</span>
-
-<span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;Sync successful..&#34;</span>
-
-<span style="color:#000;font-weight:bold">else</span>
-
-<span style="color:#0086b3">echo</span> <span style="color:#d14">&#34; Syncing failed&#34;</span>
-
-<span style="color:#0086b3">exit</span> <span style="color:#099">1</span>
-
-<span style="color:#000;font-weight:bold">fi</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#999;font-weight:bold;font-style:italic">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">[</span> -f /var/lock/subsys/rsync_updates <span style="color:#000;font-weight:bold">]</span>; <span style="color:#000;font-weight:bold">then</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;Updates via rsync already running.&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">exit</span> <span style="color:#099">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">epel6_mirror_dir</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;/var/mirrors/epel/6/x86_64&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">epel7_mirror_dir</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;/var/mirrors/epel/7/x86_64&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">base_dir</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;/var/mirrors/epel/&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>touch /var/lock/subsys/rsync_updates
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">[[</span> -d <span style="color:#d14">&#34;</span><span style="color:#008080">$epel6_mirror_dir</span><span style="color:#d14">&#34;</span>  <span style="color:#000;font-weight:bold">&amp;&amp;</span> -d <span style="color:#d14">&#34;</span><span style="color:#008080">$epel7_mirror_dir</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">]]</span> ; <span style="color:#000;font-weight:bold">then</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    rsync  -avSHP --delete rsync://mirror.wbs.co.za/fedora-epel/6/x86_64/ <span style="color:#d14">&#34;</span><span style="color:#008080">$epel6_mirror_dir</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">&amp;&amp;</span> <span style="color:#d14">\
+</span></span></span><span style="display:flex;"><span><span style="color:#d14"></span>
+</span></span><span style="display:flex;"><span>    rsync  -avSHP --delete rsync://mirror.wbs.co.za/fedora-epel/7/x86_64/ <span style="color:#d14">&#34;</span><span style="color:#008080">$epel7_mirror_dir</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">&amp;&amp;</span> <span style="color:#d14">\
+</span></span></span><span style="display:flex;"><span><span style="color:#d14"></span>
+</span></span><span style="display:flex;"><span>    rsync  -avSHP --delete rsync://mirror.wbs.co.za/fedora-epel/RPM-GPG-KEY-EPEL-7 <span style="color:#d14">&#34;</span><span style="color:#008080">$base_dir</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">&amp;&amp;</span> <span style="color:#d14">\
+</span></span></span><span style="display:flex;"><span><span style="color:#d14"></span>
+</span></span><span style="display:flex;"><span>    rsync  -avSHP --delete rsync://mirror.wbs.co.za/fedora-epel/RPM-GPG-KEY-EPEL-6 <span style="color:#d14">&#34;</span><span style="color:#008080">$base_dir</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">&amp;&amp;</span> <span style="color:#d14">\
+</span></span></span><span style="display:flex;"><span><span style="color:#d14"></span>
+</span></span><span style="display:flex;"><span>    rm -rf /var/lock/subsys/rsync_updates
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;Directories doesn&#39;t exist&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">[[</span> <span style="color:#008080">$?</span> -eq <span style="color:#d14">&#39;0&#39;</span> <span style="color:#000;font-weight:bold">]]</span>; <span style="color:#000;font-weight:bold">then</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;Sync successful..&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">echo</span> <span style="color:#d14">&#34; Syncing failed&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">exit</span> <span style="color:#099">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">fi</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这些脚本可以在cron中运行，以保持镜像最新。</p>
 <p><strong>用Nginx服务镜像</strong></p>
 <p>同步完成后，你可以通过使用nginx开始使用它们。</p>
 <p>安装nginx：</p>
-<pre><code>yum -y install epel-release
+<pre tabindex="0"><code>yum -y install epel-release
 
 yum -y install nginx
 </code></pre><p>然后添加配置文件：</p>
-<pre><code>cat /etc/nginx/conf.d/centos.conf
+<pre tabindex="0"><code>cat /etc/nginx/conf.d/centos.conf
 
 server {
 
@@ -440,7 +447,7 @@ autoindex on;
 
 }
 </code></pre><p>对于epel：</p>
-<pre><code>cat /etc/nginx/conf.d/epel.conf
+<pre tabindex="0"><code>cat /etc/nginx/conf.d/epel.conf
 
 server {
 
@@ -458,12 +465,12 @@ autoindex on;
 
 }
 </code></pre><p>启动并启用nginx：</p>
-<pre><code>systemctl start nginx
+<pre tabindex="0"><code>systemctl start nginx
 
 systemctl enable nginx
 </code></pre><p><strong>配置CentOS Server以使用镜像</strong></p>
 <p>CentOS Base镜像：</p>
-<pre><code>cd /etc/yum.repos.d/
+<pre tabindex="0"><code>cd /etc/yum.repos.d/
 
 mkdir old
 
@@ -471,7 +478,7 @@ mv CentOS* old
 
 vim centos.repo
 </code></pre><p>添加以下内容：</p>
-<pre><code>[base]
+<pre tabindex="0"><code>[base]
 
 name=CentOS-$releasever - Base
 
@@ -519,7 +526,7 @@ gpgcheck=1
 
 gpgkey=http://centos.mirrors.domain.com/$releasever/os/$basearch/RPM-GPG-KEY-CentOS-7
 </code></pre><p>通过更新repo缓存来测试repos是否正常工作：</p>
-<pre><code>yum clean all
+<pre tabindex="0"><code>yum clean all
 
 yum makecache fast
 
@@ -571,20 +578,39 @@ gpgkey=http://epel.mirrors.domain.com/RPM-GPG-KEY-EPEL-$releasever
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/centos'>centos</a></li>
+                <li><a href='/tags/centos'>centos</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -592,13 +618,47 @@ gpgkey=http://epel.mirrors.domain.com/RPM-GPG-KEY-EPEL-$releasever
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -666,28 +726,12 @@ gpgkey=http://epel.mirrors.domain.com/RPM-GPG-KEY-EPEL-$releasever
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -726,7 +770,7 @@ gpgkey=http://epel.mirrors.domain.com/RPM-GPG-KEY-EPEL-$releasever
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -806,7 +850,7 @@ gpgkey=http://epel.mirrors.domain.com/RPM-GPG-KEY-EPEL-$releasever
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -823,51 +867,6 @@ gpgkey=http://epel.mirrors.domain.com/RPM-GPG-KEY-EPEL-$releasever
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

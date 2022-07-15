@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>Manjaro&amp;&amp;Ubuntu双显卡解决方案和Manjaro常用配置 | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="Manjaro&amp;&amp;Ubuntu双显卡解决方案和Manjaro常用配置 - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2019-04-14/manjaro-ubuntu-double-display-solutions-muanul-config.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -189,8 +192,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -209,6 +212,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -222,7 +229,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/Linux'>Linux</a></span>
+            <span class="meta-category"><a href='/categories/Linux'>Linux</a></span>
             
         </div>
         
@@ -248,31 +255,31 @@
 <p>具体的安装步骤请直接参考官网的<code>Manjaro User Guide.pdf</code>,这里主要说说安装系统配置双显卡时可能遇到的问题。</p>
 <h3 id="安装卡屏进不去的第一种方法">安装卡屏进不去的第一种方法</h3>
 <p>对于双显卡的电脑,特别是有Nvidia卡的 在进入<code>live</code>系统之前,可以将<code>Driver</code>选项设置为free并在<code>boot</code>项那里按<code>E</code>编辑, 在<code>boot</code>那一行将</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nouveau.modeset<span style="color:#000;font-weight:bold">=</span><span style="color:#099">1</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nouveau.modeset<span style="color:#000;font-weight:bold">=</span><span style="color:#099">1</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>设置为</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nouveau.modeset<span style="color:#000;font-weight:bold">=</span><span style="color:#099">0</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nouveau.modeset<span style="color:#000;font-weight:bold">=</span><span style="color:#099">0</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>来禁用开源<code>nouveau</code>驱动,然后进入<code>Live</code>安装系统。但是,安装完系统后重启还有可能进不去桌面,可以尝试在Grub菜单启动界面按[E]编辑,找到</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">quiet
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>quiet
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>并在后面加入(注意空格):</p>
 <p><code>acpi_osi=! acpi_osi='Windows 2009'</code>
@@ -284,9 +291,11 @@
 <p>顺利进入系统后,将这些内核启动参数配置永久生效(修改grub的配置文件):
 <code>sudo nano /etc/default/grub</code>
 在<code>GRUB_CMDLINE_LINUX</code>或者<code>GRUB_CMDLINE_LINUX_DEFAULT</code>中添加参数:</p>
-<pre><code>acpi_osi=! acpi_osi=\&quot;Windows 2009\&quot;
+<pre tabindex="0"><code>acpi_osi=! acpi_osi=\&#34;Windows 2009\&#34;
 </code></pre><p>下图的写法仅供参考一下（我之前用没成功）</p>
-<p><img src="https://i.loli.net/2019/04/15/5cb3eebc66cd6.png" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2019/04/15/5cb3eebc66cd6.png" />   
+    </p>
 <p>之后更新 <code>grub</code>文件:
 <code>sudo update-grub</code>
 或
@@ -298,50 +307,50 @@
 <p><a href="https://www.kernel.org/doc/Documentation/admin-guide/kernel-parameters.txt">https://www.kernel.org/doc/Documentation/admin-guide/kernel-parameters.txt</a></p>
 </blockquote>
 <p>启动时出现的</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ACPI ERROR
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ACPI ERROR
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>问题，很多都说是内核版本的原因，有尝试过添加内核启动参数</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008080">acpi</span><span style="color:#000;font-weight:bold">=</span>off
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#008080">acpi</span><span style="color:#000;font-weight:bold">=</span>off
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>启动正常进入系统，但键盘无法使用，所以这个提示ACPI错误的问题，由于不影响使用不用管</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dmesg| grep -i acpi<span style="color:#d14">\ </span>error
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dmesg| grep -i acpi<span style="color:#d14">\ </span>error
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>屏幕亮度无法调节或异常的问题：</p>
 <p>Arch Wiki已经给出很详细的解决方法:链接:https://wiki.archlinux.org/index.php/backlight</p>
 <p>例如：开机亮度设置:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo nano /etc/rc.local
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo nano /etc/rc.local
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>代码如下：</p>
-<pre><code>#!/bin/sh -e
+<pre tabindex="0"><code>#!/bin/sh -e
 #
 # rc.local
 #
 # This script is executed at the end of the each multiuser runlevel.
-# Make sure that the script will &quot;exit 0&quot; on successs or any other value on error
+# Make sure that the script will &#34;exit 0&#34; on successs or any other value on error
 # 
 # In order to enable or disable this script just change the execution bits.
 # 
@@ -352,239 +361,241 @@ exit 0
 </code></pre><p>对于安装<code>Manjaro</code>系统出现的问题，大多数都可以在官方的论坛<a href="https://forum.manjaro.org/">Manjaro Forum</a>以及<a href="https://wiki.manjaro.org/index.php?title=Main_Page">Manjaro Wiki</a>，还有<code>Arch Linux</code>的<a href="https://wiki.manjaro.org/">Arch Wiki</a>以及上找到解决方法。</p>
 <h3 id="安装卡屏进不去的第二种方法">安装卡屏进不去的第二种方法</h3>
 <p>在 quiet 后面那行加上如下几句：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nomodeset systemd.mask<span style="color:#000;font-weight:bold">=</span>mhwd-live.service
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nomodeset systemd.mask<span style="color:#000;font-weight:bold">=</span>mhwd-live.service
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后，按下 Ctrl + x保存并进入安装界面(live session)，进入到这里之后，别急，打开终端，进入这个目录：<code>/usr/lib/calamares/modules/mhwdcfg</code>,编辑main.py:<code>sudo nano /usr/lib/calamares/modules/mhwdcfg/main.py</code>，编辑为如下形式：</p>
-<p><img src="https://i.loli.net/2019/04/15/5cb3f926b3838.png" alt=""></p>
+<p>
+        <img class="mx-auto" alt="" src="https://i.loli.net/2019/04/15/5cb3f926b3838.png" />   
+    </p>
 <p>对笔者来说，安装完成后最重要的第一步就是修改grub，否则下次就无法进入系统了。因此，进入系统的第一步，是编辑/etc/default/grub文件，在(第三行)quiet下面加上如下的参数：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008080">acpi_osi</span><span style="color:#000;font-weight:bold">=</span>! <span style="color:#008080">acpi_osi</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">\&#34;</span>Windows 2009<span style="color:#d14">\&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#008080">acpi_osi</span><span style="color:#000;font-weight:bold">=</span>! <span style="color:#008080">acpi_osi</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">\&#34;</span>Windows 2009<span style="color:#d14">\&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>或者</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008080">acpi_osi</span><span style="color:#000;font-weight:bold">=</span>! <span style="color:#008080">acpi_osi</span><span style="color:#000;font-weight:bold">=</span>Linux <span style="color:#008080">acpi_osi</span><span style="color:#000;font-weight:bold">=</span>’Windows 2015’ <span style="color:#008080">pcie_port_pm</span><span style="color:#000;font-weight:bold">=</span>off
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#008080">acpi_osi</span><span style="color:#000;font-weight:bold">=</span>! <span style="color:#008080">acpi_osi</span><span style="color:#000;font-weight:bold">=</span>Linux <span style="color:#008080">acpi_osi</span><span style="color:#000;font-weight:bold">=</span>’Windows 2015’ <span style="color:#008080">pcie_port_pm</span><span style="color:#000;font-weight:bold">=</span>off
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>(很多硬件厂商的BIOS驱动都对Linux不友好，无法顺利加载ACPI模块，而导致无法驱动独立显卡,acpi_osi=’Windows 2009’的意思是告诉ACPI模块，我是‘Windows 7’，别闹情绪了，赶紧工作吧。)
 然后在终端输入<code>sudo update-grub</code>更新 grub 配置。</p>
 <p>接下来我们开始安装显卡驱动：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo pacman -S virtualgl lib32-virtualgl lib32-primus primus    <span style="color:#998;font-style:italic"># 安装依赖</span>
-sudo mhwd -a pci nonfree 0300					<span style="color:#998;font-style:italic"># 安装显卡驱动</span>
-sudo systemctl <span style="color:#0086b3">enable</span> bumblebeed				<span style="color:#998;font-style:italic"># 使bumlebeed开机启动</span>
-sudo gpasswd -a <span style="color:#008080">$USER</span> bumblebee					<span style="color:#998;font-style:italic"># 将用户添加进bumblebeed组</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo pacman -S virtualgl lib32-virtualgl lib32-primus primus    <span style="color:#998;font-style:italic"># 安装依赖</span>
+</span></span><span style="display:flex;"><span>sudo mhwd -a pci nonfree 0300					<span style="color:#998;font-style:italic"># 安装显卡驱动</span>
+</span></span><span style="display:flex;"><span>sudo systemctl <span style="color:#0086b3">enable</span> bumblebeed				<span style="color:#998;font-style:italic"># 使bumlebeed开机启动</span>
+</span></span><span style="display:flex;"><span>sudo gpasswd -a <span style="color:#008080">$USER</span> bumblebee					<span style="color:#998;font-style:italic"># 将用户添加进bumblebeed组</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其次，对于HDPI屏幕，我们还需要编辑~/.Xresource文件，把第一行的DPI设置由96设置为220，然后在终端执行<code>xrandr --dpi 220</code>，重新加载桌面配置生效。</p>
 <p>另外，笔者的电脑在安装完后，在使用一些应用时，会出其不意（完全随机）的出现一两声蜂鸣声，可以在<code>~/.xprofile</code>文件中加上一行<code>xset -b</code>来解决。</p>
 <h1 id="manjaro-配置">Manjaro 配置</h1>
 <p>简单说一下一些安装系统之后的一些常规配置。</p>
 <p>1.系统信息</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic">#查看系统信息</span>
-inxi -Fx
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#998;font-style:italic">#查看系统信息</span>
+</span></span><span style="display:flex;"><span>inxi -Fx
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>2.笔记本双显卡设置</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic">#查看显卡NVIDIA状态</span>
-lspci| grep -i vga
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#998;font-style:italic">#查看显卡NVIDIA状态</span>
+</span></span><span style="display:flex;"><span>lspci| grep -i vga
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>3.时间和日期</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic">#如果安装的是双系统，注意Manjaro Setting Manager &gt; Time and Date勾选以下选项</span>
---set <span style="color:#0086b3">time</span> and date automatically
---hardware clock in <span style="color:#0086b3">local</span> <span style="color:#0086b3">time</span> zone
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#998;font-style:italic">#如果安装的是双系统，注意Manjaro Setting Manager &gt; Time and Date勾选以下选项</span>
+</span></span><span style="display:flex;"><span>--set <span style="color:#0086b3">time</span> and date automatically
+</span></span><span style="display:flex;"><span>--hardware clock in <span style="color:#0086b3">local</span> <span style="color:#0086b3">time</span> zone
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>增加archlinuxcn库和antergos库</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#0086b3">echo</span> -e <span style="color:#d14">&#34;\n[archlinuxcn]\nSigLevel = TrustAll\nServer = https://mirrors.ustc.edu.cn/archlinuxcn/\$arch\n\n[antergos]\nSigLevel = TrustAll\nServer = https://mirrors.tuna.tsinghua.edu.cn/antergos/\$repo/\$arch\n&#34;</span>|sudo tee -a /etc/pacman.conf
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#0086b3">echo</span> -e <span style="color:#d14">&#34;\n[archlinuxcn]\nSigLevel = TrustAll\nServer = https://mirrors.ustc.edu.cn/archlinuxcn/\$arch\n\n[antergos]\nSigLevel = TrustAll\nServer = https://mirrors.tuna.tsinghua.edu.cn/antergos/\$repo/\$arch\n&#34;</span>|sudo tee -a /etc/pacman.conf
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="配置更新源并更新系统">配置更新源并更新系统</h2>
 <ol>
 <li>
 <p>配置中国的mirrors：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic">#选择ustc源</span>
-sudo pacman-mirrors -i -c China -m rank
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#998;font-style:italic">#选择ustc源</span>
+</span></span><span style="display:flex;"><span>sudo pacman-mirrors -i -c China -m rank
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
 <p>在 <code>/etc/pacman.conf</code>中添加<code>archlinuxcn</code>源:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#000;font-weight:bold">[</span>archlinuxcn<span style="color:#000;font-weight:bold">]</span>
-<span style="color:#008080">SigLevel</span> <span style="color:#000;font-weight:bold">=</span> Optional TrustAll
-<span style="color:#008080">Server</span> <span style="color:#000;font-weight:bold">=</span> https://mirrors.ustc.edu.cn/archlinuxcn/<span style="color:#008080">$arch</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span>archlinuxcn<span style="color:#000;font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">SigLevel</span> <span style="color:#000;font-weight:bold">=</span> Optional TrustAll
+</span></span><span style="display:flex;"><span><span style="color:#008080">Server</span> <span style="color:#000;font-weight:bold">=</span> https://mirrors.ustc.edu.cn/archlinuxcn/<span style="color:#008080">$arch</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
 <p>安装<code>archlinuxcn-keyring</code>:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo pacman -S archlinuxcn-keyring
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo pacman -S archlinuxcn-keyring
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
 <p>同步并更新系统；</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo pacman -Syyu
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo pacman -Syyu
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ol>
 <h2 id="pacman基本用法">pacman基本用法</h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pacman -R pkg_name		<span style="color:#998;font-style:italic"># 删除指定安装包，但是保留其全部已安装的依赖关系</span>
-
-pacman -Rs pkg_name		<span style="color:#998;font-style:italic"># 删除指定软件包，以及没有被其他已安装软件包使用的依赖关系。</span>
-
-pacman -Sc				<span style="color:#998;font-style:italic"># 清除未安装软件包的缓存</span>
-
-pacman -Rsc				<span style="color:#998;font-style:italic"># 移除一个包及其所有依赖</span>
-
-pacman -Ss 				<span style="color:#998;font-style:italic"># 查询包数据库</span>
-
-pacman -Qs				<span style="color:#998;font-style:italic"># 搜索已安装的包</span>
-
-pacman -Si				<span style="color:#998;font-style:italic"># 显示包信息</span>
-
-pacman -Qi				<span style="color:#998;font-style:italic"># 本地安装包</span>		
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pacman -R pkg_name		<span style="color:#998;font-style:italic"># 删除指定安装包，但是保留其全部已安装的依赖关系</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pacman -Rs pkg_name		<span style="color:#998;font-style:italic"># 删除指定软件包，以及没有被其他已安装软件包使用的依赖关系。</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pacman -Sc				<span style="color:#998;font-style:italic"># 清除未安装软件包的缓存</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pacman -Rsc				<span style="color:#998;font-style:italic"># 移除一个包及其所有依赖</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pacman -Ss 				<span style="color:#998;font-style:italic"># 查询包数据库</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pacman -Qs				<span style="color:#998;font-style:italic"># 搜索已安装的包</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pacman -Si				<span style="color:#998;font-style:italic"># 显示包信息</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pacman -Qi				<span style="color:#998;font-style:italic"># 本地安装包		</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="安装yay比yaourt好用并且yaourt已经停止更新">安装yay（比yaourt好用并且yaourt已经停止更新）</h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic">#后续安装软件直接用 yay -S 软件包名</span>
-sudo pacman -Sy yay
-<span style="color:#998;font-style:italic">#滚动更新</span>
-yay -Syu --aur
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#998;font-style:italic">#后续安装软件直接用 yay -S 软件包名</span>
+</span></span><span style="display:flex;"><span>sudo pacman -Sy yay
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">#滚动更新</span>
+</span></span><span style="display:flex;"><span>yay -Syu --aur
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="安装配置搜狗中文输入法">安装配置搜狗中文输入法</h2>
 <ol>
 <li>
 <p>安装中文输入法和<code>fcitx</code>管理工具:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo pacman -S --noconfirm fcitx-im fcitx-configtool fcitx-sogoupinyin 
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo pacman -S --noconfirm fcitx-im fcitx-configtool fcitx-sogoupinyin 
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
 <p>解决中文输入法无法切换问题: 添加文件<code>~/.xprofile</code>:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#0086b3">export</span> <span style="color:#008080">GTK_MODULE</span><span style="color:#000;font-weight:bold">=</span>fcitx
-<span style="color:#0086b3">export</span> <span style="color:#008080">QT_IM_MODULE</span><span style="color:#000;font-weight:bold">=</span>fcitx
-<span style="color:#0086b3">export</span> <span style="color:#008080">XMODIFIERS</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;@im=fcitx&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#0086b3">export</span> <span style="color:#008080">GTK_MODULE</span><span style="color:#000;font-weight:bold">=</span>fcitx
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">export</span> <span style="color:#008080">QT_IM_MODULE</span><span style="color:#000;font-weight:bold">=</span>fcitx
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">export</span> <span style="color:#008080">XMODIFIERS</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;@im=fcitx&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>或者</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo <span style="color:#0086b3">echo</span> -e <span style="color:#d14">&#34;export GTK_IM_MODULE=fcitx\nexport QT_IM_MODULE=fcitx\nexport XMODIFIERS=@im=fcitx&#34;</span>&gt;&gt;~/.xprofile
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo <span style="color:#0086b3">echo</span> -e <span style="color:#d14">&#34;export GTK_IM_MODULE=fcitx\nexport QT_IM_MODULE=fcitx\nexport XMODIFIERS=@im=fcitx&#34;</span>&gt;&gt;~/.xprofile
+</span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>fcitx的激活输入法方式改为ctrl+逗号,避免jetbrains系列快捷键冲突</p>
@@ -599,226 +610,226 @@ yay -Syu --aur
 <h2 id="中文汉化">中文汉化</h2>
 <p>切换系统语言为中文，可以在登录界面右下角选择zh_CN.utf8然后重启</p>
 <h2 id="软件汉化">软件汉化</h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pacman -S --noconfirm firefox-i18n-zh-cn thunderbird-i18n-zh-cn gimp-help-zh_cn libreoffice-still-zh-CN man-pages-zh_cn
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pacman -S --noconfirm firefox-i18n-zh-cn thunderbird-i18n-zh-cn gimp-help-zh_cn libreoffice-still-zh-CN man-pages-zh_cn
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="文件管理器可选">文件管理器（可选）</h2>
 <p>for xfce</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pacman -Sy --noconfirm  nemo nemo-fileroller <span style="color:#000;font-weight:bold">&amp;&amp;</span> gsettings <span style="color:#0086b3">set</span> org.cinnamon.desktop.default-applications.terminal <span style="color:#0086b3">exec</span> xfce4-terminal
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pacman -Sy --noconfirm  nemo nemo-fileroller <span style="color:#000;font-weight:bold">&amp;&amp;</span> gsettings <span style="color:#0086b3">set</span> org.cinnamon.desktop.default-applications.terminal <span style="color:#0086b3">exec</span> xfce4-terminal
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>nemo  一款很不错的文件管理器，某程度比 thunar 更好用。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wiki : https://wiki.archlinux.org/index.php/Nemo
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wiki : https://wiki.archlinux.org/index.php/Nemo
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>nemo-fileroller 增加fileroller，nemo提供解压，压缩的菜单。</p>
 <h2 id="安装常用软件">安装常用软件</h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">75
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">76
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">77
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">78
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">79
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">80
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">81
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">82
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">83
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">84
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">85
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">86
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">87
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">88
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">89
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">90
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">91
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">92
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">93
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">75
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">76
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">77
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">78
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">79
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">80
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">81
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">82
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">83
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">84
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">85
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">86
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">87
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">88
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">89
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">90
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">91
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">92
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">93
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pacman -Sy --noconfirm  smplayer smplayer-skins smplayer-themes google-chrome masterpdfeditor typora uget filezilla shadowsocks-qt5 deepin-screenshot shutter proxychains-ng visual-studio-code-bin neofetch dropbox telegram-desktop deluge aria2-fast uget zsh oh-my-zsh-git openssh openssl gwenview plank rdesktop python2-pip numix-gtk-theme numix-circle-icon-theme-git teamview gpick SimpleScreenRecorder ranger pandoc Graphviz teamview net-tools ntfs-3g-fuse Vivaldi flashplugin quiterss Shutter
-
-pacman -Sy --noconfirm bleachbit redshift 
-
-bleachbit 快速释放磁盘空间并不知疲倦地守卫你的隐私。释放缓存，删除 cookie，清除互联网浏览历史，清理临时文件，删除日志，以及更多功能...
-i-nex 小而全的系统信息查看软件；
-redshift 根据你的周边调整你屏幕的色温。当你夜晚在屏幕前工作时，它也许能帮助你减少对眼睛的伤害；
-
-pacman -Sy --noconfirm keepassx-git screenfetch-git freefilesync <span style="color:#998;font-style:italic">#需要网络git</span>
-
-keepassx-git 密码管理器；
-screenfetch-git  系统信息工具，终端使用screenfetch命令；
-freefilesync 文件夹比较和同步工具；
-
-<span style="color:#998;font-style:italic">#生产力</span>
-pacman -Sy --noconfirm wiznote meld goldendict easystroke catfish peek
-
-wiznote 为知笔记；
-meld 文本比较；
-goldendict 词典软件；
-easystroke 鼠标手势；
-catfish 基于GTK+的非常快速，轻量级的文件搜索工具；
-peek 屏幕录像工具，小巧玲珑，可保存录像为gif动图和兼容于html5的webm视频；
-
-pacman -Sy --noconfirm xmind  <span style="color:#998;font-style:italic">#需要网络</span>
-
-xmind 跨平台的思维导图工具，关键还是可以导入MindManage的文件；
-
-<span style="color:#998;font-style:italic">#编程开发</span>
-
-pacman -Sy --noconfirm eclipse-jee jetbrains-toolbox openjdk8-doc openjdk8-src dbeaver dbeaver-plugin-apache-poi dbeaver-plugin-batik dbeaver-plugin-office 
-
-eclipse-jee 企业Java 集成开发环境；
-jetbrains-toolbox 著名的jetbrains序列的IDE管理工具；
-openjdk8-doc openjdk8-src 针对OpenJDK8的文档和源码；
-dbeaver 通用数据库客户端，支持多个平台及多种数据库，社区版是免费的； 
-
-pacman -Sy --noconfirm codeblocks qtcreator glade glade-gtk2 kompozer kompozer-i18n-zh-cn
-
-codeblocks 跨平台的C++ IDE，官方网站上称其能满足最苛刻的用户的需求。<span style="color:#a61717;background-color:#e3d2d2">&#39;</span>
-qtcreator 基于QT的C++开发工具（包括界面设计）；
-glade基于GTK3 的C++开发工具（包括界面设计）；
-glade-gtk2基于GTK2 的C++开发工具（包括界面设计）；
-kompozer 类似Dreamweaver所见即所得功能的开源HTML编辑器。
- 
-pacman -Sy --noconfirm soapui <span style="color:#998;font-style:italic">#需要网络</span>
- 
-pacman -Sy --noconfirm nginx tomcat8 zookeeper
-
-dbeaver 通用数据库客户端，支持多个平台及多种数据库，社区版是免费的；
-nginx 终端执行 sudo nginx 启动，sudo nginx -s stop/realod 停止或重启；
-tomcat8 开发必备，轻量的应用服务器；
-zookeeper 终端执行sudo zkServer.sh start 启动；
- 
-<span style="color:#998;font-style:italic">#有意思</span>
-pacman -Sy --noconfirm cmatrix geogebra stellarium celestia
-
-cmatrix 终端从上往下输出无尽的字符串,类似&lt;&lt;黑客帝国&gt;&gt;中的矩阵效果，终端运行 cmatrix ；
-geogebra 图形计算器，支持函数，几何，代数，微积分，统计以及 3D 数学。
-stellarium 星象软件。可调选项很多，这是随便开起来截图的。
-celestia 免费的空间模拟器，让你在三维空间中探索我们的宇宙;
-gnucash 开源免费的个人或小型企业财务软件；
-gramps 家谱软件；
- 
-<span style="color:#998;font-style:italic">#游戏</span>
-pacman -Sy --noconfirm nethack gnome-mines 2048-qt zaz
-
-nethack 经典的命令行游戏，启动命令行nethack；
-gnome-mines 经典的扫雷游戏（gnome桌面自带，kde也有类似的kmines）；
-2048-qt 经典的2048游戏；
-zaz 经典的泡泡射击游戏；
-
-pacman -Sy --noconfirm sudokuki wesnoth wesnoth-data 0ad
-
-sudokuki 基于Java的跨平台的数独游戏（https://sourceforge.net/projects/sudokuki/files/sudokuki/）；
-wesnoth 经典的韦诺之战，Linux上比较火的游戏，回合制策略游戏；
-0ad 跨平台的“帝国时代”（http://sourceforge.net/projects/zero-ad/files/releases/locales/下载对应版本的汉化放到<span style="color:#008080">$HOME</span>/.local/share/0ad/mods/public/）；
- 
-<span style="color:#998;font-style:italic">#虚拟机（全面更新系统重启后最后安装）</span>
-pacman -Sy virtualbox linux419-virtualbox-host-modules virtualbox-ext-oracle
-
-virtualbox 虚拟机工具，linux首选，比vmware还好用。
-https://wiki.manjaro.org/index.php?title<span style="color:#000;font-weight:bold">=</span>Virtualbox
-linux419-virtualbox-host-modules  根据安装的内核版本选择，比如有 uname -r 如果是4.19内核，则安装 linux419-virtualbox-host-modules ；
- 
-<span style="color:#998;font-style:italic">#展示Linux系统信息(装逼)</span>
-screenfetch
-
-<span style="color:#998;font-style:italic">#主题图标</span>
-la-capitaine-icon-theme
-Adapta-gtk-theme
-Papirus
-Arc
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pacman -Sy --noconfirm  smplayer smplayer-skins smplayer-themes google-chrome masterpdfeditor typora uget filezilla shadowsocks-qt5 deepin-screenshot shutter proxychains-ng visual-studio-code-bin neofetch dropbox telegram-desktop deluge aria2-fast uget zsh oh-my-zsh-git openssh openssl gwenview plank rdesktop python2-pip numix-gtk-theme numix-circle-icon-theme-git teamview gpick SimpleScreenRecorder ranger pandoc Graphviz teamview net-tools ntfs-3g-fuse Vivaldi flashplugin quiterss Shutter
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pacman -Sy --noconfirm bleachbit redshift 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>bleachbit 快速释放磁盘空间并不知疲倦地守卫你的隐私。释放缓存，删除 cookie，清除互联网浏览历史，清理临时文件，删除日志，以及更多功能...
+</span></span><span style="display:flex;"><span>i-nex 小而全的系统信息查看软件；
+</span></span><span style="display:flex;"><span>redshift 根据你的周边调整你屏幕的色温。当你夜晚在屏幕前工作时，它也许能帮助你减少对眼睛的伤害；
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pacman -Sy --noconfirm keepassx-git screenfetch-git freefilesync <span style="color:#998;font-style:italic">#需要网络git</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>keepassx-git 密码管理器；
+</span></span><span style="display:flex;"><span>screenfetch-git  系统信息工具，终端使用screenfetch命令；
+</span></span><span style="display:flex;"><span>freefilesync 文件夹比较和同步工具；
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">#生产力</span>
+</span></span><span style="display:flex;"><span>pacman -Sy --noconfirm wiznote meld goldendict easystroke catfish peek
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>wiznote 为知笔记；
+</span></span><span style="display:flex;"><span>meld 文本比较；
+</span></span><span style="display:flex;"><span>goldendict 词典软件；
+</span></span><span style="display:flex;"><span>easystroke 鼠标手势；
+</span></span><span style="display:flex;"><span>catfish 基于GTK+的非常快速，轻量级的文件搜索工具；
+</span></span><span style="display:flex;"><span>peek 屏幕录像工具，小巧玲珑，可保存录像为gif动图和兼容于html5的webm视频；
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pacman -Sy --noconfirm xmind  <span style="color:#998;font-style:italic">#需要网络</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>xmind 跨平台的思维导图工具，关键还是可以导入MindManage的文件；
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">#编程开发</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pacman -Sy --noconfirm eclipse-jee jetbrains-toolbox openjdk8-doc openjdk8-src dbeaver dbeaver-plugin-apache-poi dbeaver-plugin-batik dbeaver-plugin-office 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>eclipse-jee 企业Java 集成开发环境；
+</span></span><span style="display:flex;"><span>jetbrains-toolbox 著名的jetbrains序列的IDE管理工具；
+</span></span><span style="display:flex;"><span>openjdk8-doc openjdk8-src 针对OpenJDK8的文档和源码；
+</span></span><span style="display:flex;"><span>dbeaver 通用数据库客户端，支持多个平台及多种数据库，社区版是免费的； 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pacman -Sy --noconfirm codeblocks qtcreator glade glade-gtk2 kompozer kompozer-i18n-zh-cn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>codeblocks 跨平台的C++ IDE，官方网站上称其能满足最苛刻的用户的需求。<span style="color:#a61717;background-color:#e3d2d2">&#39;</span>
+</span></span><span style="display:flex;"><span>qtcreator 基于QT的C++开发工具（包括界面设计）；
+</span></span><span style="display:flex;"><span>glade基于GTK3 的C++开发工具（包括界面设计）；
+</span></span><span style="display:flex;"><span>glade-gtk2基于GTK2 的C++开发工具（包括界面设计）；
+</span></span><span style="display:flex;"><span>kompozer 类似Dreamweaver所见即所得功能的开源HTML编辑器。
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>pacman -Sy --noconfirm soapui <span style="color:#998;font-style:italic">#需要网络</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>pacman -Sy --noconfirm nginx tomcat8 zookeeper
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dbeaver 通用数据库客户端，支持多个平台及多种数据库，社区版是免费的；
+</span></span><span style="display:flex;"><span>nginx 终端执行 sudo nginx 启动，sudo nginx -s stop/realod 停止或重启；
+</span></span><span style="display:flex;"><span>tomcat8 开发必备，轻量的应用服务器；
+</span></span><span style="display:flex;"><span>zookeeper 终端执行sudo zkServer.sh start 启动；
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">#有意思</span>
+</span></span><span style="display:flex;"><span>pacman -Sy --noconfirm cmatrix geogebra stellarium celestia
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cmatrix 终端从上往下输出无尽的字符串,类似&lt;&lt;黑客帝国&gt;&gt;中的矩阵效果，终端运行 cmatrix ；
+</span></span><span style="display:flex;"><span>geogebra 图形计算器，支持函数，几何，代数，微积分，统计以及 3D 数学。
+</span></span><span style="display:flex;"><span>stellarium 星象软件。可调选项很多，这是随便开起来截图的。
+</span></span><span style="display:flex;"><span>celestia 免费的空间模拟器，让你在三维空间中探索我们的宇宙;
+</span></span><span style="display:flex;"><span>gnucash 开源免费的个人或小型企业财务软件；
+</span></span><span style="display:flex;"><span>gramps 家谱软件；
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">#游戏</span>
+</span></span><span style="display:flex;"><span>pacman -Sy --noconfirm nethack gnome-mines 2048-qt zaz
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>nethack 经典的命令行游戏，启动命令行nethack；
+</span></span><span style="display:flex;"><span>gnome-mines 经典的扫雷游戏（gnome桌面自带，kde也有类似的kmines）；
+</span></span><span style="display:flex;"><span>2048-qt 经典的2048游戏；
+</span></span><span style="display:flex;"><span>zaz 经典的泡泡射击游戏；
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pacman -Sy --noconfirm sudokuki wesnoth wesnoth-data 0ad
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sudokuki 基于Java的跨平台的数独游戏（https://sourceforge.net/projects/sudokuki/files/sudokuki/）；
+</span></span><span style="display:flex;"><span>wesnoth 经典的韦诺之战，Linux上比较火的游戏，回合制策略游戏；
+</span></span><span style="display:flex;"><span>0ad 跨平台的“帝国时代”（http://sourceforge.net/projects/zero-ad/files/releases/locales/下载对应版本的汉化放到<span style="color:#008080">$HOME</span>/.local/share/0ad/mods/public/）；
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">#虚拟机（全面更新系统重启后最后安装）</span>
+</span></span><span style="display:flex;"><span>pacman -Sy virtualbox linux419-virtualbox-host-modules virtualbox-ext-oracle
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>virtualbox 虚拟机工具，linux首选，比vmware还好用。
+</span></span><span style="display:flex;"><span>https://wiki.manjaro.org/index.php?title<span style="color:#000;font-weight:bold">=</span>Virtualbox
+</span></span><span style="display:flex;"><span>linux419-virtualbox-host-modules  根据安装的内核版本选择，比如有 uname -r 如果是4.19内核，则安装 linux419-virtualbox-host-modules ；
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">#展示Linux系统信息(装逼)</span>
+</span></span><span style="display:flex;"><span>screenfetch
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">#主题图标</span>
+</span></span><span style="display:flex;"><span>la-capitaine-icon-theme
+</span></span><span style="display:flex;"><span>Adapta-gtk-theme
+</span></span><span style="display:flex;"><span>Papirus
+</span></span><span style="display:flex;"><span>Arc
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="archlinux推荐软件列表">ArchLinux推荐软件列表</h3>
 <p><a href="https://wiki.archlinux.org/index.php/List_of_applications">https://wiki.archlinux.org/index.php/List_of_applications</a>
@@ -828,96 +839,96 @@ Arc
 <p>带动更多的人进入 Linux 世界，特别是做 Java 开发的人，开发人员必备linux编程环境配置手册
 <a href="https://youmeek.gitbooks.io/linux-tutorial/content/">https://youmeek.gitbooks.io/linux-tutorial/content/</a></p>
 <h3 id="yay安装软件卡在-node-installjs">yay安装软件卡在 node install.js</h3>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">终极解决方案
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-
-<span style="color:#0086b3">export</span> <span style="color:#008080">NVM_DIR</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;</span><span style="color:#008080">$HOME</span><span style="color:#d14">/.nvm&#34;</span>
-<span style="color:#000;font-weight:bold">[</span> -s <span style="color:#d14">&#34;</span><span style="color:#008080">$NVM_DIR</span><span style="color:#d14">/nvm.sh&#34;</span> <span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">&amp;&amp;</span> <span style="color:#d14">\.</span> <span style="color:#d14">&#34;</span><span style="color:#008080">$NVM_DIR</span><span style="color:#d14">/nvm.sh&#34;</span>  <span style="color:#998;font-style:italic"># This loads nvm</span>
-<span style="color:#000;font-weight:bold">[</span> -s <span style="color:#d14">&#34;</span><span style="color:#008080">$NVM_DIR</span><span style="color:#d14">/bash_completion&#34;</span> <span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">&amp;&amp;</span> <span style="color:#d14">\.</span> <span style="color:#d14">&#34;</span><span style="color:#008080">$NVM_DIR</span><span style="color:#d14">/bash_completion&#34;</span>  <span style="color:#998;font-style:italic"># This loads nvm bash_completion</span>
-
-nvm install v8
-
-npm 安装 node-sass 网速慢的 可以 运行 npm config <span style="color:#0086b3">set</span> registry https://registry.npm.taobao.org
-
-然后 编辑 ~/.npmrc 加入下面内容
-
-<span style="color:#998;font-style:italic"># $HOME为你home目录路径的全写</span>
-<span style="color:#008080">cache</span><span style="color:#000;font-weight:bold">=</span><span style="color:#008080">$HOME</span>/.node_modules
-
-<span style="color:#008080">prefix</span><span style="color:#000;font-weight:bold">=</span><span style="color:#008080">$HOME</span>/.node_modules
-
-<span style="color:#008080">registry</span><span style="color:#000;font-weight:bold">=</span>https://registry.npm.taobao.org
-
-<span style="color:#008080">sass_binary_site</span><span style="color:#000;font-weight:bold">=</span>https://npm.taobao.org/mirrors/node-sass/
-
-<span style="color:#008080">phantomjs_cdnurl</span><span style="color:#000;font-weight:bold">=</span>http://npm.taobao.org/mirrors/phantomjs
-
-<span style="color:#008080">ELECTRON_MIRROR</span><span style="color:#000;font-weight:bold">=</span>http://npm.taobao.org/mirrors/electron/
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>终极解决方案
+</span></span><span style="display:flex;"><span>curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">export</span> <span style="color:#008080">NVM_DIR</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;</span><span style="color:#008080">$HOME</span><span style="color:#d14">/.nvm&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span> -s <span style="color:#d14">&#34;</span><span style="color:#008080">$NVM_DIR</span><span style="color:#d14">/nvm.sh&#34;</span> <span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">&amp;&amp;</span> <span style="color:#d14">\.</span> <span style="color:#d14">&#34;</span><span style="color:#008080">$NVM_DIR</span><span style="color:#d14">/nvm.sh&#34;</span>  <span style="color:#998;font-style:italic"># This loads nvm</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span> -s <span style="color:#d14">&#34;</span><span style="color:#008080">$NVM_DIR</span><span style="color:#d14">/bash_completion&#34;</span> <span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">&amp;&amp;</span> <span style="color:#d14">\.</span> <span style="color:#d14">&#34;</span><span style="color:#008080">$NVM_DIR</span><span style="color:#d14">/bash_completion&#34;</span>  <span style="color:#998;font-style:italic"># This loads nvm bash_completion</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>nvm install v8
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>npm 安装 node-sass 网速慢的 可以 运行 npm config <span style="color:#0086b3">set</span> registry https://registry.npm.taobao.org
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>然后 编辑 ~/.npmrc 加入下面内容
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># $HOME为你home目录路径的全写</span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">cache</span><span style="color:#000;font-weight:bold">=</span><span style="color:#008080">$HOME</span>/.node_modules
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">prefix</span><span style="color:#000;font-weight:bold">=</span><span style="color:#008080">$HOME</span>/.node_modules
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">registry</span><span style="color:#000;font-weight:bold">=</span>https://registry.npm.taobao.org
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">sass_binary_site</span><span style="color:#000;font-weight:bold">=</span>https://npm.taobao.org/mirrors/node-sass/
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">phantomjs_cdnurl</span><span style="color:#000;font-weight:bold">=</span>http://npm.taobao.org/mirrors/phantomjs
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">ELECTRON_MIRROR</span><span style="color:#000;font-weight:bold">=</span>http://npm.taobao.org/mirrors/electron/
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="桌面菜单或启动器">桌面菜单或启动器</h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">https://wiki.archlinux.org/index.php/Desktop_entries_<span style="color:#000;font-weight:bold">(</span>%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87<span style="color:#000;font-weight:bold">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>https://wiki.archlinux.org/index.php/Desktop_entries_<span style="color:#000;font-weight:bold">(</span>%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87<span style="color:#000;font-weight:bold">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>应用程序配置项，即 .desktop 文件是原信息资源和应用程序快捷图标的集合。
 系统程序的配置项通常位于 <code>/usr/share/applications</code> 或 <code>/usr/local/share/applications</code>目录，单用户安装的程序位于 <code>~/.local/share/applications</code> 目录，优先使用用户的配置项。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#0086b3">cd</span> ~/.local/share/applications
-<span style="color:#000;font-weight:bold">[</span>Desktop Entry<span style="color:#000;font-weight:bold">]</span>
-<span style="color:#008080">Type</span><span style="color:#000;font-weight:bold">=</span>Application
-<span style="color:#008080">Version</span><span style="color:#000;font-weight:bold">=</span>1.0
-<span style="color:#008080">Name</span><span style="color:#000;font-weight:bold">=</span>IntelliJ IDEA
-<span style="color:#008080">Exec</span><span style="color:#000;font-weight:bold">=</span>/opt/ide/idea/bin/idea.sh
-<span style="color:#008080">Icon</span><span style="color:#000;font-weight:bold">=</span>/opt/ide/idea/bin/idea.png
-<span style="color:#008080">Terminal</span><span style="color:#000;font-weight:bold">=</span><span style="color:#0086b3">false</span>
-<span style="color:#008080">Categories</span><span style="color:#000;font-weight:bold">=</span>Development;Languages;Java;
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#0086b3">cd</span> ~/.local/share/applications
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span>Desktop Entry<span style="color:#000;font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">Type</span><span style="color:#000;font-weight:bold">=</span>Application
+</span></span><span style="display:flex;"><span><span style="color:#008080">Version</span><span style="color:#000;font-weight:bold">=</span>1.0
+</span></span><span style="display:flex;"><span><span style="color:#008080">Name</span><span style="color:#000;font-weight:bold">=</span>IntelliJ IDEA
+</span></span><span style="display:flex;"><span><span style="color:#008080">Exec</span><span style="color:#000;font-weight:bold">=</span>/opt/ide/idea/bin/idea.sh
+</span></span><span style="display:flex;"><span><span style="color:#008080">Icon</span><span style="color:#000;font-weight:bold">=</span>/opt/ide/idea/bin/idea.png
+</span></span><span style="display:flex;"><span><span style="color:#008080">Terminal</span><span style="color:#000;font-weight:bold">=</span><span style="color:#0086b3">false</span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">Categories</span><span style="color:#000;font-weight:bold">=</span>Development;Languages;Java;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="应用程序快捷键">应用程序快捷键</h2>
 <p>可以给软件设置热键，比如截图
@@ -928,161 +939,169 @@ npm 安装 node-sass 网速慢的 可以 运行 npm config <span style="color:#0
 在需要截图的时候，按下<code>Print</code>
 就可以截图</p>
 <h3 id="xfce默认快捷键盘修改键盘">xfce默认快捷键盘修改（键盘）</h3>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">打开启动器菜单（类似windows的开始） &gt;设置&gt;键盘&gt; xfce4-popup-whiskermenu  &gt; super+退出（Esc）
-打开文件管理器:系统工具&gt;设置&gt;键盘&gt; exo-open --launch FileManager  &gt;  super+F
-打开邮件客户端:系统工具&gt;设置&gt;键盘&gt;exo-open --launch MailReader  &gt;  super+M
-打开默认浏览器:系统工具&gt;设置&gt;键盘&gt; exo-open --launch WebBrowser    &gt;  super+W
-打开应用程序查找器:系统工具&gt;设置&gt;键盘&gt; xfce4-appfinder --collapsed  &gt; super+R
-打开任务管理器:系统工具&gt;设置&gt;键盘&gt;  xfce4-taskmanager  &gt; super+K
-打开显示/分辨率设置:系统工具&gt;设置&gt;键盘&gt; xfce4-display-settings  -minimal  &gt; super+P
-打开下拉终端:系统工具&gt;设置&gt;键盘&gt; xfce4-terminal --drop-down  &gt; super+N
-打开模拟终端:系统工具&gt;设置&gt;自定义快捷键&gt; exo-open --launch TerminalEmulator  &gt; super+T
-截图:系统工具&gt;设置&gt;键盘&gt;自定义快捷键&gt;xfce4-screenshooter -f &gt; Print
-截图:系统工具&gt;设置&gt;键盘&gt;自定义快捷键&gt;deepin-screenshot&gt;super+A
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>打开启动器菜单（类似windows的开始） &gt;设置&gt;键盘&gt; xfce4-popup-whiskermenu  &gt; super+退出（Esc）
+</span></span><span style="display:flex;"><span>打开文件管理器:系统工具&gt;设置&gt;键盘&gt; exo-open --launch FileManager  &gt;  super+F
+</span></span><span style="display:flex;"><span>打开邮件客户端:系统工具&gt;设置&gt;键盘&gt;exo-open --launch MailReader  &gt;  super+M
+</span></span><span style="display:flex;"><span>打开默认浏览器:系统工具&gt;设置&gt;键盘&gt; exo-open --launch WebBrowser    &gt;  super+W
+</span></span><span style="display:flex;"><span>打开应用程序查找器:系统工具&gt;设置&gt;键盘&gt; xfce4-appfinder --collapsed  &gt; super+R
+</span></span><span style="display:flex;"><span>打开任务管理器:系统工具&gt;设置&gt;键盘&gt;  xfce4-taskmanager  &gt; super+K
+</span></span><span style="display:flex;"><span>打开显示/分辨率设置:系统工具&gt;设置&gt;键盘&gt; xfce4-display-settings  -minimal  &gt; super+P
+</span></span><span style="display:flex;"><span>打开下拉终端:系统工具&gt;设置&gt;键盘&gt; xfce4-terminal --drop-down  &gt; super+N
+</span></span><span style="display:flex;"><span>打开模拟终端:系统工具&gt;设置&gt;自定义快捷键&gt; exo-open --launch TerminalEmulator  &gt; super+T
+</span></span><span style="display:flex;"><span>截图:系统工具&gt;设置&gt;键盘&gt;自定义快捷键&gt;xfce4-screenshooter -f &gt; Print
+</span></span><span style="display:flex;"><span>截图:系统工具&gt;设置&gt;键盘&gt;自定义快捷键&gt;deepin-screenshot&gt;super+A
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="xfwm4默认快捷键盘修改窗口管理器">xfwm4默认快捷键盘修改（窗口管理器）</h3>
 <p>显示桌面：改为 <code>Win + D</code></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Ctrl + F1 .... F12 删除 清除不需要的，以防止与Jetbrains等IDE开发工具快键键冲突。
-Ctrl+Alt+上下左右 清除，暂时不需要，以防止与Jetbrains等IDE开发工具快键键冲突。
-Alt+insert、delete 清除，暂时不需要，以防止与Jetbrains等IDE开发工具快键键冲突。
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Ctrl + F1 .... F12 删除 清除不需要的，以防止与Jetbrains等IDE开发工具快键键冲突。
+</span></span><span style="display:flex;"><span>Ctrl+Alt+上下左右 清除，暂时不需要，以防止与Jetbrains等IDE开发工具快键键冲突。
+</span></span><span style="display:flex;"><span>Alt+insert、delete 清除，暂时不需要，以防止与Jetbrains等IDE开发工具快键键冲突。
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="中文字体">中文字体</h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">https://wiki.archlinux.org/index.php/Arch_Linux_Localization_<span style="color:#000;font-weight:bold">(</span>%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87<span style="color:#000;font-weight:bold">)</span><span style="color:#998;font-style:italic">#.E5.AE.89.E8.A3.85.E4.B8.AD.E6.96.87locale</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>https://wiki.archlinux.org/index.php/Arch_Linux_Localization_<span style="color:#000;font-weight:bold">(</span>%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87<span style="color:#000;font-weight:bold">)</span><span style="color:#998;font-style:italic">#.E5.AE.89.E8.A3.85.E4.B8.AD.E6.96.87locale</span>
+</span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</div><div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pacman -S --noconfirm wqy-microhei <span style="color:#000;font-weight:bold">&amp;&amp;</span> fc-cache -fv
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pacman -S --noconfirm wqy-microhei <span style="color:#000;font-weight:bold">&amp;&amp;</span> fc-cache -fv
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>安装完可以 在&quot;外观&gt;字体&quot;中设置应用程序的默认字体。
 可以在&quot;QT5设置&gt;字体&quot;设置qt窗体的默认字体。
 还可以在各个应用程序中，如notepadqq中设置显示的字体。
 其他文泉驿家族：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pacman -S wqy-microhei-lite
-pacman -S wqy-bitmapfont
-pacman -S wqy-zenhei
-pacman -S ttf-dejavu
-pacman -S ttf-wps-fonts <span style="color:#998;font-style:italic">#wps字体</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pacman -S wqy-microhei-lite
+</span></span><span style="display:flex;"><span>pacman -S wqy-bitmapfont
+</span></span><span style="display:flex;"><span>pacman -S wqy-zenhei
+</span></span><span style="display:flex;"><span>pacman -S ttf-dejavu
+</span></span><span style="display:flex;"><span>pacman -S ttf-wps-fonts <span style="color:#998;font-style:italic">#wps字体</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>选用：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pacman -S adobe-source-han-sans-cn-fonts
-pacman -S adobe-source-han-serif-cn-fonts
-pacman -S noto-fonts noto-fonts-emoj noto-fonts-cjk
-pacman -S ttf-ubuntu-font-family
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pacman -S adobe-source-han-sans-cn-fonts
+</span></span><span style="display:flex;"><span>pacman -S adobe-source-han-serif-cn-fonts
+</span></span><span style="display:flex;"><span>pacman -S noto-fonts noto-fonts-emoj noto-fonts-cjk
+</span></span><span style="display:flex;"><span>pacman -S ttf-ubuntu-font-family
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="配置intel-和-nvidia-双显卡切换">配置Intel 和 Nvidia 双显卡切换</h2>
 <p>Manjaro 提供了强大的硬件检测模块<code>mhwd</code>，可以很方便的安装各种驱动，要实现Intel 和 Nvidia 双显卡切换，我们需要安装video-hybrid-intel-nvidia-bumblebee <code>nvidia</code>闭源驱动和intel驱动的混合版<code>bumblebee</code>。对于之前安装系统是在<code>Live</code>启动菜单选择<code>Driver=no-free</code>的可以看看这个驱动是否已经安装：
 打开系统设置中的硬件设置或者使用命令</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mhwd -li
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mhwd -li
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>对于未安装的，这里提供一个最为简单的方式，<strong>直接在硬件设置中，右键安装即可，这样可以省去自己去添加用户组和开机启动，以及切换状态初始化</strong></p>
 <h3 id="手动安装显卡切换">手动安装显卡切换</h3>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#998;font-style:italic">#安装相关显卡依赖</span>
-sudo pacman -S virtualgl lib32-virtualgl  lib32-primus primus
-
-<span style="color:#998;font-style:italic">#不用上方的安装方法就用下面的命令行安装</span>
-安装双显卡切换程序bumblebee
-sudo mhwd -f -i pci video-hybrid-intel-nvidia-bumblebee
-
-允许服务
-sudo systemctl <span style="color:#0086b3">enable</span> bumblebeed
-
-添加用户
-sudo gpasswd -a <span style="color:#008080">$USER</span> bumblebee
-
-reboot重启
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#998;font-style:italic">#安装相关显卡依赖</span>
+</span></span><span style="display:flex;"><span>sudo pacman -S virtualgl lib32-virtualgl  lib32-primus primus
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">#不用上方的安装方法就用下面的命令行安装</span>
+</span></span><span style="display:flex;"><span>安装双显卡切换程序bumblebee
+</span></span><span style="display:flex;"><span>sudo mhwd -f -i pci video-hybrid-intel-nvidia-bumblebee
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>允许服务
+</span></span><span style="display:flex;"><span>sudo systemctl <span style="color:#0086b3">enable</span> bumblebeed
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>添加用户
+</span></span><span style="display:flex;"><span>sudo gpasswd -a <span style="color:#008080">$USER</span> bumblebee
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>reboot重启
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>对于独立显卡的使用，可以使用<code>bbswitch</code>来进行切换开关，然后使用<code>optirun</code>来运行程序:</p>
 <ol>
 <li>首先查看显卡的状态: <code>lspci | grep -i nvidia</code>(rev ff 表示关闭状态)
-<a href="https://rovo98.coding.me/posts/a1898ce2/nvidia-off.png"><img src="https://rovo98.coding.me/posts/a1898ce2/nvidia-off.png" alt="img"></a></li>
+<a href="https://rovo98.coding.me/posts/a1898ce2/nvidia-off.png">
+        <img class="mx-auto" alt="img" src="https://rovo98.coding.me/posts/a1898ce2/nvidia-off.png" />   
+    </a></li>
 <li>打开独立显卡，并进行测试，对比集成显卡的fps：
 <ul>
 <li>集成显卡 FPS:
-<a href="https://rovo98.coding.me/posts/a1898ce2/intel-fps.png"><img src="https://rovo98.coding.me/posts/a1898ce2/intel-fps.png" alt="img"></a></li>
+<a href="https://rovo98.coding.me/posts/a1898ce2/intel-fps.png">
+        <img class="mx-auto" alt="img" src="https://rovo98.coding.me/posts/a1898ce2/intel-fps.png" />   
+    </a></li>
 <li>打开独立显卡<code>sudo tee /proc/acpi/bbswitch &lt;&lt;&lt; &quot;ON&quot;</code>,测试FPS:
-<a href="https://rovo98.coding.me/posts/a1898ce2/nvidia-fps.png"><img src="https://rovo98.coding.me/posts/a1898ce2/nvidia-fps.png" alt="img"></a></li>
+<a href="https://rovo98.coding.me/posts/a1898ce2/nvidia-fps.png">
+        <img class="mx-auto" alt="img" src="https://rovo98.coding.me/posts/a1898ce2/nvidia-fps.png" />   
+    </a></li>
 </ul>
 </li>
 <li>独立显卡设置 nvidia-settings 需要用<code>optirun nvidia-setting -c :8</code>才能打开:
-<a href="https://rovo98.coding.me/posts/a1898ce2/nvidia-settings.png"><img src="https://rovo98.coding.me/posts/a1898ce2/nvidia-settings.png" alt="img"></a></li>
+<a href="https://rovo98.coding.me/posts/a1898ce2/nvidia-settings.png">
+        <img class="mx-auto" alt="img" src="https://rovo98.coding.me/posts/a1898ce2/nvidia-settings.png" />   
+    </a></li>
 </ol>
 <p>电脑重启后，用命令行：</p>
 <p><code>glxgears</code>  测试集显的FPS</p>
@@ -1091,75 +1110,75 @@ reboot重启
 <p>使用：<code>optirun nvidia-smi</code>  查看显卡信息</p>
 <p>至此，manjaro的双显卡就安装好了</p>
 <p>显卡驱动安装好后，如何在程序中用独立显卡来运行呢，可以用到optirun命令，格式为：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">optirun wine qq.exe
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>optirun wine qq.exe
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>例如运行linux帝国全面战争的代码为：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">optirun ~/.local/share/Steam/ubuntu12_32/steam-runtime/run.sh /bin/sh ./Empire.sh
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>optirun ~/.local/share/Steam/ubuntu12_32/steam-runtime/run.sh /bin/sh ./Empire.sh
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="使用-zsh-和-oh-my-zsh-配置终端">使用 zsh 和 oh-my-zsh 配置终端</h2>
 <h3 id="oh-my-zsh">oh-my-zsh</h3>
 <p><code>zsh</code>是默认<code>shell</code> <code>bash</code>的替代品之一，它的特点是插件多配置方便，兼容<code>bash</code>脚本并且支持更强大的高亮与补全。</p>
 <p>安装官方源中<code>zsh</code>包。</p>
 <p>设置<code>zsh</code>为默认<code>shell</code>：</p>
-<pre><code>sudo chsh -s /bin/zsh username
+<pre tabindex="0"><code>sudo chsh -s /bin/zsh username
 curl 方式：
-$ sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;
+$ sh -c &#34;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&#34;
 
 wget 方式
-$ sh -c &quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;
+$ sh -c &#34;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&#34;
 </code></pre><p>推荐安装<code>AUR</code>中的<code>oh-my-zsh-git</code>这个包，可以帮助配置一些实用的功能。</p>
 <p>其他主题插件配置请见<a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a>的配置介绍，分享一下我安装的插件：</p>
-<pre><code>plugins=(vim git sudo extract archlinux zsh-autosuggestions zsh-syntax-highlighting)
+<pre tabindex="0"><code>plugins=(vim git sudo extract archlinux zsh-autosuggestions zsh-syntax-highlighting)
 </code></pre><p>注意后面两个插件需要安装相应的支持包并配置才能使用。</p>
-<pre><code>https://hufangyun.com/2017/zsh-plugin/
+<pre tabindex="0"><code>https://hufangyun.com/2017/zsh-plugin/
 
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 </code></pre><h2 id="steam-配置">Steam 配置</h2>
 <p>如果你发现你的 steam 不能正常运行，就去装 <code>steam-native</code> 这个包。然后是不是就好了？如果你玩 XCOM2 的话，你可能会发现这个游戏在 Ubuntu 上能正常运行，但是在 Arch 上卡的能吃屎。你可以考虑调整他的配置文件，位置是：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">~/.local/share/feral-interactive/XCOM2/VFS/Local/my<span style="color:#d14">\ </span>games/XCOM2/XComGame/Config/XComEngine.ini
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>~/.local/share/feral-interactive/XCOM2/VFS/Local/my<span style="color:#d14">\ </span>games/XCOM2/XComGame/Config/XComEngine.ini
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>把 <code>PoolSize=10</code> 改成 256，<code>OneFrameThreadLag=True</code> 改成 False。再运行一下，虽然还有点卡，是不是能玩了？</p>
 <h2 id="jetbrains-ide-配置">JetBrains IDE 配置</h2>
 <p>你可能会发现 JetBrains 的 IDE 会有一个颜色漂移的问题，据说是来自于 jre。解决方案你可以参考 <a href="https://wiki.archlinux.org/index.php/Java_Runtime_Environment_fonts">这篇 wiki</a>。当然，最简单的方法是在 IDE 设置里把文字抗锯齿设置成灰度（greyscale），这样的效果我觉得已经基本可以接受了</p>
 <h1 id="系统备份">系统备份</h1>
 <p>我目前的解决方案是 rsync，下面给出一个我从 <a href="https://wiki.archlinux.org/index.php/full_system_backup_with_rsync">Arch wiki</a> 那里魔改来的备份脚本.区别基本上就是使用了更新和删除，就是如果目标位置已经有备份，他只会更新新的文件，并删除已经被删除了的文件。另外，我还把 steam 的路径添加到了黑名单，这样可以让我节省几十个G的游戏的硬盘空间。如果要还原的话，你只需要把 rsync 的参数互换一下，就以把备份文件复制回原来的位置了。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#999;font-weight:bold;font-style:italic">#!/bin/sh
-</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
-<span style="color:#008080">START</span><span style="color:#000;font-weight:bold">=</span><span style="color:#000;font-weight:bold">$(</span>date +%s<span style="color:#000;font-weight:bold">)</span>
-rsync -aAXvu --delete /* /Your/Destination/Directory --exclude<span style="color:#000;font-weight:bold">={</span>/dev/*,/proc/*,/sys/*,/tmp/*,/run/*,/mnt/*,/media/*,/lost+found,/var/lib/pacman/sync/*,/home/towdium/.local/share/Steam/*<span style="color:#000;font-weight:bold">}</span>
-<span style="color:#008080">FINISH</span><span style="color:#000;font-weight:bold">=</span><span style="color:#000;font-weight:bold">$(</span>date +%s<span style="color:#000;font-weight:bold">)</span>
-<span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;total time: </span><span style="color:#000;font-weight:bold">$((</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#008080">$FINISH</span><span style="color:#000;font-weight:bold">-</span><span style="color:#008080">$START</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">/</span> <span style="color:#099">60</span> <span style="color:#000;font-weight:bold">))</span><span style="color:#d14"> minutes, </span><span style="color:#000;font-weight:bold">$((</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#008080">$FINISH</span><span style="color:#000;font-weight:bold">-</span><span style="color:#008080">$START</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">%</span> <span style="color:#099">60</span> <span style="color:#000;font-weight:bold">))</span><span style="color:#d14"> seconds
-</span></code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#999;font-weight:bold;font-style:italic">#!/bin/sh
+</span></span></span><span style="display:flex;"><span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">START</span><span style="color:#000;font-weight:bold">=</span><span style="color:#000;font-weight:bold">$(</span>date +%s<span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>rsync -aAXvu --delete /* /Your/Destination/Directory --exclude<span style="color:#000;font-weight:bold">={</span>/dev/*,/proc/*,/sys/*,/tmp/*,/run/*,/mnt/*,/media/*,/lost+found,/var/lib/pacman/sync/*,/home/towdium/.local/share/Steam/*<span style="color:#000;font-weight:bold">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#008080">FINISH</span><span style="color:#000;font-weight:bold">=</span><span style="color:#000;font-weight:bold">$(</span>date +%s<span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;total time: </span><span style="color:#000;font-weight:bold">$((</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#008080">$FINISH</span><span style="color:#000;font-weight:bold">-</span><span style="color:#008080">$START</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">/</span> <span style="color:#099">60</span> <span style="color:#000;font-weight:bold">))</span><span style="color:#d14"> minutes, </span><span style="color:#000;font-weight:bold">$((</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#008080">$FINISH</span><span style="color:#000;font-weight:bold">-</span><span style="color:#008080">$START</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">%</span> <span style="color:#099">60</span> <span style="color:#000;font-weight:bold">))</span><span style="color:#d14"> seconds
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="refind美化管理引导">REfind美化管理引导</h1>
 <p>对于Refind有兴趣的可以直接<code>google</code>了解一下，选择一个现有的主题然后自己稍微进行配置一下，就可以了。
@@ -1211,22 +1230,41 @@ rsync -aAXvu --delete /* /Your/Destination/Directory --exclude<span style="color
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/manjaro'>manjaro</a></li>
+                <li><a href='/tags/manjaro'>manjaro</a></li>
                 
-                <li><a href='https://blog.taielab.com/tags/ubuntu'>ubuntu</a></li>
+                <li><a href='/tags/ubuntu'>ubuntu</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -1234,13 +1272,47 @@ rsync -aAXvu --delete /* /Your/Destination/Directory --exclude<span style="color
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -1308,28 +1380,12 @@ rsync -aAXvu --delete /* /Your/Destination/Directory --exclude<span style="color
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -1368,7 +1424,7 @@ rsync -aAXvu --delete /* /Your/Destination/Directory --exclude<span style="color
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -1448,7 +1504,7 @@ rsync -aAXvu --delete /* /Your/Destination/Directory --exclude<span style="color
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -1465,51 +1521,6 @@ rsync -aAXvu --delete /* /Your/Destination/Directory --exclude<span style="color
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>

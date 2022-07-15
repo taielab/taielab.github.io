@@ -6,11 +6,7 @@
     <description>Recent content in manjaro on 码中春秋&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 14 Apr 2019 18:55:29 +0800</lastBuildDate>
-    
-	<atom:link href="https://blog.taielab.com/tags/manjaro/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 14 Apr 2019 18:55:29 +0800</lastBuildDate><atom:link href="https://blog.taielab.com/tags/manjaro/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Manjaro&amp;&amp;Ubuntu双显卡解决方案和Manjaro常用配置</title>
       <link>https://blog.taielab.com/2019-04-14/manjaro-ubuntu-double-display-solutions-muanul-config.html</link>

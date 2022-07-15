@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>数据加密系列——如何创建完美的GPG密钥对 | 码中春秋&#39;s Blog</title>
     <meta property="og:title" content="数据加密系列——如何创建完美的GPG密钥对 - 码中春秋&#39;s Blog">
@@ -20,15 +23,16 @@
         
     <meta name="author" content="码中春秋">
     <meta property="og:url" content="https://blog.taielab.com/2018-10-19/create-gpg-key.html">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
+    
+    
+    
     
     
         <link rel="stylesheet" href='/css/douban.css'>
@@ -36,7 +40,6 @@
         <link rel="stylesheet" href='/css/other.css'>
     
 </head>
-
 
 <body>
     <header id="header" class="clearfix">
@@ -54,7 +57,7 @@
                 <nav id="nav-menu" class="clearfix">
                     <a class="current" href="https://blog.taielab.com">首页</a>
                     
-                    <a  href="https://blog.taielab.com/archives/" title="存档">存档</a>
+                    <a  href="https://blog.taielab.com/archives/" title="归档">归档</a>
                     
                     <a  href="https://blog.taielab.com/about/" title="关于">关于</a>
                     
@@ -171,8 +174,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -191,6 +194,10 @@
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
         }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
     })
 </script>
     <article class="post">
@@ -204,7 +211,7 @@
         <div class="post-meta">
             <span>|</span>
             
-            <span class="meta-category"><a href='https://blog.taielab.com/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8'>数字安全</a></span>
+            <span class="meta-category"><a href='/categories/%E6%95%B0%E5%AD%97%E5%AE%89%E5%85%A8'>数字安全</a></span>
             
         </div>
         
@@ -246,542 +253,542 @@
 <p>现在二翔子就手把手的带着大家创建完美的GPG密钥对。此处二翔子使用的GnuPG软件版本是1.4.18，操作系统为debian 8。因为每个人使用的GnuPG版本和操作系统可能会有差异，所以如果你发现有与二翔子的操作过程或命令有出入，希望可以在评论区告知二翔子，二翔子这里现行告谢了：）</p>
 <h2 id="31-创建初始密钥对">3.1 创建初始密钥对</h2>
 <p><code>user@temp:~$</code> <strong>gpg - -gen-key</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">gpg <span style="color:#000;font-weight:bold">(</span>GnuPG<span style="color:#000;font-weight:bold">)</span> 1.4.18; Copyright <span style="color:#000;font-weight:bold">(</span>C<span style="color:#000;font-weight:bold">)</span> <span style="color:#099">2014</span> Free Software Foundation, Inc.
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
-
-gpg: directory <span style="color:#d14">`</span>/home/user/.gnupg<span style="color:#d14">&#39; created
-</span><span style="color:#d14">gpg: new configuration file `/home/user/.gnupg/gpg.conf&#39;</span> created
-gpg: WARNING: options in <span style="color:#d14">`</span>/home/user/.gnupg/gpg.conf<span style="color:#d14">&#39; are not yet active during this run
-</span><span style="color:#d14">gpg: keyring `/home/user/.gnupg/secring.gpg&#39;</span> created
-gpg: keyring <span style="color:#d14">`</span>/home/user/.gnupg/pubring.gpg<span style="color:#a61717;background-color:#e3d2d2">&#39;</span> created
-Please <span style="color:#000;font-weight:bold">select</span> what kind of key you want:
-   <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span> RSA and RSA <span style="color:#000;font-weight:bold">(</span>default<span style="color:#000;font-weight:bold">)</span>
-   <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span> DSA and Elgamal
-   <span style="color:#000;font-weight:bold">(</span>3<span style="color:#000;font-weight:bold">)</span> DSA <span style="color:#000;font-weight:bold">(</span>sign only<span style="color:#000;font-weight:bold">)</span>
-   <span style="color:#000;font-weight:bold">(</span>4<span style="color:#000;font-weight:bold">)</span> RSA <span style="color:#000;font-weight:bold">(</span>sign only<span style="color:#000;font-weight:bold">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>gpg <span style="color:#000;font-weight:bold">(</span>GnuPG<span style="color:#000;font-weight:bold">)</span> 1.4.18; Copyright <span style="color:#000;font-weight:bold">(</span>C<span style="color:#000;font-weight:bold">)</span> <span style="color:#099">2014</span> Free Software Foundation, Inc.
+</span></span><span style="display:flex;"><span>This is free software: you are free to change and redistribute it.
+</span></span><span style="display:flex;"><span>There is NO WARRANTY, to the extent permitted by law.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>gpg: directory <span style="color:#d14">`</span>/home/user/.gnupg<span style="color:#d14">&#39; created
+</span></span></span><span style="display:flex;"><span><span style="color:#d14">gpg: new configuration file `/home/user/.gnupg/gpg.conf&#39;</span> created
+</span></span><span style="display:flex;"><span>gpg: WARNING: options in <span style="color:#d14">`</span>/home/user/.gnupg/gpg.conf<span style="color:#d14">&#39; are not yet active during this run
+</span></span></span><span style="display:flex;"><span><span style="color:#d14">gpg: keyring `/home/user/.gnupg/secring.gpg&#39;</span> created
+</span></span><span style="display:flex;"><span>gpg: keyring <span style="color:#d14">`</span>/home/user/.gnupg/pubring.gpg<span style="color:#a61717;background-color:#e3d2d2">&#39;</span> created
+</span></span><span style="display:flex;"><span>Please <span style="color:#000;font-weight:bold">select</span> what kind of key you want:
+</span></span><span style="display:flex;"><span>   <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span> RSA and RSA <span style="color:#000;font-weight:bold">(</span>default<span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span> DSA and Elgamal
+</span></span><span style="display:flex;"><span>   <span style="color:#000;font-weight:bold">(</span>3<span style="color:#000;font-weight:bold">)</span> DSA <span style="color:#000;font-weight:bold">(</span>sign only<span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000;font-weight:bold">(</span>4<span style="color:#000;font-weight:bold">)</span> RSA <span style="color:#000;font-weight:bold">(</span>sign only<span style="color:#000;font-weight:bold">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>Your selection?</code> <strong>1</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">RSA keys may be between <span style="color:#099">1024</span> and <span style="color:#099">4096</span> bits long.
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>RSA keys may be between <span style="color:#099">1024</span> and <span style="color:#099">4096</span> bits long.
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里询问你所要创建的密钥对的长度。密钥对的长度越长，加密的强度越大。随着硬件和软件技术的发展，计算机的性能越来越强，同时也意味着破解加密的难度越来越小。今天不能被破解的加密，不意味着将来不可以。因此二翔子在此强烈建议大家都使用GnuPG所提供的最长长度(当前为4096位)的密钥。</p>
 <p><code>What keysize do you want? (2048)</code> <strong>4096</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Requested keysize is <span style="color:#099">4096</span> bits
-Please specify how long the key should be valid.
-         <span style="color:#008080">0</span> <span style="color:#000;font-weight:bold">=</span> key does not expire
-      &lt;n&gt;  <span style="color:#000;font-weight:bold">=</span> key expires in n days
-      &lt;n&gt;w <span style="color:#000;font-weight:bold">=</span> key expires in n weeks
-      &lt;n&gt;m <span style="color:#000;font-weight:bold">=</span> key expires in n months
-      &lt;n&gt;y <span style="color:#000;font-weight:bold">=</span> key expires in n years
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Requested keysize is <span style="color:#099">4096</span> bits
+</span></span><span style="display:flex;"><span>Please specify how long the key should be valid.
+</span></span><span style="display:flex;"><span>         <span style="color:#008080">0</span> <span style="color:#000;font-weight:bold">=</span> key does not expire
+</span></span><span style="display:flex;"><span>      &lt;n&gt;  <span style="color:#000;font-weight:bold">=</span> key expires in n days
+</span></span><span style="display:flex;"><span>      &lt;n&gt;w <span style="color:#000;font-weight:bold">=</span> key expires in n weeks
+</span></span><span style="display:flex;"><span>      &lt;n&gt;m <span style="color:#000;font-weight:bold">=</span> key expires in n months
+</span></span><span style="display:flex;"><span>      &lt;n&gt;y <span style="color:#000;font-weight:bold">=</span> key expires in n years
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里询问你要把这个密钥对设置为多久后过期。将密钥设置一定的有效期是一种有效的保护措施：即使你的私钥丢失，或者忘记了passphrase，只要等到过期时间，别人就都会知道你不再用这个密钥啦。密钥过期后基本有两种选择：一种是选择重新创建一个新的密钥，并且（如果可能的话）保留旧有密钥以解密原来的电子邮件等；另一种是选择向后延长密钥的过期时间。这里二翔子选择 “<strong>1y</strong>”，意味着密钥将在创建后的一年后过期。</p>
 <p><code>Key is valid for? (0)</code> <strong>1y</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Key expires at Tue <span style="color:#099">05</span> Sep <span style="color:#099">2017</span> 00:00:39 PM UTC
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Key expires at Tue <span style="color:#099">05</span> Sep <span style="color:#099">2017</span> 00:00:39 PM UTC
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>Is this correct? (y/N)</code> <strong>y</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">You need a user ID to identify your key; the software constructs the user ID
-from the Real Name, Comment and Email Address in this form:
-    <span style="color:#d14">&#34;Heinrich Heine (Der Dichter) &lt;heinrichh@duesseldorf.de&gt;&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>You need a user ID to identify your key; the software constructs the user ID
+</span></span><span style="display:flex;"><span>from the Real Name, Comment and Email Address in this form:
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;Heinrich Heine (Der Dichter) &lt;heinrichh@duesseldorf.de&gt;&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>由于Real name这一项不能以数字开头，所以二翔子只好把 “2”该写成汉语拼音的 “er”。</p>
 <p><code>Real name:</code> <strong>erxiangzi</strong>
 <code>Email address:</code> <strong><a href="mailto:2xiangzi-blog@riseup.net">2xiangzi-blog@riseup.net</a></strong>
 <code>Comment:</code></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">You selected this USER-ID:
-    <span style="color:#d14">&#34;erxiangzi &lt;2xiangzi-blog@riseup.net&gt;&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>You selected this USER-ID:
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;erxiangzi &lt;2xiangzi-blog@riseup.net&gt;&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit?</code> <strong>o</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">You need a Passphrase to protect your secret key.
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>You need a Passphrase to protect your secret key.
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>此处需要你设置一个密码（Passphrase），设置好以后，每一次使用GPG私钥都会要求你输入密码，起到一定的保护作用。顺便说一句，这种保护其实并不十分有效，现在有一种比较高级的玩法叫<a href="https://www.qubes-os.org/doc/split-gpg/">Split GPG</a>,感兴趣的同学不妨了解一下。</p>
 <p>&lt;在此输入密码(Passphrase)&gt;</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">We need to generate a lot of random bytes. It is a good idea to perform
-some other action <span style="color:#000;font-weight:bold">(</span><span style="color:#0086b3">type</span> on the keyboard, move the mouse, utilize the
-disks<span style="color:#000;font-weight:bold">)</span> during the prime generation; this gives the random number
-generator a better chance to gain enough entropy.
-....+++++
-....+++++
-gpg: /home/user/.gnupg/trustdb.gpg: trustdb created
-gpg: key AB7BB174 marked as ultimately trusted
-public and secret key created and signed.
-
-gpg: checking the trustdb
-gpg: <span style="color:#099">3</span> marginal<span style="color:#000;font-weight:bold">(</span>s<span style="color:#000;font-weight:bold">)</span> needed, <span style="color:#099">1</span> complete<span style="color:#000;font-weight:bold">(</span>s<span style="color:#000;font-weight:bold">)</span> needed, PGP trust model
-gpg: depth: <span style="color:#099">0</span>  valid:   <span style="color:#099">1</span>  signed:   <span style="color:#099">0</span>  trust: 0-, 0q, 0n, 0m, 0f, 1u
-gpg: next trustdb check due at 2017-09-05
-pub   4096R/AB7BB174 2016-09-05 <span style="color:#000;font-weight:bold">[</span>expires: 2017-09-05<span style="color:#000;font-weight:bold">]</span>
-      Key <span style="color:#008080">fingerprint</span> <span style="color:#000;font-weight:bold">=</span> 9FAF 11FB 58E3 1E5F 4A4D  DF31 4FF8 F994 AB7B B174
-uid                  erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
-sub   4096R/AB64DCD1 2016-09-05 <span style="color:#000;font-weight:bold">[</span>expires: 2017-09-05<span style="color:#000;font-weight:bold">]</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>We need to generate a lot of random bytes. It is a good idea to perform
+</span></span><span style="display:flex;"><span>some other action <span style="color:#000;font-weight:bold">(</span><span style="color:#0086b3">type</span> on the keyboard, move the mouse, utilize the
+</span></span><span style="display:flex;"><span>disks<span style="color:#000;font-weight:bold">)</span> during the prime generation; this gives the random number
+</span></span><span style="display:flex;"><span>generator a better chance to gain enough entropy.
+</span></span><span style="display:flex;"><span>....+++++
+</span></span><span style="display:flex;"><span>....+++++
+</span></span><span style="display:flex;"><span>gpg: /home/user/.gnupg/trustdb.gpg: trustdb created
+</span></span><span style="display:flex;"><span>gpg: key AB7BB174 marked as ultimately trusted
+</span></span><span style="display:flex;"><span>public and secret key created and signed.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>gpg: checking the trustdb
+</span></span><span style="display:flex;"><span>gpg: <span style="color:#099">3</span> marginal<span style="color:#000;font-weight:bold">(</span>s<span style="color:#000;font-weight:bold">)</span> needed, <span style="color:#099">1</span> complete<span style="color:#000;font-weight:bold">(</span>s<span style="color:#000;font-weight:bold">)</span> needed, PGP trust model
+</span></span><span style="display:flex;"><span>gpg: depth: <span style="color:#099">0</span>  valid:   <span style="color:#099">1</span>  signed:   <span style="color:#099">0</span>  trust: 0-, 0q, 0n, 0m, 0f, 1u
+</span></span><span style="display:flex;"><span>gpg: next trustdb check due at 2017-09-05
+</span></span><span style="display:flex;"><span>pub   4096R/AB7BB174 2016-09-05 <span style="color:#000;font-weight:bold">[</span>expires: 2017-09-05<span style="color:#000;font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span>      Key <span style="color:#008080">fingerprint</span> <span style="color:#000;font-weight:bold">=</span> 9FAF 11FB 58E3 1E5F 4A4D  DF31 4FF8 F994 AB7B B174
+</span></span><span style="display:flex;"><span>uid                  erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
+</span></span><span style="display:flex;"><span>sub   4096R/AB64DCD1 2016-09-05 <span style="color:#000;font-weight:bold">[</span>expires: 2017-09-05<span style="color:#000;font-weight:bold">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="32-添加图片">3.2 添加图片</h2>
 <p>创建好初始的密钥对后，你还可以在其中附上一个JPGE格式的图片。但要知道，你可能会将你的公钥散布到很多地方，加入图片后会使公钥的体积增大，造成一些不便。二翔子在此不做推荐，不想加入图片的同学请在看完下一自然段后，略过此小结。</p>
 <p>此处同学们看到输入的指令中有“<strong>AB7BB174</strong>”字样，这是你刚才生成的短GPG公钥ID，每个人短GPG公钥ID,除非<a href="https://ixquick-proxy.com/do/spg/proxy2?ep=4b78704d457a4d444f77736e475131614957425a6346735356525a584b6e39505551354e416d4a47417a784e574356656153674455574238414439785257395658516738546a736a644177754277515457306b3343424d314544456649326f424143393144475578416d52365958466651794a55436b4a564d6b38395158317055776376536a464e474642574a31454952676f725241596144316f4c4e67516349695579624456654f523134517a5150474263734479304a49556c43495673414531454e586e4566556e4d4c58425a774a6b4556425552524c30685750525a2b456a637255306f4f5430417443567351586842524b55396255536b42586d4e53636d39574a4634584447316766774e534b51317353416873645856655856706a51456c305341685564546c6d4958355156316f58465641734368465855464d57416b3963476934545743554d426855684a5734565a6c494851473855425763434d686f4258533964617855444b4555545a524a774e78462f4155743646514241426c6f6a516e5949476770585154525546306376413239444d4159584648673d&amp;epile=4q6n41784r6n45784q5467784r3138304r5335725n586o3q&amp;edata=6f7ceee3262ee9dbe1e5a5ca6886e230&amp;ek=536r4n784r56382o586q5641645751705355593654544r3063335532586o49344r477872633138325n45786q6657427054476o7864434n4q4n58704859465n6r6544463561456p505358684249585n365033523653313936516q56516344354r553246474s564637554441794q6952354o30346p4r796s68526n394s65314n474n4842595n45493565534969567n4276497952494o327331617n556o5257463955455n61536p6771535731465n566p37614764655930343056535n6o56475n6s5n79563965304n656430464r6553513255545n694o7n632o51794579556q4n516655564q646r68495044524365794931625659695143742o596q30315n314267536o6o6n5144396n6256425554574533537n6p5n4o54395n516o3174625468566369684r4o6n4667523170535230316o4r44776p63585n65656r346o62574577646n7868563370436132705956794675635373684o795569637973784r694q6o51576s384s557476574359785369456p565352475533644p4r334n434n5456774r7n3541636o51784o32746864413q3q&amp;ekdata=aec108a2ec825c28046f33db7f0efe09">蓄意碰撞</a>,否则几乎不可能一样，你可以在上一小结最后的输出结果中找到你自己的。</p>
 <p><code>user@temp:~$</code> <strong>gpg - -edit-key AB7BB174</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">gpg <span style="color:#000;font-weight:bold">(</span>GnuPG<span style="color:#000;font-weight:bold">)</span> 1.4.18; Copyright <span style="color:#000;font-weight:bold">(</span>C<span style="color:#000;font-weight:bold">)</span> <span style="color:#099">2014</span> Free Software Foundation, Inc.
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
-
-Secret key is available.
-
-pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
-                     trust: ultimate      validity: ultimate
-sub  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
-<span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>gpg <span style="color:#000;font-weight:bold">(</span>GnuPG<span style="color:#000;font-weight:bold">)</span> 1.4.18; Copyright <span style="color:#000;font-weight:bold">(</span>C<span style="color:#000;font-weight:bold">)</span> <span style="color:#099">2014</span> Free Software Foundation, Inc.
+</span></span><span style="display:flex;"><span>This is free software: you are free to change and redistribute it.
+</span></span><span style="display:flex;"><span>There is NO WARRANTY, to the extent permitted by law.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Secret key is available.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
+</span></span><span style="display:flex;"><span>                     trust: ultimate      validity: ultimate
+</span></span><span style="display:flex;"><span>sub  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>gpg&gt;</code> <strong>addphoto</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Pick an image to use <span style="color:#000;font-weight:bold">for</span> your photo ID.  The image must be a JPEG file.
-Remember that the image is stored within your public key.  If you use a
-very large picture, your key will become very large as well!
-Keeping the image close to 240x288 is a good size to use.
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Pick an image to use <span style="color:#000;font-weight:bold">for</span> your photo ID.  The image must be a JPEG file.
+</span></span><span style="display:flex;"><span>Remember that the image is stored within your public key.  If you use a
+</span></span><span style="display:flex;"><span>very large picture, your key will become very large as well!
+</span></span><span style="display:flex;"><span>Keeping the image close to 240x288 is a good size to use.
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>Enter JPEG filename for photo ID:</code> <strong>/home/user/me.jpg</strong></p>
 <p><code>is this photo correct (y/N/q)?</code> <strong>y</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">You need a passphrase to unlock the secret key <span style="color:#000;font-weight:bold">for</span>
-user: <span style="color:#d14">&#34;erxiangzi &lt;2xiangzi-blog@riseup.net&gt;&#34;</span>
-4096-bit RSA key, ID AB7BB174, created 2016-09-05
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>You need a passphrase to unlock the secret key <span style="color:#000;font-weight:bold">for</span>
+</span></span><span style="display:flex;"><span>user: <span style="color:#d14">&#34;erxiangzi &lt;2xiangzi-blog@riseup.net&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>4096-bit RSA key, ID AB7BB174, created 2016-09-05
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>&lt;在此输入密码(Passphrase)&gt;</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
-                     trust: ultimate      validity: ultimate
-sub  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
-<span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
-<span style="color:#000;font-weight:bold">[</span> unknown<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">[</span>jpeg image of size 5032<span style="color:#000;font-weight:bold">]</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
+</span></span><span style="display:flex;"><span>                     trust: ultimate      validity: ultimate
+</span></span><span style="display:flex;"><span>sub  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span> unknown<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">[</span>jpeg image of size 5032<span style="color:#000;font-weight:bold">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>gpg&gt;</code> <strong>save</strong></p>
 <h2 id="33-增强hash偏好">3.3 增强Hash偏好</h2>
 <p>现在我们让刚生成的密钥对偏好强Hash算法。</p>
 <p><code>user@temp:~$</code> <strong>gpg - -edit-key AB7BB174</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">gpg <span style="color:#000;font-weight:bold">(</span>GnuPG<span style="color:#000;font-weight:bold">)</span> 1.4.18; Copyright <span style="color:#000;font-weight:bold">(</span>C<span style="color:#000;font-weight:bold">)</span> <span style="color:#099">2014</span> Free Software Foundation, Inc.
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
-
-Secret key is available.
-
-pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
-                     trust: ultimate      validity: ultimate
-sub  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
-<span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
-<span style="color:#000;font-weight:bold">[</span> unknown<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">[</span>jpeg image of size 5032<span style="color:#000;font-weight:bold">]</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>gpg <span style="color:#000;font-weight:bold">(</span>GnuPG<span style="color:#000;font-weight:bold">)</span> 1.4.18; Copyright <span style="color:#000;font-weight:bold">(</span>C<span style="color:#000;font-weight:bold">)</span> <span style="color:#099">2014</span> Free Software Foundation, Inc.
+</span></span><span style="display:flex;"><span>This is free software: you are free to change and redistribute it.
+</span></span><span style="display:flex;"><span>There is NO WARRANTY, to the extent permitted by law.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Secret key is available.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
+</span></span><span style="display:flex;"><span>                     trust: ultimate      validity: ultimate
+</span></span><span style="display:flex;"><span>sub  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span> unknown<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">[</span>jpeg image of size 5032<span style="color:#000;font-weight:bold">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>gpg&gt;</code> <strong>setpref SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Set preference list to:
-     Cipher: AES256, AES192, AES, CAST5, 3DES
-     Digest: SHA512, SHA384, SHA256, SHA224, SHA1
-     Compression: ZLIB, BZIP2, ZIP, Uncompressed
-     Features: MDC, Keyserver no-modify
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Set preference list to:
+</span></span><span style="display:flex;"><span>     Cipher: AES256, AES192, AES, CAST5, 3DES
+</span></span><span style="display:flex;"><span>     Digest: SHA512, SHA384, SHA256, SHA224, SHA1
+</span></span><span style="display:flex;"><span>     Compression: ZLIB, BZIP2, ZIP, Uncompressed
+</span></span><span style="display:flex;"><span>     Features: MDC, Keyserver no-modify
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>Really update the preferences? (y/N)</code> <strong>y</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">You need a passphrase to unlock the secret key <span style="color:#000;font-weight:bold">for</span>
-user: <span style="color:#d14">&#34;erxiangzi &lt;2xiangzi-blog@riseup.net&gt;&#34;</span>
-4096-bit RSA key, ID AB7BB174, created 2016-09-05
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>You need a passphrase to unlock the secret key <span style="color:#000;font-weight:bold">for</span>
+</span></span><span style="display:flex;"><span>user: <span style="color:#d14">&#34;erxiangzi &lt;2xiangzi-blog@riseup.net&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>4096-bit RSA key, ID AB7BB174, created 2016-09-05
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>&lt;在此输入密码(Passphrase)&gt;</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
-                     trust: ultimate      validity: ultimate
-sub  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
-<span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
-<span style="color:#000;font-weight:bold">[</span> unknown<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">[</span>jpeg image of size 5032<span style="color:#000;font-weight:bold">]</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
+</span></span><span style="display:flex;"><span>                     trust: ultimate      validity: ultimate
+</span></span><span style="display:flex;"><span>sub  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span> unknown<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">[</span>jpeg image of size 5032<span style="color:#000;font-weight:bold">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>gpg&gt;</code> <strong>save</strong></p>
 <h2 id="34-添加一个新的签名副钥signing-subkey">3.4 添加一个新的签名副钥（signing subkey）</h2>
 <p><code>user@temp:~$</code> <strong>gpg - -edit-key AB7BB174</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">gpg <span style="color:#000;font-weight:bold">(</span>GnuPG<span style="color:#000;font-weight:bold">)</span> 1.4.18; Copyright <span style="color:#000;font-weight:bold">(</span>C<span style="color:#000;font-weight:bold">)</span> <span style="color:#099">2014</span> Free Software Foundation, Inc.
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
-
-Secret key is available.
-
-pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
-                     trust: ultimate      validity: ultimate
-sub  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
-<span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
-<span style="color:#000;font-weight:bold">[</span> unknown<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">[</span>jpeg image of size 5032<span style="color:#000;font-weight:bold">]</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>gpg <span style="color:#000;font-weight:bold">(</span>GnuPG<span style="color:#000;font-weight:bold">)</span> 1.4.18; Copyright <span style="color:#000;font-weight:bold">(</span>C<span style="color:#000;font-weight:bold">)</span> <span style="color:#099">2014</span> Free Software Foundation, Inc.
+</span></span><span style="display:flex;"><span>This is free software: you are free to change and redistribute it.
+</span></span><span style="display:flex;"><span>There is NO WARRANTY, to the extent permitted by law.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Secret key is available.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
+</span></span><span style="display:flex;"><span>                     trust: ultimate      validity: ultimate
+</span></span><span style="display:flex;"><span>sub  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span> unknown<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">[</span>jpeg image of size 5032<span style="color:#000;font-weight:bold">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>gpg&gt;</code> <strong>addkey</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Key is protected.
-
-You need a passphrase to unlock the secret key <span style="color:#000;font-weight:bold">for</span>
-user: <span style="color:#d14">&#34;erxiangzi &lt;2xiangzi-blog@riseup.net&gt;&#34;</span>
-4096-bit RSA key, ID AB7BB174, created 2016-09-05
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Key is protected.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>You need a passphrase to unlock the secret key <span style="color:#000;font-weight:bold">for</span>
+</span></span><span style="display:flex;"><span>user: <span style="color:#d14">&#34;erxiangzi &lt;2xiangzi-blog@riseup.net&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>4096-bit RSA key, ID AB7BB174, created 2016-09-05
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>&lt;在此输入密码(Passphrase)&gt;</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Please <span style="color:#000;font-weight:bold">select</span> what kind of key you want:
-   <span style="color:#000;font-weight:bold">(</span>3<span style="color:#000;font-weight:bold">)</span> DSA <span style="color:#000;font-weight:bold">(</span>sign only<span style="color:#000;font-weight:bold">)</span>
-   <span style="color:#000;font-weight:bold">(</span>4<span style="color:#000;font-weight:bold">)</span> RSA <span style="color:#000;font-weight:bold">(</span>sign only<span style="color:#000;font-weight:bold">)</span>
-   <span style="color:#000;font-weight:bold">(</span>5<span style="color:#000;font-weight:bold">)</span> Elgamal <span style="color:#000;font-weight:bold">(</span>encrypt only<span style="color:#000;font-weight:bold">)</span>
-   <span style="color:#000;font-weight:bold">(</span>6<span style="color:#000;font-weight:bold">)</span> RSA <span style="color:#000;font-weight:bold">(</span>encrypt only<span style="color:#000;font-weight:bold">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Please <span style="color:#000;font-weight:bold">select</span> what kind of key you want:
+</span></span><span style="display:flex;"><span>   <span style="color:#000;font-weight:bold">(</span>3<span style="color:#000;font-weight:bold">)</span> DSA <span style="color:#000;font-weight:bold">(</span>sign only<span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000;font-weight:bold">(</span>4<span style="color:#000;font-weight:bold">)</span> RSA <span style="color:#000;font-weight:bold">(</span>sign only<span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000;font-weight:bold">(</span>5<span style="color:#000;font-weight:bold">)</span> Elgamal <span style="color:#000;font-weight:bold">(</span>encrypt only<span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000;font-weight:bold">(</span>6<span style="color:#000;font-weight:bold">)</span> RSA <span style="color:#000;font-weight:bold">(</span>encrypt only<span style="color:#000;font-weight:bold">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>Your selection?</code> <strong>4</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">RSA keys may be between <span style="color:#099">1024</span> and <span style="color:#099">4096</span> bits long.
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>RSA keys may be between <span style="color:#099">1024</span> and <span style="color:#099">4096</span> bits long.
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>What keysize do you want? (2048)</code> <strong>4096</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Requested keysize is <span style="color:#099">4096</span> bits
-Please specify how long the key should be valid.
-         <span style="color:#008080">0</span> <span style="color:#000;font-weight:bold">=</span> key does not expire
-      &lt;n&gt;  <span style="color:#000;font-weight:bold">=</span> key expires in n days
-      &lt;n&gt;w <span style="color:#000;font-weight:bold">=</span> key expires in n weeks
-      &lt;n&gt;m <span style="color:#000;font-weight:bold">=</span> key expires in n months
-      &lt;n&gt;y <span style="color:#000;font-weight:bold">=</span> key expires in n years
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Requested keysize is <span style="color:#099">4096</span> bits
+</span></span><span style="display:flex;"><span>Please specify how long the key should be valid.
+</span></span><span style="display:flex;"><span>         <span style="color:#008080">0</span> <span style="color:#000;font-weight:bold">=</span> key does not expire
+</span></span><span style="display:flex;"><span>      &lt;n&gt;  <span style="color:#000;font-weight:bold">=</span> key expires in n days
+</span></span><span style="display:flex;"><span>      &lt;n&gt;w <span style="color:#000;font-weight:bold">=</span> key expires in n weeks
+</span></span><span style="display:flex;"><span>      &lt;n&gt;m <span style="color:#000;font-weight:bold">=</span> key expires in n months
+</span></span><span style="display:flex;"><span>      &lt;n&gt;y <span style="color:#000;font-weight:bold">=</span> key expires in n years
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>Key is valid for? (0)</code> <strong>1y</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Key expires at Tue <span style="color:#099">05</span> Sep <span style="color:#099">2017</span> 00:10:17 PM UTC
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Key expires at Tue <span style="color:#099">05</span> Sep <span style="color:#099">2017</span> 00:10:17 PM UTC
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>Is this correct? (y/N)</code> <strong>y</strong>
 <code>Really create? (y/N)</code> <strong>y</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">We need to generate a lot of random bytes. It is a good idea to perform
-some other action <span style="color:#000;font-weight:bold">(</span><span style="color:#0086b3">type</span> on the keyboard, move the mouse, utilize the
-disks<span style="color:#000;font-weight:bold">)</span> during the prime generation; this gives the random number
-generator a better chance to gain enough entropy.
-......+++++
-+++++
-
-pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
-                     trust: ultimate      validity: ultimate
-sub  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
-sub  4096R/0D65E7C7  created: 2016-09-05  expires: 2017-09-05  usage: S   
-<span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
-<span style="color:#000;font-weight:bold">[</span> unknown<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">[</span>jpeg image of size 5032<span style="color:#000;font-weight:bold">]</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>We need to generate a lot of random bytes. It is a good idea to perform
+</span></span><span style="display:flex;"><span>some other action <span style="color:#000;font-weight:bold">(</span><span style="color:#0086b3">type</span> on the keyboard, move the mouse, utilize the
+</span></span><span style="display:flex;"><span>disks<span style="color:#000;font-weight:bold">)</span> during the prime generation; this gives the random number
+</span></span><span style="display:flex;"><span>generator a better chance to gain enough entropy.
+</span></span><span style="display:flex;"><span>......+++++
+</span></span><span style="display:flex;"><span>+++++
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
+</span></span><span style="display:flex;"><span>                     trust: ultimate      validity: ultimate
+</span></span><span style="display:flex;"><span>sub  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
+</span></span><span style="display:flex;"><span>sub  4096R/0D65E7C7  created: 2016-09-05  expires: 2017-09-05  usage: S   
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span> unknown<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">[</span>jpeg image of size 5032<span style="color:#000;font-weight:bold">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>gpg&gt;</code> <strong>save</strong></p>
 <h2 id="35-创建一个撤销证书revocation-certificate">3.5 创建一个撤销证书（revocation certificate）</h2>
 <p>现在咱们来创建一个<em>撤销证书</em>。一旦你的<em>主密钥对</em>丢失或被盗，这个证书是你告诉外界“请忽略掉我丢失的密钥”的唯一方法。</p>
 <p><code>user@temp:~$</code> <strong>gpg - -output revocation.cert - -gen-revoke AB7BB174</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sec  4096R/AB7BB174 2016-09-05 erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sec  4096R/AB7BB174 2016-09-05 erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>Create a revocation certificate for this key? (y/N)</code> <strong>y</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Please <span style="color:#000;font-weight:bold">select</span> the reason <span style="color:#000;font-weight:bold">for</span> the revocation:
-  <span style="color:#008080">0</span> <span style="color:#000;font-weight:bold">=</span> No reason specified
-  <span style="color:#008080">1</span> <span style="color:#000;font-weight:bold">=</span> Key has been compromised
-  <span style="color:#008080">2</span> <span style="color:#000;font-weight:bold">=</span> Key is superseded
-  <span style="color:#008080">3</span> <span style="color:#000;font-weight:bold">=</span> Key is no longer used
-  <span style="color:#008080">Q</span> <span style="color:#000;font-weight:bold">=</span> Cancel
-<span style="color:#000;font-weight:bold">(</span>Probably you want to <span style="color:#000;font-weight:bold">select</span> <span style="color:#099">1</span> here<span style="color:#000;font-weight:bold">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Please <span style="color:#000;font-weight:bold">select</span> the reason <span style="color:#000;font-weight:bold">for</span> the revocation:
+</span></span><span style="display:flex;"><span>  <span style="color:#008080">0</span> <span style="color:#000;font-weight:bold">=</span> No reason specified
+</span></span><span style="display:flex;"><span>  <span style="color:#008080">1</span> <span style="color:#000;font-weight:bold">=</span> Key has been compromised
+</span></span><span style="display:flex;"><span>  <span style="color:#008080">2</span> <span style="color:#000;font-weight:bold">=</span> Key is superseded
+</span></span><span style="display:flex;"><span>  <span style="color:#008080">3</span> <span style="color:#000;font-weight:bold">=</span> Key is no longer used
+</span></span><span style="display:flex;"><span>  <span style="color:#008080">Q</span> <span style="color:#000;font-weight:bold">=</span> Cancel
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">(</span>Probably you want to <span style="color:#000;font-weight:bold">select</span> <span style="color:#099">1</span> here<span style="color:#000;font-weight:bold">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>Your decision?</code> <strong>0</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Enter an optional description; end it with an empty line:
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Enter an optional description; end it with an empty line:
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>&gt;</code></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Reason <span style="color:#000;font-weight:bold">for</span> revocation: No reason specified
-<span style="color:#000;font-weight:bold">(</span>No description given<span style="color:#000;font-weight:bold">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Reason <span style="color:#000;font-weight:bold">for</span> revocation: No reason specified
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">(</span>No description given<span style="color:#000;font-weight:bold">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>Is this okay? (y/N)</code> <strong>y</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">You need a passphrase to unlock the secret key <span style="color:#000;font-weight:bold">for</span>
-user: <span style="color:#d14">&#34;erxiangzi &lt;2xiangzi-blog@riseup.net&gt;&#34;</span>
-4096-bit RSA key, ID AB7BB174, created 2016-09-05
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>You need a passphrase to unlock the secret key <span style="color:#000;font-weight:bold">for</span>
+</span></span><span style="display:flex;"><span>user: <span style="color:#d14">&#34;erxiangzi &lt;2xiangzi-blog@riseup.net&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>4096-bit RSA key, ID AB7BB174, created 2016-09-05
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>&lt;在此输入密码(Passphrase)&gt;</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ASCII armored output forced.
-Revocation certificate created.
-
-Please move it to a medium which you can hide away; <span style="color:#000;font-weight:bold">if</span> Mallory gets
-access to this certificate he can use it to make your key unusable.
-It is smart to print this certificate and store it away, just in <span style="color:#000;font-weight:bold">case</span>
-your media become unreadable.  But have some caution:  The print system of
-your machine might store the data and make it available to others!
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ASCII armored output forced.
+</span></span><span style="display:flex;"><span>Revocation certificate created.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Please move it to a medium which you can hide away; <span style="color:#000;font-weight:bold">if</span> Mallory gets
+</span></span><span style="display:flex;"><span>access to this certificate he can use it to make your key unusable.
+</span></span><span style="display:flex;"><span>It is smart to print this certificate and store it away, just in <span style="color:#000;font-weight:bold">case</span>
+</span></span><span style="display:flex;"><span>your media become unreadable.  But have some caution:  The print system of
+</span></span><span style="display:flex;"><span>your machine might store the data and make it available to others!
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="36-导出主密钥对及撤销证书">3.6 导出主密钥对及撤销证书</h2>
 <p>创建私钥备份：</p>
@@ -800,61 +807,61 @@ your machine might store the data and make it available to others!
 <p><code>user@temp:~$</code> <strong>gpg - -export-secret-subkeys AB7BB174 &gt; subkeys</strong></p>
 <p>需要注意: 如果你当初没有设置密码（Passphrase）(这种情况在Split-GPG用户中很常见)，由于GnuPG软件的设计，你的私钥不会被导出。这就需要你临时设置一个密码，等到导出完成，再将密码设置回空值。具体步骤如下（没有遇到此问题的同学请直接跳过）：</p>
 <p><code>user@temp:~$</code> <strong>gpg - -edit-key AB7BB174</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">gpg <span style="color:#000;font-weight:bold">(</span>GnuPG<span style="color:#000;font-weight:bold">)</span> 1.4.18; Copyright <span style="color:#000;font-weight:bold">(</span>C<span style="color:#000;font-weight:bold">)</span> <span style="color:#099">2014</span> Free Software Foundation, Inc.
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
-
-Secret key is available.
-
-pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
-                     trust: ultimate      validity: ultimate
-sub  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
-sub  4096R/0D65E7C7  created: 2016-09-05  expires: 2017-09-05  usage: S   
-<span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
-<span style="color:#000;font-weight:bold">[</span> unknown<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">[</span>jpeg image of size 5032<span style="color:#000;font-weight:bold">]</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>gpg <span style="color:#000;font-weight:bold">(</span>GnuPG<span style="color:#000;font-weight:bold">)</span> 1.4.18; Copyright <span style="color:#000;font-weight:bold">(</span>C<span style="color:#000;font-weight:bold">)</span> <span style="color:#099">2014</span> Free Software Foundation, Inc.
+</span></span><span style="display:flex;"><span>This is free software: you are free to change and redistribute it.
+</span></span><span style="display:flex;"><span>There is NO WARRANTY, to the extent permitted by law.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Secret key is available.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
+</span></span><span style="display:flex;"><span>                     trust: ultimate      validity: ultimate
+</span></span><span style="display:flex;"><span>sub  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
+</span></span><span style="display:flex;"><span>sub  4096R/0D65E7C7  created: 2016-09-05  expires: 2017-09-05  usage: S   
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span> unknown<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">[</span>jpeg image of size 5032<span style="color:#000;font-weight:bold">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>gpg&gt;</code> <strong>passwd</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Secret parts of primary key are not available.
-
-You need a passphrase to unlock the secret key <span style="color:#000;font-weight:bold">for</span>
-user: <span style="color:#d14">&#34;erxiangzi &lt;2xiangzi-blog@riseup.net&gt;&#34;</span>
-4096-bit RSA key, ID AB64DCD1, created 2016-09-05
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Secret parts of primary key are not available.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>You need a passphrase to unlock the secret key <span style="color:#000;font-weight:bold">for</span>
+</span></span><span style="display:flex;"><span>user: <span style="color:#d14">&#34;erxiangzi &lt;2xiangzi-blog@riseup.net&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>4096-bit RSA key, ID AB64DCD1, created 2016-09-05
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>&lt;在此输入原密码(Passphrase)&gt;</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Enter the new passphrase <span style="color:#000;font-weight:bold">for</span> this secret key.
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Enter the new passphrase <span style="color:#000;font-weight:bold">for</span> this secret key.
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>&lt;在此输入新密码(Passphrase)&gt;</p>
 <p><code>Do you really want to do this? (y/N)</code> <strong>y</strong></p>
@@ -862,65 +869,65 @@ user: <span style="color:#d14">&#34;erxiangzi &lt;2xiangzi-blog@riseup.net&gt;&#
 <h3 id="372-删除主签名密钥">3.7.2 删除主签名密钥</h3>
 <p>因为之前已经将<em>主签名密钥</em>打包备份到安全的移动介质中，你现在可以大胆的将其从密钥串中删除掉：</p>
 <p><code>user@temp:~$</code> <strong>gpg - -delete-secret-keys AB7BB174</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">gpg <span style="color:#000;font-weight:bold">(</span>GnuPG<span style="color:#000;font-weight:bold">)</span> 1.4.18; Copyright <span style="color:#000;font-weight:bold">(</span>C<span style="color:#000;font-weight:bold">)</span> <span style="color:#099">2014</span> Free Software Foundation, Inc.
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
-
-
-sec  4096R/AB7BB174 2016-09-05 erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>gpg <span style="color:#000;font-weight:bold">(</span>GnuPG<span style="color:#000;font-weight:bold">)</span> 1.4.18; Copyright <span style="color:#000;font-weight:bold">(</span>C<span style="color:#000;font-weight:bold">)</span> <span style="color:#099">2014</span> Free Software Foundation, Inc.
+</span></span><span style="display:flex;"><span>This is free software: you are free to change and redistribute it.
+</span></span><span style="display:flex;"><span>There is NO WARRANTY, to the extent permitted by law.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sec  4096R/AB7BB174 2016-09-05 erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>Delete this key from the keyring? (y/N)</code> <strong>y</strong>
 <code>This is a secret key! - really delete? (y/N)</code> <strong>y</strong></p>
 <h3 id="373-导入副签名密钥">3.7.3 导入副签名密钥</h3>
 <p>因为刚才已经将<em>主签名密钥</em>删除掉了，所以现在只有<em>副签名密钥</em>被导入回电脑：</p>
 <p><code>user@temp:~$</code> <strong>gpg - -import subkeys</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">gpg: key AB7BB174: secret key imported
-gpg: key AB7BB174: <span style="color:#d14">&#34;erxiangzi &lt;2xiangzi-blog@riseup.net&gt;&#34;</span> <span style="color:#099">1</span> new signature
-gpg: Total number processed: <span style="color:#099">1</span>
-gpg:         new signatures: <span style="color:#099">1</span>
-gpg:       secret keys read: <span style="color:#099">1</span>
-gpg:   secret keys imported: <span style="color:#099">1</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>gpg: key AB7BB174: secret key imported
+</span></span><span style="display:flex;"><span>gpg: key AB7BB174: <span style="color:#d14">&#34;erxiangzi &lt;2xiangzi-blog@riseup.net&gt;&#34;</span> <span style="color:#099">1</span> new signature
+</span></span><span style="display:flex;"><span>gpg: Total number processed: <span style="color:#099">1</span>
+</span></span><span style="display:flex;"><span>gpg:         new signatures: <span style="color:#099">1</span>
+</span></span><span style="display:flex;"><span>gpg:       secret keys read: <span style="color:#099">1</span>
+</span></span><span style="display:flex;"><span>gpg:   secret keys imported: <span style="color:#099">1</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>user@temp:~$</code> <strong>gpg - -list-secret-keys</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">/home/user/.gnupg/secring.gpg
------------------------------
-sec#  4096R/AB7BB174 2016-09-05 <span style="color:#000;font-weight:bold">[</span>expires: 2017-09-05<span style="color:#000;font-weight:bold">]</span>
-uid                  erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
-ssb   4096R/AB64DCD1 2016-09-05
-ssb   4096R/0D65E7C7 2016-09-05
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>/home/user/.gnupg/secring.gpg
+</span></span><span style="display:flex;"><span>-----------------------------
+</span></span><span style="display:flex;"><span>sec#  4096R/AB7BB174 2016-09-05 <span style="color:#000;font-weight:bold">[</span>expires: 2017-09-05<span style="color:#000;font-weight:bold">]</span>
+</span></span><span style="display:flex;"><span>uid                  erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
+</span></span><span style="display:flex;"><span>ssb   4096R/AB64DCD1 2016-09-05
+</span></span><span style="display:flex;"><span>ssb   4096R/0D65E7C7 2016-09-05
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里我们注意到，sec后面多了一个“#”，这表示<em>主签名密钥</em>已经不在密钥串中了。</p>
 <h3 id="374-擦除subkeys文件">3.7.4 擦除subkeys文件</h3>
@@ -941,85 +948,85 @@ ssb   4096R/0D65E7C7 2016-09-05
 <h2 id="61-导入主密钥">6.1 导入主密钥</h2>
 <p>首先我们要找到事先藏好的移动介质，将<em>主密钥对</em>压缩包解压缩：</p>
 <p><code>[user@temp ~]$</code> <strong>tar xvf gpg_master_keys.tar</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">erxiangzi_gpg_private.key
-erxiangzi_gpg_public.key
-revocation.cert
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>erxiangzi_gpg_private.key
+</span></span><span style="display:flex;"><span>erxiangzi_gpg_public.key
+</span></span><span style="display:flex;"><span>revocation.cert
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后导入主密钥：</p>
 <p><code>[user@temp ~]$</code> <strong>gpg - -import alice_gpg_p*.key</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">gpg: directory <span style="color:#d14">`</span>/home/user/.gnupg<span style="color:#d14">&#39; created
-</span><span style="color:#d14">gpg: new configuration file `/home/user/.gnupg/gpg.conf&#39;</span> created
-gpg: WARNING: options in <span style="color:#d14">`</span>/home/user/.gnupg/gpg.conf<span style="color:#d14">&#39; are not yet active during this run
-</span><span style="color:#d14">gpg: keyring `/home/user/.gnupg/secring.gpg&#39;</span> created
-gpg: keyring <span style="color:#d14">`</span>/home/user/.gnupg/pubring.gpg<span style="color:#a61717;background-color:#e3d2d2">&#39;</span> created
-gpg: key AB7BB174: secret key imported
-gpg: /home/user/.gnupg/trustdb.gpg: trustdb created
-gpg: key AB7BB174: public key <span style="color:#d14">&#34;erxiangzi &lt;2xiangzi-blog@riseup.net&gt;&#34;</span> imported
-gpg: key AB7BB174: <span style="color:#d14">&#34;erxiangzi &lt;2xiangzi-blog@riseup.net&gt;&#34;</span> <span style="color:#099">1</span> new signature
-gpg: Total number processed: <span style="color:#099">2</span>
-gpg:               imported: <span style="color:#099">1</span>  <span style="color:#000;font-weight:bold">(</span>RSA: 1<span style="color:#000;font-weight:bold">)</span>
-gpg:         new signatures: <span style="color:#099">1</span>
-gpg:       secret keys read: <span style="color:#099">1</span>
-gpg:   secret keys imported: <span style="color:#099">1</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>gpg: directory <span style="color:#d14">`</span>/home/user/.gnupg<span style="color:#d14">&#39; created
+</span></span></span><span style="display:flex;"><span><span style="color:#d14">gpg: new configuration file `/home/user/.gnupg/gpg.conf&#39;</span> created
+</span></span><span style="display:flex;"><span>gpg: WARNING: options in <span style="color:#d14">`</span>/home/user/.gnupg/gpg.conf<span style="color:#d14">&#39; are not yet active during this run
+</span></span></span><span style="display:flex;"><span><span style="color:#d14">gpg: keyring `/home/user/.gnupg/secring.gpg&#39;</span> created
+</span></span><span style="display:flex;"><span>gpg: keyring <span style="color:#d14">`</span>/home/user/.gnupg/pubring.gpg<span style="color:#a61717;background-color:#e3d2d2">&#39;</span> created
+</span></span><span style="display:flex;"><span>gpg: key AB7BB174: secret key imported
+</span></span><span style="display:flex;"><span>gpg: /home/user/.gnupg/trustdb.gpg: trustdb created
+</span></span><span style="display:flex;"><span>gpg: key AB7BB174: public key <span style="color:#d14">&#34;erxiangzi &lt;2xiangzi-blog@riseup.net&gt;&#34;</span> imported
+</span></span><span style="display:flex;"><span>gpg: key AB7BB174: <span style="color:#d14">&#34;erxiangzi &lt;2xiangzi-blog@riseup.net&gt;&#34;</span> <span style="color:#099">1</span> new signature
+</span></span><span style="display:flex;"><span>gpg: Total number processed: <span style="color:#099">2</span>
+</span></span><span style="display:flex;"><span>gpg:               imported: <span style="color:#099">1</span>  <span style="color:#000;font-weight:bold">(</span>RSA: 1<span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>gpg:         new signatures: <span style="color:#099">1</span>
+</span></span><span style="display:flex;"><span>gpg:       secret keys read: <span style="color:#099">1</span>
+</span></span><span style="display:flex;"><span>gpg:   secret keys imported: <span style="color:#099">1</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>验证一下我们的导入结果：</p>
 <p><code>user@temp:~$</code> <strong>gpg - -edit-key AB7BB174</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">gpg <span style="color:#000;font-weight:bold">(</span>GnuPG<span style="color:#000;font-weight:bold">)</span> 1.4.18; Copyright <span style="color:#000;font-weight:bold">(</span>C<span style="color:#000;font-weight:bold">)</span> <span style="color:#099">2014</span> Free Software Foundation, Inc.
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
-
-Secret key is available.
-
-pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
-                     trust: ultimate      validity: ultimate
-sub  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
-sub  4096R/0D65E7C7  created: 2016-09-05  expires: 2017-09-05  usage: S   
-<span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
-<span style="color:#000;font-weight:bold">[</span> unknown<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">[</span>jpeg image of size 5032<span style="color:#000;font-weight:bold">]</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>gpg <span style="color:#000;font-weight:bold">(</span>GnuPG<span style="color:#000;font-weight:bold">)</span> 1.4.18; Copyright <span style="color:#000;font-weight:bold">(</span>C<span style="color:#000;font-weight:bold">)</span> <span style="color:#099">2014</span> Free Software Foundation, Inc.
+</span></span><span style="display:flex;"><span>This is free software: you are free to change and redistribute it.
+</span></span><span style="display:flex;"><span>There is NO WARRANTY, to the extent permitted by law.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Secret key is available.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
+</span></span><span style="display:flex;"><span>                     trust: ultimate      validity: ultimate
+</span></span><span style="display:flex;"><span>sub  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
+</span></span><span style="display:flex;"><span>sub  4096R/0D65E7C7  created: 2016-09-05  expires: 2017-09-05  usage: S   
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span> unknown<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">[</span>jpeg image of size 5032<span style="color:#000;font-weight:bold">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>可以看到最重要的主密钥显示：SC（“sign”&amp;“certify”，代表可以签名和认证其它密钥）</li>
@@ -1028,160 +1035,150 @@ sub  4096R/0D65E7C7  created: 2016-09-05  expires: 2017-09-05  usage: S
 </ul>
 <h2 id="62-撤回被盗取或丢失的副密钥">6.2 撤回被盗取或丢失的副密钥</h2>
 <p><code>gpg&gt;</code> <strong>list</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
-                     trust: ultimate      validity: ultimate
-sub  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
-sub  4096R/0D65E7C7  created: 2016-09-05  expires: 2017-09-05  usage: S   
-<span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
-<span style="color:#000;font-weight:bold">[</span> unknown<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">[</span>jpeg image of size 5032<span style="color:#000;font-weight:bold">]</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
+</span></span><span style="display:flex;"><span>                     trust: ultimate      validity: ultimate
+</span></span><span style="display:flex;"><span>sub  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
+</span></span><span style="display:flex;"><span>sub  4096R/0D65E7C7  created: 2016-09-05  expires: 2017-09-05  usage: S   
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span> unknown<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">[</span>jpeg image of size 5032<span style="color:#000;font-weight:bold">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>gpg&gt;</code> <strong>key 1</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
-                     trust: ultimate      validity: ultimate
-sub*  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
-sub  4096R/0D65E7C7  created: 2016-09-05  expires: 2017-09-05  usage: S   
-<span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
-<span style="color:#000;font-weight:bold">[</span> unknown<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">[</span>jpeg image of size 5032<span style="color:#000;font-weight:bold">]</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
+</span></span><span style="display:flex;"><span>                     trust: ultimate      validity: ultimate
+</span></span><span style="display:flex;"><span>sub*  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
+</span></span><span style="display:flex;"><span>sub  4096R/0D65E7C7  created: 2016-09-05  expires: 2017-09-05  usage: S   
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span> unknown<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">[</span>jpeg image of size 5032<span style="color:#000;font-weight:bold">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>gpg&gt;</code> <strong>key 2</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
-                     trust: ultimate      validity: ultimate
-sub*  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
-sub*  4096R/0D65E7C7  created: 2016-09-05  expires: 2017-09-05  usage: S   
-<span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
-<span style="color:#000;font-weight:bold">[</span> unknown<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">[</span>jpeg image of size 5032<span style="color:#000;font-weight:bold">]</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
+</span></span><span style="display:flex;"><span>                     trust: ultimate      validity: ultimate
+</span></span><span style="display:flex;"><span>sub*  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
+</span></span><span style="display:flex;"><span>sub*  4096R/0D65E7C7  created: 2016-09-05  expires: 2017-09-05  usage: S   
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span> unknown<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">[</span>jpeg image of size 5032<span style="color:#000;font-weight:bold">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>gpg&gt;</code> <strong>revkey</strong></p>
 <p><code>Do you really want to revoke the selected subkeys? (y/N)</code> <strong>y</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Please <span style="color:#000;font-weight:bold">select</span> the reason <span style="color:#000;font-weight:bold">for</span> the revocation:
-  <span style="color:#008080">0</span> <span style="color:#000;font-weight:bold">=</span> No reason specified
-  <span style="color:#008080">1</span> <span style="color:#000;font-weight:bold">=</span> Key has been compromised
-  <span style="color:#008080">2</span> <span style="color:#000;font-weight:bold">=</span> Key is superseded
-  <span style="color:#008080">3</span> <span style="color:#000;font-weight:bold">=</span> Key is no longer used
-  <span style="color:#008080">Q</span> <span style="color:#000;font-weight:bold">=</span> Cancel
-
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Please <span style="color:#000;font-weight:bold">select</span> the reason <span style="color:#000;font-weight:bold">for</span> the revocation:
+</span></span><span style="display:flex;"><span>  <span style="color:#008080">0</span> <span style="color:#000;font-weight:bold">=</span> No reason specified
+</span></span><span style="display:flex;"><span>  <span style="color:#008080">1</span> <span style="color:#000;font-weight:bold">=</span> Key has been compromised
+</span></span><span style="display:flex;"><span>  <span style="color:#008080">2</span> <span style="color:#000;font-weight:bold">=</span> Key is superseded
+</span></span><span style="display:flex;"><span>  <span style="color:#008080">3</span> <span style="color:#000;font-weight:bold">=</span> Key is no longer used
+</span></span><span style="display:flex;"><span>  <span style="color:#008080">Q</span> <span style="color:#000;font-weight:bold">=</span> Cancel
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>Your decision?</code> <strong>1</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Enter an optional description; end it with an empty line:
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Enter an optional description; end it with an empty line:
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>&gt;</code></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Reason <span style="color:#000;font-weight:bold">for</span> revocation: Key has been compromised
-<span style="color:#000;font-weight:bold">(</span>No description given<span style="color:#000;font-weight:bold">)</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Reason <span style="color:#000;font-weight:bold">for</span> revocation: Key has been compromised
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">(</span>No description given<span style="color:#000;font-weight:bold">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>Is this okay? (y/N)</code> <strong>y</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">You need a passphrase to unlock the secret key <span style="color:#000;font-weight:bold">for</span>
-user: <span style="color:#d14">&#34;erxiangzi &lt;2xiangzi-blog@riseup.net&gt;&#34;</span>
-4096-bit RSA key, ID AB7BB174, created: 2016-09-05
-
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>You need a passphrase to unlock the secret key <span style="color:#000;font-weight:bold">for</span>
+</span></span><span style="display:flex;"><span>user: <span style="color:#d14">&#34;erxiangzi &lt;2xiangzi-blog@riseup.net&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>4096-bit RSA key, ID AB7BB174, created: 2016-09-05
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>&lt;在此输入密码(Passphrase)&gt;</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">You need a passphrase to unlock the secret key <span style="color:#000;font-weight:bold">for</span>
-user: <span style="color:#d14">&#34;erxiangzi &lt;2xiangzi-blog@riseup.net&gt;&#34;</span>
-4096-bit RSA key, ID AB7BB174, created: 2016-09-05
-
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>You need a passphrase to unlock the secret key <span style="color:#000;font-weight:bold">for</span>
+</span></span><span style="display:flex;"><span>user: <span style="color:#d14">&#34;erxiangzi &lt;2xiangzi-blog@riseup.net&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>4096-bit RSA key, ID AB7BB174, created: 2016-09-05
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>&lt;在此输入密码(Passphrase)&gt;</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
-                     trust: ultimate      validity: ultimate
-This key was revoked on 2016-09-05 by RSA key AB7BB174 erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
-sub  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
-This key was revoked on 2016-09-05 by RSA key AB7BB174 erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
-sub  4096R/0D65E7C7  created: 2016-09-05  expires: 2017-09-05  usage: S   
-<span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
-<span style="color:#000;font-weight:bold">[</span> unknown<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">[</span>jpeg image of size 5032<span style="color:#000;font-weight:bold">]</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pub  4096R/AB7BB174  created: 2016-09-05  expires: 2017-09-05  usage: SC  
+</span></span><span style="display:flex;"><span>                     trust: ultimate      validity: ultimate
+</span></span><span style="display:flex;"><span>This key was revoked on 2016-09-05 by RSA key AB7BB174 erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
+</span></span><span style="display:flex;"><span>sub  4096R/AB64DCD1  created: 2016-09-05  expires: 2017-09-05  usage: E   
+</span></span><span style="display:flex;"><span>This key was revoked on 2016-09-05 by RSA key AB7BB174 erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
+</span></span><span style="display:flex;"><span>sub  4096R/0D65E7C7  created: 2016-09-05  expires: 2017-09-05  usage: S   
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span>ultimate<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>1<span style="color:#000;font-weight:bold">)</span>. erxiangzi &lt;2xiangzi-blog@riseup.net&gt;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">[</span> unknown<span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">(</span>2<span style="color:#000;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">[</span>jpeg image of size 5032<span style="color:#000;font-weight:bold">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>gpg&gt;</code> <strong>save</strong></p>
 <h2 id="63-告知外界你撤回密钥的消息">6.3 告知外界你撤回密钥的消息</h2>
@@ -1191,26 +1188,22 @@ sub  4096R/0D65E7C7  created: 2016-09-05  expires: 2017-09-05  usage: S
 <h3 id="632-使用key-server">6.3.2 使用key server</h3>
 <p>如果你之前将自己的公钥上传到了某个key server上（此处以<em>sks.keyservers.net</em>为例），那么你需要使用如下命令告知服务器你撤回了密钥：
 <code>[user@temp ~]$</code> <strong>gpg - -keyserver sks.keyservers.net - -send-keys AB7BB174</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">gpg: sending key AB7BB174 to hkp server sks.keyservers.net
-
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>gpg: sending key AB7BB174 to hkp server sks.keyservers.net
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>［user@temp ~]$</code> <strong>gpg - -keyserver sks.keyservers.net - -send-keys AB7BB174</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">gpg: sending key AB7BB174 to hkp server sks.keyservers.net
-
-</code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>gpg: sending key AB7BB174 to hkp server sks.keyservers.net
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="7-推荐阅读">7. 推荐阅读</h1>
 <ol>
@@ -1251,20 +1244,39 @@ sub  4096R/0D65E7C7  created: 2016-09-05  expires: 2017-09-05  usage: S
             
             <ul class="clearfix">
                 
-                <li><a href='https://blog.taielab.com/tags/gpg'>gpg</a></li>
+                <li><a href='/tags/gpg'>gpg</a></li>
                 
             </ul>
             
         </div>
     </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
     
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "udpsec/blog-comments"
+            repo= "taielab"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -1272,13 +1284,47 @@ sub  4096R/0D65E7C7  created: 2016-09-05  expires: 2017-09-05  usage: S
       </script>
     </div>
     
+    
+    
+
 </div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>
+        
+    </div>
+    <br />
+
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
 
                 </div>
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://blog.taielab.com/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.taielab.com/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="https://blog.taielab.com">
@@ -1346,28 +1392,12 @@ sub  4096R/0D65E7C7  created: 2016-09-05  expires: 2017-09-05  usage: S
             </a>
         </li>
         
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="" title="" target="_blank" style="color:red">
-                
-                    
-                
-            </a>
-        </li>
-        
     </ul>
 </section>
 
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
     <li><a href="https://blog.taielab.com/categories/Android%E5%BA%94%E7%94%A8%E9%80%86%E5%90%91%E4%B8%8E%E5%AE%89%E5%85%A8/">Android应用逆向与安全 (1)</a></li>
@@ -1406,7 +1436,7 @@ sub  4096R/0D65E7C7  created: 2016-09-05  expires: 2017-09-05  usage: S
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
     <a href="https://blog.taielab.com/tags/Android/">Android</a>
@@ -1486,7 +1516,7 @@ sub  4096R/0D65E7C7  created: 2016-09-05  expires: 2017-09-05  usage: S
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="#" title=""></a>
+            <a target="_blank" href="" title=""></a>
         </li>
         
     </ul>
@@ -1503,51 +1533,6 @@ sub  4096R/0D65E7C7  created: 2016-09-05  expires: 2017-09-05  usage: S
             </div>
         </div>
     </div>
-    <footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://blog.taielab.com">码中春秋&#39;s Blog By 码中春秋</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'GA ID', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-    <script src='/js/douban.js'></script>
-
 </body>
 
 </html>
